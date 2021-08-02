@@ -1,0 +1,12 @@
+C:\Dario\Proyectos Net\Microsoft.ApplicationBlocks.Data\bin\Microsoft.ApplicationBlocks.Data.dll
+C:\Dario\Proyectos Net\Microsoft.ApplicationBlocks.Data\bin\Microsoft.ApplicationBlocks.Data.pdb
+C:\Dario\Proyectos Net\Microsoft.ApplicationBlocks.Data\bin\Microsoft.ApplicationBlocks.Data.xml
+C:\Dario\Proyectos Net\Microsoft.ApplicationBlocks.Data\obj\Debug\ResolveAssemblyReference.cache
+C:\Dario\Proyectos Net\Microsoft.ApplicationBlocks.Data\obj\Debug\Microsoft.ApplicationBlocks.Data.dll
+C:\Dario\Proyectos Net\Microsoft.ApplicationBlocks.Data\obj\Debug\Microsoft.ApplicationBlocks.Data.xml
+C:\Dario\Proyectos Net\Microsoft.ApplicationBlocks.Data\obj\Debug\Microsoft.ApplicationBlocks.Data.pdb
+C:\Alberto\Proyectos Net\Microsoft.ApplicationBlocks.Data\bin\Microsoft.ApplicationBlocks.Data.dll
+C:\Alberto\Proyectos Net\Microsoft.ApplicationBlocks.Data\bin\Microsoft.ApplicationBlocks.Data.xml
+C:\Alberto\Proyectos Net\Microsoft.ApplicationBlocks.Data\obj\Release\ResolveAssemblyReference.cache
+C:\Alberto\Proyectos Net\Microsoft.ApplicationBlocks.Data\obj\Release\Microsoft.ApplicationBlocks.Data.dll
+C:\Alberto\Proyectos Net\Microsoft.ApplicationBlocks.Data\obj\Release\Microsoft.ApplicationBlocks.Data.xml

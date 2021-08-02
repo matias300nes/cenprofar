@@ -1,0 +1,5 @@
+E:\MIT\Microsoft.ApplicationBlocks.Data\bin\Microsoft.ApplicationBlocks.Data.dll
+E:\MIT\Microsoft.ApplicationBlocks.Data\bin\Microsoft.ApplicationBlocks.Data.xml
+E:\MIT\Microsoft.ApplicationBlocks.Data\obj\Release\ResolveAssemblyReference.cache
+E:\MIT\Microsoft.ApplicationBlocks.Data\obj\Release\Microsoft.ApplicationBlocks.Data.dll
+E:\MIT\Microsoft.ApplicationBlocks.Data\obj\Release\Microsoft.ApplicationBlocks.Data.xml

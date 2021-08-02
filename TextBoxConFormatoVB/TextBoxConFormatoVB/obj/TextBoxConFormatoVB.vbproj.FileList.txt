@@ -1,0 +1,13 @@
+bin\TextBoxConFormatoVB.dll
+bin\TextBoxConFormatoVB.xml
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\TextBoxConFormatoVB.FormattedTextBoxVB.resources
+obj\Debug\TextBoxConFormatoVB.vbproj.GenerateResource.Cache
+obj\Debug\TextBoxConFormatoVB.dll
+obj\Debug\TextBoxConFormatoVB.xml
+obj\Debug\TextBoxConFormatoVB.pdb
+obj\Release\ResolveAssemblyReference.cache
+obj\Release\TextBoxConFormatoVB.FormattedTextBoxVB.resources
+obj\Release\TextBoxConFormatoVB.vbproj.GenerateResource.Cache
+obj\Release\TextBoxConFormatoVB.dll
+obj\Release\TextBoxConFormatoVB.xml

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="Sql_Get">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="query" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Sql_GetResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sql_GetResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Sql_Set">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="query" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Sql_SetResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sql_SetResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Sql_Get_Value">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="query" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Sql_Get_ValueResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sql_Get_ValueResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="Sql_GetSoapIn">
+    <wsdl:part name="parameters" element="tns:Sql_Get" />
+  </wsdl:message>
+  <wsdl:message name="Sql_GetSoapOut">
+    <wsdl:part name="parameters" element="tns:Sql_GetResponse" />
+  </wsdl:message>
+  <wsdl:message name="Sql_SetSoapIn">
+    <wsdl:part name="parameters" element="tns:Sql_Set" />
+  </wsdl:message>
+  <wsdl:message name="Sql_SetSoapOut">
+    <wsdl:part name="parameters" element="tns:Sql_SetResponse" />
+  </wsdl:message>
+  <wsdl:message name="Sql_Get_ValueSoapIn">
+    <wsdl:part name="parameters" element="tns:Sql_Get_Value" />
+  </wsdl:message>
+  <wsdl:message name="Sql_Get_ValueSoapOut">
+    <wsdl:part name="parameters" element="tns:Sql_Get_ValueResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WS_PorkysSoap">
+    <wsdl:operation name="Sql_Get">
+      <wsdl:input message="tns:Sql_GetSoapIn" />
+      <wsdl:output message="tns:Sql_GetSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Sql_Set">
+      <wsdl:input message="tns:Sql_SetSoapIn" />
+      <wsdl:output message="tns:Sql_SetSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Sql_Get_Value">
+      <wsdl:input message="tns:Sql_Get_ValueSoapIn" />
+      <wsdl:output message="tns:Sql_Get_ValueSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WS_PorkysSoap" type="tns:WS_PorkysSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Sql_Get">
+      <soap:operation soapAction="http://tempuri.org/Sql_Get" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Sql_Set">
+      <soap:operation soapAction="http://tempuri.org/Sql_Set" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Sql_Get_Value">
+      <soap:operation soapAction="http://tempuri.org/Sql_Get_Value" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WS_PorkysSoap12" type="tns:WS_PorkysSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Sql_Get">
+      <soap12:operation soapAction="http://tempuri.org/Sql_Get" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Sql_Set">
+      <soap12:operation soapAction="http://tempuri.org/Sql_Set" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Sql_Get_Value">
+      <soap12:operation soapAction="http://tempuri.org/Sql_Get_Value" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WS_Porkys">
+    <wsdl:port name="WS_PorkysSoap" binding="tns:WS_PorkysSoap">
+      <soap:address location="http://www.porkys.com.ar/ws_porkys.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WS_PorkysSoap12" binding="tns:WS_PorkysSoap12">
+      <soap12:address location="http://www.porkys.com.ar/ws_porkys.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

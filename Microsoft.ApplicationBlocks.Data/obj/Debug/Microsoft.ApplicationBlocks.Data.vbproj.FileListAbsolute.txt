@@ -1,0 +1,58 @@
+D:\SISTEMA ICYS\Microsoft.ApplicationBlocks.Data\bin\Microsoft.ApplicationBlocks.Data.dll
+D:\SISTEMA ICYS\Microsoft.ApplicationBlocks.Data\bin\Microsoft.ApplicationBlocks.Data.pdb
+D:\SISTEMA ICYS\Microsoft.ApplicationBlocks.Data\bin\Microsoft.ApplicationBlocks.Data.xml
+D:\SISTEMA ICYS\Microsoft.ApplicationBlocks.Data\obj\Debug\ResolveAssemblyReference.cache
+D:\SISTEMA ICYS\Microsoft.ApplicationBlocks.Data\obj\Debug\Microsoft.ApplicationBlocks.Data.dll
+D:\SISTEMA ICYS\Microsoft.ApplicationBlocks.Data\obj\Debug\Microsoft.ApplicationBlocks.Data.xml
+D:\SISTEMA ICYS\Microsoft.ApplicationBlocks.Data\obj\Debug\Microsoft.ApplicationBlocks.Data.pdb
+C:\SISTEMA ICYS\Microsoft.ApplicationBlocks.Data\bin\Microsoft.ApplicationBlocks.Data.dll
+C:\SISTEMA ICYS\Microsoft.ApplicationBlocks.Data\bin\Microsoft.ApplicationBlocks.Data.pdb
+C:\SISTEMA ICYS\Microsoft.ApplicationBlocks.Data\bin\Microsoft.ApplicationBlocks.Data.xml
+C:\SISTEMA ICYS\Microsoft.ApplicationBlocks.Data\obj\Debug\ResolveAssemblyReference.cache
+C:\SISTEMA ICYS\Microsoft.ApplicationBlocks.Data\obj\Debug\Microsoft.ApplicationBlocks.Data.dll
+C:\SISTEMA ICYS\Microsoft.ApplicationBlocks.Data\obj\Debug\Microsoft.ApplicationBlocks.Data.xml
+C:\SISTEMA ICYS\Microsoft.ApplicationBlocks.Data\obj\Debug\Microsoft.ApplicationBlocks.Data.pdb
+E:\SISTEMA ICYS\Microsoft.ApplicationBlocks.Data\bin\Microsoft.ApplicationBlocks.Data.dll
+E:\SISTEMA ICYS\Microsoft.ApplicationBlocks.Data\bin\Microsoft.ApplicationBlocks.Data.pdb
+E:\SISTEMA ICYS\Microsoft.ApplicationBlocks.Data\bin\Microsoft.ApplicationBlocks.Data.xml
+E:\SISTEMA ICYS\Microsoft.ApplicationBlocks.Data\obj\Debug\ResolveAssemblyReference.cache
+E:\SISTEMA ICYS\Microsoft.ApplicationBlocks.Data\obj\Debug\Microsoft.ApplicationBlocks.Data.dll
+E:\SISTEMA ICYS\Microsoft.ApplicationBlocks.Data\obj\Debug\Microsoft.ApplicationBlocks.Data.xml
+E:\SISTEMA ICYS\Microsoft.ApplicationBlocks.Data\obj\Debug\Microsoft.ApplicationBlocks.Data.pdb
+D:\MIT\Microsoft.ApplicationBlocks.Data\bin\Microsoft.ApplicationBlocks.Data.dll
+D:\MIT\Microsoft.ApplicationBlocks.Data\bin\Microsoft.ApplicationBlocks.Data.pdb
+D:\MIT\Microsoft.ApplicationBlocks.Data\bin\Microsoft.ApplicationBlocks.Data.xml
+D:\MIT\Microsoft.ApplicationBlocks.Data\obj\Debug\ResolveAssemblyReference.cache
+D:\MIT\Microsoft.ApplicationBlocks.Data\obj\Debug\Microsoft.ApplicationBlocks.Data.dll
+D:\MIT\Microsoft.ApplicationBlocks.Data\obj\Debug\Microsoft.ApplicationBlocks.Data.xml
+D:\MIT\Microsoft.ApplicationBlocks.Data\obj\Debug\Microsoft.ApplicationBlocks.Data.pdb
+C:\MIT\Microsoft.ApplicationBlocks.Data\bin\Microsoft.ApplicationBlocks.Data.dll
+C:\MIT\Microsoft.ApplicationBlocks.Data\bin\Microsoft.ApplicationBlocks.Data.pdb
+C:\MIT\Microsoft.ApplicationBlocks.Data\bin\Microsoft.ApplicationBlocks.Data.xml
+C:\MIT\Microsoft.ApplicationBlocks.Data\obj\Debug\Microsoft.ApplicationBlocks.Data.dll
+C:\MIT\Microsoft.ApplicationBlocks.Data\obj\Debug\Microsoft.ApplicationBlocks.Data.xml
+C:\MIT\Microsoft.ApplicationBlocks.Data\obj\Debug\Microsoft.ApplicationBlocks.Data.pdb
+E:\MIT\Microsoft.ApplicationBlocks.Data\bin\Microsoft.ApplicationBlocks.Data.dll
+E:\MIT\Microsoft.ApplicationBlocks.Data\bin\Microsoft.ApplicationBlocks.Data.pdb
+E:\MIT\Microsoft.ApplicationBlocks.Data\bin\Microsoft.ApplicationBlocks.Data.xml
+E:\MIT\Microsoft.ApplicationBlocks.Data\obj\Debug\Microsoft.ApplicationBlocks.Data.dll
+E:\MIT\Microsoft.ApplicationBlocks.Data\obj\Debug\Microsoft.ApplicationBlocks.Data.xml
+E:\MIT\Microsoft.ApplicationBlocks.Data\obj\Debug\Microsoft.ApplicationBlocks.Data.pdb
+H:\MIT\Microsoft.ApplicationBlocks.Data\bin\Microsoft.ApplicationBlocks.Data.dll
+H:\MIT\Microsoft.ApplicationBlocks.Data\bin\Microsoft.ApplicationBlocks.Data.pdb
+H:\MIT\Microsoft.ApplicationBlocks.Data\bin\Microsoft.ApplicationBlocks.Data.xml
+H:\MIT\Microsoft.ApplicationBlocks.Data\obj\Debug\Microsoft.ApplicationBlocks.Data.dll
+H:\MIT\Microsoft.ApplicationBlocks.Data\obj\Debug\Microsoft.ApplicationBlocks.Data.xml
+H:\MIT\Microsoft.ApplicationBlocks.Data\obj\Debug\Microsoft.ApplicationBlocks.Data.pdb
+C:\Users\tomas\Documents\Software SEI\Microsoft.ApplicationBlocks.Data\bin\Microsoft.ApplicationBlocks.Data.dll
+C:\Users\tomas\Documents\Software SEI\Microsoft.ApplicationBlocks.Data\bin\Microsoft.ApplicationBlocks.Data.pdb
+C:\Users\tomas\Documents\Software SEI\Microsoft.ApplicationBlocks.Data\bin\Microsoft.ApplicationBlocks.Data.xml
+C:\Users\tomas\Documents\Software SEI\Microsoft.ApplicationBlocks.Data\obj\Debug\Microsoft.ApplicationBlocks.Data.dll
+C:\Users\tomas\Documents\Software SEI\Microsoft.ApplicationBlocks.Data\obj\Debug\Microsoft.ApplicationBlocks.Data.xml
+C:\Users\tomas\Documents\Software SEI\Microsoft.ApplicationBlocks.Data\obj\Debug\Microsoft.ApplicationBlocks.Data.pdb
+C:\Users\ignac\Documents\SISTEMA CIAPA\Microsoft.ApplicationBlocks.Data\bin\Microsoft.ApplicationBlocks.Data.dll
+C:\Users\ignac\Documents\SISTEMA CIAPA\Microsoft.ApplicationBlocks.Data\bin\Microsoft.ApplicationBlocks.Data.pdb
+C:\Users\ignac\Documents\SISTEMA CIAPA\Microsoft.ApplicationBlocks.Data\bin\Microsoft.ApplicationBlocks.Data.xml
+C:\Users\ignac\Documents\SISTEMA CIAPA\Microsoft.ApplicationBlocks.Data\obj\Debug\Microsoft.ApplicationBlocks.Data.dll
+C:\Users\ignac\Documents\SISTEMA CIAPA\Microsoft.ApplicationBlocks.Data\obj\Debug\Microsoft.ApplicationBlocks.Data.xml
+C:\Users\ignac\Documents\SISTEMA CIAPA\Microsoft.ApplicationBlocks.Data\obj\Debug\Microsoft.ApplicationBlocks.Data.pdb

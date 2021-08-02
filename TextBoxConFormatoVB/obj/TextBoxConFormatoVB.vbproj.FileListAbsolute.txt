@@ -1,0 +1,16 @@
+C:\Dario\Proyectos Net\TextBoxConFormatoVB\bin\TextBoxConFormatoVB.dll
+C:\Dario\Proyectos Net\TextBoxConFormatoVB\bin\TextBoxConFormatoVB.pdb
+C:\Dario\Proyectos Net\TextBoxConFormatoVB\bin\TextBoxConFormatoVB.xml
+C:\Dario\Proyectos Net\TextBoxConFormatoVB\obj\Debug\ResolveAssemblyReference.cache
+C:\Dario\Proyectos Net\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.FormattedTextBoxVB.resources
+C:\Dario\Proyectos Net\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.vbproj.GenerateResource.Cache
+C:\Dario\Proyectos Net\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.dll
+C:\Dario\Proyectos Net\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.xml
+C:\Dario\Proyectos Net\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.pdb
+C:\Alberto\Proyectos Net\TextBoxConFormatoVB\bin\TextBoxConFormatoVB.dll
+C:\Alberto\Proyectos Net\TextBoxConFormatoVB\bin\TextBoxConFormatoVB.xml
+C:\Alberto\Proyectos Net\TextBoxConFormatoVB\obj\Release\ResolveAssemblyReference.cache
+C:\Alberto\Proyectos Net\TextBoxConFormatoVB\obj\Release\TextBoxConFormatoVB.FormattedTextBoxVB.resources
+C:\Alberto\Proyectos Net\TextBoxConFormatoVB\obj\Release\TextBoxConFormatoVB.vbproj.GenerateResource.Cache
+C:\Alberto\Proyectos Net\TextBoxConFormatoVB\obj\Release\TextBoxConFormatoVB.dll
+C:\Alberto\Proyectos Net\TextBoxConFormatoVB\obj\Release\TextBoxConFormatoVB.xml

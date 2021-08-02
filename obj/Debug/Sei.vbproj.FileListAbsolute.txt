@@ -1,0 +1,187 @@
+E:\MIT\SISTEMA SEI\Sistema SEI\bin\Debug\SEI.exe
+E:\MIT\SISTEMA SEI\Sistema SEI\bin\Debug\ReportesNet.exe
+E:\MIT\SISTEMA SEI\Sistema SEI\bin\Debug\Microsoft.ApplicationBlocks.Data.dll
+E:\MIT\SISTEMA SEI\Sistema SEI\bin\Debug\Microsoft.VisualBasic.PowerPacks.Vs.dll
+E:\MIT\SISTEMA SEI\Sistema SEI\bin\Debug\Microsoft.VisualBasic.PowerPacks.Vs.resources.dll
+E:\MIT\SISTEMA SEI\Sistema SEI\bin\Debug\TextBoxConFormatoVB.dll
+E:\MIT\SISTEMA SEI\Sistema SEI\bin\Debug\Utiles.dll
+E:\MIT\SISTEMA SEI\Sistema SEI\bin\Debug\GMap.NET.WindowsForms.dll
+E:\MIT\SISTEMA SEI\Sistema SEI\bin\Debug\GMap.NET.Core.dll
+E:\MIT\SISTEMA SEI\Sistema SEI\bin\Debug\Microsoft.ApplicationBlocks.Data.pdb
+E:\MIT\SISTEMA SEI\Sistema SEI\bin\Debug\Microsoft.ApplicationBlocks.Data.xml
+E:\MIT\SISTEMA SEI\Sistema SEI\bin\Debug\ReportesNet.pdb
+E:\MIT\SISTEMA SEI\Sistema SEI\bin\Debug\ReportesNet.xml
+E:\MIT\SISTEMA SEI\Sistema SEI\bin\Debug\TextBoxConFormatoVB.pdb
+E:\MIT\SISTEMA SEI\Sistema SEI\bin\Debug\TextBoxConFormatoVB.xml
+E:\MIT\SISTEMA SEI\Sistema SEI\bin\Debug\Utiles.pdb
+E:\MIT\SISTEMA SEI\Sistema SEI\bin\Debug\Utiles.xml
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\Sei.vbprojResolveAssemblyReference.cache
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\Sei.vbproj.ResolveComReference.cache
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmAcercade.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmRemitosSinPresupuesto.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmRequirimientos.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmAsistenciasTablet.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmOrdenTrabajo_Det.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmOrdenTrabajo.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmAsistencias.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmConsolidaciones.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmDeposito.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmJornadas.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmPresupuestos.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.Form1.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmGastosSueldos.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmChequesPropios.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmEnsayos.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmPresupuestos_Tipos.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmMaqHerramientas_Mov.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmMaqHerramientas.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmEmpleados.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmMarcas.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmMateriales2.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmMateriales_ImagenExcel.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmOrdenCompra_Abierta.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmPresentacion.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmRecepciones_Complejo.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmPagodeClientes_Fletes.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmPagodeGastos_Recepciones.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmPagodeGastos.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmGastos_ORIG.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmCondiciondePago.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmNotaCredito.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmPagodeClientes_Contado.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmFacturacion_Manual.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmImpuestos.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmPagodeClientes.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmConsumos.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmFacturacion.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmIngresos.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmMaterialesPrecios.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmCheques.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmCierredeObras.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmGastos.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmClientes.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmAjustes.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmAlmacenes_old.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmBase.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmConsumos_OLD.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmDevoluciones.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmDevolucionesProveedor.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmPresupuestos_Historia.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmRubros.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmIngresos_postTrabajo.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmNotas.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmObras.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmImpresorVales.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmMateriales.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmOrdenCompra.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmPresupuestos_old.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmRemitos.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmProveedores.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmRecepciones.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmTableros.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmTipoMoneda.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmTransferencias.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmUnidades.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.frmUsuarios.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.MDIPrincipal.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.Resources.resources
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\Sei.vbproj.GenerateResource.Cache
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.exe
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.xml
+E:\MIT\SISTEMA SEI\Sistema SEI\obj\Debug\SEI.pdb
+E:\MIT\SISTEMA SEI\Sistema SEI\bin\Debug\SEI.pdb
+E:\MIT\SISTEMA SEI\Sistema SEI\bin\Debug\SEI.xml
+E:\MIT\SISTEMA SEI\Sistema SEI\bin\Debug\Microsoft.Office.Interop.Word.dll
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\bin\Debug\SEI.exe
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\bin\Debug\Microsoft.ApplicationBlocks.Data.dll
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\bin\Debug\Microsoft.VisualBasic.PowerPacks.Vs.dll
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\bin\Debug\Microsoft.VisualBasic.PowerPacks.Vs.resources.dll
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\bin\Debug\TextBoxConFormatoVB.dll
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\bin\Debug\Utiles.dll
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\bin\Debug\GMap.NET.WindowsForms.dll
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\bin\Debug\GMap.NET.Core.dll
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\bin\Debug\Microsoft.ApplicationBlocks.Data.pdb
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\bin\Debug\Microsoft.ApplicationBlocks.Data.xml
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\bin\Debug\TextBoxConFormatoVB.pdb
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\bin\Debug\TextBoxConFormatoVB.xml
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\bin\Debug\Utiles.pdb
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\bin\Debug\Utiles.xml
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\bin\Debug\es\Microsoft.VisualBasic.PowerPacks.Vs.resources.dll
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.vbprojResolveAssemblyReference.cache
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.vbproj.ResolveComReference.cache
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmAcercade.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmListaPrecios.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmRemitosSinPresupuesto.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmRequirimientos.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmAsistenciasTablet.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmOrdenTrabajo_Det.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmOrdenTrabajo.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmAsistencias.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmConsolidaciones.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmDeposito.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmJornadas.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmPresupuestos.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.Form1.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmGastosSueldos.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmChequesPropios.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmEnsayos.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmPresupuestos_Tipos.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmMaqHerramientas_Mov.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmMaqHerramientas.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmEmpleados.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmMarcas.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmMateriales2.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmMateriales_ImagenExcel.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmOrdenCompra_Abierta.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmPresentacion.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmRecepciones_Complejo.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmPagodeClientes_Fletes.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmPagodeGastos_Recepciones.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmPagodeGastos.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmGastos_ORIG.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmCondiciondePago.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmNotaCredito.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmPagodeClientes_Contado.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmFacturacion_Manual.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmImpuestos.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmPagodeClientes.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmConsumos.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmFacturacion.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmIngresos.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmMaterialesPrecios.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmCheques.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmCierredeObras.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmGastos.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmClientes.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmAjustes.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmAlmacenes_old.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmBase.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmConsumos_OLD.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmDevoluciones.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmDevolucionesProveedor.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmPresupuestos_Historia.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmRubros.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmIngresos_postTrabajo.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmNotas.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmObras.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmImpresorVales.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmMateriales.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmOrdenCompra.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmPresupuestos_old.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmRemitos.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmProveedores.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmRecepciones.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmTableros.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmTipoMoneda.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmTransferencias.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmUnidades.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.frmUsuarios.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.MDIPrincipal.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.Resources.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.vbproj.GenerateResource.Cache
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.exe
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.xml
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\obj\Debug\SEI.pdb
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\bin\Debug\SEI.pdb
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\bin\Debug\SEI.xml
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\SISTEMA SEI\SISTEMA SEI\bin\Debug\Microsoft.Office.Interop.Word.dll

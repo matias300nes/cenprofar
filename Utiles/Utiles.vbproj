@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C0874813-C3AD-430B-AF41-212F7503D523}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Utiles</RootNamespace>
+    <AssemblyName>Utiles</AssemblyName>
+    <MyType>Windows</MyType>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>Utiles.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>Utiles.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevComponents.DotNetBar2_2015">
+      <HintPath>.\DevComponents.DotNetBar2_2015.dll</HintPath>
+    </Reference>
+    <Reference Include="GMap.NET.Core, Version=1.7.0.0, Culture=neutral, PublicKeyToken=b85b9027b614afef, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\SISTEMA CONTENEDORES\SISTEMA CONTENEDORES\bin\Debug\GMap.NET.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="GMap.NET.WindowsForms, Version=1.7.0.0, Culture=neutral, PublicKeyToken=b85b9027b614afef, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\GMap.NET.WindowsForms.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Clases\ButtonArray.vb" />
+    <Compile Include="Clases\LabelArray.vb" />
+    <Compile Include="Clases\LabelArray2.vb" />
+    <Compile Include="Clases\ValueDescription.vb" />
+    <Compile Include="compartida.vb" />
+    <Compile Include="frmParametros.Designer.vb">
+      <DependentUpon>frmParametros.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmParametros.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login.Designer.vb">
+      <DependentUpon>Login.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Login.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Util.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="frmParametros.resx">
+      <DependentUpon>frmParametros.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login.resx">
+      <DependentUpon>Login.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Microsoft.ApplicationBlocks.Data\Microsoft.ApplicationBlocks.Data.vbproj">
+      <Project>{0ED3D747-FA56-4481-8A26-4A0E39BA7D03}</Project>
+      <Name>Microsoft.ApplicationBlocks.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TextBoxConFormatoVB\TextBoxConFormatoVB.vbproj">
+      <Project>{61F7A5E1-7927-4FBD-B04A-A6F0B1CADF4C}</Project>
+      <Name>TextBoxConFormatoVB</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\#DOC13EA.ICO" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\10642626_3_2009115_1_37_8.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add-file.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\ajax.gif" />
+    <None Include="Resources\flechas-2.gif" />
+    <None Include="Resources\flechas-23.gif" />
+    <None Include="Resources\flechas-8.gif" />
+    <None Include="Resources\flecha.gif" />
+    <None Include="Resources\arrows-pointing-up-and-down.jpg" />
+    <Content Include="Resources\flecha_celeste.gif" />
+    <None Include="Resources\login.jpg" />
+    <None Include="Resources\otra.png" />
+    <None Include="Resources\users.ico" />
+    <None Include="Resources\Symbol-Delete.png" />
+    <None Include="Resources\Symbol-Check.png" />
+    <None Include="Resources\printer.ico" />
+    <None Include="Resources\klpq.ico" />
+    <None Include="Resources\Filtro.PNG" />
+    <None Include="Resources\EXCEL10.ICO" />
+    <None Include="Resources\embudo.ico" />
+    <None Include="Resources\Edit.ico" />
+    <None Include="Resources\Copia de ok.ico" />
+    <None Include="Resources\canos.jpg" />
+    <None Include="Resources\Recorte.shs" />
+    <None Include="Resources\Thumbs.db" />
+    <None Include="Resources\Untitled - 2.ico" />
+    <None Include="Resources\Untitled - 1.ico" />
+    <None Include="Resources\Thumbs_Up.png" />
+    <None Include="Resources\Thumbs_down.png" />
+    <None Include="Resources\thumb_6.jpg" />
+    <None Include="Resources\stop-error.ico" />
+    <None Include="Resources\QuitarFiltro.ico" />
+    <None Include="Resources\previous.ico" />
+    <None Include="Resources\ok.ico" />
+    <None Include="Resources\next.ico" />
+    <None Include="Resources\Login.png" />
+    <None Include="Resources\last22.ico" />
+    <None Include="Resources\Info.png" />
+    <None Include="Resources\indicator.white.gif" />
+    <None Include="Resources\first22.ico" />
+    <None Include="Resources\errorss.ico" />
+    <None Include="Resources\Embudo.png" />
+    <None Include="Resources\Edit.png" />
+    <None Include="Resources\DISK10x.ICO" />
+    <None Include="Resources\ARRWS03A.ICO" />
+    <None Include="Resources\Arrow 3.ico" />
+    <None Include="Resources\Arrow-Right.png" />
+    <None Include="Resources\Arrow-Left.png" />
+    <None Include="Resources\alert.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

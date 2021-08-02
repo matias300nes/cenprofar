@@ -1,0 +1,44 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+SEI
+</name>
+</assembly>
+<members>
+<member name="P:SEI.My.Resources.Resources.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:SEI.My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="T:SEI.My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member><member name="M:SEI.frmBase.Establecer_Cant_Paginas(System.Data.DataTable)">
+	<summary>
+ Establecer la cantidad de paginas en la grilla
+ </summary>
+	<param name="d"></param>
+	<remarks></remarks>
+</member><member name="M:SEI.frmBase.FiltrarGenerico(System.Data.DataTable)">
+	<summary>
+ Filtrar los datos exluyendo el datos seleccionado
+ </summary>
+	<remarks></remarks>
+</member><member name="M:SEI.frmBase.CargardeExcel(System.Windows.Forms.DataGridView,System.String,System.String)">
+	<summary>
+ Permite importar datos desde una planilla excel
+ no se implementa por ahora pero queda la funcion hecha
+ </summary>
+	<param name="dgView"></param>
+	<param name="SLibro"></param>
+	<param name="sHoja"></param>
+	<remarks></remarks>
+</member>
+</members>
+</doc>

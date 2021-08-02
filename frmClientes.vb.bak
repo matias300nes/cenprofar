@@ -1,0 +1,1349 @@
+Imports Microsoft.ApplicationBlocks.Data
+Imports Utiles
+Imports Utiles.Util
+Imports Utiles.compartida
+Imports System.Data.SqlClient
+Imports ReportesNet
+
+Public Class frmClientes
+
+    Dim bolpoliticas As Boolean
+    Private ds_2 As DataSet
+    Dim permitir_evento_CellChanged As Boolean
+    Dim tran As SqlClient.SqlTransaction
+    Dim Cell_X As Integer, Cell_Y As Integer
+    Public Origen As Integer
+
+    Enum ColumnasDelGridItems
+        ID_Contacto = 0
+        IdCliente = 1
+        Codigo_Contacto = 2
+        Nombre_Contacto = 3
+        Telefono_Contacto = 4
+        Email_Contacto = 5
+        Celular_Contacto = 6
+    End Enum
+
+#Region "Componentes Formulario"
+
+    Private Sub frmClientes_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles Me.KeyDown
+        Select Case e.KeyCode
+            Case Keys.F3 'nuevo
+                If bolModo = True Then
+                    If MessageBox.Show("No ha guardado el Cliente Nuevo que está realizando. ¿Está seguro que desea continuar sin Grabar y hacer un Nuevo Cliente?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
+                        btnNuevo_Click(sender, e)
+                    End If
+                Else
+                    btnNuevo_Click(sender, e)
+                End If
+            Case Keys.F4 'grabar
+                btnGuardar_Click(sender, e)
+        End Select
+    End Sub
+
+    Private Sub frmClientes_ev_CellChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.ev_CellChanged
+        If permitir_evento_CellChanged Then
+            If txtID.Text <> "" Then
+                LlenarGridItems()
+            End If
+        End If
+    End Sub
+
+
+    Private Sub frmClientes_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+
+        btnActivar.Enabled = True
+
+        configurarform()
+        asignarTags()
+
+        LlenarLocalidad()
+        LlenarProvincia()
+        LlenarcmbTipoDocumento_App(Me.cmbDocTipo, ConnStringSEI)
+
+        SQL = "exec spClientes_Select_All @Eliminado = 0"
+
+        LlenarGrilla()
+        Permitir = True
+
+        CargarCajas()
+
+        PrepararBotones()
+
+        'Setear_Grilla()
+        InicializarGridItems(grdItems)
+
+        If bolModo = True Then
+            LlenarGridItems()
+            btnNuevo_Click(sender, e)
+        Else
+            LlenarGridItems()
+        End If
+
+        If grd.RowCount > 0 Then
+            grd.Rows(0).Selected = True
+            grd.CurrentCell = grd.Rows(0).Cells(1)
+        End If
+
+        grd.Columns(3).Visible = False
+
+        permitir_evento_CellChanged = True
+
+    End Sub
+
+    Private Sub txtid_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) _
+     Handles txtID.KeyPress, txtCODIGO.KeyPress, txtNOMBRE.KeyPress, txtDIRECCION.KeyPress, txtCODPOSTAL.KeyPress, _
+      txtTELEFONO.KeyPress, txtFAX.KeyPress, _
+      txtCuit.KeyPress
+        If e.KeyChar = ChrW(Keys.Enter) Then
+            e.Handled = True
+            SendKeys.Send("{TAB}")
+        End If
+    End Sub
+
+    Private Sub grditems_CellMouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellMouseEventArgs) Handles grdItems.CellMouseUp
+        Cell_X = e.ColumnIndex
+        Cell_Y = e.RowIndex
+    End Sub
+
+    Private Sub grdItems_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles grdItems.MouseUp
+        Dim Valor As String = ""
+        If e.Button = Windows.Forms.MouseButtons.Right Then 'And bolModo Then
+            If grdItems.RowCount <> 0 Then
+                If Cell_Y <> -1 Then
+                    Try
+                        Valor = grdItems.Rows(Cell_Y).Cells(ColumnasDelGridItems.Nombre_Contacto).Value.ToString
+                    Catch ex As Exception
+                    End Try
+                End If
+            End If
+            If Valor <> "" Then
+                Dim p As Point = New Point(e.X, e.Y)
+                'MyBase.Point_Context = p
+                'MyBase.Point_Context.Offset(40, 202)
+
+                ContextMenuStrip1.Show(grdItems, p)
+                ContextMenuStrip1.Items(0).Text = "Borrar el Contacto " & Valor
+            End If
+        End If
+    End Sub
+
+    Private Sub chkEliminados_CheckedChanged(ByVal sender As Object, ByVal e As EventArgs) Handles chkEliminados.CheckedChanged
+
+        btnNuevo.Enabled = Not chkEliminados.Checked
+        btnGuardar.Enabled = Not chkEliminados.Checked
+        btnCancelar.Enabled = Not chkEliminados.Checked
+        btnEliminar.Enabled = Not chkEliminados.Checked
+
+        If chkEliminados.Checked = True Then
+            SQL = "exec spClientes_Select_All @Eliminado = 1"
+        Else
+            SQL = "exec spClientes_Select_All @Eliminado = 0"
+        End If
+
+        LlenarGrilla()
+
+        LlenarGridItems()
+
+        If grd.RowCount = 0 Then
+            BtnActivar.Enabled = False
+        Else
+            BtnActivar.Enabled = chkEliminados.Checked
+        End If
+
+    End Sub
+
+#End Region
+
+#Region "Botones"
+
+    Private Sub btnNuevo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNuevo.Click
+        bolModo = True
+        Util.MsgStatus(Status1, "Haga click en [Guardar] despues de completar los datos.")
+        PrepararBotones()
+        Util.LimpiarTextBox(Me.Controls)
+        LlenarLocalidad()
+        LlenarProvincia()
+        PrepararGridItems()
+
+        cmbDocTipo.SelectedIndex = 0
+
+        txtCODIGO.Focus()
+    End Sub
+
+    Private Sub btnGuardar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGuardar.Click
+
+        Dim res As Integer
+
+        If bolModo = False Then
+            If MessageBox.Show("¿Está seguro que desea modificar el Cliente seleccionado?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
+                Exit Sub
+            End If
+        End If
+
+        Util.MsgStatus(Status1, "Guardando el registro...", My.Resources.Resources.indicator_white)
+
+        If ReglasNegocio() Then
+            Verificar_Datos()
+            If bolpoliticas Then
+                If bolModo Then
+                    res = AgregarRegistro()
+                    Select Case res
+                        Case -10
+                            Util.MsgStatus(Status1, "Está intentando ingresar un CUIT que ya existe en el sistema. Por favor, verifique esta información.", My.Resources.Resources.stop_error.ToBitmap)
+                            Util.MsgStatus(Status1, "Está intentando ingresar un CUIT que ya existe en el sistema. Por favor, verifique esta información.", My.Resources.Resources.stop_error.ToBitmap, True)
+                            Cancelar_Tran()
+                            txtCuit.Focus()
+                        Case -2
+                            Util.MsgStatus(Status1, "Ya existe otro Cliente con este mismo Código.", My.Resources.Resources.stop_error.ToBitmap)
+                            Cancelar_Tran()
+                        Case -1
+                            Util.MsgStatus(Status1, "No se pudo actualizar el Cliente.", My.Resources.Resources.stop_error.ToBitmap)
+                            Cancelar_Tran()
+                        Case 0
+                            Util.MsgStatus(Status1, "No se pudo agregar el Cliente.", My.Resources.Resources.stop_error.ToBitmap)
+                            Cancelar_Tran()
+                        Case Else
+                            res = AgregarRegistro_Contactos()
+                            Select Case res
+                                Case -2
+                                    Util.MsgStatus(Status1, "El Contacto ya existe.", My.Resources.Resources.stop_error.ToBitmap)
+                                    Cancelar_Tran()
+                                Case -1
+                                    Util.MsgStatus(Status1, "No se pudo actualizar el Contacto.", My.Resources.Resources.stop_error.ToBitmap)
+                                    Cancelar_Tran()
+                                Case 0
+                                    Util.MsgStatus(Status1, "No se pudo agregar el Contacto.", My.Resources.Resources.stop_error.ToBitmap)
+                                    Cancelar_Tran()
+                                Case Else
+                                    Util.MsgStatus(Status1, "Se agregó el Cliente y los contactos asociados.", My.Resources.Resources.ok.ToBitmap)
+                                    Cerrar_Tran()
+                                    bolModo = False
+                                    btnActualizar_Click(sender, e)
+                            End Select
+
+                    End Select
+                Else
+                    res = ActualizarRegistro()
+                    Select Case res
+                        Case -10
+                            Util.MsgStatus(Status1, "Está intentando ingresar un CUIT que ya existe en el sistema. Por favor, verifique esta información.", My.Resources.Resources.stop_error.ToBitmap)
+                            Util.MsgStatus(Status1, "Está intentando ingresar un CUIT que ya existe en el sistema. Por favor, verifique esta información.", My.Resources.Resources.stop_error.ToBitmap, True)
+                            Cancelar_Tran()
+                            txtCuit.Focus()
+                        Case -3
+                            Util.MsgStatus(Status1, "Ya existe otro Contacto con este mismo Código.", My.Resources.stop_error.ToBitmap)
+                            Cancelar_Tran()
+                        Case -2
+                            Util.MsgStatus(Status1, "El registro ya existe.", My.Resources.Resources.stop_error.ToBitmap)
+                            Cancelar_Tran()
+                        Case -1
+                            Util.MsgStatus(Status1, "No se pudo actualizar el registro.", My.Resources.Resources.stop_error.ToBitmap)
+                            Cancelar_Tran()
+                        Case 0
+                            Util.MsgStatus(Status1, "No se pudo agregar el registro.", My.Resources.Resources.stop_error.ToBitmap)
+                            Cancelar_Tran()
+                        Case Else
+                            res = ActualizarRegistro_Contactos()
+                            Select Case res
+                                Case -3
+                                    Util.MsgStatus(Status1, "Ya existe otro Registro con este mismo Código.", My.Resources.stop_error.ToBitmap)
+                                    Cancelar_Tran()
+                                Case -2
+                                    Util.MsgStatus(Status1, "El Contacto ya existe.", My.Resources.Resources.stop_error.ToBitmap)
+                                    Cancelar_Tran()
+                                Case -1
+                                    Util.MsgStatus(Status1, "No se pudo actualizar el Contacto.", My.Resources.Resources.stop_error.ToBitmap)
+                                    Cancelar_Tran()
+                                Case 0
+                                    Util.MsgStatus(Status1, "No se pudo agregar el Contacto.", My.Resources.Resources.stop_error.ToBitmap)
+                                    Cancelar_Tran()
+                                Case Else
+                                    Util.MsgStatus(Status1, "Se ha actualizado el Cliente y los Contactos asociados.", My.Resources.Resources.ok.ToBitmap)
+                                    Cerrar_Tran()
+                                    bolModo = False
+                                    btnActualizar_Click(sender, e)
+                            End Select
+                    End Select
+                End If
+            End If
+        End If
+
+        If Origen = 1 Then
+            Me.Close()
+        End If
+
+    End Sub
+
+    Private Sub btnEliminar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEliminar.Click
+        Dim res As Integer
+
+        If MessageBox.Show("Está seguro que desea eliminar el Cliente seleccionado?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
+            Exit Sub
+        End If
+
+        Util.MsgStatus(Status1, "Eliminando el registro...", My.Resources.Resources.indicator_white)
+        res = EliminarRegistro()
+        Select Case res
+            Case -20
+                Util.MsgStatus(Status1, "El Cliente seleccionado no se puede eliminar porque tiene movimientos en Facturación.", My.Resources.stop_error.ToBitmap)
+                Util.MsgStatus(Status1, "El Cliente seleccionado no se puede eliminar porque tiene movimientos en Facturación.", My.Resources.stop_error.ToBitmap, True)
+            Case -30
+                Util.MsgStatus(Status1, "El Cliente seleccionado no se puede eliminar porque tiene movimientos en Presupuestos.", My.Resources.stop_error.ToBitmap)
+                Util.MsgStatus(Status1, "El Cliente seleccionado no se puede eliminar porque tiene movimientos en Presupuestos.", My.Resources.stop_error.ToBitmap, True)
+            Case -1
+                Util.MsgStatus(Status1, "No se pudo borrar el registro.", My.Resources.stop_error.ToBitmap)
+            Case 0
+                Util.MsgStatus(Status1, "No se pudo borrar el registro.", My.Resources.stop_error.ToBitmap)
+            Case Else
+                Util.MsgStatus(Status1, "Se ha borrado el registro.", My.Resources.ok.ToBitmap)
+                If Me.grd.RowCount = 0 Then
+                    bolModo = True
+                    PrepararBotones()
+                    Util.LimpiarTextBox(Me.Controls)
+                End If
+        End Select
+    End Sub
+
+    Private Sub btnImprimir_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnImprimir.Click
+
+        Dim param As New frmParametros
+        Dim cnn As New SqlConnection(ConnStringSEI)
+        Dim codigo As String
+        Dim rpt As New frmReportes
+
+        nbreformreportes = "Listado de Clientes por Código"
+
+        param.AgregarParametros("Código :", "STRING", "", False, txtCODIGO.Text.ToString, "", cnn)
+        param.ShowDialog()
+
+        If cerroparametrosconaceptar = True Then
+
+            codigo = param.ObtenerParametros(0)
+
+            rpt.Clientes_Maestro_App(codigo, rpt, My.Application.Info.AssemblyName.ToString)
+
+            cerroparametrosconaceptar = False
+            param = Nothing
+            cnn = Nothing
+        End If
+
+    End Sub
+
+    Private Overloads Sub btnCancelar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancelar.Click
+        If txtID.Text <> "" Then
+            LlenarGridItems()
+        End If
+    End Sub
+
+    Private Sub btnActivar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnActivar.Click
+        Dim connection As SqlClient.SqlConnection = Nothing
+        Dim ds_Update As Data.DataSet
+
+        If MessageBox.Show("Está por activar nuevamente el Cliente: " & grd.CurrentRow.Cells(2).Value.ToString & ". Desea continuar?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
+            Exit Sub
+        End If
+
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            'llenandoCombo = False
+            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+
+        Try
+
+            ds_Update = SqlHelper.ExecuteDataset(connection, CommandType.Text, "UPDATE Clientes SET Eliminado = 0 WHERE id = " & grd.CurrentRow.Cells(0).Value)
+            ds_Update.Dispose()
+
+            SQL = "exec spClientes_Select_All @Eliminado = 1"
+
+            LlenarGrilla()
+
+            If grd.RowCount = 0 Then
+                btnActivar.Enabled = False
+            End If
+
+            Util.MsgStatus(Status1, "El Cliente se activó correctamente.", My.Resources.ok.ToBitmap)
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If Not connection Is Nothing Then
+                CType(connection, IDisposable).Dispose()
+            End If
+        End Try
+
+    End Sub
+
+#End Region
+
+#Region "Procedimientos"
+
+    Private Sub configurarform()
+        Me.Text = "Clientes"
+
+        Me.grd.Location = New Size(GroupBox1.Location.X, GroupBox1.Location.Y + GroupBox1.Size.Height + 7)
+
+        'Me.Size = New Size(IIf(Me.Size.Width <= AnchoMinimoForm, AnchoMinimoForm, Me.Size.Width), Me.grd.Location.Y + Me.grd.Size.Height + 65)
+        Me.Size = New Size(Me.Size.Width, (Screen.PrimaryScreen.WorkingArea.Height - 75))
+
+        Dim p As New Size(GroupBox1.Size.Width, Me.Size.Height - 7 - GroupBox1.Size.Height - GroupBox1.Location.Y - 65)
+        Me.grd.Size = New Size(p)
+
+        If LLAMADO_POR_FORMULARIO Then
+            LLAMADO_POR_FORMULARIO = False
+            'Me.Top = ARRIBA
+            'Me.Left = IZQUIERDA
+            'Else
+            '    Me.Top = 0
+            '    Me.Left = (Screen.PrimaryScreen.WorkingArea.Width - Me.Width) \ 2
+        End If
+
+        Me.Top = 0
+        Me.Left = (Screen.PrimaryScreen.WorkingArea.Width - Me.Width) \ 2
+
+    End Sub
+
+    Private Sub asignarTags()
+        txtID.Tag = "0"
+        txtCODIGO.Tag = "1"
+        txtNOMBRE.Tag = "2"
+        cmbDocTipo.Tag = "3"
+        txtCuit.Tag = "5"
+        txtDIRECCION.Tag = "6"
+        txtCODPOSTAL.Tag = "7"
+        cmbProvincia.Tag = "8"
+        cmbLocalidad.Tag = "9"
+        txtTELEFONO.Tag = "10"
+        txtFAX.Tag = "11"
+        txtEmail.Tag = "12"
+        txtporcrecargo.Tag = "13"
+    End Sub
+
+    Private Sub Verificar_Datos()
+
+        bolpoliticas = False
+
+        bolpoliticas = True
+
+    End Sub
+
+    Private Sub PrepararGridItems()
+        Util.LimpiarGridItems(grdItems)
+        With (grdItems)
+            .AllowUserToAddRows = True
+        End With
+    End Sub
+
+    Private Sub InicializarGridItems(ByVal Grd As DataGridView)
+
+        Dim style As New DataGridViewCellStyle
+        Grd.EnableHeadersVisualStyles = False
+
+        'da formato al encabezado...
+        With Grd.ColumnHeadersDefaultCellStyle
+            .BackColor = Color.CadetBlue
+            .ForeColor = Color.Purple
+            .Font = New Font("Microsoft Sans Serif", 9, FontStyle.Bold)
+            .Alignment = DataGridViewContentAlignment.MiddleCenter
+        End With
+
+        ' Inicialice propiedades básicas.
+        With Grd
+            '.Dock = DockStyle.Fill ' lo coloca al tope del formulario..
+            .BackgroundColor = SystemColors.ActiveBorder 'Color.DarkGray ' color del fondo del grid...
+            .BorderStyle = BorderStyle.Fixed3D
+            .ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Raised
+            .AllowUserToAddRows = True 'indica si se muestra al usuario la opción de agregar filas
+            .AllowUserToDeleteRows = True 'indica si el usuario puede eliminar filas de DataGridView.
+            .AllowUserToOrderColumns = False 'indica si el usuario puede cambiar manualmente de lugar las columnas..
+            .ReadOnly = False
+            '.SelectionMode = DataGridViewSelectionMode.FullRowSelect 'indica cómo se pueden seleccionar las celdas de DataGridView.
+            .MultiSelect = False 'indica si el usuario puede seleccionar a la vez varias celdas, filas o columnas del control DataGridView.
+            .AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells     'indica cómo se determina el alto de las filas. 
+            .AllowUserToResizeColumns = True 'indica si los usuarios pueden cambiar el tamaño de las columnas.
+            .AllowUserToResizeRows = True 'indica si los usuarios pueden cambiar el tamaño de las filas.
+            .ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize 'indica si el alto de los encabezados de columna es ajustable y si puede ser ajustado por el usuario o automáticamente para adaptarse al contenido de los encabezados. 
+            .AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells
+        End With
+
+        'Setear el color de seleccion de fondo de la celda actual...
+        Grd.DefaultCellStyle.SelectionBackColor = Color.White
+        Grd.DefaultCellStyle.SelectionForeColor = Color.Blue
+
+        'generamos el formato para las celdas...
+        With style
+            .BackColor = Color.Lavender   'Color.LightGray
+            .Font = New Font("Microsoft Sans Serif", 8, FontStyle.Regular)
+            .ForeColor = Color.Black
+        End With
+        Grd.AlternatingRowsDefaultCellStyle.BackColor = Color.LightCyan
+
+        'Aplicamos el estilo a todas las celdas del control DataGridView
+        Grd.RowsDefaultCellStyle = style
+    End Sub
+
+    Private Sub LlenarGridItems()
+
+        If grdItems.Columns.Count > 0 Then
+            grdItems.Columns.Clear()
+        End If
+
+        If txtID.Text = "" Then
+            SQL = "exec [spClientes_Contacto_Select_ALL_By_ID] @id = 0"
+        Else
+            SQL = "exec [spClientes_Contacto_Select_ALL_By_ID] @id = " & CType(txtID.Text, Long)
+        End If
+
+        GetDatasetItems()
+
+        grdItems.Columns(ColumnasDelGridItems.ID_Contacto).Visible = False
+
+        grdItems.Columns(ColumnasDelGridItems.IdCliente).Visible = False
+
+        grdItems.Columns(ColumnasDelGridItems.Codigo_Contacto).Visible = False
+
+        If chkEliminados.Checked = True Then
+            SQL = "exec spClientes_Select_All @Eliminado = 1"
+        Else
+            SQL = "exec spClientes_Select_All @Eliminado = 0"
+        End If
+
+    End Sub
+
+    Private Sub GetDatasetItems()
+        Dim connection As SqlClient.SqlConnection = Nothing
+
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+
+        Try
+
+            ds_2 = SqlHelper.ExecuteDataset(connection, CommandType.Text, SQL)
+            ds_2.Dispose()
+
+            grdItems.DataSource = ds_2.Tables(0).DefaultView
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If Not connection Is Nothing Then
+                CType(connection, IDisposable).Dispose()
+            End If
+        End Try
+
+    End Sub
+
+    Private Sub BorrarElItemToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BorrarElItemToolStripMenuItem.Click
+        Dim cell As DataGridViewCell = grdItems.CurrentCell
+        'Borrar la fila actual
+        'If cell.RowIndex <> 0 Then
+        Try
+            If cell.RowIndex >= 0 Then 'el de arriba no borraba la fila 0....
+                Try
+                    grdItems.Rows.RemoveAt(cell.RowIndex)
+                Catch ex As Exception
+                    MsgBox(Err.Description)
+                End Try
+            End If
+        Catch ex As Exception
+            MsgBox(Err.Description)
+        End Try
+
+    End Sub
+
+    Private Sub LlenarLocalidad()
+        Dim connection As SqlClient.SqlConnection = Nothing
+        Dim ds As Data.DataSet
+
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+
+        Try
+
+            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT DISTINCT localidad FROM Clientes ORDER BY Localidad")
+            ds.Dispose()
+
+            With cmbLocalidad
+                .DataSource = ds.Tables(0).DefaultView
+                .DisplayMember = "localidad"
+                '.ValueMember = "IdUsuario"
+            End With
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If Not connection Is Nothing Then
+                CType(connection, IDisposable).Dispose()
+            End If
+        End Try
+
+    End Sub
+
+    Private Sub LlenarProvincia()
+        Dim connection As SqlClient.SqlConnection = Nothing
+        Dim ds As Data.DataSet
+
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+
+        Try
+
+            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT DISTINCT provincia FROM Clientes ORDER BY provincia")
+            ds.Dispose()
+
+            With cmbProvincia
+                .DataSource = ds.Tables(0).DefaultView
+                .DisplayMember = "provincia"
+                '.ValueMember = "IdUsuario"
+            End With
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If Not connection Is Nothing Then
+                CType(connection, IDisposable).Dispose()
+            End If
+        End Try
+
+    End Sub
+
+#End Region
+
+#Region "Funciones"
+
+    Private Function AgregarRegistro() As Integer
+        Dim connection As SqlClient.SqlConnection = Nothing
+        'Dim res As Integer = 0
+
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Function
+        End Try
+
+        'Abrir una transaccion para guardar y asegurar que se guarda todo
+        If Abrir_Tran(connection) = False Then
+            MessageBox.Show("No se pudo abrir una transaccion", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Function
+        End If
+
+        Try
+            Dim param_id As New SqlClient.SqlParameter
+            param_id.ParameterName = "@id"
+            param_id.SqlDbType = SqlDbType.BigInt
+            param_id.Value = DBNull.Value
+            param_id.Direction = ParameterDirection.InputOutput
+
+            'Dim param_codigo As New SqlClient.SqlParameter
+            'param_codigo.ParameterName = "@codigo"
+            'param_codigo.SqlDbType = SqlDbType.VarChar
+            'param_codigo.Size = 25
+            'param_codigo.Value = IIf(txtCODIGO.Text = "", DBNull.Value, txtCODIGO.Text)
+            'param_codigo.Direction = ParameterDirection.Input
+
+            Dim param_nombre As New SqlClient.SqlParameter
+            param_nombre.ParameterName = "@nombre"
+            param_nombre.SqlDbType = SqlDbType.VarChar
+            param_nombre.Size = 100
+            param_nombre.Value = txtNOMBRE.Text
+            param_nombre.Direction = ParameterDirection.Input
+
+            Dim param_direccion As New SqlClient.SqlParameter
+            param_direccion.ParameterName = "@direccion"
+            param_direccion.SqlDbType = SqlDbType.VarChar
+            param_direccion.Size = 100
+            param_direccion.Value = txtDIRECCION.Text
+            param_direccion.Direction = ParameterDirection.Input
+
+            Dim param_codpostal As New SqlClient.SqlParameter
+            param_codpostal.ParameterName = "@codpostal"
+            param_codpostal.SqlDbType = SqlDbType.VarChar
+            param_codpostal.Size = 10
+            param_codpostal.Value = txtCODPOSTAL.Text
+            param_codpostal.Direction = ParameterDirection.Input
+
+            Dim param_localidad As New SqlClient.SqlParameter
+            param_localidad.ParameterName = "@localidad"
+            param_localidad.SqlDbType = SqlDbType.VarChar
+            param_localidad.Size = 50
+            param_localidad.Value = cmbLocalidad.Text
+            param_localidad.Direction = ParameterDirection.Input
+
+            Dim param_provincia As New SqlClient.SqlParameter
+            param_provincia.ParameterName = "@provincia"
+            param_provincia.SqlDbType = SqlDbType.VarChar
+            param_provincia.Size = 50
+            param_provincia.Value = cmbProvincia.Text
+            param_provincia.Direction = ParameterDirection.Input
+
+            Dim param_tipodocumento As New SqlClient.SqlParameter
+            param_tipodocumento.ParameterName = "@tipodoc"
+            param_tipodocumento.SqlDbType = SqlDbType.Int
+            param_tipodocumento.Value = CInt(cmbDocTipo.SelectedValue)
+            param_tipodocumento.Direction = ParameterDirection.Input
+
+            Dim param_cuit As New SqlClient.SqlParameter
+            param_cuit.ParameterName = "@cuit"
+            param_cuit.SqlDbType = SqlDbType.BigInt
+            param_cuit.Value = txtCuit.Text
+            param_cuit.Direction = ParameterDirection.Input
+
+            Dim param_telefono As New SqlClient.SqlParameter
+            param_telefono.ParameterName = "@telefono"
+            param_telefono.SqlDbType = SqlDbType.VarChar
+            param_telefono.Size = 50
+            param_telefono.Value = txtTELEFONO.Text
+            param_telefono.Direction = ParameterDirection.Input
+
+            Dim param_fax As New SqlClient.SqlParameter
+            param_fax.ParameterName = "@fax"
+            param_fax.SqlDbType = SqlDbType.VarChar
+            param_fax.Size = 30
+            param_fax.Value = txtFAX.Text
+            param_fax.Direction = ParameterDirection.Input
+
+            Dim param_email As New SqlClient.SqlParameter
+            param_email.ParameterName = "@email"
+            param_email.SqlDbType = SqlDbType.VarChar
+            param_email.Size = 100
+            param_email.Value = txtEmail.Text
+            param_email.Direction = ParameterDirection.Input
+
+            Dim param_porc As New SqlClient.SqlParameter
+            param_porc.ParameterName = "@porcrecargo"
+            param_porc.SqlDbType = SqlDbType.Decimal
+            param_porc.Precision = 18
+            param_porc.Scale = 2
+            param_porc.Value = IIf(txtporcrecargo.Text = "", 0, txtporcrecargo.Text)
+            param_porc.Direction = ParameterDirection.Input
+
+            Dim param_useradd As New SqlClient.SqlParameter
+            param_useradd.ParameterName = "@useradd"
+            param_useradd.SqlDbType = SqlDbType.Int
+            param_useradd.Value = UserID
+            param_useradd.Direction = ParameterDirection.Input
+
+            Dim param_res As New SqlClient.SqlParameter
+            param_res.ParameterName = "@res"
+            param_res.SqlDbType = SqlDbType.Int
+            param_res.Value = DBNull.Value
+            param_res.Direction = ParameterDirection.InputOutput
+
+            Try
+                SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spClientes_Insert", param_id, _
+                                          param_tipodocumento, param_cuit, param_nombre, _
+                                          param_direccion, param_codpostal, param_localidad, _
+                                          param_provincia, param_telefono, param_fax, param_email, _
+                                          param_porc, param_useradd, param_res)
+
+                txtID.Text = param_id.Value
+
+                AgregarRegistro = param_res.Value
+
+            Catch ex As Exception
+                Throw ex
+            End Try
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            If ex.Message.ToString.Contains("UNIQUE KEY") Then
+                AgregarRegistro = -10
+            Else
+                MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+                  + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+                  "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
+
+        End Try
+
+    End Function
+
+    Private Function ActualizarRegistro() As Integer
+        Dim res As Integer = 0
+        Dim connection As SqlClient.SqlConnection = Nothing
+
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Function
+        End Try
+
+        'Abrir una transaccion para guardar y asegurar que se guarda todo
+        If Abrir_Tran(connection) = False Then
+            MessageBox.Show("No se pudo abrir una transaccion", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Function
+        End If
+
+        Try
+
+            Dim param_id As New SqlClient.SqlParameter
+            param_id.ParameterName = "@id"
+            param_id.SqlDbType = SqlDbType.BigInt
+            param_id.Value = txtID.Text
+            param_id.Direction = ParameterDirection.Input
+
+            Dim param_nombre As New SqlClient.SqlParameter
+            param_nombre.ParameterName = "@nombre"
+            param_nombre.SqlDbType = SqlDbType.VarChar
+            param_nombre.Size = 100
+            param_nombre.Value = txtNOMBRE.Text
+            param_nombre.Direction = ParameterDirection.Input
+
+            Dim param_direccion As New SqlClient.SqlParameter
+            param_direccion.ParameterName = "@direccion"
+            param_direccion.SqlDbType = SqlDbType.VarChar
+            param_direccion.Size = 100
+            param_direccion.Value = txtDIRECCION.Text
+            param_direccion.Direction = ParameterDirection.Input
+
+            Dim param_codpostal As New SqlClient.SqlParameter
+            param_codpostal.ParameterName = "@codpostal"
+            param_codpostal.SqlDbType = SqlDbType.VarChar
+            param_codpostal.Size = 10
+            param_codpostal.Value = txtCODPOSTAL.Text
+            param_codpostal.Direction = ParameterDirection.Input
+
+            Dim param_localidad As New SqlClient.SqlParameter
+            param_localidad.ParameterName = "@localidad"
+            param_localidad.SqlDbType = SqlDbType.VarChar
+            param_localidad.Size = 50
+            param_localidad.Value = cmbLocalidad.Text
+            param_localidad.Direction = ParameterDirection.Input
+
+            Dim param_provincia As New SqlClient.SqlParameter
+            param_provincia.ParameterName = "@provincia"
+            param_provincia.SqlDbType = SqlDbType.VarChar
+            param_provincia.Size = 50
+            param_provincia.Value = cmbProvincia.Text
+            param_provincia.Direction = ParameterDirection.Input
+
+            Dim param_tipodocumento As New SqlClient.SqlParameter
+            param_tipodocumento.ParameterName = "@tipodoc"
+            param_tipodocumento.SqlDbType = SqlDbType.Int
+            param_tipodocumento.Value = CInt(cmbDocTipo.SelectedValue)
+            param_tipodocumento.Direction = ParameterDirection.Input
+
+            Dim param_cuit As New SqlClient.SqlParameter
+            param_cuit.ParameterName = "@cuit"
+            param_cuit.SqlDbType = SqlDbType.BigInt
+            param_cuit.Value = txtCuit.Text
+            param_cuit.Direction = ParameterDirection.Input
+
+            Dim param_telefono As New SqlClient.SqlParameter
+            param_telefono.ParameterName = "@telefono"
+            param_telefono.SqlDbType = SqlDbType.VarChar
+            param_telefono.Size = 50
+            param_telefono.Value = txtTELEFONO.Text
+            param_telefono.Direction = ParameterDirection.Input
+
+            Dim param_fax As New SqlClient.SqlParameter
+            param_fax.ParameterName = "@fax"
+            param_fax.SqlDbType = SqlDbType.VarChar
+            param_fax.Size = 30
+            param_fax.Value = txtFAX.Text
+            param_fax.Direction = ParameterDirection.Input
+
+            Dim param_email As New SqlClient.SqlParameter
+            param_email.ParameterName = "@email"
+            param_email.SqlDbType = SqlDbType.VarChar
+            param_email.Size = 100
+            param_email.Value = txtEmail.Text
+            param_email.Direction = ParameterDirection.Input
+
+            Dim param_porc As New SqlClient.SqlParameter
+            param_porc.ParameterName = "@porcrecargo"
+            param_porc.SqlDbType = SqlDbType.Decimal
+            param_porc.Precision = 18
+            param_porc.Scale = 2
+            param_porc.Value = IIf(txtporcrecargo.Text = "", 0, txtporcrecargo.Text)
+            param_porc.Direction = ParameterDirection.Input
+
+            Dim param_userupd As New SqlClient.SqlParameter
+            param_userupd.ParameterName = "@userupd"
+            param_userupd.SqlDbType = SqlDbType.Int
+            param_userupd.Value = UserID
+            param_userupd.Direction = ParameterDirection.Input
+
+            Dim param_res As New SqlClient.SqlParameter
+            param_res.ParameterName = "@res"
+            param_res.SqlDbType = SqlDbType.Int
+            param_res.Value = DBNull.Value
+            param_res.Direction = ParameterDirection.InputOutput
+
+            Try
+                SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spClientes_Update", param_id, _
+                                          param_tipodocumento, param_cuit, param_nombre, _
+                                          param_direccion, param_codpostal, _
+                                          param_localidad, param_provincia, param_telefono, param_fax, param_email, _
+                                          param_porc, param_userupd, param_res)
+
+                ActualizarRegistro = param_res.Value
+
+            Catch ex As Exception
+                Throw ex
+            End Try
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            If ex.Message.ToString.Contains("UNIQUE KEY") Then
+                ActualizarRegistro = -10
+            Else
+                MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+                  + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+                  "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
+
+        End Try
+
+    End Function
+
+    Private Function EliminarRegistro() As Integer
+        Dim res As Integer = 0
+        Dim connection As SqlClient.SqlConnection = Nothing
+
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Function
+        End Try
+
+        Try
+
+            Dim param_id As New SqlClient.SqlParameter("@id", SqlDbType.BigInt, ParameterDirection.Input)
+            param_id.Value = CType(txtID.Text, Long)
+            param_id.Direction = ParameterDirection.Input
+
+            Dim param_userdel As New SqlClient.SqlParameter
+            param_userdel.ParameterName = "@userdel"
+            param_userdel.SqlDbType = SqlDbType.Int
+            param_userdel.Value = UserID
+            param_userdel.Direction = ParameterDirection.Input
+
+            Dim param_res As New SqlClient.SqlParameter
+            param_res.ParameterName = "@res"
+            param_res.SqlDbType = SqlDbType.Int
+            param_res.Value = DBNull.Value
+            param_res.Direction = ParameterDirection.Output
+
+            Try
+
+                SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spClientes_Delete", param_id, param_userdel, param_res)
+                res = param_res.Value
+
+                If res > 0 Then Util.BorrarGrilla(grd)
+
+                EliminarRegistro = res
+
+            Catch ex As Exception
+                '' 
+
+
+                Throw ex
+            End Try
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If Not connection Is Nothing Then
+                CType(connection, IDisposable).Dispose()
+            End If
+        End Try
+
+    End Function
+
+    Private Function AgregarRegistro_Contactos() As Integer
+        Dim connection As SqlClient.SqlConnection = Nothing
+        Dim i As Integer
+
+        Try
+
+            If grdItems.RowCount - 1 = 0 Then
+                AgregarRegistro_Contactos = 1
+                Exit Function
+            End If
+
+            For i = 0 To grdItems.RowCount - 2
+
+                Dim param_id As New SqlClient.SqlParameter
+                param_id.ParameterName = "@id"
+                param_id.SqlDbType = SqlDbType.BigInt
+                param_id.Value = DBNull.Value
+                param_id.Direction = ParameterDirection.InputOutput
+
+                Dim param_idcliente As New SqlClient.SqlParameter
+                param_idcliente.ParameterName = "@idcliente"
+                param_idcliente.SqlDbType = SqlDbType.BigInt
+                param_idcliente.Value = txtID.Text
+                param_idcliente.Direction = ParameterDirection.Input
+
+                Dim param_codigo_contacto As New SqlClient.SqlParameter
+                param_codigo_contacto.ParameterName = "@codigo_contacto"
+                param_codigo_contacto.SqlDbType = SqlDbType.VarChar
+                param_codigo_contacto.Size = 25
+                param_codigo_contacto.Value = IIf(txtCODIGO.Text = "", DBNull.Value, grdItems.Rows(i).Cells(ColumnasDelGridItems.Codigo_Contacto).Value)
+                param_codigo_contacto.Direction = ParameterDirection.Input
+
+                Dim param_nombre_contacto As New SqlClient.SqlParameter
+                param_nombre_contacto.ParameterName = "@nombre_contacto"
+                param_nombre_contacto.SqlDbType = SqlDbType.VarChar
+                param_nombre_contacto.Size = 50
+                param_nombre_contacto.Value = grdItems.Rows(i).Cells(ColumnasDelGridItems.Nombre_Contacto).Value
+                param_nombre_contacto.Direction = ParameterDirection.Input
+
+                Dim param_telefono_contacto As New SqlClient.SqlParameter
+                param_telefono_contacto.ParameterName = "@telefono_contacto"
+                param_telefono_contacto.SqlDbType = SqlDbType.VarChar
+                param_telefono_contacto.Size = 30
+                param_telefono_contacto.Value = grdItems.Rows(i).Cells(ColumnasDelGridItems.Telefono_Contacto).Value
+                param_telefono_contacto.Direction = ParameterDirection.Input
+
+                Dim param_email_contacto As New SqlClient.SqlParameter
+                param_email_contacto.ParameterName = "@email_contacto"
+                param_email_contacto.SqlDbType = SqlDbType.VarChar
+                param_email_contacto.Size = 50
+                param_email_contacto.Value = grdItems.Rows(i).Cells(ColumnasDelGridItems.Email_Contacto).Value
+                param_email_contacto.Direction = ParameterDirection.Input
+
+                Dim param_celular_contacto As New SqlClient.SqlParameter
+                param_celular_contacto.ParameterName = "@celular_contacto"
+                param_celular_contacto.SqlDbType = SqlDbType.VarChar
+                param_celular_contacto.Size = 30
+                param_celular_contacto.Value = grdItems.Rows(i).Cells(ColumnasDelGridItems.Celular_Contacto).Value
+                param_celular_contacto.Direction = ParameterDirection.Input
+
+                Dim param_useradd As New SqlClient.SqlParameter
+                param_useradd.ParameterName = "@useradd"
+                param_useradd.SqlDbType = SqlDbType.Int
+                param_useradd.Value = UserID
+                param_useradd.Direction = ParameterDirection.Input
+
+                Dim param_res As New SqlClient.SqlParameter
+                param_res.ParameterName = "@res"
+                param_res.SqlDbType = SqlDbType.Int
+                param_res.Value = DBNull.Value
+                param_res.Direction = ParameterDirection.InputOutput
+
+                Try
+                    SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spClientes_Contactos_Insert", param_id, param_idcliente, _
+                                              param_codigo_contacto, param_nombre_contacto, param_telefono_contacto, param_celular_contacto, _
+                                              param_email_contacto, param_useradd, param_res)
+
+                    If param_res.Value = -1 Then
+                        AgregarRegistro_Contactos = param_res.Value
+                        Exit Function
+                    End If
+
+                    AgregarRegistro_Contactos = param_res.Value
+
+                Catch ex As Exception
+                    Throw ex
+                End Try
+
+            Next
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        End Try
+
+    End Function
+
+    Private Function ActualizarRegistro_Contactos() As Integer
+        Dim connection As SqlClient.SqlConnection = Nothing
+        'Dim res As Integer = 0
+        Dim i, idExiste As Integer
+
+        Try
+            For i = 0 To grdItems.RowCount - 2
+
+                Dim param_id As New SqlClient.SqlParameter
+                param_id.ParameterName = "@id"
+                param_id.SqlDbType = SqlDbType.BigInt
+                param_id.Value = grdItems.Rows(i).Cells(ColumnasDelGridItems.ID_Contacto).Value
+                param_id.Direction = ParameterDirection.Input
+
+                Dim param_res1 As New SqlClient.SqlParameter
+                param_res1.ParameterName = "@res"
+                param_res1.SqlDbType = SqlDbType.Int
+                param_res1.Value = DBNull.Value
+                param_res1.Direction = ParameterDirection.InputOutput
+
+                Try
+                    SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spClientes_Contacto_Select_By_ID", param_id, param_res1)
+
+                    idExiste = param_res1.Value
+
+                Catch ex As Exception
+                    MsgBox(Err.Description)
+                End Try
+
+                Dim param_id1 As New SqlClient.SqlParameter
+                param_id1.ParameterName = "@id"
+                param_id1.SqlDbType = SqlDbType.BigInt
+                param_id1.Value = grdItems.Rows(i).Cells(ColumnasDelGridItems.ID_Contacto).Value
+                param_id1.Direction = ParameterDirection.Output
+
+                Dim param_idcliente As New SqlClient.SqlParameter
+                param_idcliente.ParameterName = "@idcliente"
+                param_idcliente.SqlDbType = SqlDbType.BigInt
+                param_idcliente.Value = txtID.Text
+                param_idcliente.Direction = ParameterDirection.Input
+
+                Dim param_codigo_contacto As New SqlClient.SqlParameter
+                param_codigo_contacto.ParameterName = "@codigo_contacto"
+                param_codigo_contacto.SqlDbType = SqlDbType.VarChar
+                param_codigo_contacto.Size = 25
+                param_codigo_contacto.Value = IIf(txtCODIGO.Text = "", DBNull.Value, grdItems.Rows(i).Cells(ColumnasDelGridItems.Codigo_Contacto).Value)
+                param_codigo_contacto.Direction = ParameterDirection.Input
+
+                Dim param_nombre_contacto As New SqlClient.SqlParameter
+                param_nombre_contacto.ParameterName = "@nombre_contacto"
+                param_nombre_contacto.SqlDbType = SqlDbType.VarChar
+                param_nombre_contacto.Size = 50
+                param_nombre_contacto.Value = grdItems.Rows(i).Cells(ColumnasDelGridItems.Nombre_Contacto).Value
+                param_nombre_contacto.Direction = ParameterDirection.Input
+
+                Dim param_telefono_contacto As New SqlClient.SqlParameter
+                param_telefono_contacto.ParameterName = "@telefono_contacto"
+                param_telefono_contacto.SqlDbType = SqlDbType.VarChar
+                param_telefono_contacto.Size = 30
+                param_telefono_contacto.Value = grdItems.Rows(i).Cells(ColumnasDelGridItems.Telefono_Contacto).Value
+                param_telefono_contacto.Direction = ParameterDirection.Input
+
+                Dim param_email_contacto As New SqlClient.SqlParameter
+                param_email_contacto.ParameterName = "@email_contacto"
+                param_email_contacto.SqlDbType = SqlDbType.VarChar
+                param_email_contacto.Size = 50
+                param_email_contacto.Value = grdItems.Rows(i).Cells(ColumnasDelGridItems.Email_Contacto).Value
+                param_email_contacto.Direction = ParameterDirection.Input
+
+                Dim param_celular_contacto As New SqlClient.SqlParameter
+                param_celular_contacto.ParameterName = "@celular_contacto"
+                param_celular_contacto.SqlDbType = SqlDbType.VarChar
+                param_celular_contacto.Size = 30
+                param_celular_contacto.Value = grdItems.Rows(i).Cells(ColumnasDelGridItems.Celular_Contacto).Value
+                param_celular_contacto.Direction = ParameterDirection.Input
+
+                Dim param_user As New SqlClient.SqlParameter
+                param_user.SqlDbType = SqlDbType.Int
+                param_user.Value = UserID
+                param_user.Direction = ParameterDirection.Input
+
+
+                Dim param_res As New SqlClient.SqlParameter
+                param_res.ParameterName = "@res"
+                param_res.SqlDbType = SqlDbType.Int
+                param_res.Value = DBNull.Value
+                param_res.Direction = ParameterDirection.InputOutput
+
+                Try
+                    If idExiste = 0 Then
+
+                        param_user.ParameterName = "@useradd"
+
+                        SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spClientes_Contactos_Insert", param_id1, param_idcliente, _
+                                             param_codigo_contacto, param_nombre_contacto, param_telefono_contacto, param_celular_contacto, _
+                                             param_email_contacto, param_user, param_res)
+
+                        If param_res.Value = -1 Then
+                            ActualizarRegistro_Contactos = param_res.Value
+                            Exit Function
+                        End If
+
+                        ActualizarRegistro_Contactos = param_res.Value
+
+                        SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spClientes_Contactos_tmp_Insert", param_id1)
+
+                    Else
+
+                        param_user.ParameterName = "@userupd"
+
+                        SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spClientes_Contactos_Update", param_id, param_idcliente, _
+                                                                    param_codigo_contacto, param_nombre_contacto, param_telefono_contacto, param_celular_contacto, _
+                                                                    param_email_contacto, param_user, param_res)
+
+                        If param_res.Value = -1 Then
+                            ActualizarRegistro_Contactos = param_res.Value
+                            Exit Function
+                        End If
+
+                        ActualizarRegistro_Contactos = param_res.Value
+
+                        SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spClientes_Contactos_tmp_Insert", param_id)
+
+                    End If
+
+                Catch ex As Exception
+                    Throw ex
+                End Try
+
+            Next
+
+            Try
+
+                Dim param_idcliente2 As New SqlClient.SqlParameter
+                param_idcliente2.ParameterName = "@idcliente"
+                param_idcliente2.SqlDbType = SqlDbType.BigInt
+                param_idcliente2.Value = txtID.Text
+                param_idcliente2.Direction = ParameterDirection.Input
+
+                SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spClientes_Contactos_Delete_Update", param_idcliente2)
+
+                If grdItems.RowCount = 1 then
+                     ActualizarRegistro_Contactos= 1
+                End if
+
+            Catch ex As Exception
+                MsgBox(Err.Description)
+            End Try
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        End Try
+
+    End Function
+
+
+
+#End Region
+
+#Region "Transacciones"
+
+    Private Function Abrir_Tran(ByRef cnn As SqlClient.SqlConnection) As Boolean
+        If tran Is Nothing Then
+            Try
+                tran = cnn.BeginTransaction
+                Abrir_Tran = True
+            Catch ex As Exception
+                Abrir_Tran = False
+                Exit Function
+            End Try
+        End If
+    End Function
+
+    Private Sub Cerrar_Tran()
+        'Cierra o finaliza la transaccion
+        If Not (tran Is Nothing) Then
+            tran.Commit()
+            tran.Dispose()
+            tran = Nothing
+        End If
+    End Sub
+
+    Private Sub Cancelar_Tran()
+        'Cancela la transaccion
+        If Not (tran Is Nothing) Then
+            tran.Rollback()
+            tran.Dispose()
+            tran = Nothing
+        End If
+    End Sub
+
+#End Region
+
+  
+End Class

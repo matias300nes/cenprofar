@@ -1,0 +1,4 @@
+C:\SISTEMA ICYS\Sistema ICYS\obj\Debug\Panol.vbproj.ResolveComReference.cache
+C:\SISTEMA ICYS\Sistema ICYS\obj\Debug\Panol.exe
+C:\SISTEMA ICYS\Sistema ICYS\obj\Debug\Panol.xml
+C:\SISTEMA ICYS\Sistema ICYS\obj\Debug\Panol.pdb

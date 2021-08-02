@@ -1,0 +1,9 @@
+obj\Release\ResolveAssemblyReference.cache
+obj\Release\Microsoft.ApplicationBlocks.Data.dll
+obj\Release\Microsoft.ApplicationBlocks.Data.xml
+bin\Microsoft.ApplicationBlocks.Data.dll
+bin\Microsoft.ApplicationBlocks.Data.xml
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\Microsoft.ApplicationBlocks.Data.dll
+obj\Debug\Microsoft.ApplicationBlocks.Data.xml
+obj\Debug\Microsoft.ApplicationBlocks.Data.pdb

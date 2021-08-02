@@ -1,0 +1,76 @@
+D:\SISTEMA ICYS\TextBoxConFormatoVB\bin\TextBoxConFormatoVB.dll
+D:\SISTEMA ICYS\TextBoxConFormatoVB\bin\TextBoxConFormatoVB.pdb
+D:\SISTEMA ICYS\TextBoxConFormatoVB\bin\TextBoxConFormatoVB.xml
+D:\SISTEMA ICYS\TextBoxConFormatoVB\obj\Debug\ResolveAssemblyReference.cache
+D:\SISTEMA ICYS\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.FormattedTextBoxVB.resources
+D:\SISTEMA ICYS\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.vbproj.GenerateResource.Cache
+D:\SISTEMA ICYS\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.dll
+D:\SISTEMA ICYS\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.xml
+D:\SISTEMA ICYS\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.pdb
+C:\SISTEMA ICYS\TextBoxConFormatoVB\bin\TextBoxConFormatoVB.dll
+C:\SISTEMA ICYS\TextBoxConFormatoVB\bin\TextBoxConFormatoVB.pdb
+C:\SISTEMA ICYS\TextBoxConFormatoVB\bin\TextBoxConFormatoVB.xml
+C:\SISTEMA ICYS\TextBoxConFormatoVB\obj\Debug\ResolveAssemblyReference.cache
+C:\SISTEMA ICYS\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.FormattedTextBoxVB.resources
+C:\SISTEMA ICYS\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.vbproj.GenerateResource.Cache
+C:\SISTEMA ICYS\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.dll
+C:\SISTEMA ICYS\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.xml
+C:\SISTEMA ICYS\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.pdb
+E:\SISTEMA ICYS\TextBoxConFormatoVB\bin\TextBoxConFormatoVB.dll
+E:\SISTEMA ICYS\TextBoxConFormatoVB\bin\TextBoxConFormatoVB.pdb
+E:\SISTEMA ICYS\TextBoxConFormatoVB\bin\TextBoxConFormatoVB.xml
+E:\SISTEMA ICYS\TextBoxConFormatoVB\obj\Debug\ResolveAssemblyReference.cache
+E:\SISTEMA ICYS\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.FormattedTextBoxVB.resources
+E:\SISTEMA ICYS\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.vbproj.GenerateResource.Cache
+E:\SISTEMA ICYS\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.dll
+E:\SISTEMA ICYS\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.xml
+E:\SISTEMA ICYS\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.pdb
+D:\MIT\TextBoxConFormatoVB\bin\TextBoxConFormatoVB.dll
+D:\MIT\TextBoxConFormatoVB\bin\TextBoxConFormatoVB.pdb
+D:\MIT\TextBoxConFormatoVB\bin\TextBoxConFormatoVB.xml
+D:\MIT\TextBoxConFormatoVB\obj\Debug\ResolveAssemblyReference.cache
+D:\MIT\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.FormattedTextBoxVB.resources
+D:\MIT\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.vbproj.GenerateResource.Cache
+D:\MIT\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.dll
+D:\MIT\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.xml
+D:\MIT\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.pdb
+C:\MIT\TextBoxConFormatoVB\bin\TextBoxConFormatoVB.dll
+C:\MIT\TextBoxConFormatoVB\bin\TextBoxConFormatoVB.pdb
+C:\MIT\TextBoxConFormatoVB\bin\TextBoxConFormatoVB.xml
+C:\MIT\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.FormattedTextBoxVB.resources
+C:\MIT\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.vbproj.GenerateResource.Cache
+C:\MIT\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.dll
+C:\MIT\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.xml
+C:\MIT\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.pdb
+E:\MIT\TextBoxConFormatoVB\bin\TextBoxConFormatoVB.dll
+E:\MIT\TextBoxConFormatoVB\bin\TextBoxConFormatoVB.pdb
+E:\MIT\TextBoxConFormatoVB\bin\TextBoxConFormatoVB.xml
+E:\MIT\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.FormattedTextBoxVB.resources
+E:\MIT\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.vbproj.GenerateResource.Cache
+E:\MIT\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.dll
+E:\MIT\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.xml
+E:\MIT\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.pdb
+H:\MIT\TextBoxConFormatoVB\bin\TextBoxConFormatoVB.dll
+H:\MIT\TextBoxConFormatoVB\bin\TextBoxConFormatoVB.pdb
+H:\MIT\TextBoxConFormatoVB\bin\TextBoxConFormatoVB.xml
+H:\MIT\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.FormattedTextBoxVB.resources
+H:\MIT\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.vbproj.GenerateResource.Cache
+H:\MIT\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.dll
+H:\MIT\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.xml
+H:\MIT\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.pdb
+C:\Users\tomas\Documents\Software SEI\TextBoxConFormatoVB\bin\TextBoxConFormatoVB.dll
+C:\Users\tomas\Documents\Software SEI\TextBoxConFormatoVB\bin\TextBoxConFormatoVB.pdb
+C:\Users\tomas\Documents\Software SEI\TextBoxConFormatoVB\bin\TextBoxConFormatoVB.xml
+C:\Users\tomas\Documents\Software SEI\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.FormattedTextBoxVB.resources
+C:\Users\tomas\Documents\Software SEI\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.vbproj.GenerateResource.Cache
+C:\Users\tomas\Documents\Software SEI\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.dll
+C:\Users\tomas\Documents\Software SEI\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.xml
+C:\Users\tomas\Documents\Software SEI\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.pdb
+C:\Users\ignac\Documents\SISTEMA CIAPA\TextBoxConFormatoVB\bin\TextBoxConFormatoVB.dll
+C:\Users\ignac\Documents\SISTEMA CIAPA\TextBoxConFormatoVB\bin\TextBoxConFormatoVB.pdb
+C:\Users\ignac\Documents\SISTEMA CIAPA\TextBoxConFormatoVB\bin\TextBoxConFormatoVB.xml
+C:\Users\ignac\Documents\SISTEMA CIAPA\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.FormattedTextBoxVB.resources
+C:\Users\ignac\Documents\SISTEMA CIAPA\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.vbproj.GenerateResource.Cache
+C:\Users\ignac\Documents\SISTEMA CIAPA\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.dll
+C:\Users\ignac\Documents\SISTEMA CIAPA\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.xml
+C:\Users\ignac\Documents\SISTEMA CIAPA\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.pdb
