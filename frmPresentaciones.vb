@@ -143,7 +143,7 @@ Public Class frmPresentaciones
 
         SQL = "exec sp_Consumos_Select_All"
         'SQL = "select p.farmacia, dl.cantrecetpresentado from presentaciones p inner join OSDetalleLiquidacion dl on p.ID = dl.ID and not p.Recetas = dl.CantRecetPresentado;"
-
+        '
         LlenarGrilla()
         Permitir = True
         CargarCajas()

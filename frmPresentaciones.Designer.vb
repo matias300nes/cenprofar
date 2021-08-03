@@ -22,7 +22,6 @@ Partial Class frmPresentaciones
         Me.BuscarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BuscarDescripcionToolStripMenuItem = New System.Windows.Forms.ToolStripComboBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.btnProcesar = New DevComponents.DotNetBar.ButtonX()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.txtTotalAPagar = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.txtIdFactura = New TextBoxConFormatoVB.FormattedTextBoxVB()
@@ -40,6 +39,7 @@ Partial Class frmPresentaciones
         Me.txtID = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.ContextMenuStrip2 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.cmbUnidadVenta = New System.Windows.Forms.ToolStripComboBox()
+        Me.btnProcesar = New DevComponents.DotNetBar.ButtonX()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         CType(Me.grdItems, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -101,17 +101,6 @@ Partial Class frmPresentaciones
         Me.GroupBox1.Size = New System.Drawing.Size(1765, 689)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
-        '
-        'btnProcesar
-        '
-        Me.btnProcesar.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnProcesar.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnProcesar.Location = New System.Drawing.Point(1175, 659)
-        Me.btnProcesar.Name = "btnProcesar"
-        Me.btnProcesar.Size = New System.Drawing.Size(75, 23)
-        Me.btnProcesar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnProcesar.TabIndex = 191
-        Me.btnProcesar.Text = "Procesar"
         '
         'Label6
         '
@@ -341,6 +330,17 @@ Partial Class frmPresentaciones
         Me.cmbUnidadVenta.Name = "cmbUnidadVenta"
         Me.cmbUnidadVenta.Size = New System.Drawing.Size(300, 150)
         Me.cmbUnidadVenta.Text = "Unidad de Venta"
+        '
+        'btnProcesar
+        '
+        Me.btnProcesar.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnProcesar.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
+        Me.btnProcesar.Location = New System.Drawing.Point(1094, 651)
+        Me.btnProcesar.Name = "btnProcesar"
+        Me.btnProcesar.Size = New System.Drawing.Size(75, 23)
+        Me.btnProcesar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnProcesar.TabIndex = 192
+        Me.btnProcesar.Text = "Procesar"
         '
         'frmPresentaciones
         '
