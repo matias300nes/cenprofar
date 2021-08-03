@@ -132,17 +132,17 @@ Public Class frmPresentaciones
         btnEliminar.Text = "Anular Venta"
 
         configurarform()
-        asignarTags()
-        LlenarcmbClientes()
+        'asignarTags()
+        'LlenarcmbClientes()
         LlenarcmbMateriales()
-        LlenarcmbEntregar()
+        'LlenarcmbEntregar()
         LlenarcmbUnidadesVta()
-        LlenarcmbEmpleados3_App(cmbVendedor, ConnStringSEI)
+        'LlenarcmbEmpleados3_App(cmbVendedor, ConnStringSEI)
 
         LlenarLista()
 
-        'SQL = "exec sp_Consumos_Select_All"
-        SQL = "select p.farmacia, dl.cantrecetpresentado from presentaciones p inner join OSDetalleLiquidacion dl on p.ID = dl.ID and not p.Recetas = dl.CantRecetPresentado;"
+        SQL = "exec sp_Consumos_Select_All"
+        'SQL = "select p.farmacia, dl.cantrecetpresentado from presentaciones p inner join OSDetalleLiquidacion dl on p.ID = dl.ID and not p.Recetas = dl.CantRecetPresentado;"
 
         LlenarGrilla()
         Permitir = True
@@ -156,7 +156,7 @@ Public Class frmPresentaciones
             btnNuevo_Click(sender, e)
         Else
             LlenarGridItems(CType(IIf(txtID.Text = "", 0, txtID.Text), Long))
-            LlenarcmbClientes_Comprador()
+            ' LlenarcmbClientes_Comprador()
         End If
 
         'If grd.RowCount > 0 Then
@@ -197,7 +197,7 @@ Public Class frmPresentaciones
 
         Contar_Filas()
 
-        dtpFECHA.Focus()
+
 
     End Sub
 
@@ -206,11 +206,11 @@ Public Class frmPresentaciones
             Case Keys.F3 'nuevo
                 If bolModo = True Then
 
-                    If MessageBox.Show("No ha guardado " & IIf(rdVenta.Checked = True, "la Venta", "el Consumo") & " que está realizando. ¿Está seguro que desea continuar sin Grabar y hacer un nuevo Consumo?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
-                        btnNuevo_Click(sender, e)
-                    End If
-                Else
+                    'If MessageBox.Show("No ha guardado " & IIf(rdVenta.Checked = True, "la Venta", "el Consumo") & " que está realizando. ¿Está seguro que desea continuar sin Grabar y hacer un nuevo Consumo?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
                     btnNuevo_Click(sender, e)
+                    'End If
+                Else
+                btnNuevo_Click(sender, e)
                 End If
             Case Keys.F4 'grabar
                 btnGuardar_Click(sender, e)
@@ -663,76 +663,73 @@ Public Class frmPresentaciones
     End Sub
 
     Private Sub chkEliminado_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkEliminado.CheckedChanged
-        cmbCliente.Enabled = Not chkEliminado.Checked
+        'cmbCliente.Enabled = Not chkEliminado.Checked
         grdItems.Enabled = Not chkEliminado.Checked
-        dtpFECHA.Enabled = Not chkEliminado.Checked
+        'dtpFECHA.Enabled = Not chkEliminado.Checked
     End Sub
 
-    Private Sub cmbCliente_SelectedValueChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cmbCliente.SelectedValueChanged
+    Private Sub cmbCliente_SelectedValueChanged(ByVal sender As Object, ByVal e As System.EventArgs)
         If llenandoCombo = False Then
-            If cmbCliente.Text <> "" Then
-                LlenarcmbClientes_Comprador()
-                'LlenarcmbClientes_Usuario()
-                BuscarPorcentajeRecargo()
-            End If
+            'If cmbCliente.Text <> "" Then
+            '    LlenarcmbClientes_Comprador()
+            '    'LlenarcmbClientes_Usuario()
+            '    BuscarPorcentajeRecargo()
+            'End If
         End If
     End Sub
 
-    Private Sub txtIVA_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtIVA.KeyPress
+    Private Sub txtIVA_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
         If e.KeyChar = ChrW(Keys.Enter) Then
-            If txtIVA.Text = "" Then
-                MsgBox("Debe ingresar el IVA antes de comenzar a cargar los Items del Movimiento", MsgBoxStyle.Critical, "Control de IVA")
-                txtIVA.Focus()
-            Else
-                txtIvaTotal.Text = Math.Round(CDbl(txtSubtotal.Text) * (CDbl(txtIVA.Text) / 100), 2)
-                txtTotal.Text = CDbl(txtSubtotal.Text) + CDbl(txtIvaTotal.Text)
-                cmbCliente.Focus()
-            End If
-        End If
-    End Sub
 
-    Private Sub txtIVA_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtIVA.LostFocus
-        If txtIVA.Text = "" Then
-            MsgBox("Debe ingresar el IVA antes de comenzar a cargar los Items del Movimiento", MsgBoxStyle.Critical, "Control de IVA")
-            txtIVA.Focus()
-        Else
-            txtIvaTotal.Text = Math.Round(CDbl(txtSubtotal.Text) * (CDbl(txtIVA.Text) / 100), 2)
+            'txtIvaTotal.Text = Math.Round(CDbl(txtSubtotal.Text) * (CDbl(txtIVA.Text) / 100), 2)
             txtTotal.Text = CDbl(txtSubtotal.Text) + CDbl(txtIvaTotal.Text)
+
         End If
+
+    End Sub
+
+    Private Sub txtIVA_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs)
+        'If txtIVA.Text = "" Then
+        '    MsgBox("Debe ingresar el IVA antes de comenzar a cargar los Items del Movimiento", MsgBoxStyle.Critical, "Control de IVA")
+        '    txtIVA.Focus()
+        'Else
+        '    txtIvaTotal.Text = Math.Round(CDbl(txtSubtotal.Text) * (CDbl(txtIVA.Text) / 100), 2)
+        '    txtTotal.Text = CDbl(txtSubtotal.Text) + CDbl(txtIvaTotal.Text)
+        'End If
     End Sub
 
 
 
-    Private Sub chkComprador_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkRetiradopor.CheckedChanged
-        cmbComprador.Enabled = chkRetiradopor.Checked
+    Private Sub chkComprador_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        'cmbComprador.Enabled = chkRetiradopor.Checked
     End Sub
 
-    Private Sub chkEntrega_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkEntrega.CheckedChanged
-        cmbEntregaren.Enabled = chkEntrega.Checked
-        If chkEntrega.Checked = False Then
-            cmbEntregaren.Text = ""
-        End If
+    Private Sub chkEntrega_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        'cmbEntregaren.Enabled = chkEntrega.Checked
+        'If chkEntrega.Checked = False Then
+        '    cmbEntregaren.Text = ""
+        'End If
     End Sub
 
-    Private Sub txtporcrecargo_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtporcrecargo.KeyPress
+    Private Sub txtporcrecargo_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
         If e.KeyChar = ChrW(Keys.Enter) Then
             Calcular_RecargoDescuento()
         End If
     End Sub
 
-    Private Sub PicClientes_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PicClientes.Click
+    Private Sub PicClientes_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Dim f As New frmClientes
 
         LLAMADO_POR_FORMULARIO = True
         ARRIBA = 90
         IZQUIERDA = Me.Left + 20
-        texto_del_combo = cmbCliente.Text.ToUpper.ToString
+        'texto_del_combo = cmbCliente.Text.ToUpper.ToString
         f.ShowDialog()
-        LlenarcmbClientes()
-        cmbCliente.Text = texto_del_combo
+        'LlenarcmbClientes()
+        'cmbCliente.Text = texto_del_combo
     End Sub
 
-    Private Sub PicNotas_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PicNotas.Click
+    Private Sub PicNotas_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Dim f As New frmNotas
 
         LLAMADO_POR_FORMULARIO = True
@@ -747,25 +744,25 @@ Public Class frmPresentaciones
 
     End Sub
 
-    Private Sub PicGanancia_MouseHover(ByVal sender As Object, ByVal e As System.EventArgs) Handles picGanancia.MouseHover
+    Private Sub PicGanancia_MouseHover(ByVal sender As Object, ByVal e As System.EventArgs)
         Dim a As New ToolTip
-        a.SetToolTip(Me.picGanancia, "Por medio de esta opción se puede ocultar las columnas Ganancia y Precio Lista. Es importante recordar " & vbCrLf & "que estas columnas deberán mostrarse cuando ingrese un item que no está codificado.")
+        'a.SetToolTip(Me.picGanancia, "Por medio de esta opción se puede ocultar las columnas Ganancia y Precio Lista. Es importante recordar " & vbCrLf & "que estas columnas deberán mostrarse cuando ingrese un item que no está codificado.")
         a.IsBalloon = True
         a.UseAnimation = True
     End Sub
 
     Protected Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs)
         If Permitir Then
-            chkOcultarGanancia.Checked = True
-            chkOcultarGanancia_CheckedChanged(sender, e)
+            'chkOcultarGanancia.Checked = True
+            'chkOcultarGanancia_CheckedChanged(sender, e)
             Try
                 If grd.RowCount > 0 Then
-                    cmbComprador.SelectedValue = grd.CurrentRow.Cells(16).Value
-                    cmbCliente.SelectedValue = grd.CurrentRow.Cells(10).Value
-                    txtporcrecargo.Text = grd.CurrentRow.Cells(14).Value
-                    cmbVendedor.SelectedValue = grd.CurrentRow.Cells(20).Value
+                    'cmbComprador.SelectedValue = grd.CurrentRow.Cells(16).Value
+                    'cmbCliente.SelectedValue = grd.CurrentRow.Cells(10).Value
+                    'txtporcrecargo.Text = grd.CurrentRow.Cells(14).Value
+                    'cmbVendedor.SelectedValue = grd.CurrentRow.Cells(20).Value
                 End If
-                cmbComprador.SelectedValue = grd.CurrentRow.Cells(16).Value
+                ' cmbComprador.SelectedValue = grd.CurrentRow.Cells(16).Value
             Catch ex As Exception
 
             End Try
@@ -799,46 +796,46 @@ Public Class frmPresentaciones
 
     End Sub
 
-    Private Sub chkOcultarGanancia_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkOcultarGanancia.CheckedChanged
-        grdItems.Columns(ColumnasDelGridItems.Ganancia).Visible = Not chkOcultarGanancia.Checked
-        grdItems.Columns(ColumnasDelGridItems.PrecioLista).Visible = Not chkOcultarGanancia.Checked
+    'Private Sub chkOcultarGanancia_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    '    grdItems.Columns(ColumnasDelGridItems.Ganancia).Visible = Not chkOcultarGanancia.Checked
+    '    grdItems.Columns(ColumnasDelGridItems.PrecioLista).Visible = Not chkOcultarGanancia.Checked
 
-        If chkOcultarGanancia.Checked = True Then
-            chkOcultarGanancia.Text = "Mostrar PL y GC"
-        Else
-            chkOcultarGanancia.Text = "Ocultar PL y GC"
-        End If
+    '    If chkOcultarGanancia.Checked = True Then
+    '        chkOcultarGanancia.Text = "Mostrar PL y GC"
+    '    Else
+    '        chkOcultarGanancia.Text = "Ocultar PL y GC"
+    '    End If
 
-    End Sub
+    'End Sub
 
-    Private Sub chkRecargo_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkRecargo.CheckedChanged
-        chkDesc.Checked = Not chkRecargo.Checked
-        txtporcrecargo.Focus()
+    Private Sub chkRecargo_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        'chkDesc.Checked = Not chkRecargo.Checked
+        'txtporcrecargo.Focus()
         Calcular_RecargoDescuento()
     End Sub
 
-    Private Sub chkDesc_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkDesc.CheckedChanged
-        chkRecargo.Checked = Not chkDesc.Checked
-        txtporcrecargo.Focus()
+    Private Sub chkDesc_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        'chkRecargo.Checked = Not chkDesc.Checked
+        'txtporcrecargo.Focus()
         Calcular_RecargoDescuento()
     End Sub
 
-    Private Sub chkRecDescGlobal_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkRecDescGlobal.CheckedChanged
-        chkDesc.Enabled = chkRecDescGlobal.Checked
-        chkRecargo.Enabled = chkRecDescGlobal.Checked
-        txtporcrecargo.Enabled = chkRecDescGlobal.Checked
-        Label4.Enabled = chkRecDescGlobal.Checked
+    Private Sub chkRecDescGlobal_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        ''chkDesc.Enabled = chkRecDescGlobal.Checked
+        ''chkRecargo.Enabled = chkRecDescGlobal.Checked
+        'txtporcrecargo.Enabled = chkRecDescGlobal.Checked
+        'Label4.Enabled = chkRecDescGlobal.Checked
 
-        If chkRecDescGlobal.Checked = True Then
-            chkRecargo.Checked = True
-            txtporcrecargo.Focus()
-        Else
-            txtporcrecargo.Text = ""
-            chkRecargo.Checked = False
-            chkDesc.Checked = False
-        End If
+        'If chkRecDescGlobal.Checked = True Then
+        '    chkRecargo.Checked = True
+        '    txtporcrecargo.Focus()
+        'Else
+        '    txtporcrecargo.Text = ""
+        '    chkRecargo.Checked = False
+        '    chkDesc.Checked = False
+        'End If
 
-        Calcular_RecargoDescuento()
+        'Calcular_RecargoDescuento()
 
     End Sub
 
@@ -906,19 +903,19 @@ Public Class frmPresentaciones
     End Sub
 
     Private Sub chkCtaCte_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        ChkPago.Checked = Not chkCerrar.Checked
+        'ChkPago.Checked = Not chkCerrar.Checked
     End Sub
 
     Private Sub ChkPago_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        chkCerrar.Checked = Not ChkPago.Checked
+        'chkCerrar.Checked = Not ChkPago.Checked
     End Sub
 
-    Private Sub chkFactura_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkFactura.CheckedChanged
-        txtFactura.Enabled = chkFactura.Checked
+    Private Sub chkFactura_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        'txtFactura.Enabled = chkFactura.Checked
     End Sub
 
-    Private Sub chkOC_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkOC.CheckedChanged
-        txtOC.Enabled = chkOC.Checked
+    Private Sub chkOC_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        'txtOC.Enabled = chkOC.Checked
     End Sub
 
 #End Region
@@ -935,37 +932,37 @@ Public Class frmPresentaciones
         Util.MsgStatus(Status1, "Haga click en [Guardar] despues de completar los datos.")
         PrepararBotones()
         chkEliminado.Checked = False
-        cmbCliente.Enabled = True
+        'cmbCliente.Enabled = True
         grdItems.Enabled = True
-        dtpFECHA.Enabled = True
+        'dtpFECHA.Enabled = True
         Util.LimpiarTextBox(Me.Controls)
 
         PrepararGridItems()
 
-        txtIVA.Text = "21"
+        'txtIVA.Text = "21"
         txtIvaTotal.Text = "0"
         txtTotal.Text = "0"
         txtSubtotal.Text = "0"
-        chkRetiradopor.Checked = False
-        chkEntrega.Checked = False
+        'chkRetiradopor.Checked = False
+        'chkEntrega.Checked = False
         grdItems.AllowUserToAddRows = True
         lblCantidadFilas.Text = "0 / 16"
-        chkNotas.Checked = True
-        cmbVendedor.SelectedValue = 1
+        'chkNotas.Checked = True
+        'cmbVendedor.SelectedValue = 1
 
-        chkFactura.Checked = False
-        txtFactura.Enabled = False
+        'chkFactura.Checked = False
+        'txtFactura.Enabled = False
 
-        chkOcultarGanancia.Checked = True
+        'chkOcultarGanancia.Checked = True
 
         GroupBox1.Enabled = True
 
         LlenarLista()
 
 
-        rdVenta.Checked = True
+        'rdVenta.Checked = True
 
-        dtpFECHA.Focus()
+        'dtpFECHA.Focus()
 
     End Sub
 
@@ -975,32 +972,32 @@ Public Class frmPresentaciones
 
         Util.Logueado_OK = False
 
-        If chkNotas.Checked = False Then
-            If MessageBox.Show(IIf(rdVenta.Checked = True, "La Venta", "El Consumo") & " no tiene Notas seleccionadas." + vbCrLf + "¿Está seguro que desea continuar?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
-                Exit Sub
-            End If
-        Else
+        'If chkNotas.Checked = False Then
+        '    If MessageBox.Show(IIf(rdVenta.Checked = True, "La Venta", "El Consumo") & " no tiene Notas seleccionadas." + vbCrLf + "¿Está seguro que desea continuar?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
+        '        Exit Sub
+        '    End If
+        'Else
 
 
-        End If
+        'End If
 
-        If chkRecDescGlobal.Checked = True Then
-            If MessageBox.Show("La opción de Recargo/Descuento Glogal, está activa. Esto modificará todos los precios del Movimiento." + vbCrLf + "¿Está seguro que desea continuar?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
-                Exit Sub
-            End If
-        End If
+        'If chkRecDescGlobal.Checked = True Then
+        '    If MessageBox.Show("La opción de Recargo/Descuento Glogal, está activa. Esto modificará todos los precios del Movimiento." + vbCrLf + "¿Está seguro que desea continuar?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
+        '        Exit Sub
+        '    End If
+        'End If
 
-        If chkFactura.Checked = True And txtFactura.Text = "" Then
-            Util.MsgStatus(Status1, "Debe ingresar el nro de la factura", My.Resources.Resources.stop_error.ToBitmap, True)
-            txtFactura.Focus()
-            Exit Sub
-        End If
+        'If chkFactura.Checked = True And txtFactura.Text = "" Then
+        '    Util.MsgStatus(Status1, "Debe ingresar el nro de la factura", My.Resources.Resources.stop_error.ToBitmap, True)
+        '    txtFactura.Focus()
+        '    Exit Sub
+        'End If
 
-        If chkFactura.Checked = True And cmbCondIVA.Text.ToCharArray = "" Then
-            Util.MsgStatus(Status1, "Debe ingresar la condición de IVA del Cliente", My.Resources.Resources.stop_error.ToBitmap, True)
-            cmbCondIVA.Focus()
-            Exit Sub
-        End If
+        'If chkFactura.Checked = True And cmbCondIVA.Text.ToCharArray = "" Then
+        '    Util.MsgStatus(Status1, "Debe ingresar la condición de IVA del Cliente", My.Resources.Resources.stop_error.ToBitmap, True)
+        '    cmbCondIVA.Focus()
+        '    Exit Sub
+        'End If
 
         Dim j As Integer = 0
 
@@ -1010,7 +1007,7 @@ Public Class frmPresentaciones
             txtSubtotal.Text = CDbl(txtSubtotal.Text) + CDbl(grdItems.Rows(j).Cells(ColumnasDelGridItems.SubTotalProd).Value)
         Next
 
-        txtIvaTotal.Text = Math.Round(CDbl(txtSubtotal.Text) * (CDbl(txtIVA.Text) / 100), 2)
+        'txtIvaTotal.Text = Math.Round(CDbl(txtSubtotal.Text) * (CDbl(txtIVA.Text) / 100), 2)
         txtTotal.Text = CDbl(txtSubtotal.Text) + CDbl(txtIvaTotal.Text)
 
         If ReglasNegocio() Then
@@ -1064,121 +1061,121 @@ Public Class frmPresentaciones
                                 Util.MsgStatus(Status1, "No se pudo Agregar el registro (Items).", My.Resources.Resources.stop_error.ToBitmap)
                                 Util.MsgStatus(Status1, "No se pudo Agregar el registro (Items).", My.Resources.Resources.stop_error.ToBitmap, True)
                             Case Else
-                                If chkNotas.Checked = True Then
-                                    res_notas = AgregarRegistro_Notas()
-                                    Select Case res_notas
-                                        Case -2
-                                            Cancelar_Tran()
-                                            Util.MsgStatus(Status1, "No se pudo Eliminar de manera temporal las notas", My.Resources.Resources.stop_error.ToBitmap)
-                                            Util.MsgStatus(Status1, "No se pudo Eliminar de manera temporal las notas", My.Resources.Resources.stop_error.ToBitmap, True)
-                                        Case -1
-                                            Cancelar_Tran()
-                                            Util.MsgStatus(Status1, "No se pudo Insertar el detalle de las notas seleccionadas.", My.Resources.Resources.alert.ToBitmap)
-                                            Util.MsgStatus(Status1, "No se pudo Insertar el detalle de las notas seleccionadas.", My.Resources.Resources.alert.ToBitmap, True)
-                                        Case Else
-                                            If bolModo = False Then
-                                                EliminarItems_Consumo()
-                                            End If
+                                'If chkNotas.Checked = True Then
+                                '    res_notas = AgregarRegistro_Notas()
+                                '    Select Case res_notas
+                                '        Case -2
+                                '            Cancelar_Tran()
+                                '            Util.MsgStatus(Status1, "No se pudo Eliminar de manera temporal las notas", My.Resources.Resources.stop_error.ToBitmap)
+                                '            Util.MsgStatus(Status1, "No se pudo Eliminar de manera temporal las notas", My.Resources.Resources.stop_error.ToBitmap, True)
+                                '        Case -1
+                                '            Cancelar_Tran()
+                                '            Util.MsgStatus(Status1, "No se pudo Insertar el detalle de las notas seleccionadas.", My.Resources.Resources.alert.ToBitmap)
+                                '            Util.MsgStatus(Status1, "No se pudo Insertar el detalle de las notas seleccionadas.", My.Resources.Resources.alert.ToBitmap, True)
+                                '        Case Else
+                                '            If bolModo = False Then
+                                '                EliminarItems_Consumo()
+                                '            End If
 
-                                            If chkFactura.Checked = True Then
-                                                res = AgregarFactura()
-                                                Select Case res
-                                                    Case -4
-                                                        Cancelar_Tran()
-                                                        Util.MsgStatus(Status1, "El nro de Factura ya existe en el sistema, por favor, verifique esta información.", My.Resources.Resources.stop_error.ToBitmap)
-                                                        Util.MsgStatus(Status1, "El nro de Factura ya existe en el sistema, por favor, verifique esta información.", My.Resources.Resources.stop_error.ToBitmap, True)
-                                                    Case -3
-                                                        Cancelar_Tran()
-                                                        Util.MsgStatus(Status1, "No pudo realizarse la insersión (Encabezado).", My.Resources.Resources.stop_error.ToBitmap)
-                                                        Util.MsgStatus(Status1, "No pudo realizarse la insersión (Encabezado).", My.Resources.Resources.stop_error.ToBitmap, True)
-                                                    Case -2
-                                                        Cancelar_Tran()
-                                                        Util.MsgStatus(Status1, "No se pudo actualizar el número de Facturación (Encabezado).", My.Resources.Resources.stop_error.ToBitmap)
-                                                        Util.MsgStatus(Status1, "No se pudo actualizar el número de Facturación (Encabezado).", My.Resources.Resources.stop_error.ToBitmap, True)
-                                                    Case -1
-                                                        Cancelar_Tran()
-                                                        Util.MsgStatus(Status1, "No se pudo actualizar el registro (Encabezado).", My.Resources.Resources.stop_error.ToBitmap)
-                                                        Util.MsgStatus(Status1, "No se pudo actualizar el registro (Encabezado).", My.Resources.Resources.stop_error.ToBitmap, True)
-                                                    Case 0
-                                                        Cancelar_Tran()
-                                                        Util.MsgStatus(Status1, "No se pudo agregar el registro (Encabezado).", My.Resources.Resources.stop_error.ToBitmap)
-                                                        Util.MsgStatus(Status1, "No se pudo agregar el registro (Encabezado).", My.Resources.Resources.stop_error.ToBitmap, True)
-                                                    Case Else
-                                                        Util.MsgStatus(Status1, "Factura generada con éxito", My.Resources.Resources.stop_error.ToBitmap)
-                                                        res = ActualizarConsumo_Factura()
-                                                        Select Case res
-                                                            Case 0
-                                                                Cancelar_Tran()
-                                                                Util.MsgStatus(Status1, "Se produjo un error al intentar acutalizar el estado del Consumo y la Factura asociada.", My.Resources.Resources.stop_error.ToBitmap)
-                                                                Util.MsgStatus(Status1, "Se produjo un error al intentar acutalizar el estado del Consumo y la Factura asociada.", My.Resources.Resources.stop_error.ToBitmap, True)
-                                                            Case 1
-                                                                Util.MsgStatus(Status1, "Factura asociada a Consumo de manera correcta.", My.Resources.Resources.stop_error.ToBitmap)
-                                                        End Select
-                                                End Select
-                                            End If
+                                '            'If chkFactura.Checked = True Then
+                                '            '    res = AgregarFactura()
+                                '            '    Select Case res
+                                '            '        Case -4
+                                '            '            Cancelar_Tran()
+                                '            '            Util.MsgStatus(Status1, "El nro de Factura ya existe en el sistema, por favor, verifique esta información.", My.Resources.Resources.stop_error.ToBitmap)
+                                '            '            Util.MsgStatus(Status1, "El nro de Factura ya existe en el sistema, por favor, verifique esta información.", My.Resources.Resources.stop_error.ToBitmap, True)
+                                '            '        Case -3
+                                '            '            Cancelar_Tran()
+                                '            '            Util.MsgStatus(Status1, "No pudo realizarse la insersión (Encabezado).", My.Resources.Resources.stop_error.ToBitmap)
+                                '            '            Util.MsgStatus(Status1, "No pudo realizarse la insersión (Encabezado).", My.Resources.Resources.stop_error.ToBitmap, True)
+                                '            '        Case -2
+                                '            '            Cancelar_Tran()
+                                '            '            Util.MsgStatus(Status1, "No se pudo actualizar el número de Facturación (Encabezado).", My.Resources.Resources.stop_error.ToBitmap)
+                                '            '            Util.MsgStatus(Status1, "No se pudo actualizar el número de Facturación (Encabezado).", My.Resources.Resources.stop_error.ToBitmap, True)
+                                '            '        Case -1
+                                '            '            Cancelar_Tran()
+                                '            '            Util.MsgStatus(Status1, "No se pudo actualizar el registro (Encabezado).", My.Resources.Resources.stop_error.ToBitmap)
+                                '            '            Util.MsgStatus(Status1, "No se pudo actualizar el registro (Encabezado).", My.Resources.Resources.stop_error.ToBitmap, True)
+                                '            '        Case 0
+                                '            '            Cancelar_Tran()
+                                '            '            Util.MsgStatus(Status1, "No se pudo agregar el registro (Encabezado).", My.Resources.Resources.stop_error.ToBitmap)
+                                '            '            Util.MsgStatus(Status1, "No se pudo agregar el registro (Encabezado).", My.Resources.Resources.stop_error.ToBitmap, True)
+                                '            '        Case Else
+                                '            '            Util.MsgStatus(Status1, "Factura generada con éxito", My.Resources.Resources.stop_error.ToBitmap)
+                                '            '            res = ActualizarConsumo_Factura()
+                                '            '            Select Case res
+                                '            '                Case 0
+                                '            '                    Cancelar_Tran()
+                                '            '                    Util.MsgStatus(Status1, "Se produjo un error al intentar acutalizar el estado del Consumo y la Factura asociada.", My.Resources.Resources.stop_error.ToBitmap)
+                                '            '                    Util.MsgStatus(Status1, "Se produjo un error al intentar acutalizar el estado del Consumo y la Factura asociada.", My.Resources.Resources.stop_error.ToBitmap, True)
+                                '            '                Case 1
+                                '            '                    Util.MsgStatus(Status1, "Factura asociada a Consumo de manera correcta.", My.Resources.Resources.stop_error.ToBitmap)
+                                '            '            End Select
+                                '            '    End Select
+                                '            'End If
 
-                                            Cerrar_Tran()
-                                            Imprimir()
+                                '            Cerrar_Tran()
+                                '            Imprimir()
 
-                                            If ChkPago.Checked = True Then
-                                                frmPagodeClientes_Contado.btnNuevo_Click(sender, e)
+                                '            'If ChkPago.Checked = True Then
+                                '            '    frmPagodeClientes_Contado.btnNuevo_Click(sender, e)
 
-                                                frmPagodeClientes_Contado.lblTotalaPagar.Text = txtTotal.Text  ' totalfactura.ToString
-                                                frmPagodeClientes_Contado.lblTotalaPagarSinIva.Text = txtSubtotal.Text 'subtotal.ToString
-                                                frmPagodeClientes_Contado.IdCliente = cmbCliente.SelectedValue
-                                                frmPagodeClientes_Contado.FechaVta = dtpFECHA.Value
-                                                frmPagodeClientes_Contado.MontoIva = txtIvaTotal.Text  'totaliva.ToString
-                                                frmPagodeClientes_Contado.PorcIva = txtIVA.Text
-                                                frmPagodeClientes_Contado.txtIdConsumo.Text = txtID.Text ' idfactura.ToString
-                                                frmPagodeClientes_Contado.txtIdFacturacion.Text = txtIdFactura.Text
-                                                frmPagodeClientes_Contado.ShowDialog(Me)
+                                '            '    frmPagodeClientes_Contado.lblTotalaPagar.Text = txtTotal.Text  ' totalfactura.ToString
+                                '            '    frmPagodeClientes_Contado.lblTotalaPagarSinIva.Text = txtSubtotal.Text 'subtotal.ToString
+                                '            '    frmPagodeClientes_Contado.IdCliente = cmbCliente.SelectedValue
+                                '            '    frmPagodeClientes_Contado.FechaVta = dtpFECHA.Value
+                                '            '    frmPagodeClientes_Contado.MontoIva = txtIvaTotal.Text  'totaliva.ToString
+                                '            '    frmPagodeClientes_Contado.PorcIva = txtIVA.Text
+                                '            '    frmPagodeClientes_Contado.txtIdConsumo.Text = txtID.Text ' idfactura.ToString
+                                '            '    frmPagodeClientes_Contado.txtIdFacturacion.Text = txtIdFactura.Text
+                                '            '    frmPagodeClientes_Contado.ShowDialog(Me)
 
-                                                res = ActualizarConsumo_Pagado()
-                                                Select Case res
-                                                    Case 0
-                                                        Cancelar_Tran()
-                                                        Util.MsgStatus(Status1, "No se pudo actualizar el estado del consumo a Facturado.", My.Resources.Resources.stop_error.ToBitmap)
-                                                        Util.MsgStatus(Status1, "No se pudo actualizar el estado del consumo a Facturado.", My.Resources.Resources.stop_error.ToBitmap, True)
-                                                    Case Else
-                                                        Util.MsgStatus(Status1, "Consumo actualizado correctamente.", My.Resources.Resources.stop_error.ToBitmap)
-                                                End Select
+                                '            '    res = ActualizarConsumo_Pagado()
+                                '            '    Select Case res
+                                '            '        Case 0
+                                '            '            Cancelar_Tran()
+                                '            '            Util.MsgStatus(Status1, "No se pudo actualizar el estado del consumo a Facturado.", My.Resources.Resources.stop_error.ToBitmap)
+                                '            '            Util.MsgStatus(Status1, "No se pudo actualizar el estado del consumo a Facturado.", My.Resources.Resources.stop_error.ToBitmap, True)
+                                '            '        Case Else
+                                '            '            Util.MsgStatus(Status1, "Consumo actualizado correctamente.", My.Resources.Resources.stop_error.ToBitmap)
+                                '            '    End Select
 
-                                            End If
+                                '            'End If
 
-                                            band = 0
-                                            bolModo = False
-                                            btnActualizar_Click(sender, e)
-                                            Util.MsgStatus(Status1, "El Movimiento se generó correctamente.", My.Resources.Resources.ok.ToBitmap)
-                                            band = 1
-                                    End Select
+                                '            band = 0
+                                '            bolModo = False
+                                '            btnActualizar_Click(sender, e)
+                                '            Util.MsgStatus(Status1, "El Movimiento se generó correctamente.", My.Resources.Resources.ok.ToBitmap)
+                                '            band = 1
+                                '    End Select
 
-                                Else
-                                    If bolModo = False Then
-                                        EliminarItems_Consumo()
-                                    End If
+                                'Else
+                                '    If bolModo = False Then
+                                '        EliminarItems_Consumo()
+                                '    End If
 
-                                    Cerrar_Tran()
-                                    Imprimir()
+                                '    Cerrar_Tran()
+                                '    Imprimir()
 
-                                    If ChkPago.Checked = True Then
-                                        frmPagodeClientes_Contado.btnNuevo_Click(sender, e)
+                                '    'If ChkPago.Checked = True Then
+                                '    '    frmPagodeClientes_Contado.btnNuevo_Click(sender, e)
 
-                                        frmPagodeClientes_Contado.lblTotalaPagar.Text = txtTotal.Text  ' totalfactura.ToString
-                                        frmPagodeClientes_Contado.lblTotalaPagarSinIva.Text = txtSubtotal.Text 'subtotal.ToString
-                                        frmPagodeClientes_Contado.IdCliente = cmbCliente.SelectedValue
-                                        frmPagodeClientes_Contado.FechaVta = dtpFECHA.Value
-                                        frmPagodeClientes_Contado.MontoIva = txtIvaTotal.Text  'totaliva.ToString
-                                        frmPagodeClientes_Contado.PorcIva = txtIVA.Text
-                                        frmPagodeClientes_Contado.txtIdFacturacion.Text = txtID.Text ' idfactura.ToString
-                                        frmPagodeClientes_Contado.ShowDialog(Me)
-                                    End If
+                                '    '    frmPagodeClientes_Contado.lblTotalaPagar.Text = txtTotal.Text  ' totalfactura.ToString
+                                '    '    frmPagodeClientes_Contado.lblTotalaPagarSinIva.Text = txtSubtotal.Text 'subtotal.ToString
+                                '    '    frmPagodeClientes_Contado.IdCliente = cmbCliente.SelectedValue
+                                '    '    frmPagodeClientes_Contado.FechaVta = dtpFECHA.Value
+                                '    '    frmPagodeClientes_Contado.MontoIva = txtIvaTotal.Text  'totaliva.ToString
+                                '    '    frmPagodeClientes_Contado.PorcIva = txtIVA.Text
+                                '    '    frmPagodeClientes_Contado.txtIdFacturacion.Text = txtID.Text ' idfactura.ToString
+                                '    '    frmPagodeClientes_Contado.ShowDialog(Me)
+                                '    'End If
 
-                                    band = 0
-                                    bolModo = False
-                                    btnActualizar_Click(sender, e)
-                                    Util.MsgStatus(Status1, "El Movimiento se generó correctamente.", My.Resources.Resources.ok.ToBitmap)
-                                    band = 1
-                                End If
+                                '    band = 0
+                                '    bolModo = False
+                                '    btnActualizar_Click(sender, e)
+                                '    Util.MsgStatus(Status1, "El Movimiento se generó correctamente.", My.Resources.Resources.ok.ToBitmap)
+                                '    band = 1
+                                'End If
                         End Select
                 End Select
                 '
@@ -1255,7 +1252,7 @@ Public Class frmPresentaciones
         Dim codigopres As String
         Dim Rpt As New frmReportes
 
-        paramConsumos.AgregarParametros("N° de Movimiento:", "STRING", "", False, txtCODIGO.Text.ToString, "", cnn)
+        'paramConsumos.AgregarParametros("N° de Movimiento:", "STRING", "", False, txtCODIGO.Text.ToString, "", cnn)
 
         paramConsumos.ShowDialog()
         If cerroparametrosconaceptar = True Then
@@ -1333,27 +1330,27 @@ Public Class frmPresentaciones
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         'Verificar si todos los combox tienen algo válido
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-        If Not (cmbCliente.SelectedIndex > -1) Then
-            Util.MsgStatus(Status1, "Ingrese un valor en 'Cliente'.", My.Resources.Resources.alert.ToBitmap)
-            Util.MsgStatus(Status1, "Ingrese un valor en 'Cliente'.", My.Resources.Resources.alert.ToBitmap, True)
-            Exit Sub
-        End If
+        'If Not (cmbCliente.SelectedIndex > -1) Then
+        '    Util.MsgStatus(Status1, "Ingrese un valor en 'Cliente'.", My.Resources.Resources.alert.ToBitmap)
+        '    Util.MsgStatus(Status1, "Ingrese un valor en 'Cliente'.", My.Resources.Resources.alert.ToBitmap, True)
+        '    Exit Sub
+        'End If
 
-        If chkRecDescGlobal.Checked = True Then
-            If txtporcrecargo.Text = "" Then
-                Util.MsgStatus(Status1, "Ingrese un valor para el Recargo o Descuento Global.", My.Resources.Resources.alert.ToBitmap)
-                Util.MsgStatus(Status1, "Ingrese un valor para el Recargo o Descuento Global.", My.Resources.Resources.alert.ToBitmap, True)
-                txtporcrecargo.Focus()
-                Exit Sub
-            End If
-        End If
+        'If chkRecDescGlobal.Checked = True Then
+        '    If txtporcrecargo.Text = "" Then
+        '        Util.MsgStatus(Status1, "Ingrese un valor para el Recargo o Descuento Global.", My.Resources.Resources.alert.ToBitmap)
+        '        Util.MsgStatus(Status1, "Ingrese un valor para el Recargo o Descuento Global.", My.Resources.Resources.alert.ToBitmap, True)
+        '        txtporcrecargo.Focus()
+        '        Exit Sub
+        '    End If
+        'End If
 
-        If chkEntrega.Checked = True And cmbEntregaren.Text = "" Then
-            Util.MsgStatus(Status1, "Ingrese un valor para el sitio de Entrega.", My.Resources.Resources.alert.ToBitmap)
-            Util.MsgStatus(Status1, "Ingrese un valor para el sitio de Entrega.", My.Resources.Resources.alert.ToBitmap, True)
-            cmbEntregaren.Focus()
-            Exit Sub
-        End If
+        'If chkEntrega.Checked = True And cmbEntregaren.Text = "" Then
+        '    Util.MsgStatus(Status1, "Ingrese un valor para el sitio de Entrega.", My.Resources.Resources.alert.ToBitmap)
+        '    Util.MsgStatus(Status1, "Ingrese un valor para el sitio de Entrega.", My.Resources.Resources.alert.ToBitmap, True)
+        '    cmbEntregaren.Focus()
+        '    Exit Sub
+        'End If
 
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         'verificar que no hay nada en la grilla sin datos
@@ -1447,35 +1444,35 @@ Public Class frmPresentaciones
 
     End Sub
 
-    Private Sub asignarTags()
-        txtID.Tag = "0"
-        txtCODIGO.Tag = "1"
-        dtpFECHA.Tag = "3"
-        rdVenta.Tag = "4"
-        txtSubtotal.Tag = "6"
-        txtIVA.Tag = "7"
-        txtIvaTotal.Tag = "8"
-        txtTotal.Tag = "9"
-        cmbCliente.Tag = "11"
-        chkRecDescGlobal.Tag = "12"
-        chkRecargo.Tag = "13"
-        txtporcrecargo.Tag = "14"
-        cmbComprador.Tag = "17"
-        chkEntrega.Tag = "18"
-        cmbEntregaren.Tag = "19"
-        cmbVendedor.Tag = "21"
-        txtNotaGestion.Tag = "22"
-        chkNotas.Tag = "23"
-        chkEliminado.Tag = "24"
-        chkCerrar.Tag = "25"
-        rdConsumoInterno.Tag = "26"
+    'Private Sub asignarTags()
+    '    txtID.Tag = "0"
+    '    txtCODIGO.Tag = "1"
+    '    dtpFECHA.Tag = "3"
+    '    rdVenta.Tag = "4"
+    '    txtSubtotal.Tag = "6"
+    '    txtIVA.Tag = "7"
+    '    txtIvaTotal.Tag = "8"
+    '    txtTotal.Tag = "9"
+    '    cmbCliente.Tag = "11"
+    '    chkRecDescGlobal.Tag = "12"
+    '    chkRecargo.Tag = "13"
+    '    txtporcrecargo.Tag = "14"
+    '    cmbComprador.Tag = "17"
+    '    chkEntrega.Tag = "18"
+    '    cmbEntregaren.Tag = "19"
+    '    cmbVendedor.Tag = "21"
+    '    txtNotaGestion.Tag = "22"
+    '    chkNotas.Tag = "23"
+    '    chkEliminado.Tag = "24"
+    '    chkCerrar.Tag = "25"
+    '    rdConsumoInterno.Tag = "26"
 
-        chkFactura.Tag = "29"
-        txtFactura.Tag = "30"
-        chkOC.Tag = "31"
-        txtOC.Tag = "32"
+    '    chkFactura.Tag = "29"
+    '    txtFactura.Tag = "30"
+    '    chkOC.Tag = "31"
+    '    txtOC.Tag = "32"
 
-    End Sub
+    'End Sub
 
     Private Sub validar_NumerosReales2( _
         ByVal sender As Object, _
@@ -1745,53 +1742,53 @@ Public Class frmPresentaciones
         'End With
     End Sub
 
-    Private Sub LlenarcmbClientes()
-        Dim ds_Clientes As Data.DataSet
-        Dim connection As SqlClient.SqlConnection = Nothing
+    'Private Sub LlenarcmbClientes()
+    '    Dim ds_Clientes As Data.DataSet
+    '    Dim connection As SqlClient.SqlConnection = Nothing
 
-        llenandoCombo = True
+    '    llenandoCombo = True
 
-        Try
-            connection = SqlHelper.GetConnection(ConnStringSEI)
-        Catch ex As Exception
-            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            llenandoCombo = False
-            Exit Sub
-        End Try
+    '    Try
+    '        connection = SqlHelper.GetConnection(ConnStringSEI)
+    '    Catch ex As Exception
+    '        MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+    '        llenandoCombo = False
+    '        Exit Sub
+    '    End Try
 
-        Try
-            ds_Clientes = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT id, (nombre + ' ( ' + codigo + ' )') as codigo FROM Clientes WHERE Eliminado = 0 ORDER BY nombre")
-            ds_Clientes.Dispose()
+    '    Try
+    '        ds_Clientes = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT id, (nombre + ' ( ' + codigo + ' )') as codigo FROM Clientes WHERE Eliminado = 0 ORDER BY nombre")
+    '        ds_Clientes.Dispose()
 
-            With cmbCliente
-                .DataSource = ds_Clientes.Tables(0).DefaultView
-                .DisplayMember = "codigo"
-                .ValueMember = "id"
-                .AutoCompleteMode = AutoCompleteMode.Suggest
-                .AutoCompleteSource = AutoCompleteSource.ListItems
-                .TabStop = True
-            End With
+    '        With cmbCliente
+    '            .DataSource = ds_Clientes.Tables(0).DefaultView
+    '            .DisplayMember = "codigo"
+    '            .ValueMember = "id"
+    '            .AutoCompleteMode = AutoCompleteMode.Suggest
+    '            .AutoCompleteSource = AutoCompleteSource.ListItems
+    '            .TabStop = True
+    '        End With
 
-        Catch ex As Exception
-            Dim errMessage As String = ""
-            Dim tempException As Exception = ex
+    '    Catch ex As Exception
+    '        Dim errMessage As String = ""
+    '        Dim tempException As Exception = ex
 
-            llenandoCombo = False
+    '        llenandoCombo = False
 
-            While (Not tempException Is Nothing)
-                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
-                tempException = tempException.InnerException
-            End While
+    '        While (Not tempException Is Nothing)
+    '            errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+    '            tempException = tempException.InnerException
+    '        End While
 
-            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
-              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+    '        MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+    '          + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+    '          "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
-        End Try
+    '    End Try
 
-        llenandoCombo = False
+    '    llenandoCombo = False
 
-    End Sub
+    'End Sub
 
     Private Sub LlenarLista()
         Dim ds_Notas As Data.DataSet
@@ -2005,47 +2002,47 @@ Public Class frmPresentaciones
         Me.grd.Visible = False
     End Sub
 
-    Private Sub LlenarcmbClientes_Comprador()
-        Dim connection As SqlClient.SqlConnection = Nothing
-        Dim ds As Data.DataSet
+    'Private Sub LlenarcmbClientes_Comprador()
+    '    Dim connection As SqlClient.SqlConnection = Nothing
+    '    Dim ds As Data.DataSet
 
-        Try
-            connection = SqlHelper.GetConnection(ConnStringSEI)
-        Catch ex As Exception
-            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
-        End Try
+    '    Try
+    '        connection = SqlHelper.GetConnection(ConnStringSEI)
+    '    Catch ex As Exception
+    '        MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+    '        Exit Sub
+    '    End Try
 
-        Try
+    '    Try
 
-            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT CC.ID as IdComprador, NOMBRE_CONTACTO as Comprador FROM CLIENTES C JOIN CLIENTES_CONTACTO CC ON CC.IDCLIENTE = C.ID WHERE c.eliminado = 0 and cc.ELIMINADO = 0  AND C.ID = " & CType(cmbCliente.SelectedValue, Long))
-            ds.Dispose()
+    '        ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT CC.ID as IdComprador, NOMBRE_CONTACTO as Comprador FROM CLIENTES C JOIN CLIENTES_CONTACTO CC ON CC.IDCLIENTE = C.ID WHERE c.eliminado = 0 and cc.ELIMINADO = 0  AND C.ID = " & CType(cmbCliente.SelectedValue, Long))
+    '        ds.Dispose()
 
-            With cmbComprador
-                .DataSource = ds.Tables(0).DefaultView
-                .DisplayMember = "Comprador"
-                .ValueMember = "IdComprador"
-            End With
+    '        With cmbComprador
+    '            .DataSource = ds.Tables(0).DefaultView
+    '            .DisplayMember = "Comprador"
+    '            .ValueMember = "IdComprador"
+    '        End With
 
-        Catch ex As Exception
-            Dim errMessage As String = ""
-            Dim tempException As Exception = ex
+    '    Catch ex As Exception
+    '        Dim errMessage As String = ""
+    '        Dim tempException As Exception = ex
 
-            While (Not tempException Is Nothing)
-                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
-                tempException = tempException.InnerException
-            End While
+    '        While (Not tempException Is Nothing)
+    '            errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+    '            tempException = tempException.InnerException
+    '        End While
 
-            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
-              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If Not connection Is Nothing Then
-                CType(connection, IDisposable).Dispose()
-            End If
-        End Try
+    '        MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+    '          + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+    '          "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+    '    Finally
+    '        If Not connection Is Nothing Then
+    '            CType(connection, IDisposable).Dispose()
+    '        End If
+    '    End Try
 
-    End Sub
+    'End Sub
 
     'Private Sub LlenarcmbClientes_Usuario()
     '    Dim connection As SqlClient.SqlConnection = Nothing
@@ -2089,47 +2086,47 @@ Public Class frmPresentaciones
 
     'End Sub
 
-    Private Sub LlenarcmbEntregar()
-        Dim connection As SqlClient.SqlConnection = Nothing
-        Dim ds As Data.DataSet
+    'Private Sub LlenarcmbEntregar()
+    '    Dim connection As SqlClient.SqlConnection = Nothing
+    '    Dim ds As Data.DataSet
 
-        Try
-            connection = SqlHelper.GetConnection(ConnStringSEI)
-        Catch ex As Exception
-            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
-        End Try
+    '    Try
+    '        connection = SqlHelper.GetConnection(ConnStringSEI)
+    '    Catch ex As Exception
+    '        MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+    '        Exit Sub
+    '    End Try
 
-        Try
+    '    Try
 
-            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT Distinct SitioEntrega FROM Consumos ORDER BY SITIOENTREGA")
-            ds.Dispose()
+    '        ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT Distinct SitioEntrega FROM Consumos ORDER BY SITIOENTREGA")
+    '        ds.Dispose()
 
-            With cmbEntregaren
-                .DataSource = ds.Tables(0).DefaultView
-                .DisplayMember = "SitioEntrega"
-                '.ValueMember = "IdUsuario"
-            End With
+    '        With cmbEntregaren
+    '            .DataSource = ds.Tables(0).DefaultView
+    '            .DisplayMember = "SitioEntrega"
+    '            '.ValueMember = "IdUsuario"
+    '        End With
 
-        Catch ex As Exception
-            Dim errMessage As String = ""
-            Dim tempException As Exception = ex
+    '    Catch ex As Exception
+    '        Dim errMessage As String = ""
+    '        Dim tempException As Exception = ex
 
-            While (Not tempException Is Nothing)
-                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
-                tempException = tempException.InnerException
-            End While
+    '        While (Not tempException Is Nothing)
+    '            errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+    '            tempException = tempException.InnerException
+    '        End While
 
-            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
-              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If Not connection Is Nothing Then
-                CType(connection, IDisposable).Dispose()
-            End If
-        End Try
+    '        MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+    '          + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+    '          "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+    '    Finally
+    '        If Not connection Is Nothing Then
+    '            CType(connection, IDisposable).Dispose()
+    '        End If
+    '    End Try
 
-    End Sub
+    'End Sub
 
     Private Sub BuscarPorcentajeRecargo()
         Dim connection As SqlClient.SqlConnection = Nothing
@@ -2144,10 +2141,10 @@ Public Class frmPresentaciones
 
         Try
 
-            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT porcrecargo FROM CLIENTES C WHERE id = " & CType(cmbCliente.SelectedValue, Long))
-            ds.Dispose()
+            'ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT porcrecargo FROM CLIENTES C WHERE id = " & CType(cmbCliente.SelectedValue, Long))
+            'ds.Dispose()
 
-            txtporcrecargo.Text = ds.Tables(0).Rows(0).Item(0).ToString
+            'txtporcrecargo.Text = ds.Tables(0).Rows(0).Item(0).ToString
 
         Catch ex As Exception
             Dim errMessage As String = ""
@@ -2175,7 +2172,7 @@ Public Class frmPresentaciones
         Dim cnn As New SqlConnection(ConnStringSEI)
         Dim Rpt As New frmReportes
 
-        Rpt.MostrarReporte_VentaConsumo(txtCODIGO.Text, False, Rpt)
+        'Rpt.MostrarReporte_VentaConsumo(txtCODIGO.Text, False, Rpt)
 
         cnn = Nothing
 
@@ -2207,67 +2204,67 @@ Public Class frmPresentaciones
     Private Sub Calcular_RecargoDescuento()
         If band = 1 Then
             Dim i As Integer
-            If txtporcrecargo.Text <> "" And txtporcrecargo.Text <> "0" Then
-                Dim montorecargo As Double ', montoganancia As Double
+            'If txtporcrecargo.Text <> "" And txtporcrecargo.Text <> "0" Then
+            '    Dim montorecargo As Double ', montoganancia As Double
 
-                txtSubtotal.Text = "0"
+            '    txtSubtotal.Text = "0"
 
-                If grdItems.Rows.Count > 1 Then
-                    Band_RecDesc = True
-                    For i = 0 To grdItems.Rows.Count - 2
-                        If chkDesc.Checked = True Then
-                            montorecargo = Math.Round(grdItems.Rows(i).Cells(ColumnasDelGridItems.preciovtaorig).Value / (1 + (CDbl(txtporcrecargo.Text) / 100)), 2)
-                            grdItems.Rows(i).Cells(ColumnasDelGridItems.RecDesc).Value = 1 'True
-                        Else
-                            If chkRecargo.Checked = True Then
-                                montorecargo = Math.Round(grdItems.Rows(i).Cells(ColumnasDelGridItems.preciovtaorig).Value * (1 + (CDbl(txtporcrecargo.Text) / 100)), 2)
-                                grdItems.Rows(i).Cells(ColumnasDelGridItems.RecDesc).Value = 0 'False
-                            End If
-                        End If
+            '    If grdItems.Rows.Count > 1 Then
+            '        Band_RecDesc = True
+            '        For i = 0 To grdItems.Rows.Count - 2
+            '            If chkDesc.Checked = True Then
+            '                montorecargo = Math.Round(grdItems.Rows(i).Cells(ColumnasDelGridItems.preciovtaorig).Value / (1 + (CDbl(txtporcrecargo.Text) / 100)), 2)
+            '                grdItems.Rows(i).Cells(ColumnasDelGridItems.RecDesc).Value = 1 'True
+            '            Else
+            '                If chkRecargo.Checked = True Then
+            '                    montorecargo = Math.Round(grdItems.Rows(i).Cells(ColumnasDelGridItems.preciovtaorig).Value * (1 + (CDbl(txtporcrecargo.Text) / 100)), 2)
+            '                    grdItems.Rows(i).Cells(ColumnasDelGridItems.RecDesc).Value = 0 'False
+            '                End If
+            '            End If
 
-                        grdItems.Rows(i).Cells(ColumnasDelGridItems.PrecioVta).Value = montorecargo 'FormatNumber(grdItems.Rows(i).Cells(ColumnasDelGridItems.preciovtaorig).Value + montorecargo, 2)
-                        grdItems.Rows(i).Cells(ColumnasDelGridItems.PorcRecDesc).Value = txtporcrecargo.Text
-                        grdItems.Rows(i).Cells(ColumnasDelGridItems.SubTotalProd).Value = Math.Round(grdItems.Rows(i).Cells(ColumnasDelGridItems.Qty).Value * grdItems.Rows(i).Cells(ColumnasDelGridItems.PrecioVta).Value, 2)
+            '            grdItems.Rows(i).Cells(ColumnasDelGridItems.PrecioVta).Value = montorecargo 'FormatNumber(grdItems.Rows(i).Cells(ColumnasDelGridItems.preciovtaorig).Value + montorecargo, 2)
+            '            grdItems.Rows(i).Cells(ColumnasDelGridItems.PorcRecDesc).Value = txtporcrecargo.Text
+            '            grdItems.Rows(i).Cells(ColumnasDelGridItems.SubTotalProd).Value = Math.Round(grdItems.Rows(i).Cells(ColumnasDelGridItems.Qty).Value * grdItems.Rows(i).Cells(ColumnasDelGridItems.PrecioVta).Value, 2)
 
-                        txtSubtotal.Text = CDbl(txtSubtotal.Text) + grdItems.Rows(i).Cells(ColumnasDelGridItems.SubTotalProd).Value
+            '            txtSubtotal.Text = CDbl(txtSubtotal.Text) + grdItems.Rows(i).Cells(ColumnasDelGridItems.SubTotalProd).Value
 
-                    Next
-                    Band_RecDesc = False
-                End If
-            Else
-                txtSubtotal.Text = "0"
+            '        Next
+            '        Band_RecDesc = False
+            '    End If
+            'Else
+            txtSubtotal.Text = "0"
 
-                If grdItems.Rows.Count > 1 Then
-                    Band_RecDesc = True
+            If grdItems.Rows.Count > 1 Then
+                Band_RecDesc = True
 
-                    For i = 0 To grdItems.Rows.Count - 2
-                        grdItems.Rows(i).Cells(ColumnasDelGridItems.Ganancia).Value = grdItems.Rows(i).Cells(ColumnasDelGridItems.gananciaorig).Value * 100
-                        grdItems.Rows(i).Cells(ColumnasDelGridItems.PrecioVta).Value = grdItems.Rows(i).Cells(ColumnasDelGridItems.preciovtaorig).Value
-                        grdItems.Rows(i).Cells(ColumnasDelGridItems.RecDesc).Value = 0
-                        grdItems.Rows(i).Cells(ColumnasDelGridItems.PorcRecDesc).Value = 0
+                For i = 0 To grdItems.Rows.Count - 2
+                    grdItems.Rows(i).Cells(ColumnasDelGridItems.Ganancia).Value = grdItems.Rows(i).Cells(ColumnasDelGridItems.gananciaorig).Value * 100
+                    grdItems.Rows(i).Cells(ColumnasDelGridItems.PrecioVta).Value = grdItems.Rows(i).Cells(ColumnasDelGridItems.preciovtaorig).Value
+                    grdItems.Rows(i).Cells(ColumnasDelGridItems.RecDesc).Value = 0
+                    grdItems.Rows(i).Cells(ColumnasDelGridItems.PorcRecDesc).Value = 0
 
-                        Try
-                            grdItems.Rows(i).Cells(ColumnasDelGridItems.SubTotalProd).Value = Math.Round(CDbl(grdItems.Rows(i).Cells(ColumnasDelGridItems.Qty).Value) * CDbl(grdItems.Rows(i).Cells(ColumnasDelGridItems.PrecioVta).Value), 2)
-                        Catch ex As Exception
-                            ' MsgBox(Err.Description)
-                        End Try
+                    Try
+                        grdItems.Rows(i).Cells(ColumnasDelGridItems.SubTotalProd).Value = Math.Round(CDbl(grdItems.Rows(i).Cells(ColumnasDelGridItems.Qty).Value) * CDbl(grdItems.Rows(i).Cells(ColumnasDelGridItems.PrecioVta).Value), 2)
+                    Catch ex As Exception
+                        ' MsgBox(Err.Description)
+                    End Try
 
-                        Try
-                            txtSubtotal.Text = CDbl(txtSubtotal.Text) + CDbl(grdItems.Rows(i).Cells(ColumnasDelGridItems.SubTotalProd).Value)
-                        Catch ex As Exception
-                            'Band_RecDesc = False
-                        End Try
+                    Try
+                        txtSubtotal.Text = CDbl(txtSubtotal.Text) + CDbl(grdItems.Rows(i).Cells(ColumnasDelGridItems.SubTotalProd).Value)
+                    Catch ex As Exception
+                        'Band_RecDesc = False
+                    End Try
 
-                    Next
+                Next
 
-                    Band_RecDesc = False
+                Band_RecDesc = False
 
-                End If
             End If
-
-            txtIvaTotal.Text = Math.Round(CDbl(txtSubtotal.Text) * (CDbl(txtIVA.Text) / 100), 2)
-            txtTotal.Text = CDbl(txtSubtotal.Text) + CDbl(txtIvaTotal.Text)
         End If
+
+        'txtIvaTotal.Text = Math.Round(CDbl(txtSubtotal.Text) * (CDbl(txtIVA.Text) / 100), 2)
+        txtTotal.Text = CDbl(txtSubtotal.Text) + CDbl(txtIvaTotal.Text)
+        ' End If
     End Sub
 
 #End Region
@@ -2312,10 +2309,10 @@ Public Class frmPresentaciones
                         Exit Function
                     End If
 
-                    If param_IVA.Value <> FormatNumber(txtIVA.Text, 2) Then
-                        ControlarVersion = 3
-                        Exit Function
-                    End If
+                    'If param_IVA.Value <> FormatNumber(txtIVA.Text, 2) Then
+                    '    ControlarVersion = 3
+                    '    Exit Function
+                    'End If
 
                 Catch ex As Exception
                     Throw ex
@@ -2482,11 +2479,11 @@ Public Class frmPresentaciones
                     param_id.Direction = ParameterDirection.Input
                 End If
 
-                Dim param_fecha As New SqlClient.SqlParameter
-                param_fecha.ParameterName = "@fecha"
-                param_fecha.SqlDbType = SqlDbType.DateTime
-                param_fecha.Value = dtpFECHA.Value
-                param_fecha.Direction = ParameterDirection.Input
+                'Dim param_fecha As New SqlClient.SqlParameter
+                'param_fecha.ParameterName = "@fecha"
+                'param_fecha.SqlDbType = SqlDbType.DateTime
+                'param_fecha.Value = dtpFECHA.Value
+                'param_fecha.Direction = ParameterDirection.Input
 
                 Dim param_codigo As New SqlClient.SqlParameter
                 param_codigo.ParameterName = "@codigo"
@@ -2498,36 +2495,36 @@ Public Class frmPresentaciones
                     param_codigo.Direction = ParameterDirection.Input
                 End If
 
-                Dim param_idCliente As New SqlClient.SqlParameter
-                param_idCliente.ParameterName = "@idCliente"
-                param_idCliente.SqlDbType = SqlDbType.BigInt
-                param_idCliente.Value = cmbCliente.SelectedValue
-                param_idCliente.Direction = ParameterDirection.Input
+                'Dim param_idCliente As New SqlClient.SqlParameter
+                'param_idCliente.ParameterName = "@idCliente"
+                'param_idCliente.SqlDbType = SqlDbType.BigInt
+                'param_idCliente.Value = cmbCliente.SelectedValue
+                'param_idCliente.Direction = ParameterDirection.Input
 
-                Dim param_Comprador As New SqlClient.SqlParameter
-                param_Comprador.ParameterName = "@Comprador"
-                param_Comprador.SqlDbType = SqlDbType.Bit
-                param_Comprador.Value = chkRetiradopor.Checked
-                param_Comprador.Direction = ParameterDirection.Input
+                'Dim param_Comprador As New SqlClient.SqlParameter
+                'param_Comprador.ParameterName = "@Comprador"
+                'param_Comprador.SqlDbType = SqlDbType.Bit
+                'param_Comprador.Value = chkRetiradopor.Checked
+                'param_Comprador.Direction = ParameterDirection.Input
 
-                Dim param_idComprador As New SqlClient.SqlParameter
-                param_idComprador.ParameterName = "@idContacto_Comprador"
-                param_idComprador.SqlDbType = SqlDbType.BigInt
-                param_idComprador.Value = IIf(chkRetiradopor.Checked = True, cmbComprador.SelectedValue, 0)
-                param_idComprador.Direction = ParameterDirection.Input
+                'Dim param_idComprador As New SqlClient.SqlParameter
+                'param_idComprador.ParameterName = "@idContacto_Comprador"
+                'param_idComprador.SqlDbType = SqlDbType.BigInt
+                'param_idComprador.Value = IIf(chkRetiradopor.Checked = True, cmbComprador.SelectedValue, 0)
+                'param_idComprador.Direction = ParameterDirection.Input
 
-                Dim param_Entregaren As New SqlClient.SqlParameter
-                param_Entregaren.ParameterName = "@Entregaren"
-                param_Entregaren.SqlDbType = SqlDbType.Bit
-                param_Entregaren.Value = chkEntrega.Checked
-                param_Entregaren.Direction = ParameterDirection.Input
+                'Dim param_Entregaren As New SqlClient.SqlParameter
+                'param_Entregaren.ParameterName = "@Entregaren"
+                'param_Entregaren.SqlDbType = SqlDbType.Bit
+                'param_Entregaren.Value = chkEntrega.Checked
+                'param_Entregaren.Direction = ParameterDirection.Input
 
-                Dim param_sitioentrega As New SqlClient.SqlParameter
-                param_sitioentrega.ParameterName = "@sitioentrega"
-                param_sitioentrega.SqlDbType = SqlDbType.VarChar
-                param_sitioentrega.Size = 25
-                param_sitioentrega.Value = cmbEntregaren.Text
-                param_sitioentrega.Direction = ParameterDirection.Input
+                'Dim param_sitioentrega As New SqlClient.SqlParameter
+                'param_sitioentrega.ParameterName = "@sitioentrega"
+                'param_sitioentrega.SqlDbType = SqlDbType.VarChar
+                'param_sitioentrega.Size = 25
+                'param_sitioentrega.Value = cmbEntregaren.Text
+                'param_sitioentrega.Direction = ParameterDirection.Input
 
                 'Dim param_incluyeremito As New SqlClient.SqlParameter
                 'param_incluyeremito.ParameterName = "@incluyeremito"
@@ -2547,22 +2544,22 @@ Public Class frmPresentaciones
                 param_condicionVta.ParameterName = "@CondicionVta"
                 param_condicionVta.SqlDbType = SqlDbType.VarChar
                 param_condicionVta.Size = 20
-                If ChkPago.Checked = True Then
-                    param_condicionVta.Value = "Contado/Efectivo"
-                Else
-                    param_condicionVta.Value = DBNull.Value
-                End If
+                'If ChkPago.Checked = True Then
+                '    param_condicionVta.Value = "Contado/Efectivo"
+                'Else
+                '    param_condicionVta.Value = DBNull.Value
+                'End If
                 param_condicionVta.Direction = ParameterDirection.Input
 
                 Dim param_condicionIVA As New SqlClient.SqlParameter
                 param_condicionIVA.ParameterName = "@CondicionIVA"
                 param_condicionIVA.SqlDbType = SqlDbType.VarChar
                 param_condicionIVA.Size = 25
-                If ChkPago.Checked = True Then
-                    param_condicionIVA.Value = cmbCondIVA.Text
-                Else
-                    param_condicionIVA.Value = DBNull.Value
-                End If
+                'If ChkPago.Checked = True Then
+                '    param_condicionIVA.Value = cmbCondIVA.Text
+                'Else
+                '    param_condicionIVA.Value = DBNull.Value
+                'End If
                 param_condicionIVA.Direction = ParameterDirection.Input
 
                 'Dim param_incluyefactura As New SqlClient.SqlParameter
@@ -2582,18 +2579,18 @@ Public Class frmPresentaciones
                 'param_factura.Value = txtFactura.Text
                 'param_factura.Direction = ParameterDirection.Input
 
-                Dim param_oc As New SqlClient.SqlParameter
-                param_oc.ParameterName = "@oc"
-                param_oc.SqlDbType = SqlDbType.Bit
-                param_oc.Value = chkOC.Checked
-                param_oc.Direction = ParameterDirection.Input
+                'Dim param_oc As New SqlClient.SqlParameter
+                'param_oc.ParameterName = "@oc"
+                'param_oc.SqlDbType = SqlDbType.Bit
+                'param_oc.Value = chkOC.Checked
+                'param_oc.Direction = ParameterDirection.Input
 
-                Dim param_nrooc As New SqlClient.SqlParameter
-                param_nrooc.ParameterName = "@nrooc"
-                param_nrooc.SqlDbType = SqlDbType.VarChar
-                param_nrooc.Size = 50
-                param_nrooc.Value = txtOC.Text
-                param_nrooc.Direction = ParameterDirection.Input
+                'Dim param_nrooc As New SqlClient.SqlParameter
+                'param_nrooc.ParameterName = "@nrooc"
+                'param_nrooc.SqlDbType = SqlDbType.VarChar
+                'param_nrooc.Size = 50
+                'param_nrooc.Value = txtOC.Text
+                'param_nrooc.Direction = ParameterDirection.Input
 
                 Dim param_subtotal As New SqlClient.SqlParameter
                 param_subtotal.ParameterName = "@subtotal"
@@ -2603,13 +2600,13 @@ Public Class frmPresentaciones
                 param_subtotal.Value = CType(txtSubtotal.Text, Double)
                 param_subtotal.Direction = ParameterDirection.Input
 
-                Dim param_iva As New SqlClient.SqlParameter
-                param_iva.ParameterName = "@iva"
-                param_iva.SqlDbType = SqlDbType.Decimal
-                param_iva.Precision = 18
-                param_iva.Scale = 2
-                param_iva.Value = txtIVA.Text
-                param_iva.Direction = ParameterDirection.Input
+                'Dim param_iva As New SqlClient.SqlParameter
+                'param_iva.ParameterName = "@iva"
+                'param_iva.SqlDbType = SqlDbType.Decimal
+                'param_iva.Precision = 18
+                'param_iva.Scale = 2
+                'param_iva.Value = txtIVA.Text
+                'param_iva.Direction = ParameterDirection.Input
 
                 Dim param_montoiva As New SqlClient.SqlParameter
                 param_montoiva.ParameterName = "@Montoiva"
@@ -2627,24 +2624,24 @@ Public Class frmPresentaciones
                 param_totalconsumo.Value = txtTotal.Text
                 param_totalconsumo.Direction = ParameterDirection.Input
 
-                Dim param_nota As New SqlClient.SqlParameter
-                param_nota.ParameterName = "@nota"
-                param_nota.SqlDbType = SqlDbType.VarChar
-                param_nota.Size = 100
-                param_nota.Value = txtNotaGestion.Text
-                param_nota.Direction = ParameterDirection.Input
+                'Dim param_nota As New SqlClient.SqlParameter
+                'param_nota.ParameterName = "@nota"
+                'param_nota.SqlDbType = SqlDbType.VarChar
+                'param_nota.Size = 100
+                'param_nota.Value = txtNotaGestion.Text
+                'param_nota.Direction = ParameterDirection.Input
 
-                Dim param_venta As New SqlClient.SqlParameter
-                param_venta.ParameterName = "@venta"
-                param_venta.SqlDbType = SqlDbType.Bit
-                param_venta.Value = rdVenta.Checked
-                param_venta.Direction = ParameterDirection.Input
+                'Dim param_venta As New SqlClient.SqlParameter
+                'param_venta.ParameterName = "@venta"
+                'param_venta.SqlDbType = SqlDbType.Bit
+                'param_venta.Value = rdVenta.Checked
+                'param_venta.Direction = ParameterDirection.Input
 
-                Dim param_ctacte As New SqlClient.SqlParameter
-                param_ctacte.ParameterName = "@ctacte"
-                param_ctacte.SqlDbType = SqlDbType.Bit
-                param_ctacte.Value = chkCerrar.Checked
-                param_ctacte.Direction = ParameterDirection.Input
+                'Dim param_ctacte As New SqlClient.SqlParameter
+                'param_ctacte.ParameterName = "@ctacte"
+                'param_ctacte.SqlDbType = SqlDbType.Bit
+                'param_ctacte.Value = chkCerrar.Checked
+                'param_ctacte.Direction = ParameterDirection.Input
 
                 'Dim param_facturado As New SqlClient.SqlParameter
                 'param_facturado.ParameterName = "@facturado"
@@ -2652,49 +2649,49 @@ Public Class frmPresentaciones
                 'param_facturado.Value = ChkPago.Checked
                 'param_facturado.Direction = ParameterDirection.Input
 
-                Dim param_idvendedor As New SqlClient.SqlParameter
-                param_idvendedor.ParameterName = "@uservendedor"
-                param_idvendedor.SqlDbType = SqlDbType.BigInt
-                param_idvendedor.Value = cmbVendedor.SelectedValue
-                param_idvendedor.Direction = ParameterDirection.Input
+                'Dim param_idvendedor As New SqlClient.SqlParameter
+                'param_idvendedor.ParameterName = "@uservendedor"
+                'param_idvendedor.SqlDbType = SqlDbType.BigInt
+                'param_idvendedor.Value = cmbVendedor.SelectedValue
+                'param_idvendedor.Direction = ParameterDirection.Input
 
-                Dim param_RecDescGlobal As New SqlClient.SqlParameter
-                param_RecDescGlobal.ParameterName = "@RecDescGobal"
-                param_RecDescGlobal.SqlDbType = SqlDbType.Bit
-                param_RecDescGlobal.Value = chkRecDescGlobal.Checked
-                param_RecDescGlobal.Direction = ParameterDirection.Input
+                'Dim param_RecDescGlobal As New SqlClient.SqlParameter
+                'param_RecDescGlobal.ParameterName = "@RecDescGobal"
+                'param_RecDescGlobal.SqlDbType = SqlDbType.Bit
+                'param_RecDescGlobal.Value = chkRecDescGlobal.Checked
+                'param_RecDescGlobal.Direction = ParameterDirection.Input
 
-                Dim param_RecargoDesc As New SqlClient.SqlParameter
-                param_RecargoDesc.ParameterName = "@RecargoDesc"
-                param_RecargoDesc.SqlDbType = SqlDbType.Bit
-                If chkRecDescGlobal.Checked = True Then
-                    param_RecargoDesc.Value = Not chkRecargo.Checked
-                End If
-                param_RecargoDesc.Direction = ParameterDirection.Input
+                'Dim param_RecargoDesc As New SqlClient.SqlParameter
+                'param_RecargoDesc.ParameterName = "@RecargoDesc"
+                'param_RecargoDesc.SqlDbType = SqlDbType.Bit
+                'If chkRecDescGlobal.Checked = True Then
+                '    param_RecargoDesc.Value = Not chkRecargo.Checked
+                'End If
+                'param_RecargoDesc.Direction = ParameterDirection.Input
 
-                Dim param_porcrecargo As New SqlClient.SqlParameter
-                param_porcrecargo.ParameterName = "@porcrecargo"
-                param_porcrecargo.SqlDbType = SqlDbType.Decimal
-                param_porcrecargo.Precision = 18
-                param_porcrecargo.Scale = 2
-                param_porcrecargo.Value = IIf(txtporcrecargo.Text = "", 0, txtporcrecargo.Text)
-                param_porcrecargo.Direction = ParameterDirection.Input
+                'Dim param_porcrecargo As New SqlClient.SqlParameter
+                'param_porcrecargo.ParameterName = "@porcrecargo"
+                'param_porcrecargo.SqlDbType = SqlDbType.Decimal
+                'param_porcrecargo.Precision = 18
+                'param_porcrecargo.Scale = 2
+                'param_porcrecargo.Value = IIf(txtporcrecargo.Text = "", 0, txtporcrecargo.Text)
+                'param_porcrecargo.Direction = ParameterDirection.Input
 
-                Dim param_incluyenotas As New SqlClient.SqlParameter
-                param_incluyenotas.ParameterName = "@incluyenotas"
-                param_incluyenotas.SqlDbType = SqlDbType.Bit
-                param_incluyenotas.Value = chkNotas.Checked
-                param_incluyenotas.Direction = ParameterDirection.Input
+                'Dim param_incluyenotas As New SqlClient.SqlParameter
+                'param_incluyenotas.ParameterName = "@incluyenotas"
+                'param_incluyenotas.SqlDbType = SqlDbType.Bit
+                'param_incluyenotas.Value = chkNotas.Checked
+                'param_incluyenotas.Direction = ParameterDirection.Input
 
-                Dim param_cerrado As New SqlClient.SqlParameter
-                param_cerrado.ParameterName = "@cerrado"
-                param_cerrado.SqlDbType = SqlDbType.Bit
-                If chkCerrar.Checked = True Or ChkPago.Checked = True Then
-                    param_cerrado.Value = chkCerrar.Checked
-                Else
-                    param_cerrado.Value = False
-                End If
-                param_cerrado.Direction = ParameterDirection.Input
+                'Dim param_cerrado As New SqlClient.SqlParameter
+                'param_cerrado.ParameterName = "@cerrado"
+                'param_cerrado.SqlDbType = SqlDbType.Bit
+                'If chkCerrar.Checked = True Or ChkPago.Checked = True Then
+                '    param_cerrado.Value = chkCerrar.Checked
+                'Else
+                '    param_cerrado.Value = False
+                'End If
+                ' param_cerrado.Direction = ParameterDirection.Input
 
                 Dim param_useradd As New SqlClient.SqlParameter
                 If bolModo = True Then
@@ -2715,27 +2712,19 @@ Public Class frmPresentaciones
                 Try
                     If bolModo = True Then
                         SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "sp_Consumos_Insert", _
-                                            param_id, param_fecha, param_codigo, param_idCliente, param_Comprador, _
-                                            param_idComprador, param_Entregaren, param_sitioentrega, _
-                                            param_subtotal, param_iva, param_montoiva, param_totalconsumo, _
-                                            param_oc, param_nrooc, _
-                                            param_nota, param_venta, param_ctacte, param_idvendedor, _
-                                            param_RecDescGlobal, param_RecargoDesc, param_porcrecargo, param_incluyenotas, _
-                                            param_cerrado, param_condicionIVA, param_condicionVta, param_useradd, param_res)
+                                            param_id, _
+                                            param_subtotal, param_montoiva, param_totalconsumo, _
+                                             param_condicionIVA, param_condicionVta, param_useradd, param_res)
 
 
                         txtID.Text = param_id.Value
-                        txtCODIGO.Text = param_codigo.Value
+                        'txtCODIGO.Text = param_codigo.Value
 
                     Else
                         SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "sp_Consumos_Update", _
-                                           param_id, param_fecha, param_codigo, param_idCliente, param_Comprador, _
-                                            param_idComprador, param_Entregaren, param_sitioentrega, _
-                                            param_subtotal, param_iva, param_montoiva, param_totalconsumo, _
-                                            param_oc, param_nrooc, _
-                                            param_nota, param_venta, param_ctacte, param_idvendedor, _
-                                            param_RecDescGlobal, param_RecargoDesc, param_porcrecargo, param_incluyenotas, _
-                                            param_cerrado, param_condicionIVA, param_condicionVta, param_useradd, param_res)
+                                           param_id, param_codigo, _
+                                            param_subtotal, param_montoiva, param_totalconsumo, _
+                                             param_condicionIVA, param_condicionVta, param_useradd, param_res)
 
                     End If
 
@@ -2879,33 +2868,33 @@ Public Class frmPresentaciones
                     Dim param_RecargoDesc As New SqlClient.SqlParameter
                     param_RecargoDesc.ParameterName = "@RecargoDesc_Det"
                     param_RecargoDesc.SqlDbType = SqlDbType.Bit
-                    If chkRecDescGlobal.Checked = True Then
-                        If txtporcrecargo.Text = "" Then
-                            txtporcrecargo.Text = 0
-                        End If
+                    'If chkRecDescGlobal.Checked = True Then
+                    '    If txtporcrecargo.Text = "" Then
+                    '        txtporcrecargo.Text = 0
+                    '    End If
 
-                        If chkRecargo.Checked = True Then
-                            param_RecargoDesc.Value = False
-                        Else
-                            If chkDesc.Checked = True Then
-                                param_RecargoDesc.Value = True
-                            End If
-                        End If
+                    '    If chkRecargo.Checked = True Then
+                    '        param_RecargoDesc.Value = False
+                    '    Else
+                    '        If chkDesc.Checked = True Then
+                    '            param_RecargoDesc.Value = True
+                    '        End If
+                    '    End If
 
-                        grdItems.Rows(i).Cells(ColumnasDelGridItems.RecDesc).Value = param_RecargoDesc.Value
+                    '    grdItems.Rows(i).Cells(ColumnasDelGridItems.RecDesc).Value = param_RecargoDesc.Value
 
+                    'Else
+                    If grdItems.Rows(i).Cells(ColumnasDelGridItems.RecDesc).Value Is DBNull.Value Then
+                        param_RecargoDesc.Value = False
                     Else
-                        If grdItems.Rows(i).Cells(ColumnasDelGridItems.RecDesc).Value Is DBNull.Value Then
+                        If (grdItems.Rows(i).Cells(ColumnasDelGridItems.RecDesc).Value = False) Then
                             param_RecargoDesc.Value = False
                         Else
-                            If (grdItems.Rows(i).Cells(ColumnasDelGridItems.RecDesc).Value = False) Then
-                                param_RecargoDesc.Value = False
-                            Else
-                                param_RecargoDesc.Value = True
-                            End If
+                            param_RecargoDesc.Value = True
                         End If
-                        grdItems.Rows(i).Cells(ColumnasDelGridItems.RecDesc).Value = param_RecargoDesc.Value
                     End If
+                    grdItems.Rows(i).Cells(ColumnasDelGridItems.RecDesc).Value = param_RecargoDesc.Value
+                    'End If
 
                     param_RecargoDesc.Direction = ParameterDirection.Input
 
@@ -2922,35 +2911,35 @@ Public Class frmPresentaciones
                     param_preciovta.SqlDbType = SqlDbType.Decimal
                     param_preciovta.Precision = 18
                     param_preciovta.Scale = 2
-                    If chkRecDescGlobal.Checked = True Then
-                        If txtporcrecargo.Text = "" Then
-                            txtporcrecargo.Text = 0
-                        End If
+                    'If chkRecDescGlobal.Checked = True Then
+                    '    If txtporcrecargo.Text = "" Then
+                    '        txtporcrecargo.Text = 0
+                    '    End If
 
-                        grdItems.Rows(i).Cells(ColumnasDelGridItems.RecDesc).Value = Not chkRecargo.Checked
-                        grdItems.Rows(i).Cells(ColumnasDelGridItems.PorcRecDesc).Value = txtporcrecargo.Text
+                    '    grdItems.Rows(i).Cells(ColumnasDelGridItems.RecDesc).Value = Not chkRecargo.Checked
+                    '    grdItems.Rows(i).Cells(ColumnasDelGridItems.PorcRecDesc).Value = txtporcrecargo.Text
 
-                        If chkRecargo.Checked = True Then
-                            param_preciovta.Value = Math.Round(CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.preciovtaorig).Value, Double) * (1 + (grdItems.Rows(i).Cells(ColumnasDelGridItems.PorcRecDesc).Value / 100)), 2)
-                        Else
-                            param_preciovta.Value = Math.Round(CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.preciovtaorig).Value, Double) / (1 + (grdItems.Rows(i).Cells(ColumnasDelGridItems.PorcRecDesc).Value / 100)), 2)
-                        End If
-                        grdItems.Rows(i).Cells(ColumnasDelGridItems.PrecioVta).Value = param_preciovta.Value
-                    Else
+                    '    If chkRecargo.Checked = True Then
+                    '        param_preciovta.Value = Math.Round(CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.preciovtaorig).Value, Double) * (1 + (grdItems.Rows(i).Cells(ColumnasDelGridItems.PorcRecDesc).Value / 100)), 2)
+                    '    Else
+                    '        param_preciovta.Value = Math.Round(CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.preciovtaorig).Value, Double) / (1 + (grdItems.Rows(i).Cells(ColumnasDelGridItems.PorcRecDesc).Value / 100)), 2)
+                    '    End If
+                    '    grdItems.Rows(i).Cells(ColumnasDelGridItems.PrecioVta).Value = param_preciovta.Value
+                    'Else
 
-                        If (grdItems.Rows(i).Cells(ColumnasDelGridItems.RecDesc).Value Is DBNull.Value) Then
-                            param_preciovta.Value = Math.Round(CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.preciovtaorig).Value, Double) * (1 + (grdItems.Rows(i).Cells(ColumnasDelGridItems.PorcRecDesc).Value / 100)), 2)
-                        Else
-                            If (grdItems.Rows(i).Cells(ColumnasDelGridItems.RecDesc).Value = False) Then
-                                param_preciovta.Value = Math.Round(CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.preciovtaorig).Value, Double) * (1 + (grdItems.Rows(i).Cells(ColumnasDelGridItems.PorcRecDesc).Value / 100)), 2)
-                            Else
-                                param_preciovta.Value = Math.Round(CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.preciovtaorig).Value, Double) / (1 + (grdItems.Rows(i).Cells(ColumnasDelGridItems.PorcRecDesc).Value / 100)), 2)
-                            End If
-                        End If
-                        grdItems.Rows(i).Cells(ColumnasDelGridItems.PrecioVta).Value = param_preciovta.Value 'CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.preciovtaorig).Value, Double) * (1 + (grdItems.Rows(i).Cells(ColumnasDelGridItems.PorcRecDesc).Value / 100))
-                        'End If
-                        'End If
-                    End If
+                    '    If (grdItems.Rows(i).Cells(ColumnasDelGridItems.RecDesc).Value Is DBNull.Value) Then
+                    '        param_preciovta.Value = Math.Round(CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.preciovtaorig).Value, Double) * (1 + (grdItems.Rows(i).Cells(ColumnasDelGridItems.PorcRecDesc).Value / 100)), 2)
+                    '    Else
+                    '        If (grdItems.Rows(i).Cells(ColumnasDelGridItems.RecDesc).Value = False) Then
+                    '            param_preciovta.Value = Math.Round(CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.preciovtaorig).Value, Double) * (1 + (grdItems.Rows(i).Cells(ColumnasDelGridItems.PorcRecDesc).Value / 100)), 2)
+                    '        Else
+                    '            param_preciovta.Value = Math.Round(CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.preciovtaorig).Value, Double) / (1 + (grdItems.Rows(i).Cells(ColumnasDelGridItems.PorcRecDesc).Value / 100)), 2)
+                    '        End If
+                    '    End If
+                    '    grdItems.Rows(i).Cells(ColumnasDelGridItems.PrecioVta).Value = param_preciovta.Value 'CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.preciovtaorig).Value, Double) * (1 + (grdItems.Rows(i).Cells(ColumnasDelGridItems.PorcRecDesc).Value / 100))
+                    '    'End If
+                    '    'End If
+                    'End If
                     param_preciovta.Direction = ParameterDirection.Input
 
                     Dim param_preciovtaorig As New SqlClient.SqlParameter
@@ -3296,31 +3285,31 @@ Public Class frmPresentaciones
                 param_codigo.Value = DBNull.Value
                 param_codigo.Direction = ParameterDirection.InputOutput
 
-                Dim param_nrofactura As New SqlClient.SqlParameter
-                param_nrofactura.ParameterName = "@nrofactura"
-                param_nrofactura.SqlDbType = SqlDbType.BigInt
-                param_nrofactura.Value = txtFactura.Text
-                param_nrofactura.Direction = ParameterDirection.Input
+                'Dim param_nrofactura As New SqlClient.SqlParameter
+                'param_nrofactura.ParameterName = "@nrofactura"
+                'param_nrofactura.SqlDbType = SqlDbType.BigInt
+                'param_nrofactura.Value = txtFactura.Text
+                'param_nrofactura.Direction = ParameterDirection.Input
 
-                Dim param_fecha As New SqlClient.SqlParameter
-                param_fecha.ParameterName = "@fechafactura"
-                param_fecha.SqlDbType = SqlDbType.DateTime
-                param_fecha.Value = dtpFECHA.Value
-                param_fecha.Direction = ParameterDirection.Input
+                'Dim param_fecha As New SqlClient.SqlParameter
+                'param_fecha.ParameterName = "@fechafactura"
+                'param_fecha.SqlDbType = SqlDbType.DateTime
+                'param_fecha.Value = dtpFECHA.Value
+                'param_fecha.Direction = ParameterDirection.Input
 
-                Dim param_idcliente As New SqlClient.SqlParameter
-                param_idcliente.ParameterName = "@idcliente"
-                param_idcliente.SqlDbType = SqlDbType.BigInt
-                param_idcliente.Value = cmbCliente.SelectedValue
-                param_idcliente.Direction = ParameterDirection.Input
+                'Dim param_idcliente As New SqlClient.SqlParameter
+                'param_idcliente.ParameterName = "@idcliente"
+                'param_idcliente.SqlDbType = SqlDbType.BigInt
+                'param_idcliente.Value = cmbCliente.SelectedValue
+                'param_idcliente.Direction = ParameterDirection.Input
 
-                Dim param_iva As New SqlClient.SqlParameter
-                param_iva.ParameterName = "@iva"
-                param_iva.SqlDbType = SqlDbType.Decimal
-                param_iva.Precision = 18
-                param_iva.Scale = 2
-                param_iva.Value = txtIVA.Text
-                param_iva.Direction = ParameterDirection.Input
+                'Dim param_iva As New SqlClient.SqlParameter
+                'param_iva.ParameterName = "@iva"
+                'param_iva.SqlDbType = SqlDbType.Decimal
+                'param_iva.Precision = 18
+                'param_iva.Scale = 2
+                'param_iva.Value = txtIVA.Text
+                'param_iva.Direction = ParameterDirection.Input
 
                 Dim param_montoiva As New SqlClient.SqlParameter
                 param_montoiva.ParameterName = "@montoiva"
@@ -3350,23 +3339,23 @@ Public Class frmPresentaciones
                 param_condicionVta.ParameterName = "@CondicionVta"
                 param_condicionVta.SqlDbType = SqlDbType.VarChar
                 param_condicionVta.Size = 20
-                If ChkPago.Checked = True Then
-                    param_condicionVta.Value = "Contado/Efectivo"
-                Else
-                    param_condicionVta.Value = DBNull.Value
-                End If
-                param_condicionVta.Direction = ParameterDirection.Input
+                'If ChkPago.Checked = True Then
+                '    param_condicionVta.Value = "Contado/Efectivo"
+                'Else
+                '    param_condicionVta.Value = DBNull.Value
+                'End If
+                'param_condicionVta.Direction = ParameterDirection.Input
 
-                Dim param_condicionIVA As New SqlClient.SqlParameter
-                param_condicionIVA.ParameterName = "@CondicionIVA"
-                param_condicionIVA.SqlDbType = SqlDbType.VarChar
-                param_condicionIVA.Size = 25
-                If ChkPago.Checked = True Then
-                    param_condicionIVA.Value = cmbCondIVA.Text
-                Else
-                    param_condicionIVA.Value = DBNull.Value
-                End If
-                param_condicionIVA.Direction = ParameterDirection.Input
+                'Dim param_condicionIVA As New SqlClient.SqlParameter
+                'param_condicionIVA.ParameterName = "@CondicionIVA"
+                'param_condicionIVA.SqlDbType = SqlDbType.VarChar
+                'param_condicionIVA.Size = 25
+                'If ChkPago.Checked = True Then
+                '    param_condicionIVA.Value = cmbCondIVA.Text
+                'Else
+                '    param_condicionIVA.Value = DBNull.Value
+                'End If
+                'param_condicionIVA.Direction = ParameterDirection.Input
 
                 Dim param_remitos As New SqlClient.SqlParameter
                 param_remitos.ParameterName = "@remitos"
@@ -3382,19 +3371,19 @@ Public Class frmPresentaciones
                 param_remitos1.Value = DBNull.Value
                 param_remitos1.Direction = ParameterDirection.Input
 
-                Dim param_nrocomprobante As New SqlClient.SqlParameter
-                param_nrocomprobante.ParameterName = "@nrocomprobante"
-                param_nrocomprobante.SqlDbType = SqlDbType.VarChar
-                param_nrocomprobante.Size = 100
-                param_nrocomprobante.Value = txtOC.Text
-                param_nrocomprobante.Direction = ParameterDirection.Input
+                'Dim param_nrocomprobante As New SqlClient.SqlParameter
+                'param_nrocomprobante.ParameterName = "@nrocomprobante"
+                'param_nrocomprobante.SqlDbType = SqlDbType.VarChar
+                'param_nrocomprobante.Size = 100
+                'param_nrocomprobante.Value = txtOC.Text
+                'param_nrocomprobante.Direction = ParameterDirection.Input
 
-                Dim param_nota As New SqlClient.SqlParameter
-                param_nota.ParameterName = "@nota"
-                param_nota.SqlDbType = SqlDbType.VarChar
-                param_nota.Size = 300
-                param_nota.Value = txtNotaGestion.Text ', DBNull.Value, txtComprobante.Text)
-                param_nota.Direction = ParameterDirection.Input
+                'Dim param_nota As New SqlClient.SqlParameter
+                'param_nota.ParameterName = "@nota"
+                'param_nota.SqlDbType = SqlDbType.VarChar
+                'param_nota.Size = 300
+                'param_nota.Value = txtNotaGestion.Text ', DBNull.Value, txtComprobante.Text)
+                'param_nota.Direction = ParameterDirection.Input
 
                 Dim param_Manual As New SqlClient.SqlParameter
                 param_Manual.ParameterName = "@Manual"
@@ -3428,9 +3417,8 @@ Public Class frmPresentaciones
 
                 Try
                     SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spFacturacion_Insert", _
-                                            param_id, param_codigo, param_nrofactura, param_fecha, param_idcliente, _
-                                            param_iva, param_montoiva, param_subtotal, param_total, param_condicionVta, param_condicionIVA, _
-                                            param_remitos, param_remitos1, param_nrocomprobante, param_nota, _
+                                            param_id, param_codigo, param_montoiva, param_subtotal, param_total, param_condicionVta, _
+                                            param_remitos, param_remitos1, _
                                             param_Manual, param_FacturadaAnulada, param_idFacturaAnulada, _
                                             param_useradd, param_res)
 
@@ -3470,28 +3458,28 @@ Public Class frmPresentaciones
             param_id.Value = CLng(txtID.Text)
             param_id.Direction = ParameterDirection.Input
 
-            Dim param_idfacturacion As New SqlClient.SqlParameter
-            param_idfacturacion.ParameterName = "@idFacturacion"
-            param_idfacturacion.SqlDbType = SqlDbType.BigInt
-            If chkFactura.Checked = True Then
-                param_idfacturacion.Value = CLng(txtIdFactura.Text)
-            Else
-                param_idfacturacion.Value = DBNull.Value
-            End If
-            param_idfacturacion.Direction = ParameterDirection.Input
+            'Dim param_idfacturacion As New SqlClient.SqlParameter
+            'param_idfacturacion.ParameterName = "@idFacturacion"
+            'param_idfacturacion.SqlDbType = SqlDbType.BigInt
+            'If chkFactura.Checked = True Then
+            '    param_idfacturacion.Value = CLng(txtIdFactura.Text)
+            'Else
+            '    param_idfacturacion.Value = DBNull.Value
+            'End If
+            'param_idfacturacion.Direction = ParameterDirection.Input
 
-            Dim param_incluyefactura As New SqlClient.SqlParameter
-            param_incluyefactura.ParameterName = "@incluyefactura"
-            param_incluyefactura.SqlDbType = SqlDbType.Bit
-            param_incluyefactura.Value = chkFactura.Checked
-            param_incluyefactura.Direction = ParameterDirection.Input
+            'Dim param_incluyefactura As New SqlClient.SqlParameter
+            'param_incluyefactura.ParameterName = "@incluyefactura"
+            'param_incluyefactura.SqlDbType = SqlDbType.Bit
+            'param_incluyefactura.Value = chkFactura.Checked
+            'param_incluyefactura.Direction = ParameterDirection.Input
 
-            Dim param_factura As New SqlClient.SqlParameter
-            param_factura.ParameterName = "@nrofactura"
-            param_factura.SqlDbType = SqlDbType.VarChar
-            param_factura.Size = 50
-            param_factura.Value = txtFactura.Text
-            param_factura.Direction = ParameterDirection.Input
+            'Dim param_factura As New SqlClient.SqlParameter
+            'param_factura.ParameterName = "@nrofactura"
+            'param_factura.SqlDbType = SqlDbType.VarChar
+            'param_factura.Size = 50
+            'param_factura.Value = txtFactura.Text
+            'param_factura.Direction = ParameterDirection.Input
 
             Dim param_res As New SqlClient.SqlParameter
             param_res.ParameterName = "@Res"
@@ -3500,8 +3488,7 @@ Public Class frmPresentaciones
             param_res.Direction = ParameterDirection.InputOutput
 
             SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spConsumos_Facturas_Actualizar", _
-                                        param_id, param_incluyefactura, param_idfacturacion, _
-                                        param_factura, param_res)
+                                        param_id, param_res)
 
             ActualizarConsumo_Factura = param_res.Value
 
