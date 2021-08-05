@@ -16,7 +16,6 @@ Partial Class frmProveedores
 
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmProveedores))
         Me.GroupBox1 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.txtMontoControl = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.chkControlGasto = New System.Windows.Forms.CheckBox()
@@ -100,10 +99,9 @@ Partial Class frmProveedores
         Me.GroupBox1.Controls.Add(Me.Label15)
         Me.GroupBox1.Controls.Add(Me.lblAyudaBonif)
         Me.GroupBox1.DisabledBackColor = System.Drawing.Color.Empty
-        Me.GroupBox1.Location = New System.Drawing.Point(16, 34)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4)
+        Me.GroupBox1.Location = New System.Drawing.Point(12, 28)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1363, 226)
+        Me.GroupBox1.Size = New System.Drawing.Size(1346, 119)
         '
         '
         '
@@ -141,11 +139,10 @@ Partial Class frmProveedores
         Me.txtMontoControl.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtMontoControl.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtMontoControl.Format = TextBoxConFormatoVB.tbFormats.SignedFloatingPointNumber
-        Me.txtMontoControl.Location = New System.Drawing.Point(729, 127)
-        Me.txtMontoControl.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtMontoControl.Location = New System.Drawing.Point(547, 103)
         Me.txtMontoControl.MaxLength = 30
         Me.txtMontoControl.Name = "txtMontoControl"
-        Me.txtMontoControl.Size = New System.Drawing.Size(115, 24)
+        Me.txtMontoControl.Size = New System.Drawing.Size(87, 21)
         Me.txtMontoControl.TabIndex = 255
         Me.txtMontoControl.Text_1 = Nothing
         Me.txtMontoControl.Text_2 = Nothing
@@ -159,10 +156,9 @@ Partial Class frmProveedores
         Me.chkControlGasto.AutoSize = True
         Me.chkControlGasto.BackColor = System.Drawing.Color.Transparent
         Me.chkControlGasto.ForeColor = System.Drawing.Color.Blue
-        Me.chkControlGasto.Location = New System.Drawing.Point(589, 129)
-        Me.chkControlGasto.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkControlGasto.Location = New System.Drawing.Point(442, 105)
         Me.chkControlGasto.Name = "chkControlGasto"
-        Me.chkControlGasto.Size = New System.Drawing.Size(130, 21)
+        Me.chkControlGasto.Size = New System.Drawing.Size(99, 17)
         Me.chkControlGasto.TabIndex = 12
         Me.chkControlGasto.Text = "Controlar Gasto"
         Me.chkControlGasto.UseVisualStyleBackColor = False
@@ -173,10 +169,9 @@ Partial Class frmProveedores
         Me.cmbDocTipo.AccessibleName = ""
         Me.cmbDocTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbDocTipo.FormattingEnabled = True
-        Me.cmbDocTipo.Location = New System.Drawing.Point(432, 31)
-        Me.cmbDocTipo.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbDocTipo.Location = New System.Drawing.Point(324, 25)
         Me.cmbDocTipo.Name = "cmbDocTipo"
-        Me.cmbDocTipo.Size = New System.Drawing.Size(83, 24)
+        Me.cmbDocTipo.Size = New System.Drawing.Size(63, 21)
         Me.cmbDocTipo.TabIndex = 2
         '
         'chkEliminados
@@ -185,11 +180,10 @@ Partial Class frmProveedores
         Me.chkEliminados.BackColor = System.Drawing.Color.Transparent
         Me.chkEliminados.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.chkEliminados.ForeColor = System.Drawing.Color.Red
-        Me.chkEliminados.Location = New System.Drawing.Point(1205, 194)
-        Me.chkEliminados.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkEliminados.Location = New System.Drawing.Point(1228, 90)
         Me.chkEliminados.Name = "chkEliminados"
-        Me.chkEliminados.Size = New System.Drawing.Size(138, 21)
-        Me.chkEliminados.TabIndex = 18
+        Me.chkEliminados.Size = New System.Drawing.Size(109, 17)
+        Me.chkEliminados.TabIndex = 12
         Me.chkEliminados.Text = "Ver Eliminados"
         Me.chkEliminados.UseVisualStyleBackColor = False
         '
@@ -198,10 +192,9 @@ Partial Class frmProveedores
         Me.chkFlete.AutoSize = True
         Me.chkFlete.BackColor = System.Drawing.Color.Transparent
         Me.chkFlete.ForeColor = System.Drawing.Color.Blue
-        Me.chkFlete.Location = New System.Drawing.Point(232, 160)
-        Me.chkFlete.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkFlete.Location = New System.Drawing.Point(174, 130)
         Me.chkFlete.Name = "chkFlete"
-        Me.chkFlete.Size = New System.Drawing.Size(135, 21)
+        Me.chkFlete.Size = New System.Drawing.Size(105, 17)
         Me.chkFlete.TabIndex = 17
         Me.chkFlete.Text = "Servicio de Flete"
         Me.chkFlete.UseVisualStyleBackColor = False
@@ -212,10 +205,9 @@ Partial Class frmProveedores
         Me.chkServicio.AutoSize = True
         Me.chkServicio.BackColor = System.Drawing.Color.Transparent
         Me.chkServicio.ForeColor = System.Drawing.Color.Blue
-        Me.chkServicio.Location = New System.Drawing.Point(8, 160)
-        Me.chkServicio.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkServicio.Location = New System.Drawing.Point(6, 130)
         Me.chkServicio.Name = "chkServicio"
-        Me.chkServicio.Size = New System.Drawing.Size(170, 21)
+        Me.chkServicio.Size = New System.Drawing.Size(131, 17)
         Me.chkServicio.TabIndex = 16
         Me.chkServicio.Text = "Proveedor de Servicio"
         Me.chkServicio.UseVisualStyleBackColor = False
@@ -224,19 +216,17 @@ Partial Class frmProveedores
         'cmbLocalidad
         '
         Me.cmbLocalidad.FormattingEnabled = True
-        Me.cmbLocalidad.Location = New System.Drawing.Point(337, 79)
-        Me.cmbLocalidad.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbLocalidad.Location = New System.Drawing.Point(253, 64)
         Me.cmbLocalidad.Name = "cmbLocalidad"
-        Me.cmbLocalidad.Size = New System.Drawing.Size(236, 24)
+        Me.cmbLocalidad.Size = New System.Drawing.Size(178, 21)
         Me.cmbLocalidad.TabIndex = 8
         '
         'cmbProvincia
         '
         Me.cmbProvincia.FormattingEnabled = True
-        Me.cmbProvincia.Location = New System.Drawing.Point(88, 79)
-        Me.cmbProvincia.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbProvincia.Location = New System.Drawing.Point(66, 64)
         Me.cmbProvincia.Name = "cmbProvincia"
-        Me.cmbProvincia.Size = New System.Drawing.Size(236, 24)
+        Me.cmbProvincia.Size = New System.Drawing.Size(178, 21)
         Me.cmbProvincia.TabIndex = 7
         '
         'txtGanancia
@@ -245,11 +235,10 @@ Partial Class frmProveedores
         Me.txtGanancia.Decimals = CType(2, Byte)
         Me.txtGanancia.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtGanancia.Format = TextBoxConFormatoVB.tbFormats.SignedFloatingPointNumber
-        Me.txtGanancia.Location = New System.Drawing.Point(1125, 127)
-        Me.txtGanancia.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtGanancia.Location = New System.Drawing.Point(844, 103)
         Me.txtGanancia.MaxLength = 30
         Me.txtGanancia.Name = "txtGanancia"
-        Me.txtGanancia.Size = New System.Drawing.Size(64, 22)
+        Me.txtGanancia.Size = New System.Drawing.Size(49, 20)
         Me.txtGanancia.TabIndex = 15
         Me.txtGanancia.Text_1 = Nothing
         Me.txtGanancia.Text_2 = Nothing
@@ -263,10 +252,9 @@ Partial Class frmProveedores
         Me.Label14.AutoSize = True
         Me.Label14.BackColor = System.Drawing.Color.Transparent
         Me.Label14.ForeColor = System.Drawing.Color.Blue
-        Me.Label14.Location = New System.Drawing.Point(1091, 107)
-        Me.Label14.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label14.Location = New System.Drawing.Point(818, 87)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(141, 17)
+        Me.Label14.Size = New System.Drawing.Size(107, 13)
         Me.Label14.TabIndex = 252
         Me.Label14.Text = "Porcentaje Ganancia"
         Me.Label14.Visible = False
@@ -277,11 +265,10 @@ Partial Class frmProveedores
         Me.txtBonificacion.Decimals = CType(2, Byte)
         Me.txtBonificacion.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtBonificacion.Format = TextBoxConFormatoVB.tbFormats.SignedFloatingPointNumber
-        Me.txtBonificacion.Location = New System.Drawing.Point(1000, 127)
-        Me.txtBonificacion.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtBonificacion.Location = New System.Drawing.Point(750, 103)
         Me.txtBonificacion.MaxLength = 30
         Me.txtBonificacion.Name = "txtBonificacion"
-        Me.txtBonificacion.Size = New System.Drawing.Size(64, 22)
+        Me.txtBonificacion.Size = New System.Drawing.Size(49, 20)
         Me.txtBonificacion.TabIndex = 14
         Me.txtBonificacion.Text_1 = Nothing
         Me.txtBonificacion.Text_2 = Nothing
@@ -295,10 +282,9 @@ Partial Class frmProveedores
         Me.Label13.AutoSize = True
         Me.Label13.BackColor = System.Drawing.Color.Transparent
         Me.Label13.ForeColor = System.Drawing.Color.Blue
-        Me.Label13.Location = New System.Drawing.Point(996, 107)
-        Me.Label13.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label13.Location = New System.Drawing.Point(747, 87)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(84, 17)
+        Me.Label13.Size = New System.Drawing.Size(65, 13)
         Me.Label13.TabIndex = 251
         Me.Label13.Text = "Bonificación"
         Me.Label13.Visible = False
@@ -310,11 +296,10 @@ Partial Class frmProveedores
         Me.txtCuit.Decimals = CType(2, Byte)
         Me.txtCuit.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtCuit.Format = TextBoxConFormatoVB.tbFormats.SignedNumber
-        Me.txtCuit.Location = New System.Drawing.Point(524, 31)
-        Me.txtCuit.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtCuit.Location = New System.Drawing.Point(393, 25)
         Me.txtCuit.MaxLength = 11
         Me.txtCuit.Name = "txtCuit"
-        Me.txtCuit.Size = New System.Drawing.Size(119, 22)
+        Me.txtCuit.Size = New System.Drawing.Size(90, 20)
         Me.txtCuit.TabIndex = 3
         Me.txtCuit.Text_1 = Nothing
         Me.txtCuit.Text_2 = Nothing
@@ -327,10 +312,9 @@ Partial Class frmProveedores
         Me.Label8.AutoSize = True
         Me.Label8.BackColor = System.Drawing.Color.Transparent
         Me.Label8.ForeColor = System.Drawing.Color.Blue
-        Me.Label8.Location = New System.Drawing.Point(428, 11)
-        Me.Label8.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label8.Location = New System.Drawing.Point(321, 9)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(170, 17)
+        Me.Label8.Size = New System.Drawing.Size(129, 13)
         Me.Label8.TabIndex = 250
         Me.Label8.Text = "Tipo y Nro de Documento"
         '
@@ -341,11 +325,10 @@ Partial Class frmProveedores
         Me.txtID.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtID.Enabled = False
         Me.txtID.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtID.Location = New System.Drawing.Point(1141, 188)
-        Me.txtID.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtID.Location = New System.Drawing.Point(660, 9)
         Me.txtID.MaxLength = 8
         Me.txtID.Name = "txtID"
-        Me.txtID.Size = New System.Drawing.Size(20, 22)
+        Me.txtID.Size = New System.Drawing.Size(16, 20)
         Me.txtID.TabIndex = 238
         Me.txtID.Text_1 = Nothing
         Me.txtID.Text_2 = Nothing
@@ -357,10 +340,9 @@ Partial Class frmProveedores
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(1114, 188)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label1.Location = New System.Drawing.Point(640, 9)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(19, 17)
+        Me.Label1.Size = New System.Drawing.Size(16, 13)
         Me.Label1.TabIndex = 239
         Me.Label1.Text = "Id"
         Me.Label1.Visible = False
@@ -373,12 +355,11 @@ Partial Class frmProveedores
         Me.txtCODIGO.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtCODIGO.Enabled = False
         Me.txtCODIGO.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtCODIGO.Location = New System.Drawing.Point(8, 31)
-        Me.txtCODIGO.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtCODIGO.Location = New System.Drawing.Point(6, 25)
         Me.txtCODIGO.MaxLength = 25
         Me.txtCODIGO.Name = "txtCODIGO"
         Me.txtCODIGO.ReadOnly = True
-        Me.txtCODIGO.Size = New System.Drawing.Size(71, 22)
+        Me.txtCODIGO.Size = New System.Drawing.Size(54, 20)
         Me.txtCODIGO.TabIndex = 0
         Me.txtCODIGO.Text_1 = Nothing
         Me.txtCODIGO.Text_2 = Nothing
@@ -391,10 +372,9 @@ Partial Class frmProveedores
         Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.Transparent
         Me.Label2.ForeColor = System.Drawing.Color.Blue
-        Me.Label2.Location = New System.Drawing.Point(4, 11)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label2.Location = New System.Drawing.Point(3, 9)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(52, 17)
+        Me.Label2.Size = New System.Drawing.Size(40, 13)
         Me.Label2.TabIndex = 240
         Me.Label2.Text = "Código"
         '
@@ -404,11 +384,10 @@ Partial Class frmProveedores
         Me.txtNOMBRE.Decimals = CType(2, Byte)
         Me.txtNOMBRE.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtNOMBRE.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtNOMBRE.Location = New System.Drawing.Point(88, 31)
-        Me.txtNOMBRE.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtNOMBRE.Location = New System.Drawing.Point(66, 25)
         Me.txtNOMBRE.MaxLength = 30
         Me.txtNOMBRE.Name = "txtNOMBRE"
-        Me.txtNOMBRE.Size = New System.Drawing.Size(335, 22)
+        Me.txtNOMBRE.Size = New System.Drawing.Size(252, 20)
         Me.txtNOMBRE.TabIndex = 1
         Me.txtNOMBRE.Text_1 = Nothing
         Me.txtNOMBRE.Text_2 = Nothing
@@ -421,23 +400,23 @@ Partial Class frmProveedores
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.Transparent
         Me.Label3.ForeColor = System.Drawing.Color.Blue
-        Me.Label3.Location = New System.Drawing.Point(84, 11)
-        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label3.Location = New System.Drawing.Point(63, 9)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(63, 17)
+        Me.Label3.Size = New System.Drawing.Size(48, 13)
         Me.Label3.TabIndex = 241
         Me.Label3.Text = "Nombre*"
         '
         'txtDIRECCION
         '
+        Me.txtDIRECCION.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtDIRECCION.Decimals = CType(2, Byte)
         Me.txtDIRECCION.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtDIRECCION.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtDIRECCION.Location = New System.Drawing.Point(932, 31)
-        Me.txtDIRECCION.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtDIRECCION.Location = New System.Drawing.Point(699, 25)
         Me.txtDIRECCION.MaxLength = 100
         Me.txtDIRECCION.Name = "txtDIRECCION"
-        Me.txtDIRECCION.Size = New System.Drawing.Size(417, 22)
+        Me.txtDIRECCION.Size = New System.Drawing.Size(638, 20)
         Me.txtDIRECCION.TabIndex = 5
         Me.txtDIRECCION.Text_1 = Nothing
         Me.txtDIRECCION.Text_2 = Nothing
@@ -450,10 +429,9 @@ Partial Class frmProveedores
         Me.Label4.AutoSize = True
         Me.Label4.BackColor = System.Drawing.Color.Transparent
         Me.Label4.ForeColor = System.Drawing.Color.Blue
-        Me.Label4.Location = New System.Drawing.Point(928, 11)
-        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label4.Location = New System.Drawing.Point(696, 9)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(67, 17)
+        Me.Label4.Size = New System.Drawing.Size(52, 13)
         Me.Label4.TabIndex = 242
         Me.Label4.Text = "Dirección"
         '
@@ -463,11 +441,10 @@ Partial Class frmProveedores
         Me.txtCODPOSTAL.Decimals = CType(2, Byte)
         Me.txtCODPOSTAL.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtCODPOSTAL.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtCODPOSTAL.Location = New System.Drawing.Point(8, 79)
-        Me.txtCODPOSTAL.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtCODPOSTAL.Location = New System.Drawing.Point(6, 64)
         Me.txtCODPOSTAL.MaxLength = 10
         Me.txtCODPOSTAL.Name = "txtCODPOSTAL"
-        Me.txtCODPOSTAL.Size = New System.Drawing.Size(71, 22)
+        Me.txtCODPOSTAL.Size = New System.Drawing.Size(54, 20)
         Me.txtCODPOSTAL.TabIndex = 6
         Me.txtCODPOSTAL.Text_1 = Nothing
         Me.txtCODPOSTAL.Text_2 = Nothing
@@ -480,10 +457,9 @@ Partial Class frmProveedores
         Me.Label5.AutoSize = True
         Me.Label5.BackColor = System.Drawing.Color.Transparent
         Me.Label5.ForeColor = System.Drawing.Color.Blue
-        Me.Label5.Location = New System.Drawing.Point(4, 59)
-        Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label5.Location = New System.Drawing.Point(3, 48)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(71, 17)
+        Me.Label5.Size = New System.Drawing.Size(54, 13)
         Me.Label5.TabIndex = 243
         Me.Label5.Text = "Codpostal"
         '
@@ -492,10 +468,9 @@ Partial Class frmProveedores
         Me.Label6.AutoSize = True
         Me.Label6.BackColor = System.Drawing.Color.Transparent
         Me.Label6.ForeColor = System.Drawing.Color.Blue
-        Me.Label6.Location = New System.Drawing.Point(335, 59)
-        Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label6.Location = New System.Drawing.Point(251, 48)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(69, 17)
+        Me.Label6.Size = New System.Drawing.Size(53, 13)
         Me.Label6.TabIndex = 244
         Me.Label6.Text = "Localidad"
         '
@@ -504,10 +479,9 @@ Partial Class frmProveedores
         Me.Label7.AutoSize = True
         Me.Label7.BackColor = System.Drawing.Color.Transparent
         Me.Label7.ForeColor = System.Drawing.Color.Blue
-        Me.Label7.Location = New System.Drawing.Point(84, 59)
-        Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label7.Location = New System.Drawing.Point(63, 48)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(66, 17)
+        Me.Label7.Size = New System.Drawing.Size(51, 13)
         Me.Label7.TabIndex = 245
         Me.Label7.Text = "Provincia"
         '
@@ -516,11 +490,10 @@ Partial Class frmProveedores
         Me.txtTELEFONO.Decimals = CType(2, Byte)
         Me.txtTELEFONO.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtTELEFONO.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtTELEFONO.Location = New System.Drawing.Point(584, 79)
-        Me.txtTELEFONO.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtTELEFONO.Location = New System.Drawing.Point(438, 64)
         Me.txtTELEFONO.MaxLength = 30
         Me.txtTELEFONO.Name = "txtTELEFONO"
-        Me.txtTELEFONO.Size = New System.Drawing.Size(339, 22)
+        Me.txtTELEFONO.Size = New System.Drawing.Size(255, 20)
         Me.txtTELEFONO.TabIndex = 9
         Me.txtTELEFONO.Text_1 = Nothing
         Me.txtTELEFONO.Text_2 = Nothing
@@ -533,10 +506,9 @@ Partial Class frmProveedores
         Me.Label9.AutoSize = True
         Me.Label9.BackColor = System.Drawing.Color.Transparent
         Me.Label9.ForeColor = System.Drawing.Color.Blue
-        Me.Label9.Location = New System.Drawing.Point(580, 59)
-        Me.Label9.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label9.Location = New System.Drawing.Point(435, 48)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(64, 17)
+        Me.Label9.Size = New System.Drawing.Size(49, 13)
         Me.Label9.TabIndex = 246
         Me.Label9.Text = "Teléfono"
         '
@@ -545,11 +517,10 @@ Partial Class frmProveedores
         Me.txtFAX.Decimals = CType(2, Byte)
         Me.txtFAX.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtFAX.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtFAX.Location = New System.Drawing.Point(932, 79)
-        Me.txtFAX.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtFAX.Location = New System.Drawing.Point(699, 64)
         Me.txtFAX.MaxLength = 30
         Me.txtFAX.Name = "txtFAX"
-        Me.txtFAX.Size = New System.Drawing.Size(227, 22)
+        Me.txtFAX.Size = New System.Drawing.Size(171, 20)
         Me.txtFAX.TabIndex = 10
         Me.txtFAX.Text_1 = Nothing
         Me.txtFAX.Text_2 = Nothing
@@ -562,23 +533,23 @@ Partial Class frmProveedores
         Me.Label10.AutoSize = True
         Me.Label10.BackColor = System.Drawing.Color.Transparent
         Me.Label10.ForeColor = System.Drawing.Color.Blue
-        Me.Label10.Location = New System.Drawing.Point(928, 59)
-        Me.Label10.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label10.Location = New System.Drawing.Point(696, 48)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(30, 17)
+        Me.Label10.Size = New System.Drawing.Size(24, 13)
         Me.Label10.TabIndex = 247
         Me.Label10.Text = "Fax"
         '
         'txtEMAIL
         '
+        Me.txtEMAIL.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtEMAIL.Decimals = CType(2, Byte)
         Me.txtEMAIL.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtEMAIL.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtEMAIL.Location = New System.Drawing.Point(8, 127)
-        Me.txtEMAIL.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtEMAIL.Location = New System.Drawing.Point(876, 64)
         Me.txtEMAIL.MaxLength = 100
         Me.txtEMAIL.Name = "txtEMAIL"
-        Me.txtEMAIL.Size = New System.Drawing.Size(572, 22)
+        Me.txtEMAIL.Size = New System.Drawing.Size(461, 20)
         Me.txtEMAIL.TabIndex = 11
         Me.txtEMAIL.Text_1 = Nothing
         Me.txtEMAIL.Text_2 = Nothing
@@ -591,10 +562,9 @@ Partial Class frmProveedores
         Me.Label11.AutoSize = True
         Me.Label11.BackColor = System.Drawing.Color.Transparent
         Me.Label11.ForeColor = System.Drawing.Color.Blue
-        Me.Label11.Location = New System.Drawing.Point(4, 107)
-        Me.Label11.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label11.Location = New System.Drawing.Point(873, 48)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(42, 17)
+        Me.Label11.Size = New System.Drawing.Size(32, 13)
         Me.Label11.TabIndex = 248
         Me.Label11.Text = "Email"
         '
@@ -603,11 +573,10 @@ Partial Class frmProveedores
         Me.txtCONTACTO.Decimals = CType(2, Byte)
         Me.txtCONTACTO.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtCONTACTO.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtCONTACTO.Location = New System.Drawing.Point(652, 31)
-        Me.txtCONTACTO.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtCONTACTO.Location = New System.Drawing.Point(489, 25)
         Me.txtCONTACTO.MaxLength = 100
         Me.txtCONTACTO.Name = "txtCONTACTO"
-        Me.txtCONTACTO.Size = New System.Drawing.Size(271, 22)
+        Me.txtCONTACTO.Size = New System.Drawing.Size(204, 20)
         Me.txtCONTACTO.TabIndex = 4
         Me.txtCONTACTO.Text_1 = Nothing
         Me.txtCONTACTO.Text_2 = Nothing
@@ -620,10 +589,9 @@ Partial Class frmProveedores
         Me.Label12.AutoSize = True
         Me.Label12.BackColor = System.Drawing.Color.Transparent
         Me.Label12.ForeColor = System.Drawing.Color.Blue
-        Me.Label12.Location = New System.Drawing.Point(648, 11)
-        Me.Label12.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label12.Location = New System.Drawing.Point(486, 9)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(64, 17)
+        Me.Label12.Size = New System.Drawing.Size(50, 13)
         Me.Label12.TabIndex = 249
         Me.Label12.Text = "Contacto"
         '
@@ -631,10 +599,9 @@ Partial Class frmProveedores
         '
         Me.Label15.BackColor = System.Drawing.Color.Transparent
         Me.Label15.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.Label15.Location = New System.Drawing.Point(4, 198)
-        Me.Label15.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label15.Location = New System.Drawing.Point(3, 161)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(643, 18)
+        Me.Label15.Size = New System.Drawing.Size(482, 15)
         Me.Label15.TabIndex = 254
         Me.Label15.Text = "Los proveedores de Fletes solo se mostrarán en la pantalla de Gastos"
         Me.Label15.Visible = False
@@ -643,10 +610,9 @@ Partial Class frmProveedores
         '
         Me.lblAyudaBonif.BackColor = System.Drawing.Color.Transparent
         Me.lblAyudaBonif.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.lblAyudaBonif.Location = New System.Drawing.Point(4, 180)
-        Me.lblAyudaBonif.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblAyudaBonif.Location = New System.Drawing.Point(3, 146)
         Me.lblAyudaBonif.Name = "lblAyudaBonif"
-        Me.lblAyudaBonif.Size = New System.Drawing.Size(643, 25)
+        Me.lblAyudaBonif.Size = New System.Drawing.Size(482, 20)
         Me.lblAyudaBonif.TabIndex = 253
         Me.lblAyudaBonif.Text = "Los proveedores de Servicio, solo se mostrarán en las pantallas de Gastos y Pago " & _
     "a Proveedores."
@@ -654,13 +620,11 @@ Partial Class frmProveedores
         '
         'frmProveedores
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1395, 534)
+        Me.ClientSize = New System.Drawing.Size(1370, 640)
         Me.Controls.Add(Me.GroupBox1)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(5)
-        Me.MaximizeBox = False
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "frmProveedores"
         Me.Text = "Proveedores"
         Me.Controls.SetChildIndex(Me.GroupBox1, 0)

@@ -68,32 +68,34 @@ Public Class frmAbriPack
     Private Sub cmbProducto_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbProducto.SelectedValueChanged
 
         If Band = True Then
+            Try
+                lblUnidades.Visible = True
+                txtUnidades.Visible = False
 
-            lblUnidades.Visible = True
-            txtUnidades.Visible = False
+                ds_Empresa = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "SELECT s.qty,m.Codigo,m.idAlmacen,m.idunidad,m.CantidadPACK,m.Minimo FROM Materiales m JOIN Stock s ON s.idmaterial = m.Codigo where s.idalmacen = " & almacenpack & " and m.Codigo = " & cmbProducto.SelectedValue)
+                ds_Empresa.Dispose()
 
-            ds_Empresa = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "SELECT s.qty,m.Codigo,m.idAlmacen,m.idunidad,m.CantidadPACK,m.Minimo FROM Materiales m JOIN Stock s ON s.idmaterial = m.Codigo where s.idalmacen = " & almacenpack & " and m.Codigo = " & cmbProducto.SelectedValue)
-            ds_Empresa.Dispose()
+                lblStock.Text = ds_Empresa.Tables(0).Rows(0)(0)
+                idproductopack = ds_Empresa.Tables(0).Rows(0)(1)
+                ' almacenpack = frmPedidosWEB.almacen_unitario
+                unidadpack = ds_Empresa.Tables(0).Rows(0)(3)
+                Label1.Text = txtUnidadUnitario.Text + "/ " + unidadpack
+                Label9.Text = "Cant. " + unidadpack
+                cantXpack = ds_Empresa.Tables(0).Rows(0)(4)
+                lblUnidades.Text = (ds_Empresa.Tables(0).Rows(0)(4)).ToString
+                'COMPARO EL STOCK QUE HAY DEL PRODUCTO PARA SABER SI ESTA POR DEBAJO DEL MINIMO 
+                ControlStock(ds_Empresa.Tables(0).Rows(0)(5))
 
-            lblStock.Text = ds_Empresa.Tables(0).Rows(0)(0)
-            idproductopack = ds_Empresa.Tables(0).Rows(0)(1)
-            ' almacenpack = frmPedidosWEB.almacen_unitario
-            unidadpack = ds_Empresa.Tables(0).Rows(0)(3)
-            Label1.Text = txtUnidadUnitario.Text + "/ " + unidadpack
-            Label9.Text = "Cant. " + unidadpack
-            cantXpack = ds_Empresa.Tables(0).Rows(0)(4)
-            lblUnidades.Text = (ds_Empresa.Tables(0).Rows(0)(4)).ToString
-            'COMPARO EL STOCK QUE HAY DEL PRODUCTO PARA SABER SI ESTA POR DEBAJO DEL MINIMO 
-            ControlStock(ds_Empresa.Tables(0).Rows(0)(5))
-
-            If cantXpack = 0 Then
-                If CDbl(lblStock.Text) > 0 Then
-                    lblUnidades.Visible = False
-                    txtUnidades.Visible = True
-                    txtUnidades.Focus()
+                If cantXpack = 0 Then
+                    If CDbl(lblStock.Text) > 0 Then
+                        lblUnidades.Visible = False
+                        txtUnidades.Visible = True
+                        txtUnidades.Focus()
+                    End If
                 End If
-            End If
+            Catch ex As Exception
 
+            End Try
         End If
 
     End Sub
@@ -172,7 +174,7 @@ Public Class frmAbriPack
                 Exit Sub
             End Try
 
-            ds_Equipos = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT '' AS Codigo, '' AS Producto UNION SELECT m.Codigo, (m.Nombre + ' - ' + ma.Nombre) as Producto FROM Materiales m JOIN Marcas ma ON m.idmarca = ma.Codigo WHERE m.eliminado = 0 and idunidad = 'PACK' or idunidad = 'BOLSA' ")
+            ds_Equipos = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT '' AS Codigo, '' AS Producto UNION SELECT m.Codigo, (m.Nombre + ' - ' + ma.Nombre) as Producto FROM Materiales m JOIN Marcas ma ON m.idmarca = ma.Codigo WHERE m.eliminado = 0 and idunidad = 'PACK' or idunidad = 'BOLSA' or idunidad = 'CJA' ")
             ds_Equipos.Dispose()
 
             With Me.cmbProducto
@@ -303,76 +305,82 @@ Public Class frmAbriPack
         Dim ds_materiales As Data.DataSet
         Dim sqlstringPack As String
         Dim sqlstringUni As String
-        Dim actualizarweb As Boolean = True
+        'Dim actualizarweb As Boolean = True
 
-        If MDIPrincipal.NoActualizar = False Then
-            actualizarweb = True
-        Else
-            actualizarweb = False
-        End If
+        'If MDIPrincipal.NoActualizar = False Then
+        '    actualizarweb = True
+        'Else
+        '    actualizarweb = False
+        'End If
 
         Try
 
             'CALCULO EL RESTO DEL PAQUETE
             Dim resto As Double = CDbl(lblStock.Text) - CDbl(txtCantidad.Text)
             'HAGO EL INSERT EN LA TABLA DE STOCKMOV DEL PAQUETE QUE ABRIO
-            sqlstringPack = "insert into [StockMov] (IDAlmacen, IdMaterial, IDMotivo, Tipo, Stock, Qty, Saldo, IDUnidad, Comprobante ) " & _
-                                            "  values ( '" & almacenpack & "', '" & idproductopack & "', '" & "1" & "','" & "E" & "', '" & lblStock.Text & "','" & txtCantidad.Text & "','" & resto.ToString & "','" & unidadpack & "','" & "Apertura Pack" & "')"
+            sqlstringPack = "insert into [StockMov] (IDAlmacen, IdMaterial, IDMotivo, Tipo, Stock, Qty, Saldo, IDUnidad, Comprobante,DateAdd) " & _
+                                            "  values ( '" & almacenpack & "', '" & idproductopack & "', '" & "1" & "','" & "E" & "', '" & lblStock.Text & "','" & txtCantidad.Text & "','" & resto.ToString & "','" & unidadpack & "','" & "Apertura Pack" & "',GetDate())"
             ds_materiales = SqlHelper.ExecuteDataset(connection, CommandType.Text, sqlstringPack)
 
-            If actualizarweb Then
-                Try
-                    tranWEB.Sql_Set(sqlstringPack)
-                Catch ex As Exception
-                    MsgBox("No se puede actualizar en la Web el movimiento de stock del PACK actual. Ejecute el botón sincronizar para actualizar el servidor WEB.")
-                End Try
-            End If
-       
+            'If actualizarweb Then
+            'Try
+            '    sqlstringPack = "insert into [" & NameTable_StockMov & "] (IDAlmacen, IdMaterial, IDMotivo, Tipo, Stock, Qty, Saldo, IDUnidad, Comprobante,DateAdd) " & _
+            '                               "  values ( '" & almacenpack & "', '" & idproductopack & "', '" & "1" & "','" & "E" & "', '" & lblStock.Text & "','" & txtCantidad.Text & "','" & resto.ToString & "','" & unidadpack & "','" & "Apertura Pack" & "',GetDate())"
+            '    tranWEB.Sql_Set(sqlstringPack)
+            'Catch ex As Exception
+            '    MsgBox("No se puede actualizar en la Web el movimiento de stock del PACK actual. Ejecute el botón sincronizar para actualizar el servidor WEB.")
+            'End Try
+            'End If
+
 
 
             'HAGO EL UPDATE EN LA TABLA DE STOCK DEL PAQUETE
-            sqlstringPack = "Update [Stock] SET Qty = '" & resto & "' WHERE IDMaterial = '" & idproductopack & "' and IDAlmacen = " & almacenpack
+            sqlstringPack = "Update [Stock] SET Qty = '" & resto & "',DateUpd = GetDate() WHERE IDMaterial = '" & idproductopack & "' and IDAlmacen = " & almacenpack
             ds_materiales = SqlHelper.ExecuteDataset(connection, CommandType.Text, sqlstringPack)
 
-            If actualizarweb Then
-                Try
-                    tranWEB.Sql_Set(sqlstringPack)
-                Catch ex As Exception
-                    MsgBox("No se puede actualizar en la Web el Stock la apertura de PACK actual. Ejecute el botón sincronizar para actualizar el servidor WEB.")
-                End Try
-            End If
-       
+            'If actualizarweb Then
+            'Try
+            '    sqlstringPack = "Update [" & NameTable_Stock & "] SET Qty = '" & resto & "',DateUpd = GetDate() WHERE IDMaterial = '" & idproductopack & "' and IDAlmacen = " & almacenpack
+            '    tranWEB.Sql_Set(sqlstringPack)
+            'Catch ex As Exception
+            '    MsgBox("No se puede actualizar en la Web el Stock la apertura de PACK actual. Ejecute el botón sincronizar para actualizar el servidor WEB.")
+            'End Try
+            'End If
+
 
             'CALCULO LA CANTIDAD DE UNIDADES A AUMENTAR
             Dim nuevacantidad As Double
             nuevacantidad = (CDbl(txtCantidad.Text) * cantXpack)
             resto = CDbl(txtStockUnitario.Text) + nuevacantidad
             'HAGO EL INSERT EN LA TABLA DE STOCKMOV DONDE MUESTRO COMO AUMENTA EL MATERIAL UNITARIO
-            sqlstringUni = "insert into [StockMov] (IDAlmacen, IdMaterial, IDMotivo, Tipo, Stock, Qty, Saldo, IDUnidad, Comprobante ) " & _
-                                            "  values ( '" & txtAlmacenUnitario.Text & "', '" & txtIdProductoUnitario.Text & "', '" & "1" & "','" & "I" & "', '" & txtStockUnitario.Text & "','" & nuevacantidad & "','" & resto.ToString & "','" & txtUnidadUnitario.Text & "','" & "Apertura Pack" & "')"
+            sqlstringUni = "insert into [StockMov] (IDAlmacen, IdMaterial, IDMotivo, Tipo, Stock, Qty, Saldo, IDUnidad, Comprobante,dateAdd) " & _
+                                            "  values ( '" & txtAlmacenUnitario.Text & "', '" & txtIdProductoUnitario.Text & "', '" & "1" & "','" & "I" & "', '" & txtStockUnitario.Text & "','" & nuevacantidad & "','" & resto.ToString & "','" & txtUnidadUnitario.Text & "','" & "Apertura Pack" & "',GetDate())"
             ds_materiales = SqlHelper.ExecuteDataset(connection, CommandType.Text, sqlstringUni)
 
-            If actualizarweb Then
-                Try
-                    tranWEB.Sql_Set(sqlstringUni)
-                Catch ex As Exception
-                    MsgBox("No se puede actualizar en la Web el movimiento de stock del producto unitario actual. Ejecute el botón sincronizar para actualizar el servidor WEB.")
-                End Try
-            End If
+            'If actualizarweb Then
+            'Try
+            '    sqlstringUni = "insert into [" & NameTable_StockMov & "] (IDAlmacen, IdMaterial, IDMotivo, Tipo, Stock, Qty, Saldo, IDUnidad, Comprobante,dateAdd) " & _
+            '                             "  values ( '" & txtAlmacenUnitario.Text & "', '" & txtIdProductoUnitario.Text & "', '" & "1" & "','" & "I" & "', '" & txtStockUnitario.Text & "','" & nuevacantidad & "','" & resto.ToString & "','" & txtUnidadUnitario.Text & "','" & "Apertura Pack" & "',GetDate())"
+            '    tranWEB.Sql_Set(sqlstringUni)
+            'Catch ex As Exception
+            '    MsgBox("No se puede actualizar en la Web el movimiento de stock del producto unitario actual. Ejecute el botón sincronizar para actualizar el servidor WEB.")
+            'End Try
+            'End If
 
 
 
             'HAGO EL UPDATE EN LA TABLA DE STOCK DEL MATERIAL UNITARIO
-            sqlstringUni = "Update [Stock] SET Qty = '" & resto & "' WHERE IDMaterial = '" & txtIdProductoUnitario.Text & "' and IDAlmacen = " & txtAlmacenUnitario.Text
+            sqlstringUni = "Update [Stock] SET Qty = '" & resto & "',DateUpd = GetDate() WHERE IDMaterial = '" & txtIdProductoUnitario.Text & "' and IDAlmacen = " & txtAlmacenUnitario.Text
             ds_materiales = SqlHelper.ExecuteDataset(connection, CommandType.Text, sqlstringUni)
 
-            If actualizarweb Then
-                Try
-                    tranWEB.Sql_Set(sqlstringUni)
-                Catch ex As Exception
-                    MsgBox("No se puede actualizar en la Web el Stock del producto unitario actual. Ejecute el botón sincronizar para actualizar el servidor WEB.")
-                End Try
-            End If
+            'If actualizarweb Then
+            'Try
+            '    sqlstringUni = "Update [" & NameTable_Stock & "] SET Qty = '" & resto & "',DateUpd = GetDate() WHERE IDMaterial = '" & txtIdProductoUnitario.Text & "' and IDAlmacen = " & txtAlmacenUnitario.Text
+            '    tranWEB.Sql_Set(sqlstringUni)
+            'Catch ex As Exception
+            '    MsgBox("No se puede actualizar en la Web el Stock del producto unitario actual. Ejecute el botón sincronizar para actualizar el servidor WEB.")
+            'End Try
+            'End If
 
             If MDIPrincipal.DesdePedidos = True Then
                 sqlstringUni = "Select Qty from Stock where idmaterial = '" & txtIdProductoUnitario.Text & " ' and IDAlmacen = " & txtAlmacenUnitario.Text

@@ -176,46 +176,46 @@ Public Class frmEmpleados
                         Util.MsgStatus(Status1, "Se insertó correctamente el Empleado.", My.Resources.Resources.ok.ToBitmap)
 
 
-                        If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
-                            Try
-                                Dim sqlstring As String
+                        'If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
+                        'Try
+                        '    Dim sqlstring As String
 
-                                If ModoActual = True Then
+                        '    If ModoActual = True Then
 
-                                    sqlstring = "INSERT INTO [dbo].[Empleados] ( Id,[Codigo],[Apellido],[Nombre],[Domicilio],[Telefono],[Celular],[Cuit]," & _
-                                                "[Email],[UsuarioSistema],[Usuario],[Pass],[Revendedor],[Eliminado],[DateAdd], [Repartidor],[Vendedor]) Values(" & _
-                                                txtID.Text & ",'" & txtCODIGO.Text & "','" & txtApellido.Text & "','" & txtNOMBRE.Text & "','" & txtDIRECCION.Text & "','" & _
-                                                txtTELEFONO.Text & "','" & txtCelular.Text & "'," & txtCuit.Text & ",'" & txtEMAIL.Text & "'," & IIf(chkUsuarioSistema.Checked = True, 1, 0) & ",'" & _
-                                                txtusuario.Text & "','123456'," & IIf(chkRevendedor.Checked = True, 1, 0) & ",0,'" & Format(Date.Now, "MM/dd/yyyy").ToString & " " & Format(Date.Now, "hh:mm:ss").ToString & "'," & _
-                                                IIf(chkRepartidor.Checked = True, 1, 0) & "," & IIf(chkAutoriza.Checked = True, 1, 0) & "," & IIf(chkVendedor.Checked = True, 1, 0) & ")"
-                                Else
+                        '        sqlstring = "INSERT INTO [dbo].[" & NameTable_Empleados & "] ( Id,[Codigo],[Apellido],[Nombre],[Domicilio],[Telefono],[Celular],[Cuit]," & _
+                        '                    "[Email],[UsuarioSistema],[Usuario],[Pass],[Revendedor],[Eliminado],[DateAdd], [Repartidor],[Vendedor]) Values(" & _
+                        '                    txtID.Text & ",'" & txtCODIGO.Text & "','" & txtApellido.Text & "','" & txtNOMBRE.Text & "','" & txtDIRECCION.Text & "','" & _
+                        '                    txtTELEFONO.Text & "','" & txtCelular.Text & "'," & txtCuit.Text & ",'" & txtEMAIL.Text & "'," & IIf(chkUsuarioSistema.Checked = True, 1, 0) & ",'" & _
+                        '                    txtusuario.Text & "','123456'," & IIf(chkRevendedor.Checked = True, 1, 0) & ",0,'" & Format(Date.Now, "MM/dd/yyyy").ToString & " " & Format(Date.Now, "hh:mm:ss").ToString & "'," & _
+                        '                    IIf(chkRepartidor.Checked = True, 1, 0) & "," & IIf(chkAutoriza.Checked = True, 1, 0) & "," & IIf(chkVendedor.Checked = True, 1, 0) & ")"
+                        '    Else
 
-                                    sqlstring = "UPDATE [dbo].[Empleados] SET " & _
-                                                "[Apellido] = '" & txtApellido.Text & "'," & _
-                                                "[Nombre] = '" & txtNOMBRE.Text & "'," & _
-                                                "[Domicilio] = '" & txtDIRECCION.Text & "'," & _
-                                                "[Telefono] = '" & txtTELEFONO.Text & "'," & _
-                                                "[Celular] = '" & txtCelular.Text & "'," & _
-                                                "[Cuit] = " & txtCuit.Text & "," & _
-                                                "[Email] = '" & txtEMAIL.Text & "'," & _
-                                                "[UsuarioSistema] = " & IIf(chkUsuarioSistema.Checked = True, 1, 0) & "," & _
-                                                "[Usuario] = '" & txtusuario.Text & "'," & _
-                                                "[Revendedor] = " & IIf(chkRevendedor.Checked = True, 1, 0) & "," & _
-                                                "[DateUpd] = '" & Format(Date.Now, "MM/dd/yyyy").ToString & " " & Format(Date.Now, "hh:mm:ss").ToString & "'," & _
-                                                "[Repartidor] = " & IIf(chkRepartidor.Checked = True, 1, 0) & "," & _
-                                                "[Autoriza] = " & IIf(chkAutoriza.Checked = True, 1, 0) & "," & _
-                                                "[Vendedor] = " & IIf(chkVendedor.Checked = True, 1, 0) & " " & _
-                                                " WHERE Codigo = '" & txtCODIGO.Text & "'"
-                                End If
+                        '        sqlstring = "UPDATE [dbo].[" & NameTable_Empleados & "] SET " & _
+                        '                    "[Apellido] = '" & txtApellido.Text & "'," & _
+                        '                    "[Nombre] = '" & txtNOMBRE.Text & "'," & _
+                        '                    "[Domicilio] = '" & txtDIRECCION.Text & "'," & _
+                        '                    "[Telefono] = '" & txtTELEFONO.Text & "'," & _
+                        '                    "[Celular] = '" & txtCelular.Text & "'," & _
+                        '                    "[Cuit] = " & txtCuit.Text & "," & _
+                        '                    "[Email] = '" & txtEMAIL.Text & "'," & _
+                        '                    "[UsuarioSistema] = " & IIf(chkUsuarioSistema.Checked = True, 1, 0) & "," & _
+                        '                    "[Usuario] = '" & txtusuario.Text & "'," & _
+                        '                    "[Revendedor] = " & IIf(chkRevendedor.Checked = True, 1, 0) & "," & _
+                        '                    "[DateUpd] = '" & Format(Date.Now, "MM/dd/yyyy").ToString & " " & Format(Date.Now, "hh:mm:ss").ToString & "'," & _
+                        '                    "[Repartidor] = " & IIf(chkRepartidor.Checked = True, 1, 0) & "," & _
+                        '                    "[Autoriza] = " & IIf(chkAutoriza.Checked = True, 1, 0) & "," & _
+                        '                    "[Vendedor] = " & IIf(chkVendedor.Checked = True, 1, 0) & " " & _
+                        '                    " WHERE Codigo = '" & txtCODIGO.Text & "'"
+                        '    End If
 
-                                tranWEB.Sql_Set(sqlstring)
+                        '    tranWEB.Sql_Set(sqlstring)
 
-                            Catch ex As Exception
+                        'Catch ex As Exception
 
-                                MsgBox("No se puede sincronizar en la Web el empleado actual. Ejecute el botón sincronizar para actualizar el servidor WEB. " + ex.Message)
+                        '    MsgBox("No se puede sincronizar en la Web el empleado actual. Ejecute el botón sincronizar para actualizar el servidor WEB. " + ex.Message)
 
-                            End Try
-                        End If
+                        'End Try
+                        'End If
 
 
                         bolModo = False
@@ -289,18 +289,18 @@ Public Class frmEmpleados
             ds_Update = SqlHelper.ExecuteDataset(connection, CommandType.Text, "UPDATE Empleados SET Eliminado = 0 WHERE id = " & grd.CurrentRow.Cells(0).Value)
             ds_Update.Dispose()
 
-            If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
-                Try
-                    Dim sqlstring As String
+            'If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
+            'Try
+            '    Dim sqlstring As String
 
-                    sqlstring = "UPDATE [dbo].[Empleados] SET [Eliminado] = 0, [DateUpd] = '" & Format(Date.Now, "MM/dd/yyyy").ToString & " " & Format(Date.Now, "hh:mm:ss").ToString & "' WHERE Codigo = '" & txtCODIGO.Text & "'"
-                    tranWEB.Sql_Set(sqlstring)
+            '    sqlstring = "UPDATE [dbo].[" & NameTable_Empleados & "] SET [Eliminado] = 0, [DateUpd] = '" & Format(Date.Now, "MM/dd/yyyy").ToString & " " & Format(Date.Now, "hh:mm:ss").ToString & "' WHERE Codigo = '" & txtCODIGO.Text & "'"
+            '    tranWEB.Sql_Set(sqlstring)
 
-                Catch ex As Exception
-                    'MsgBox(ex.Message)
-                    MsgBox("No se puede sincronizar en la Web el cliente actual. Ejecute el botón sincronizar para actualizar el servidor WEB.")
-                End Try
-            End If
+            'Catch ex As Exception
+            '    'MsgBox(ex.Message)
+            '    MsgBox("No se puede sincronizar en la Web el Empleado actual. Ejecute el botón sincronizar para actualizar el servidor WEB.")
+            'End Try
+            'End If
 
             SQL = "exec spEmpleados_Select_All @Eliminado = 1"
 
@@ -672,18 +672,18 @@ Public Class frmEmpleados
                 res = param_res.Value
 
                 If res > 0 Then
-                    If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
-                        Try
-                            Dim sqlstring As String
+                    'If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
+                    'Try
+                    '    Dim sqlstring As String
 
-                            sqlstring = "UPDATE [dbo].[Empleados] SET [Eliminado] = 1, [DateDel] = '" & Format(Date.Now, "MM/dd/yyyy").ToString & " " & Format(Date.Now, "hh:mm:ss").ToString & "' WHERE Codigo = '" & txtCODIGO.Text & "'"
-                            tranWEB.Sql_Set(sqlstring)
+                    '    sqlstring = "UPDATE [dbo].[" & NameTable_Empleados & "] SET [Eliminado] = 1, [DateDel] = '" & Format(Date.Now, "MM/dd/yyyy").ToString & " " & Format(Date.Now, "hh:mm:ss").ToString & "' WHERE Codigo = '" & txtCODIGO.Text & "'"
+                    '    tranWEB.Sql_Set(sqlstring)
 
-                        Catch ex As Exception
-                            'MsgBox(ex.Message)
-                            MsgBox("No se puede sincronizar en la Web el cliente actual. Ejecute el botón sincronizar para actualizar el servidor WEB.")
-                        End Try
-                    End If
+                    'Catch ex As Exception
+                    '    'MsgBox(ex.Message)
+                    '    MsgBox("No se puede sincronizar en la Web el Empleado actual. Ejecute el botón sincronizar para actualizar el servidor WEB.")
+                    'End Try
+                    'End If
 
                     Util.BorrarGrilla(grd)
 

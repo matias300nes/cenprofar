@@ -179,6 +179,7 @@ Public Class frmParametros
         cantparametrosmasboton = cantparametrosmasboton + 1
         ''FIN NUEVO
     End Sub
+
     Public Function ObtenerParametros(ByVal indice As Integer) As String
         ObtenerParametros = DATOS(indice).valor
     End Function

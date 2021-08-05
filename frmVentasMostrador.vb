@@ -1113,54 +1113,54 @@ Public Class frmVentasMostrador
                         AgregarActualizar_Registro_Items = -1
                     End If
 
-                    If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
-                        Try
-                            Dim sqlstring As String
+                    'If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
+                    '    Try
+                    '        Dim sqlstring As String
 
-                            'sqlstring = "update stock set qty = qty - " & grdItems.Rows(i).Cells(1).Value & ", dateupd=getdate(),userupd= " & UserID & _
-                            '    " where idmaterial= " & grdItems.Rows(i).Cells(9).Value & _
-                            '    "  and idunidad= " & grdItems.Rows(i).Cells(10).Value & _
-                            '    " and idalmacen = " & Utiles.numero_almacen
+                    '        'sqlstring = "update stock set qty = qty - " & grdItems.Rows(i).Cells(1).Value & ", dateupd=getdate(),userupd= " & UserID & _
+                    '        '    " where idmaterial= " & grdItems.Rows(i).Cells(9).Value & _
+                    '        '    "  and idunidad= " & grdItems.Rows(i).Cells(10).Value & _
+                    '        '    " and idalmacen = " & Utiles.numero_almacen
 
-                            sqlstring = "exec spStock_Insert '" & grdItems.Rows(i).Cells(9).Value & "', '" & _
-                                grdItems.Rows(i).Cells(10).Value & "', " & Utiles.numero_almacen & ", 'V', " & _
-                                grdItems.Rows(i).Cells(1).Value & ", " & Stock & ", " & IdStockMov & ", '', 4, " & UserID
-
-
-                            If tranWEB.Sql_Get_Value(sqlstring) > 0 Then
-                                ds_Empresa = SqlHelper.ExecuteDataset(tran, CommandType.Text, "UPDATE StockMov SET ActualizadoWEB = 1 WHERE id = " & IdStockMov)
-                                ds_Empresa.Dispose()
-                            End If
-
-                            If chkTransInterna.Checked = True Then
-                                Dim Sucursal As Integer
-                                If cmbCliente.Text.Contains("PRINCIPAL") Then
-                                    Sucursal = 1
-                                Else
-                                    Sucursal = 2
-                                End If
-
-                                sqlstring = "exec spStock_Insert '" & grdItems.Rows(i).Cells(9).Value & "', '" & _
-                                 grdItems.Rows(i).Cells(10).Value & "', " & Sucursal & ", 'I', " & _
-                                 grdItems.Rows(i).Cells(1).Value & ", " & StockReceptor & ", " & IdStockMovReceptor & ", '', 4, " & UserID
+                    '        sqlstring = "exec spStock_Insert '" & grdItems.Rows(i).Cells(9).Value & "', '" & _
+                    '            grdItems.Rows(i).Cells(10).Value & "', " & Utiles.numero_almacen & ", 'V', " & _
+                    '            grdItems.Rows(i).Cells(1).Value & ", " & Stock & ", " & IdStockMov & ", '', 4, " & UserID
 
 
-                                If tranWEB.Sql_Get_Value(sqlstring) > 0 Then
-                                    ds_Empresa = SqlHelper.ExecuteDataset(tran, CommandType.Text, "UPDATE StockMov SET ActualizadoWEB = 1 WHERE id = " & IdStockMov)
-                                    ds_Empresa.Dispose()
-                                End If
-                            End If
+                    '        If tranWEB.Sql_Get_Value(sqlstring) > 0 Then
+                    '            ds_Empresa = SqlHelper.ExecuteDataset(tran, CommandType.Text, "UPDATE StockMov SET ActualizadoWEB = 1 WHERE id = " & IdStockMov)
+                    '            ds_Empresa.Dispose()
+                    '        End If
 
-                        Catch ex As Exception
-                            MsgBox(ex.Message)
-                            'MsgBox("No se puede actualizar en la Web la Lista de Precios actual. Ejecute el botón sincronizar para actualizar el servidor WEB.")
-                        End Try
-                    End If
+                    '        If chkTransInterna.Checked = True Then
+                    '            Dim Sucursal As Integer
+                    '            If cmbCliente.Text.Contains("PRINCIPAL") Then
+                    '                Sucursal = 1
+                    '            Else
+                    '                Sucursal = 2
+                    '            End If
+
+                    '            sqlstring = "exec spStock_Insert '" & grdItems.Rows(i).Cells(9).Value & "', '" & _
+                    '             grdItems.Rows(i).Cells(10).Value & "', " & Sucursal & ", 'I', " & _
+                    '             grdItems.Rows(i).Cells(1).Value & ", " & StockReceptor & ", " & IdStockMovReceptor & ", '', 4, " & UserID
+
+
+                    '            If tranWEB.Sql_Get_Value(sqlstring) > 0 Then
+                    '                ds_Empresa = SqlHelper.ExecuteDataset(tran, CommandType.Text, "UPDATE StockMov SET ActualizadoWEB = 1 WHERE id = " & IdStockMov)
+                    '                ds_Empresa.Dispose()
+                    '            End If
+                    '        End If
+
+                    'Catch ex As Exception
+                    '    MsgBox(ex.Message)
+                    '    'MsgBox("No se puede actualizar en la Web la Lista de Precios actual. Ejecute el botón sincronizar para actualizar el servidor WEB.")
+                    'End Try
+                    '    End If
 
 
                 Catch ex As Exception
-                    Throw ex
-                End Try
+            Throw ex
+        End Try
 
             Next
 

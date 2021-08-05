@@ -128,24 +128,24 @@ Public Class Login
 
             ' Comprobar la clave en la base de datos
             'Comentado CP 28-1-2011 Util.Logueado_OK = Util.comprobarUsuario(txtuser.Text.ToLower.Trim, SHA1)
-            'If My.Application.Info.AssemblyName.ToString = "SEI" Or My.Application.Info.AssemblyName.ToString = "CAMELIAS" Or My.Application.Info.AssemblyName.ToString = "SAMBA" _
-            '     Or My.Application.Info.AssemblyName.ToString = "ROCHA" Or My.Application.Info.AssemblyName.ToString = "BIANCO" Or My.Application.Info.AssemblyName.ToString = "PORKYS" _
-            '     Or My.Application.Info.AssemblyName.ToString = "MAGENTA" Then
-            'Else
-            If My.Application.Info.AssemblyName.ToString = "TURNOS" Then
-                Util.Logueado_OK = Util.comprobarUsuario2(tmp_ID, txtuser.Text.ToLower.Trim, txtpassword.Text, SHA1, tmp_ok, tmp_nombre, tmp_vencida, tmp_repetida, ConnStringCLINICA)
+            If My.Application.Info.AssemblyName.ToString = "SEI" Or My.Application.Info.AssemblyName.ToString = "CAMELIAS" Or My.Application.Info.AssemblyName.ToString = "SAMBA" _
+                 Or My.Application.Info.AssemblyName.ToString = "ROCHA" Or My.Application.Info.AssemblyName.ToString = "BIANCO" Or My.Application.Info.AssemblyName.ToString = "PORKYS" _
+                Or My.Application.Info.AssemblyName.ToString = "ALMAS" Or My.Application.Info.AssemblyName.ToString = "TESL" Then
+
+                Util.Logueado_OK = Util.comprobarUsuario2(tmp_ID, txtuser.Text.ToLower.Trim, txtpassword.Text, SHA1, tmp_ok, tmp_nombre, tmp_vencida, tmp_repetida, ConnStringSEI)
             Else
-                If My.Application.Info.AssemblyName.ToString = "MIT" Then
-                    Util.Logueado_OK = Util.comprobarUsuario2(tmp_ID, txtuser.Text.ToLower.Trim, txtpassword.Text, SHA1, tmp_ok, tmp_nombre, tmp_vencida, tmp_repetida, ConnStringMIT)
+                If My.Application.Info.AssemblyName.ToString = "TURNOS" Then
+                    Util.Logueado_OK = Util.comprobarUsuario2(tmp_ID, txtuser.Text.ToLower.Trim, txtpassword.Text, SHA1, tmp_ok, tmp_nombre, tmp_vencida, tmp_repetida, ConnStringCLINICA)
                 Else
-                    If My.Application.Info.AssemblyName.ToString = "CARTOCOR_PERSONAL" Then
-                        Util.Logueado_OK = Util.comprobarUsuario2(tmp_ID, txtuser.Text.ToLower.Trim, txtpassword.Text, SHA1, tmp_ok, tmp_nombre, tmp_vencida, tmp_repetida, ConnStringHOLLMAN)
+                    If My.Application.Info.AssemblyName.ToString = "MIT" Or My.Application.Info.AssemblyName.ToString = "Dynamia" Then
+                        Util.Logueado_OK = Util.comprobarUsuario2(tmp_ID, txtuser.Text.ToLower.Trim, txtpassword.Text, SHA1, tmp_ok, tmp_nombre, tmp_vencida, tmp_repetida, ConnStringMIT)
                     Else
-                        Util.Logueado_OK = Util.comprobarUsuario2(tmp_ID, txtuser.Text.ToLower.Trim, txtpassword.Text, SHA1, tmp_ok, tmp_nombre, tmp_vencida, tmp_repetida, ConnStringSEI)
+                        If My.Application.Info.AssemblyName.ToString = "CARTOCOR_PERSONAL" Then
+                            Util.Logueado_OK = Util.comprobarUsuario2(tmp_ID, txtuser.Text.ToLower.Trim, txtpassword.Text, SHA1, tmp_ok, tmp_nombre, tmp_vencida, tmp_repetida, ConnStringHOLLMAN)
+                        End If
                     End If
                 End If
             End If
-            'End If
         End If
 
         '
@@ -175,8 +175,11 @@ Public Class Login
                 Return
             End If
 
+
+            'MsgBox(pass_vencida)
+            'MsgBox(My.Application.Info.AssemblyName.ToString)
             'nuevo cp 28-1-2010 verificar validez de contraseña
-            If Util.pass_vencida = True And My.Application.Info.AssemblyName.ToString = "SEI" Then
+            If Util.pass_vencida = True And (My.Application.Info.AssemblyName.ToString = "SEI" Or My.Application.Info.AssemblyName.ToString = "PORKYS") Then
                 PasswordLabel.Text = "Nueva"
                 txtpassword.Text = ""
                 Label2.Text = "Repetir"
@@ -403,7 +406,7 @@ Public Class Login
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor valide el siguiente mensaje de error: {0}" _
-                + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software Factory a través del correo soporte@kaizensoftware.com.ar", errMessage), _
+                + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
                 "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 

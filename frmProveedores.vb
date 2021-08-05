@@ -766,23 +766,38 @@ Public Class frmProveedores
 
         Me.grd.Location = New Size(GroupBox1.Location.X, GroupBox1.Location.Y + GroupBox1.Size.Height + 7)
 
-        'Me.Size = New Size(IIf(Me.Size.Width <= AnchoMinimoForm, AnchoMinimoForm, Me.Size.Width), Me.grd.Location.Y + Me.grd.Size.Height + 65)
-        Me.Size = New Size(Me.Size.Width, (Screen.PrimaryScreen.WorkingArea.Height - 90))
+        ''Me.Size = New Size(IIf(Me.Size.Width <= AnchoMinimoForm, AnchoMinimoForm, Me.Size.Width), Me.grd.Location.Y + Me.grd.Size.Height + 65)
+        'Me.Size = New Size(Me.Size.Width, (Screen.PrimaryScreen.WorkingArea.Height - 90))
 
-        Dim p As New Size(GroupBox1.Size.Width, Me.Size.Height - 15 - GroupBox1.Size.Height - GroupBox1.Location.Y - 90)
-        Me.grd.Size = New Size(p)
+        'Dim p As New Size(GroupBox1.Size.Width, Me.Size.Height - 15 - GroupBox1.Size.Height - GroupBox1.Location.Y - 90)
+        'Me.grd.Size = New Size(p)
+
+        'If LLAMADO_POR_FORMULARIO Then
+        '    LLAMADO_POR_FORMULARIO = False
+        '    'Me.Top = ARRIBA
+        '    'Me.Left = IZQUIERDA
+        '    'Else
+        '    '    Me.Top = 0
+        '    '    Me.Left = (Screen.PrimaryScreen.WorkingArea.Width - Me.Width) \ 2
+        'End If
+
+        'Me.Top = 0
+        'Me.Left = (Screen.PrimaryScreen.WorkingArea.Width - Me.Width) \ 2
+
 
         If LLAMADO_POR_FORMULARIO Then
             LLAMADO_POR_FORMULARIO = False
-            'Me.Top = ARRIBA
-            'Me.Left = IZQUIERDA
-            'Else
-            '    Me.Top = 0
-            '    Me.Left = (Screen.PrimaryScreen.WorkingArea.Width - Me.Width) \ 2
+            Me.Top = ARRIBA
+            Me.Left = IZQUIERDA
+        Else
+            Me.Top = 0
+            Me.Left = (Screen.PrimaryScreen.WorkingArea.Width - Me.Width) \ 2
         End If
 
-        Me.Top = 0
-        Me.Left = (Screen.PrimaryScreen.WorkingArea.Width - Me.Width) \ 2
+        Me.WindowState = FormWindowState.Maximized
+
+        Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width - 27, Me.Size.Height - 7 - GroupBox1.Size.Height - GroupBox1.Location.Y - 65)
+
 
     End Sub
 

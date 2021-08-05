@@ -60,7 +60,7 @@ Public Class frmGastos
 
         'LlenarComboProveedores(cmbProveedor)
         LlenarcmbProveedores_App(cmbProveedor, ConnStringSEI, 0, 0)
-
+        LlenarcmbUsuarioGasto()
         LlenarComboGastos(cmbTipoGasto)
         LlenarcmbTipoFacturas_APP(cmbTipoComprobante, ConnStringSEI)
 
@@ -107,6 +107,7 @@ Public Class frmGastos
         grd.Columns(32).Visible = False
         grd.Columns(33).Visible = False
         grd.Columns(34).Visible = False
+        grd.Columns(36).Visible = False
 
         If grd.RowCount > 0 Then
             txtCantIVA.Value = grd.CurrentRow.Cells(34).Value
@@ -728,6 +729,9 @@ Public Class frmGastos
             Exit Sub
         End If
 
+        txtNroFacturaCompleto.Text = txtPtoVta.Text.Trim.PadLeft(4, "0") & "-" & txtNroFactura.Text.Trim.PadLeft(8, "0")
+        txtNroRemitoCompleto.Text = txtPtoVtaRemito.Text.Trim.PadLeft(4, "0") & "-" & txtNroCompRemito.Text.Trim.PadLeft(8, "0")
+
         If txtSubtotal.Text = "" And txtSubtotalExento.Text = "" Then
             Util.MsgStatus(Status1, "Debe ingresar un monto para el gasto que está cargando.", My.Resources.Resources.stop_error.ToBitmap)
             Util.MsgStatus(Status1, "Debe ingresar un monto para el gasto que está cargando.", My.Resources.Resources.stop_error.ToBitmap, True)
@@ -1313,6 +1317,7 @@ ConfirmarModificacion:
         txtIdMoneda.Tag = "33"
         txtCantIVA.Tag = "34"
         chkRecepcion.Tag = "35"
+        cmbUsuarioGasto.Tag = "36"
     End Sub
 
     'Private Sub LlenarComboProveedores(ByVal cmb As System.Windows.Forms.ComboBox) ', ByVal flete As Boolean)
@@ -1420,6 +1425,47 @@ ConfirmarModificacion:
 
         llenandoCombo = False
 
+    End Sub
+
+    Private Sub LlenarcmbUsuarioGasto()
+        Dim connection As SqlClient.SqlConnection = Nothing
+        Dim ds As Data.DataSet
+
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+
+        Try
+
+            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, " SELECT CONCAT(Apellido ,' ', Nombre) AS 'Vendedor' FROM Empleados WHERE Eliminado = 0 ORDER BY Vendedor")
+            ds.Dispose()
+
+            With cmbUsuarioGasto
+                .DataSource = ds.Tables(0).DefaultView
+                .DisplayMember = "Vendedor"
+                '.ValueMember = "Codigo"
+            End With
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If Not connection Is Nothing Then
+                CType(connection, IDisposable).Dispose()
+            End If
+        End Try
     End Sub
 
     Private Sub LlenarComboRecepciones(ByVal cmb As System.Windows.Forms.ComboBox)
@@ -1752,6 +1798,7 @@ ConfirmarModificacion:
             If txtMontoIVA27.Text = "" Then txtMontoIVA27.Text = "0"
             If txtSubtotal.Text = "" Then txtSubtotal.Text = "0"
             If txtSubtotalExento.Text = "" Then txtSubtotalExento.Text = "0"
+            If lblImpuestos.Text = "" Then lblImpuestos.Text = "0"
             lblMontoIva.Text = Format(CDbl(txtMontoIVA10.Text) + CDbl(txtMontoIVA21.Text) + CDbl(txtMontoIVA27.Text), "###0.00")
             lblTotal.Text = Format(CDbl(txtSubtotalExento.Text) + CDbl(txtSubtotal.Text) + CDbl(lblMontoIva.Text) + CDbl(lblImpuestos.Text), "###0.00")
         End If
@@ -2092,6 +2139,13 @@ ConfirmarModificacion:
                 param_nrocomprRemito.Value = LTrim(RTrim(IIf(txtNroCompRemito.Text = "", "0", txtNroCompRemito.Text)))
                 param_nrocomprRemito.Direction = ParameterDirection.Input
 
+                Dim param_UsuarioGasto As New SqlClient.SqlParameter
+                param_UsuarioGasto.ParameterName = "@UsuarioGasto"
+                param_UsuarioGasto.SqlDbType = SqlDbType.VarChar
+                param_UsuarioGasto.Size = 200
+                param_UsuarioGasto.Value = cmbUsuarioGasto.Text
+                param_UsuarioGasto.Direction = ParameterDirection.Input
+
                 Dim param_useradd As New SqlClient.SqlParameter
                 If bolModo = True Then
                     param_useradd.ParameterName = "@useradd"
@@ -2117,7 +2171,8 @@ ConfirmarModificacion:
                                             param_nrofactura, param_remito, param_CantIVA, param_MontoIVA, param_Subtotal, param_SubtotalExento, _
                                             param_Total, param_totalPesos, param_deuda, param_cancelada, param_descripcion, _
                                             param_Impuestos, param_imputarotroperiodo, param_periodo, _
-                                            param_ptovta, param_nrocompr, param_ptovtaRemito, param_nrocomprRemito, param_useradd, param_res)
+                                            param_ptovta, param_nrocompr, param_ptovtaRemito, param_nrocomprRemito, param_UsuarioGasto, _
+                                            param_useradd, param_res)
 
                         txtCodigo.Text = param_codigo.Value
 
@@ -2129,7 +2184,7 @@ ConfirmarModificacion:
                                             param_Total, param_totalPesos, param_descripcion, _
                                             param_Impuestos, param_imputarotroperiodo, param_periodo, _
                                             param_ptovta, param_nrocompr, param_ptovtaRemito, param_nrocomprRemito, param_ControlFactura, param_ControlRemito, _
-                                            param_useradd, param_res)
+                                            param_UsuarioGasto, param_useradd, param_res)
 
                     End If
 
@@ -2973,7 +3028,6 @@ ConfirmarModificacion:
     End Function
 
 #End Region
-
   
 End Class
 

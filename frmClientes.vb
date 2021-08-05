@@ -28,9 +28,6 @@ Public Class frmClientes
         Telefono_Contacto = 4
         Email_Contacto = 5
         Celular_Contacto = 6
-
-
-
     End Enum
 
 #Region "Componentes Formulario"
@@ -103,6 +100,7 @@ Public Class frmClientes
         grd.Columns(14).Visible = False
         grd.Columns(16).Visible = False
         grd.Columns(18).Visible = False
+        'grd.Columns(22).Visible = False
 
         ''ContarCaracNom()
 
@@ -362,55 +360,55 @@ Public Class frmClientes
                     End Select
                 End If
 
-                If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
+                'If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
 
-                    Try
+                'Try
 
-                        Dim sqlstring As String
+                '    Dim sqlstring As String
 
-                        If ModoActual = True Then
+                '    If ModoActual = True Then
 
-                            sqlstring = "INSERT INTO [dbo].[Clientes]([ID],[IDPrecioLista],[Codigo],[Nombre],[TipoDocumento],[CUIT],[Direccion],[CodPostal]," & _
-                                        "[Localidad],[Provincia],[Telefono],[Fax],[Email],[Contacto],[Observaciones],[Contrasena],[Usuario],[UsuarioWEB]," & _
-                                        "[Eliminado] ,[DateAdd], [Repartidor],[Promo],[CondicionIVA],[MontoMaxCred],[DiasMaxCred],[CtaCte]) values ( " & txtID.Text & "," & cmbListaPrecio.SelectedValue & ",'" & txtCODIGO.Text & "','" & _
-                                         txtNOMBRE.Text & "'," & cmbDocTipo.SelectedValue & "," & txtCuit.Text & ",'" & txtDIRECCION.Text & "','" & _
-                                         txtCODPOSTAL.Text & "','" & cmbLocalidad.Text & "','" & cmbProvincia.Text & "','" & txtTELEFONO.Text & "','" & _
-                                         txtFAX.Text & "','" & txtEmail.Text & "',' ',' ','123456','" & txtusuario.Text & "'," & IIf(chkUsuarioWEB.Checked = True, 1, 0) & "," & _
-                                         "0,'" & Format(Date.Now, "MM/dd/yyyy").ToString & " " & Format(Date.Now, "hh:mm:ss").ToString & "','" & cmbRepartidor.SelectedValue & "'," & _
-                                         IIf(chkPromo.Checked = True, 1, 0) & ",'" & cmbCondicionIVA.SelectedValue & "'," & txtMontoMax.Text & "," & txtDiasMax.Text & "," & chkCtaCte.Checked & ")"
+                '        sqlstring = "INSERT INTO [dbo].[" & NameTable_Clientes & "]([ID],[IDPrecioLista],[Codigo],[Nombre],[TipoDocumento],[CUIT],[Direccion],[CodPostal]," & _
+                '                    "[Localidad],[Provincia],[Telefono],[Fax],[Email],[Contacto],[Observaciones],[Contrasena],[Usuario],[UsuarioWEB]," & _
+                '                    "[Eliminado] ,[DateAdd], [Repartidor],[Promo],[CondicionIVA],[MontoMaxCred],[DiasMaxCred],[CtaCte]) values ( " & txtID.Text & "," & cmbListaPrecio.SelectedValue & ",'" & txtCODIGO.Text & "','" & _
+                '                     txtNOMBRE.Text & "'," & cmbDocTipo.SelectedValue & "," & txtCuit.Text & ",'" & txtDIRECCION.Text & "','" & _
+                '                     txtCODPOSTAL.Text & "','" & cmbLocalidad.Text & "','" & cmbProvincia.Text & "','" & txtTELEFONO.Text & "','" & _
+                '                     txtFAX.Text & "','" & txtEmail.Text & "',' ',' ','123456','" & txtusuario.Text & "'," & IIf(chkUsuarioWEB.Checked = True, 1, 0) & "," & _
+                '                     "0,'" & Format(Date.Now, "MM/dd/yyyy").ToString & " " & Format(Date.Now, "hh:mm:ss").ToString & "','" & cmbRepartidor.SelectedValue & "'," & _
+                '                     IIf(chkPromo.Checked = True, 1, 0) & ",'" & cmbCondicionIVA.SelectedValue & "'," & txtMontoMax.Text & "," & txtDiasMax.Text & "," & IIf(chkCtaCte.Checked = True, 1, 0) & ")"
 
-                        Else
+                '    Else
 
-                            sqlstring = "UPDATE [dbo].[Clientes] SET [IDPrecioLista] = " & cmbListaPrecio.SelectedValue & "," & _
-                                        "[Codigo] = '" & txtCODIGO.Text & "'," & _
-                                        "[Nombre] = '" & txtNOMBRE.Text & "'," & _
-                                        "[TipoDocumento] = " & cmbDocTipo.SelectedValue & "," & _
-                                        "[CUIT] = " & txtCuit.Text & "," & _
-                                        "[Direccion] = '" & txtDIRECCION.Text & "'," & _
-                                        "[CodPostal] = '" & txtCODPOSTAL.Text & "'," & _
-                                        "[Localidad] = '" & cmbLocalidad.Text & "'," & _
-                                        "[Provincia] = '" & cmbProvincia.Text & "'," & _
-                                        "[Telefono] = '" & txtTELEFONO.Text & "'," & _
-                                        "[Fax] = '" & txtFAX.Text & "'," & _
-                                        "[Email] = '" & txtEmail.Text & "'," & _
-                                        "[Usuario] = '" & txtusuario.Text & "'," & _
-                                        "[UsuarioWEB] = " & IIf(chkUsuarioWEB.Checked = True, 1, 0) & "," & _
-                                        "[DateUpd] = '" & Format(Date.Now, "MM/dd/yyyy").ToString & " " & Format(Date.Now, "hh:mm:ss").ToString & "'," & _
-                                        "[Repartidor] = '" & cmbRepartidor.SelectedValue & "'," & _
-                                        "[Promo] = " & IIf(chkPromo.Checked = True, 1, 0) & "," & _
-                                        "[CondicionIVA] = '" & cmbCondicionIVA.SelectedValue & "'," & _
-                                        "[MontoMaxCred] = " & txtMontoMax.Text & "," & _
-                                        "[DiasMaxCred]  = " & txtDiasMax.Text & "," & _
-                                        "[CtaCte] = " & chkCtaCte.Checked & " " & _
-                                        " WHERE Codigo = '" & txtCODIGO.Text & "'"
-                        End If
+                '        sqlstring = "UPDATE [dbo].[" & NameTable_Clientes & "] SET [IDPrecioLista] = " & cmbListaPrecio.SelectedValue & "," & _
+                '                    "[Codigo] = '" & txtCODIGO.Text & "'," & _
+                '                    "[Nombre] = '" & txtNOMBRE.Text & "'," & _
+                '                    "[TipoDocumento] = " & cmbDocTipo.SelectedValue & "," & _
+                '                    "[CUIT] = " & txtCuit.Text & "," & _
+                '                    "[Direccion] = '" & txtDIRECCION.Text & "'," & _
+                '                    "[CodPostal] = '" & txtCODPOSTAL.Text & "'," & _
+                '                    "[Localidad] = '" & cmbLocalidad.Text & "'," & _
+                '                    "[Provincia] = '" & cmbProvincia.Text & "'," & _
+                '                    "[Telefono] = '" & txtTELEFONO.Text & "'," & _
+                '                    "[Fax] = '" & txtFAX.Text & "'," & _
+                '                    "[Email] = '" & txtEmail.Text & "'," & _
+                '                    "[Usuario] = '" & txtusuario.Text & "'," & _
+                '                    "[UsuarioWEB] = " & IIf(chkUsuarioWEB.Checked = True, 1, 0) & "," & _
+                '                    "[DateUpd] = '" & Format(Date.Now, "MM/dd/yyyy").ToString & " " & Format(Date.Now, "hh:mm:ss").ToString & "'," & _
+                '                    "[Repartidor] = '" & cmbRepartidor.SelectedValue & "'," & _
+                '                    "[Promo] = " & IIf(chkPromo.Checked = True, 1, 0) & "," & _
+                '                    "[CondicionIVA] = '" & cmbCondicionIVA.SelectedValue & "'," & _
+                '                    "[MontoMaxCred] = " & txtMontoMax.Text & "," & _
+                '                    "[DiasMaxCred]  = " & txtDiasMax.Text & "," & _
+                '                    "[CtaCte] = " & IIf(chkCtaCte.Checked = True, 1, 0) & " " & _
+                '                    " WHERE Codigo = '" & txtCODIGO.Text & "'"
+                '    End If
 
-                        tranWEB.Sql_Set(sqlstring)
+                '    tranWEB.Sql_Set(sqlstring)
 
-                    Catch ex As Exception
-                        MsgBox("No se puede sincronizar en la Web el cliente actual. Ejecute el botón sincronizar para actualizar el servidor WEB. " + ex.Message)
-                    End Try
-                End If
+                'Catch ex As Exception
+                '    MsgBox("No se puede sincronizar en la Web el cliente actual. Ejecute el botón sincronizar para actualizar el servidor WEB. " + ex.Message)
+                'End Try
+                'End If
                 MDIPrincipal.NoActualizarBase = False
                 'actualizo
                 btnActualizar_Click(sender, e)
@@ -513,18 +511,18 @@ Public Class frmClientes
             ds_Update = SqlHelper.ExecuteDataset(connection, CommandType.Text, "UPDATE Clientes SET Eliminado = 0 WHERE id = " & grd.CurrentRow.Cells(0).Value)
             ds_Update.Dispose()
 
-            If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
-                Try
-                    Dim sqlstring As String
+            'If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
+            'Try
+            '    Dim sqlstring As String
 
-                    sqlstring = "UPDATE [dbo].[Clientes] SET [Eliminado] = 0, [DateUpd] = '" & Format(Date.Now, "MM/dd/yyyy").ToString & " " & Format(Date.Now, "hh:mm:ss").ToString & "' WHERE Codigo = '" & txtCODIGO.Text & "'"
-                    tranWEB.Sql_Set(sqlstring)
+            '    sqlstring = "UPDATE [dbo].[" & NameTable_Clientes & "] SET [Eliminado] = 0, [DateUpd] = '" & Format(Date.Now, "MM/dd/yyyy").ToString & " " & Format(Date.Now, "hh:mm:ss").ToString & "' WHERE Codigo = '" & txtCODIGO.Text & "'"
+            '    tranWEB.Sql_Set(sqlstring)
 
-                Catch ex As Exception
-                    'MsgBox(ex.Message)
-                    MsgBox("No se puede sincronizar en la Web el cliente actual. Ejecute el botón sincronizar para actualizar el servidor WEB.")
-                End Try
-            End If
+            'Catch ex As Exception
+            '    'MsgBox(ex.Message)
+            '    MsgBox("No se puede sincronizar en la Web el cliente actual. Ejecute el botón sincronizar para actualizar el servidor WEB.")
+            'End Try
+            'End If
 
 
             SQL = "exec spClientes_Select_All @Eliminado = 1"
@@ -567,22 +565,35 @@ Public Class frmClientes
         Me.grd.Location = New Size(GroupBox1.Location.X, GroupBox1.Location.Y + GroupBox1.Size.Height + 7)
 
         'Me.Size = New Size(IIf(Me.Size.Width <= AnchoMinimoForm, AnchoMinimoForm, Me.Size.Width), Me.grd.Location.Y + Me.grd.Size.Height + 65)
-        Me.Size = New Size(Me.Size.Width, (Screen.PrimaryScreen.WorkingArea.Height - 65))
+        'Me.Size = New Size(Me.Size.Width, (Screen.PrimaryScreen.WorkingArea.Height - 65))
 
-        Dim p As New Size(GroupBox1.Size.Width, Me.Size.Height - 7 - GroupBox1.Size.Height - GroupBox1.Location.Y - 7)
-        Me.grd.Size = New Size(p)
+        'Dim p As New Size(GroupBox1.Size.Width, Me.Size.Height - 7 - GroupBox1.Size.Height - GroupBox1.Location.Y - 7)
+        'Me.grd.Size = New Size(p)
+
+        'If LLAMADO_POR_FORMULARIO Then
+        '    LLAMADO_POR_FORMULARIO = False
+        '    'Me.Top = ARRIBA
+        '    'Me.Left = IZQUIERDA
+        '    'Else
+        '    '    Me.Top = 0
+        '    '    Me.Left = (Screen.PrimaryScreen.WorkingArea.Width - Me.Width) \ 2
+        'End If
+
+        'Me.Top = 0
+        'Me.Left = (Screen.PrimaryScreen.WorkingArea.Width - Me.Width) \ 2
 
         If LLAMADO_POR_FORMULARIO Then
             LLAMADO_POR_FORMULARIO = False
-            'Me.Top = ARRIBA
-            'Me.Left = IZQUIERDA
-            'Else
-            '    Me.Top = 0
-            '    Me.Left = (Screen.PrimaryScreen.WorkingArea.Width - Me.Width) \ 2
+            Me.Top = ARRIBA
+            Me.Left = IZQUIERDA
+        Else
+            Me.Top = 0
+            Me.Left = (Screen.PrimaryScreen.WorkingArea.Width - Me.Width) \ 2
         End If
 
-        Me.Top = 0
-        Me.Left = (Screen.PrimaryScreen.WorkingArea.Width - Me.Width) \ 2
+        Me.WindowState = FormWindowState.Maximized
+
+        Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width - 27, Me.Size.Height - 7 - GroupBox1.Size.Height - GroupBox1.Location.Y - 65)
 
     End Sub
 
@@ -1452,18 +1463,18 @@ Public Class frmClientes
 
                 If res > 0 Then
 
-                    If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
-                        Try
-                            Dim sqlstring As String
+                    'If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
+                    'Try
+                    '    Dim sqlstring As String
 
-                            sqlstring = "UPDATE [dbo].[Clientes] SET [Eliminado] = 1, [DateDel] = '" & Format(Date.Now, "MM/dd/yyyy").ToString & " " & Format(Date.Now, "hh:mm:ss").ToString & "' WHERE Codigo = '" & txtCODIGO.Text & "'"
-                            tranWEB.Sql_Set(sqlstring)
+                    '    sqlstring = "UPDATE [dbo].[" & NameTable_Clientes & "] SET [Eliminado] = 1, [DateDel] = '" & Format(Date.Now, "MM/dd/yyyy").ToString & " " & Format(Date.Now, "hh:mm:ss").ToString & "' WHERE Codigo = '" & txtCODIGO.Text & "'"
+                    '    tranWEB.Sql_Set(sqlstring)
 
-                        Catch ex As Exception
-                            'MsgBox(ex.Message)
-                            MsgBox("No se puede sincronizar en la Web el cliente actual. Ejecute el botón sincronizar para actualizar el servidor WEB.")
-                        End Try
-                    End If
+                    'Catch ex As Exception
+                    '    'MsgBox(ex.Message)
+                    '    MsgBox("No se puede sincronizar en la Web el cliente actual. Ejecute el botón sincronizar para actualizar el servidor WEB.")
+                    'End Try
+                    'End If
 
                     Util.BorrarGrilla(grd)
                     EliminarRegistro = res
@@ -1538,8 +1549,6 @@ Public Class frmClientes
 #End Region
 
     Private Sub txtCuit_LostFocus(sender As Object, e As EventArgs) Handles txtCuit.LostFocus
-
-
 
         Try
             'Dim Cuit As String = txtCuit.Text.ToString

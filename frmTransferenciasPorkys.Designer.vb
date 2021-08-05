@@ -42,19 +42,6 @@ Partial Class frmTransferenciasPorkys
         Me.txtIDMarca = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.txtIdUnidad = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.grdItems = New System.Windows.Forms.DataGridView()
-        Me.Id = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.OrdenItem = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.CodMaterial = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.EquipoHerramienta = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.IdProducto = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.CodMarca = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.IdUnidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Unidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Desc_Unit = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Nota = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Stock = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Eliminado = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Eliminar = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.lblStock = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.txtCantidad = New TextBoxConFormatoVB.FormattedTextBoxVB()
@@ -84,6 +71,19 @@ Partial Class frmTransferenciasPorkys
         Me.BorrarElItemToolStripMenuItemIVA = New System.Windows.Forms.ToolStripMenuItem()
         Me.TimerDescargas = New System.Windows.Forms.Timer(Me.components)
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.Id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.OrdenItem = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CodMaterial = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.EquipoHerramienta = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.IdProducto = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CodMarca = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.IdUnidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Unidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Desc_Unit = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Nota = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Stock = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Eliminado = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Eliminar = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.GroupBox1.SuspendLayout()
         CType(Me.PicEncargado, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdItems, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -139,7 +139,7 @@ Partial Class frmTransferenciasPorkys
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4)
-        Me.GroupBox1.Size = New System.Drawing.Size(1193, 511)
+        Me.GroupBox1.Size = New System.Drawing.Size(1274, 511)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         '
@@ -186,7 +186,7 @@ Partial Class frmTransferenciasPorkys
         Me.chkEliminados.BackColor = System.Drawing.Color.Transparent
         Me.chkEliminados.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.chkEliminados.ForeColor = System.Drawing.Color.Red
-        Me.chkEliminados.Location = New System.Drawing.Point(1005, 155)
+        Me.chkEliminados.Location = New System.Drawing.Point(1120, 156)
         Me.chkEliminados.Margin = New System.Windows.Forms.Padding(4)
         Me.chkEliminados.Name = "chkEliminados"
         Me.chkEliminados.Size = New System.Drawing.Size(143, 24)
@@ -268,7 +268,7 @@ Partial Class frmTransferenciasPorkys
         '
         'btnActualizarMat
         '
-        Me.btnActualizarMat.BackgroundImage = Global.PORKYS.My.Resources.Resources.Sincro
+        Me.btnActualizarMat.BackgroundImage = Global.SEYC.My.Resources.Resources.Sincro
         Me.btnActualizarMat.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.btnActualizarMat.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnActualizarMat.Location = New System.Drawing.Point(636, 153)
@@ -302,7 +302,7 @@ Partial Class frmTransferenciasPorkys
         '
         Me.PicEncargado.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.PicEncargado.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.PicEncargado.Image = Global.PORKYS.My.Resources.Resources.Info
+        Me.PicEncargado.Image = Global.SEYC.My.Resources.Resources.Info
         Me.PicEncargado.Location = New System.Drawing.Point(1020, 38)
         Me.PicEncargado.Margin = New System.Windows.Forms.Padding(4)
         Me.PicEncargado.Name = "PicEncargado"
@@ -419,108 +419,8 @@ Partial Class frmTransferenciasPorkys
         Me.grdItems.Location = New System.Drawing.Point(16, 188)
         Me.grdItems.Margin = New System.Windows.Forms.Padding(4)
         Me.grdItems.Name = "grdItems"
-        Me.grdItems.Size = New System.Drawing.Size(1155, 266)
+        Me.grdItems.Size = New System.Drawing.Size(1246, 266)
         Me.grdItems.TabIndex = 8
-        '
-        'Id
-        '
-        Me.Id.HeaderText = "Id"
-        Me.Id.Name = "Id"
-        Me.Id.ReadOnly = True
-        Me.Id.Visible = False
-        '
-        'OrdenItem
-        '
-        Me.OrdenItem.HeaderText = "Item"
-        Me.OrdenItem.Name = "OrdenItem"
-        Me.OrdenItem.ReadOnly = True
-        Me.OrdenItem.Width = 70
-        '
-        'CodMaterial
-        '
-        Me.CodMaterial.HeaderText = "CodMaterial"
-        Me.CodMaterial.Name = "CodMaterial"
-        Me.CodMaterial.ReadOnly = True
-        Me.CodMaterial.Visible = False
-        '
-        'EquipoHerramienta
-        '
-        Me.EquipoHerramienta.HeaderText = "Producto"
-        Me.EquipoHerramienta.Name = "EquipoHerramienta"
-        Me.EquipoHerramienta.ReadOnly = True
-        Me.EquipoHerramienta.Width = 280
-        '
-        'IdProducto
-        '
-        Me.IdProducto.HeaderText = "CodMarca"
-        Me.IdProducto.Name = "IdProducto"
-        Me.IdProducto.ReadOnly = True
-        Me.IdProducto.Visible = False
-        '
-        'CodMarca
-        '
-        Me.CodMarca.HeaderText = "Marca"
-        Me.CodMarca.Name = "CodMarca"
-        Me.CodMarca.ReadOnly = True
-        Me.CodMarca.Width = 130
-        '
-        'IdUnidad
-        '
-        Me.IdUnidad.HeaderText = "CodUnidad"
-        Me.IdUnidad.Name = "IdUnidad"
-        Me.IdUnidad.ReadOnly = True
-        Me.IdUnidad.Visible = False
-        '
-        'Unidad
-        '
-        Me.Unidad.HeaderText = "Unidad"
-        Me.Unidad.Name = "Unidad"
-        Me.Unidad.ReadOnly = True
-        Me.Unidad.Width = 80
-        '
-        'Desc_Unit
-        '
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle3.Format = "N2"
-        DataGridViewCellStyle3.NullValue = "0"
-        Me.Desc_Unit.DefaultCellStyle = DataGridViewCellStyle3
-        Me.Desc_Unit.HeaderText = "Cantidad"
-        Me.Desc_Unit.Name = "Desc_Unit"
-        Me.Desc_Unit.ReadOnly = True
-        Me.Desc_Unit.Width = 80
-        '
-        'Nota
-        '
-        Me.Nota.HeaderText = "Nota"
-        Me.Nota.Name = "Nota"
-        Me.Nota.Visible = False
-        Me.Nota.Width = 200
-        '
-        'Stock
-        '
-        Me.Stock.HeaderText = "Stock"
-        Me.Stock.Name = "Stock"
-        Me.Stock.ReadOnly = True
-        Me.Stock.Visible = False
-        Me.Stock.Width = 50
-        '
-        'Eliminado
-        '
-        Me.Eliminado.HeaderText = "Eliminado"
-        Me.Eliminado.Name = "Eliminado"
-        Me.Eliminado.ReadOnly = True
-        Me.Eliminado.Visible = False
-        Me.Eliminado.Width = 50
-        '
-        'Eliminar
-        '
-        Me.Eliminar.HeaderText = "Eliminar"
-        Me.Eliminar.Name = "Eliminar"
-        Me.Eliminar.ReadOnly = True
-        Me.Eliminar.Text = "Eliminar"
-        Me.Eliminar.ToolTipText = "Eliminar Registro"
-        Me.Eliminar.UseColumnTextForButtonValue = True
-        Me.Eliminar.Width = 80
         '
         'lblStock
         '
@@ -848,11 +748,110 @@ Partial Class frmTransferenciasPorkys
         '
         Me.TimerDescargas.Interval = 18000
         '
+        'Id
+        '
+        Me.Id.HeaderText = "Id"
+        Me.Id.Name = "Id"
+        Me.Id.ReadOnly = True
+        Me.Id.Visible = False
+        '
+        'OrdenItem
+        '
+        Me.OrdenItem.HeaderText = "Item"
+        Me.OrdenItem.Name = "OrdenItem"
+        Me.OrdenItem.ReadOnly = True
+        Me.OrdenItem.Width = 70
+        '
+        'CodMaterial
+        '
+        Me.CodMaterial.HeaderText = "CodMaterial"
+        Me.CodMaterial.Name = "CodMaterial"
+        Me.CodMaterial.ReadOnly = True
+        Me.CodMaterial.Visible = False
+        '
+        'EquipoHerramienta
+        '
+        Me.EquipoHerramienta.HeaderText = "Producto"
+        Me.EquipoHerramienta.Name = "EquipoHerramienta"
+        Me.EquipoHerramienta.ReadOnly = True
+        Me.EquipoHerramienta.Width = 280
+        '
+        'IdProducto
+        '
+        Me.IdProducto.HeaderText = "CodMarca"
+        Me.IdProducto.Name = "IdProducto"
+        Me.IdProducto.ReadOnly = True
+        Me.IdProducto.Visible = False
+        '
+        'CodMarca
+        '
+        Me.CodMarca.HeaderText = "Marca"
+        Me.CodMarca.Name = "CodMarca"
+        Me.CodMarca.ReadOnly = True
+        Me.CodMarca.Width = 130
+        '
+        'IdUnidad
+        '
+        Me.IdUnidad.HeaderText = "CodUnidad"
+        Me.IdUnidad.Name = "IdUnidad"
+        Me.IdUnidad.ReadOnly = True
+        Me.IdUnidad.Visible = False
+        '
+        'Unidad
+        '
+        Me.Unidad.HeaderText = "Unidad"
+        Me.Unidad.Name = "Unidad"
+        Me.Unidad.ReadOnly = True
+        Me.Unidad.Width = 80
+        '
+        'Desc_Unit
+        '
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle3.Format = "N2"
+        DataGridViewCellStyle3.NullValue = "0"
+        Me.Desc_Unit.DefaultCellStyle = DataGridViewCellStyle3
+        Me.Desc_Unit.HeaderText = "Cantidad"
+        Me.Desc_Unit.Name = "Desc_Unit"
+        Me.Desc_Unit.ReadOnly = True
+        Me.Desc_Unit.Width = 70
+        '
+        'Nota
+        '
+        Me.Nota.HeaderText = "Nota"
+        Me.Nota.Name = "Nota"
+        Me.Nota.Width = 180
+        '
+        'Stock
+        '
+        Me.Stock.HeaderText = "Stock"
+        Me.Stock.Name = "Stock"
+        Me.Stock.ReadOnly = True
+        Me.Stock.Visible = False
+        Me.Stock.Width = 50
+        '
+        'Eliminado
+        '
+        Me.Eliminado.HeaderText = "Eliminado"
+        Me.Eliminado.Name = "Eliminado"
+        Me.Eliminado.ReadOnly = True
+        Me.Eliminado.Visible = False
+        Me.Eliminado.Width = 50
+        '
+        'Eliminar
+        '
+        Me.Eliminar.HeaderText = "Eliminar"
+        Me.Eliminar.Name = "Eliminar"
+        Me.Eliminar.ReadOnly = True
+        Me.Eliminar.Text = "Eliminar"
+        Me.Eliminar.ToolTipText = "Eliminar Registro"
+        Me.Eliminar.UseColumnTextForButtonValue = True
+        Me.Eliminar.Width = 80
+        '
         'frmTransferenciasPorkys
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1203, 750)
+        Me.ClientSize = New System.Drawing.Size(1284, 750)
         Me.Controls.Add(Me.GroupBox1)
         Me.Margin = New System.Windows.Forms.Padding(5)
         Me.Name = "frmTransferenciasPorkys"

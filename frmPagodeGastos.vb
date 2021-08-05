@@ -33,7 +33,7 @@ Public Class frmPagodeGastos
     Dim band As Integer, bandIVA As Boolean
     'BANDIVA SE UTILIZA PARA SABER SI EXISTEN VARIOS PORCENTAJES DE IVA DIFERENTES EN EL PAGO
 
-    Dim IVA As Double
+    Dim IVA As Double, MontoChequesTerceros As Double = 0, MontoChequesPropios As Double = 0
 
     'constantes para identificar las columnas de la grilla por nombre 
     ' en vez de número
@@ -67,6 +67,16 @@ Public Class frmPagodeGastos
         Observaciones = 7
     End Enum
 
+    'Enum ColumnasDelGridCheques_PropiosChequera
+    '    Id = 0
+    '    Seleccionar = 1
+    '    NroCheque = 2
+    '    'MontoCheque = 3
+    '    'FechaCobro = 4
+    '    Banco = 3
+    '    'Observaciones = 6
+    'End Enum
+
     Enum ColumnasDelGridChequesPropios
         Id = 0
         Seleccionar = 1
@@ -74,8 +84,7 @@ Public Class frmPagodeGastos
         MontoCheque = 3
         FechaCobro = 4
         Banco = 5
-        Cliente = 6
-        Observaciones = 7
+        Observaciones = 6
     End Enum
 
     'Auxiliares para guardar
@@ -153,13 +162,14 @@ Public Class frmPagodeGastos
         grd.Columns(14).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
 
         grd.Columns(15).Visible = False
+        'grd.Columns(20).Visible = False
 
         permitir_evento_CellChanged = True
 
         grd_CurrentCellChanged(sender, e)
 
         dtpFECHA.MaxDate = Today.Date
-        dtpFechaCheque.MaxDate = Today.Date
+        'dtpFechaCheque.MaxDate = Today.Date
         dtpFechaTransf.MaxDate = Today.Date
 
         band = 1
@@ -207,16 +217,18 @@ Public Class frmPagodeGastos
         Cell_Y = e.RowIndex
     End Sub
 
-    Private Sub cmbClientes_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmbProveedores.SelectedIndexChanged
+    Private Sub cmbProveedores_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmbProveedores.SelectedIndexChanged
         If band = 1 Then
-            LlenarGridGastos(CType(cmbProveedores.SelectedValue, Long))
-            lblTotalaPagarSinIva.Text = "0"
-            lblTotalaPagar.Text = "0"
-            lblTotal.Text = "0"
+            If cmbProveedores.Text <> "" Then
+                txtIdProveedor.Text = cmbProveedores.SelectedValue
+                LlenarGridGastos(CType(cmbProveedores.SelectedValue, Long))
+                lblTotalaPagarSinIva.Text = "0"
+                lblTotalaPagar.Text = "0"
+                lblTotal.Text = "0"
 
-            lblIVA.Text = "0"
-            lblSubtotal.Text = "0"
-
+                lblIVA.Text = "0"
+                lblSubtotal.Text = "0"
+            End If
         End If
     End Sub
 
@@ -226,9 +238,15 @@ Public Class frmPagodeGastos
         End If
     End Sub
 
-    Private Sub grdCheques_CurrentCellDirtyStateChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles grdCheques.CurrentCellDirtyStateChanged
-        If grdCheques.IsCurrentCellDirty Then
-            grdCheques.CommitEdit(DataGridViewDataErrorContexts.Commit)
+    Private Sub grdChequesTerceros_CurrentCellDirtyStateChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles grdChequesTerceros.CurrentCellDirtyStateChanged
+        If grdChequesTerceros.IsCurrentCellDirty Then
+            grdChequesTerceros.CommitEdit(DataGridViewDataErrorContexts.Commit)
+        End If
+    End Sub
+
+    Private Sub grdChequesPropios_CurrentCellDirtyStateChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles grdChequesPropios.CurrentCellDirtyStateChanged
+        If grdChequesPropios.IsCurrentCellDirty Then
+            grdChequesPropios.CommitEdit(DataGridViewDataErrorContexts.Commit)
         End If
     End Sub
 
@@ -246,19 +264,20 @@ Public Class frmPagodeGastos
         End Try
     End Sub
 
-    Private Sub grdCheques_CellValueChanged(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles grdCheques.CellValueChanged
+    Private Sub grdChequesTerceros_CellValueChanged(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles grdChequesTerceros.CellValueChanged
         Try
 
             If e.ColumnIndex = ColumnasDelGridCheques.Seleccionar Then
                 Dim i As Integer
-                lblEntregaCheques.Text = "0"
-                Dim subtotal As Double = 0
+                'lblEntregaCheques.Text = "0"
+                'Dim subtotal As Double = 0
+                MontoChequesTerceros = 0
 
-                For i = 0 To grdCheques.RowCount - 1
+                For i = 0 To grdChequesTerceros.RowCount - 1
 
-                    If CBool(grdCheques.Rows(i).Cells(ColumnasDelGridCheques.Seleccionar).Value) = True Then
+                    If CBool(grdChequesTerceros.Rows(i).Cells(ColumnasDelGridCheques.Seleccionar).Value) = True Then
 
-                        subtotal = subtotal + grdCheques.Rows(i).Cells(ColumnasDelGridCheques.MontoCheque).Value
+                        MontoChequesTerceros = MontoChequesTerceros + grdChequesTerceros.Rows(i).Cells(ColumnasDelGridCheques.MontoCheque).Value
 
                         'Else
                         'If bolModo = False Then
@@ -268,15 +287,106 @@ Public Class frmPagodeGastos
 
                 Next
 
-                lblEntregaCheques.Text = subtotal.ToString
+                lblEntregaCheques.Text = MontoChequesPropios + MontoChequesTerceros  'subtotal.ToString
 
                 Calcular_MontoEntregado()
 
             End If
 
         Catch ex As Exception
+            MsgBox("Error en Sub Cheques Terceros Cell Click", MsgBoxStyle.Critical, "Error")
+        End Try
+    End Sub
+
+    Private Sub grdChequesPropios_CellValueChanged(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles grdChequesPropios.CellValueChanged
+        Try
+
+            If e.ColumnIndex = ColumnasDelGridChequesPropios.Seleccionar Then
+                Dim i As Integer
+                'lblEntregaCheques.Text = "0"
+                'Dim subtotal As Double = 0
+                ' Dim MontoCheque As Double = 0
+
+                MontoChequesPropios = 0
+
+                For i = 0 To grdChequesPropios.RowCount - 1
+
+                    If CBool(grdChequesPropios.Rows(i).Cells(ColumnasDelGridChequesPropios.Seleccionar).Value) = True Then
+
+                        'If grdChequesPropios.Rows(i).Cells(ColumnasDelGridChequesPropios.MontoCheque).Value = "" Then
+                        '    MontoCheque = 0
+                        'End If
+
+                        If grdChequesPropios.CurrentRow.Cells(ColumnasDelGridChequesPropios.MontoCheque).Value Is DBNull.Value Or _
+                            grdChequesPropios.CurrentRow.Cells(ColumnasDelGridChequesPropios.MontoCheque).Value = Nothing Then
+                            grdChequesPropios.CurrentRow.Cells(ColumnasDelGridChequesPropios.MontoCheque).Value = 0
+                        End If
+
+                        MontoChequesPropios = MontoChequesPropios + grdChequesPropios.Rows(i).Cells(ColumnasDelGridChequesPropios.MontoCheque).Value
+
+                        'Else
+                        'If bolModo = False Then
+                        ' subtotal = subtotal + grdCheques.Rows(i).Cells(ColumnasDelGridCheques.MontoCheque).Value
+                        'End If
+                    End If
+
+                Next
+
+                lblEntregaCheques.Text = MontoChequesPropios + MontoChequesTerceros 'subtotal.ToString
+
+                Calcular_MontoEntregado()
+
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.ToString)
             MsgBox("Error en Sub grdCheques_CellClick", MsgBoxStyle.Critical, "Error")
         End Try
+    End Sub
+
+    Private Sub grdChequesPropios_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles grdChequesPropios.CellEndEdit
+        Try
+            If e.ColumnIndex = ColumnasDelGridChequesPropios.MontoCheque Then
+                If grdChequesPropios.CurrentRow.Cells(ColumnasDelGridChequesPropios.MontoCheque).Value Is DBNull.Value Or _
+                    grdChequesPropios.CurrentRow.Cells(ColumnasDelGridChequesPropios.MontoCheque).Value = Nothing Then
+                    grdChequesPropios.CurrentRow.Cells(ColumnasDelGridChequesPropios.MontoCheque).Value = 0
+                End If
+
+                Dim i As Integer
+                'lblEntregaCheques.Text = "0"
+                'Dim subtotal As Double = 0
+                'Dim MontoCheque As Double = 0
+
+                MontoChequesPropios = 0
+
+                For i = 0 To grdChequesPropios.RowCount - 1
+
+                    If CBool(grdChequesPropios.Rows(i).Cells(ColumnasDelGridChequesPropios.Seleccionar).Value) = True Then
+
+                        If grdChequesPropios.CurrentRow.Cells(ColumnasDelGridChequesPropios.MontoCheque).Value Is DBNull.Value Or _
+                           grdChequesPropios.CurrentRow.Cells(ColumnasDelGridChequesPropios.MontoCheque).Value = Nothing Then
+                            grdChequesPropios.CurrentRow.Cells(ColumnasDelGridChequesPropios.MontoCheque).Value = 0
+                        End If
+
+                        MontoChequesPropios = MontoChequesPropios + grdChequesPropios.Rows(i).Cells(ColumnasDelGridChequesPropios.MontoCheque).Value
+
+                        'Else
+                        'If bolModo = False Then
+                        ' subtotal = subtotal + grdCheques.Rows(i).Cells(ColumnasDelGridCheques.MontoCheque).Value
+                        'End If
+                    End If
+
+                Next
+
+                lblEntregaCheques.Text = MontoChequesPropios + MontoChequesTerceros 'subtotal.ToString
+
+                Calcular_MontoEntregado()
+
+            End If
+        Catch ex As Exception
+
+        End Try
+
     End Sub
 
     Private Sub Calcular_MontoEntregado()
@@ -318,9 +428,9 @@ Public Class frmPagodeGastos
     End Sub
 
     Private Sub TabControl1_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles TabControl1.SelectedIndexChanged
-        If TabControl1.SelectedTab.Name Is "TabChequesPropios" Then
-            txtNroCheque.Focus()
-        End If
+        'If TabControl1.SelectedTab.Name Is "TabChequesPropios" Then
+        '    txtNroCheque.Focus()
+        'End If
         If TabControl1.SelectedTab.Name Is "TabTransferencias" Then
             txtNroOpCliente.Focus()
         End If
@@ -334,6 +444,7 @@ Public Class frmPagodeGastos
 
             If bolModo = False Then
                 Try
+                    txtIdProveedor.Text = grd.CurrentRow.Cells(20).Value
                     LlenarGridGastos(CType(grd.CurrentRow.Cells(15).Value, Long))
                     'LlenarGridGastos(CType(cmbProveedor.SelectedValue, Long))
                 Catch ex As Exception
@@ -343,9 +454,33 @@ Public Class frmPagodeGastos
 
             AgregarRemito_tmp()
 
-            LlenarGrid_Cheques_Propios()
+            'MontoChequesPropios = 0
+            'MontoChequesTerceros = 0
 
-            LlenarGridCheques()
+            'Dim i As Integer
+
+            'For i = 0 To grdChequesPropios.RowCount - 1
+
+            '    If CBool(grdChequesPropios.Rows(i).Cells(ColumnasDelGridChequesPropios.Seleccionar).Value) = True Then
+
+            '        MontoChequesPropios = MontoChequesPropios + grdChequesPropios.CurrentRow.Cells(ColumnasDelGridChequesPropios.MontoCheque).Value
+
+            '    End If
+
+            'Next
+
+            'For i = 0 To grdChequesTerceros.RowCount - 1
+
+            '    If CBool(grdChequesTerceros.Rows(i).Cells(ColumnasDelGridChequesPropios.Seleccionar).Value) = True Then
+
+            '        MontoChequesTerceros = MontoChequesTerceros + grdChequesTerceros.CurrentRow.Cells(ColumnasDelGridCheques.MontoCheque).Value
+
+            '    End If
+
+            'Next
+
+            LlenarGridCheques_Propios()
+            LlenarGridCheques_Terceros()
 
             LlenarGrid_Transferencias()
 
@@ -354,12 +489,12 @@ Public Class frmPagodeGastos
         End If
     End Sub
 
-    Private Sub txtMontoCheque_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtMontoCheque.KeyPress
-        If e.KeyChar = ChrW(Keys.Enter) Then
-            e.Handled = True
-            btnAgregarCheque.Focus()
-        End If
-    End Sub
+    'Private Sub txtMontoCheque_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
+    '    If e.KeyChar = ChrW(Keys.Enter) Then
+    '        e.Handled = True
+    '        btnAgregarCheque.Focus()
+    '    End If
+    'End Sub
 
     Private Sub chkAnulados_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkAnulados.CheckedChanged
         btnGuardar.Enabled = Not chkAnulados.Checked
@@ -446,6 +581,12 @@ Public Class frmPagodeGastos
             Exit Sub
         End If
 
+        If lblTotal.Text = "0" Or lblTotal.Text = "" Then
+            Util.MsgStatus(Status1, "Debe ingresar el monto de cancelación para el pago actual.", My.Resources.Resources.alert.ToBitmap)
+            Util.MsgStatus(Status1, "Debe ingresar el monto de cancelación para el pago actual.", My.Resources.Resources.alert.ToBitmap, True)
+            Exit Sub
+        End If
+
         bolpoliticas = True
 
     End Sub
@@ -522,34 +663,40 @@ Public Class frmPagodeGastos
 
     End Sub
 
-    Private Sub LlenarGridCheques()
+    Private Sub LlenarGridCheques_Terceros()
 
         SQL = "exec spPagos_Cheques_Select_All @modo = " & bolModo & ", @IdPago = " & IIf(txtID.Text = "", 0, txtID.Text)
 
-        GetDatasetItems(grdCheques)
+        GetDatasetItems(grdChequesTerceros)
 
-        grdCheques.Columns(ColumnasDelGridCheques.Id).Visible = False
+        grdChequesTerceros.Columns(ColumnasDelGridCheques.Id).Visible = False
 
-        grdCheques.Columns(ColumnasDelGridCheques.NroCheque).Width = 80
-        grdCheques.Columns(ColumnasDelGridCheques.NroCheque).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+        grdChequesTerceros.Columns(ColumnasDelGridCheques.NroCheque).Width = 80
+        grdChequesTerceros.Columns(ColumnasDelGridCheques.NroCheque).ReadOnly = True
+        grdChequesTerceros.Columns(ColumnasDelGridCheques.NroCheque).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
 
-        grdCheques.Columns(ColumnasDelGridCheques.MontoCheque).Width = 65
-        grdCheques.Columns(ColumnasDelGridCheques.MontoCheque).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+        grdChequesTerceros.Columns(ColumnasDelGridCheques.MontoCheque).Width = 75
+        grdChequesTerceros.Columns(ColumnasDelGridCheques.MontoCheque).ReadOnly = True
+        grdChequesTerceros.Columns(ColumnasDelGridCheques.MontoCheque).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
 
-        grdCheques.Columns(ColumnasDelGridCheques.FechaCobro).Width = 70
-        grdCheques.Columns(ColumnasDelGridCheques.FechaCobro).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+        grdChequesTerceros.Columns(ColumnasDelGridCheques.FechaCobro).Width = 75
+        grdChequesTerceros.Columns(ColumnasDelGridCheques.FechaCobro).ReadOnly = True
+        grdChequesTerceros.Columns(ColumnasDelGridCheques.FechaCobro).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
 
-        grdCheques.Columns(ColumnasDelGridCheques.Banco).Width = 80
+        grdChequesTerceros.Columns(ColumnasDelGridCheques.Banco).Width = 80
+        grdChequesTerceros.Columns(ColumnasDelGridCheques.Banco).ReadOnly = True
 
-        grdCheques.Columns(ColumnasDelGridCheques.Cliente).Width = 80
+        grdChequesTerceros.Columns(ColumnasDelGridCheques.Cliente).Width = 80
+        grdChequesTerceros.Columns(ColumnasDelGridCheques.Cliente).ReadOnly = True
 
-        grdCheques.Columns(ColumnasDelGridCheques.Observaciones).Width = 80
+        grdChequesTerceros.Columns(ColumnasDelGridCheques.Observaciones).Width = 80
+        grdChequesTerceros.Columns(ColumnasDelGridCheques.Observaciones).ReadOnly = True
 
-        grdCheques.Columns(ColumnasDelGridCheques.Seleccionar).Width = 80
+        grdChequesTerceros.Columns(ColumnasDelGridCheques.Seleccionar).Width = 80
         'grdCheques.Columns(ColumnasDelGridCheques.Seleccionar).Visible = bolModo
         'grdCheques.Columns(ColumnasDelGridCheques.Seleccionar).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
 
-        With grdCheques
+        With grdChequesTerceros
             .VirtualMode = False
             .AllowUserToAddRows = False
             .AlternatingRowsDefaultCellStyle.BackColor = Color.AliceBlue
@@ -559,13 +706,63 @@ Public Class frmPagodeGastos
             .ForeColor = Color.Black
         End With
 
-        With grdCheques.ColumnHeadersDefaultCellStyle
+        With grdChequesTerceros.ColumnHeadersDefaultCellStyle
             .BackColor = Color.Black  'Color.BlueViolet
             .ForeColor = Color.White
             .Font = New Font("TAHOMA", 8, FontStyle.Bold)
         End With
 
-        grdCheques.Font = New Font("TAHOMA", 8, FontStyle.Regular)
+        grdChequesTerceros.Font = New Font("TAHOMA", 8, FontStyle.Regular)
+
+        SQL = "spPagos_Select_All @Eliminado = 0"
+
+    End Sub
+
+    Private Sub LlenarGridCheques_Propios()
+
+        SQL = "exec spPagos_Cheques_Propios_Select_All  @modo = " & bolModo & ", @IdPago = " & IIf(txtID.Text = "", 0, txtID.Text)
+
+        GetDatasetItems(grdChequesPropios)
+
+        grdChequesPropios.Columns(ColumnasDelGridChequesPropios.Id).Visible = False
+
+        grdChequesPropios.Columns(ColumnasDelGridChequesPropios.NroCheque).Width = 80
+        grdChequesPropios.Columns(ColumnasDelGridChequesPropios.NroCheque).ReadOnly = True
+        grdChequesPropios.Columns(ColumnasDelGridChequesPropios.NroCheque).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+
+        grdChequesPropios.Columns(ColumnasDelGridChequesPropios.MontoCheque).Width = 75
+        grdChequesPropios.Columns(ColumnasDelGridChequesPropios.MontoCheque).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+
+        grdChequesPropios.Columns(ColumnasDelGridChequesPropios.FechaCobro).Width = 75
+        grdChequesPropios.Columns(ColumnasDelGridChequesPropios.FechaCobro).DefaultCellStyle.Format = "dd/MM/yyyy"
+
+        grdChequesPropios.Columns(ColumnasDelGridChequesPropios.Banco).Width = 80
+        grdChequesPropios.Columns(ColumnasDelGridChequesPropios.Banco).ReadOnly = True
+
+        'grdChequesPropios2.Columns(ColumnasDelGridCheques.Cliente).Width = 80
+
+        grdChequesPropios.Columns(ColumnasDelGridChequesPropios.Seleccionar).Width = 80
+        'grdCheques.Columns(ColumnasDelGridCheques.Seleccionar).Visible = bolModo
+        'grdCheques.Columns(ColumnasDelGridCheques.Seleccionar).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+
+        With grdChequesPropios
+            .VirtualMode = False
+            .AllowUserToAddRows = False
+            .AlternatingRowsDefaultCellStyle.BackColor = Color.AliceBlue
+            .RowsDefaultCellStyle.BackColor = Color.White
+            .AllowUserToOrderColumns = True
+            .SelectionMode = DataGridViewSelectionMode.CellSelect
+            .ForeColor = Color.Black
+            .MultiSelect = False
+        End With
+
+        With grdChequesPropios.ColumnHeadersDefaultCellStyle
+            .BackColor = Color.Black  'Color.BlueViolet
+            .ForeColor = Color.White
+            .Font = New Font("TAHOMA", 8, FontStyle.Bold)
+        End With
+
+        grdChequesPropios.Font = New Font("TAHOMA", 8, FontStyle.Regular)
 
         SQL = "spPagos_Select_All @Eliminado = 0"
 
@@ -620,15 +817,16 @@ Public Class frmPagodeGastos
 
         Try
 
-            ds_Cli = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT DISTINCT p.ID, ltrim(rtrim(p.nombre)) as Nombre FROM Gastos g " & _
-                                                                     " JOIN Proveedores p ON p.ID = g.IdProveedor WHERE cancelado = 0 and g.eliminado = 0 order by ltrim(rtrim(p.nombre))")
+            'VERSION PARA CONTROLAR, USA EN TODOS LADOS EL CÓDIGO
+            ds_Cli = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT DISTINCT CONVERT(BIGINT, p.Codigo) AS Codigo, ltrim(rtrim(p.nombre)) as Nombre FROM Gastos g " & _
+                                                                     " JOIN Proveedores p ON p.codigo = g.IdProveedor WHERE cancelado = 0 and g.eliminado = 0 order by ltrim(rtrim(p.nombre))")
 
             ds_Cli.Dispose()
 
             With Me.cmbProveedores
                 .DataSource = ds_Cli.Tables(0).DefaultView
                 .DisplayMember = "nombre"
-                .ValueMember = "id"
+                .ValueMember = "codigo"
             End With
 
         Catch ex As Exception
@@ -696,7 +894,7 @@ Public Class frmPagodeGastos
     'End Sub
 
     Private Sub LlenarComboBancos()
-        Dim ds_Bancos As Data.DataSet
+        'Dim ds_Bancos As Data.DataSet
         Dim ds_Bancos_Origen As Data.DataSet
         Dim ds_Bancos_Destino As Data.DataSet
 
@@ -710,9 +908,9 @@ Public Class frmPagodeGastos
         End Try
 
         Try
-            ds_Bancos = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT * FROM (SELECT UPPER(Banco) as Banco FROM CHEQUES UNION SELECT UPPER(BancoOrigen) as Banco FROM TransferenciaBancaria " & _
-                                                    " UNION SELECT UPPER(BancoDestino) as Banco  FROM TransferenciaBancaria ) A ORDER BY Banco")
-            ds_Bancos.Dispose()
+            'ds_Bancos = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT * FROM (SELECT UPPER(Banco) as Banco FROM CHEQUES UNION SELECT UPPER(BancoOrigen) as Banco FROM TransferenciaBancaria " & _
+            '                                        " UNION SELECT UPPER(BancoDestino) as Banco  FROM TransferenciaBancaria ) A ORDER BY Banco")
+            'ds_Bancos.Dispose()
 
             ds_Bancos_Origen = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT * FROM (SELECT UPPER(Banco) as Banco FROM CHEQUES UNION SELECT UPPER(BancoOrigen) as Banco FROM TransferenciaBancaria " & _
                                                     " UNION SELECT UPPER(BancoDestino) as Banco  FROM TransferenciaBancaria ) A ORDER BY Banco")
@@ -722,11 +920,11 @@ Public Class frmPagodeGastos
                                                                 " UNION SELECT UPPER(BancoDestino) as Banco  FROM TransferenciaBancaria ) A ORDER BY Banco")
             ds_Bancos_Destino.Dispose()
 
-            With Me.cmbBanco
-                .DataSource = ds_Bancos.Tables(0).DefaultView
-                .DisplayMember = "Banco"
-                .ValueMember = "Banco"
-            End With
+            'With Me.cmbBanco
+            '    .DataSource = ds_Bancos.Tables(0).DefaultView
+            '    .DisplayMember = "Banco"
+            '    .ValueMember = "Banco"
+            'End With
 
             With Me.cmbBancoDestino
                 .DataSource = ds_Bancos_Destino.Tables(0).DefaultView
@@ -865,42 +1063,42 @@ Public Class frmPagodeGastos
     '    End Try
     'End Sub
 
-    Private Sub LlenarGrid_Cheques_Propios()
-        Dim connection As SqlClient.SqlConnection = Nothing
+    'Private Sub LlenarGrid_Cheques_Propios()
+    '    Dim connection As SqlClient.SqlConnection = Nothing
 
-        Try
-            connection = SqlHelper.GetConnection(ConnStringSEI)
-        Catch ex As Exception
-            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
-        End Try
+    '    Try
+    '        connection = SqlHelper.GetConnection(ConnStringSEI)
+    '    Catch ex As Exception
+    '        MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+    '        Exit Sub
+    '    End Try
 
-        Try
-            Dim dt As New DataTable
-            Dim sqltxt2 As String
+    '    Try
+    '        Dim dt As New DataTable
+    '        Dim sqltxt2 As String
 
-            sqltxt2 = "SELECT NroCheque, banco, monto, fechacobro, clientechequebco, idmoneda, observaciones, c.id, utilizado " & _
-                    " FROM Cheques c JOIN pagos_cheques pc ON pc.idcheque = c.id " & _
-                    " where c.propio = 1 and  IdPago = " & IIf(txtID.Text = "", 0, txtID.Text) & " ORDER BY Monto ASC"
+    '        sqltxt2 = "SELECT NroCheque, banco, monto, fechacobro, clientechequebco, idmoneda, observaciones, c.id, utilizado " & _
+    '                " FROM Cheques c JOIN pagos_cheques pc ON pc.idcheque = c.id " & _
+    '                " where c.propio = 1 and  IdPago = " & IIf(txtID.Text = "", 0, txtID.Text) & " ORDER BY Monto ASC"
 
-            Dim cmd As New SqlCommand(sqltxt2, connection)
-            Dim da As New SqlDataAdapter(cmd)
-            Dim i As Integer
+    '        Dim cmd As New SqlCommand(sqltxt2, connection)
+    '        Dim da As New SqlDataAdapter(cmd)
+    '        Dim i As Integer
 
-            da.Fill(dt)
+    '        da.Fill(dt)
 
-            For i = 0 To dt.Rows.Count - 1
-                grdChequesPropios.Rows.Add(dt.Rows(i)("nrocheque").ToString(), dt.Rows(i)("banco").ToString(), dt.Rows(i)("monto").ToString(), dt.Rows(i)("fechacobro").ToString(), dt.Rows(i)("clientechequebco").ToString(), dt.Rows(i)("idmoneda").ToString(), dt.Rows(i)("Observaciones").ToString(), dt.Rows(i)("Id").ToString())
-            Next
+    '        For i = 0 To dt.Rows.Count - 1
+    '            grdChequesPropios.Rows.Add(dt.Rows(i)("nrocheque").ToString(), dt.Rows(i)("banco").ToString(), dt.Rows(i)("monto").ToString(), dt.Rows(i)("fechacobro").ToString(), dt.Rows(i)("clientechequebco").ToString(), dt.Rows(i)("idmoneda").ToString(), dt.Rows(i)("Observaciones").ToString(), dt.Rows(i)("Id").ToString())
+    '        Next
 
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        Finally
-            If Not connection Is Nothing Then
-                CType(connection, IDisposable).Dispose()
-            End If
-        End Try
-    End Sub
+    '    Catch ex As Exception
+    '        MsgBox(ex.Message)
+    '    Finally
+    '        If Not connection Is Nothing Then
+    '            CType(connection, IDisposable).Dispose()
+    '        End If
+    '    End Try
+    'End Sub
 
     Private Sub LlenarGrid_Transferencias()
         Dim connection As SqlClient.SqlConnection = Nothing
@@ -947,16 +1145,16 @@ Public Class frmPagodeGastos
 
     Private Sub LimpiarGrids()
 
-        grdChequesPropios.Rows.Clear()
+        'grdChequesPropios.Rows.Clear()
         grdTransferencias.Rows.Clear()
         grdTarjetas.Rows.Clear()
 
-        txtNroCheque.Text = ""
-        txtMontoCheque.Text = ""
-        dtpFechaCheque.Value = Date.Today  'grdCheques.CurrentRow.Cells(3).Value
-        txtPropietario.Text = "SEI SRL"
+        'txtNroCheque.Text = ""
+        'txtMontoCheque.Text = ""
+        'dtpFechaCheque.Value = Date.Today  'grdCheques.CurrentRow.Cells(3).Value
+        'txtPropietario.Text = "SEI SRL"
         'cmbMoneda.SelectedValue = grd.CurrentRow.Cells(5).Value
-        txtObservacionesCheque.Text = ""
+        'txtObservacionesCheque.Text = ""
 
         txtNroOpCliente.Text = ""
         txtMontoTransf.Text = ""
@@ -1069,7 +1267,7 @@ Public Class frmPagodeGastos
                 Dim param_idProveedor As New SqlClient.SqlParameter
                 param_idProveedor.ParameterName = "@idProveedor"
                 param_idProveedor.SqlDbType = SqlDbType.BigInt
-                param_idProveedor.Value = cmbProveedores.SelectedValue
+                param_idProveedor.Value = txtIdProveedor.Text ' cmbProveedores.SelectedValue
                 param_idProveedor.Direction = ParameterDirection.Input
 
                 Dim param_fecha As New SqlClient.SqlParameter
@@ -1376,7 +1574,7 @@ Public Class frmPagodeGastos
         End Try
     End Function
 
-    Private Function AgregarRegistro_Cheques() As Integer
+    Private Function AgregarRegistro_Cheques_Terceros() As Integer
         Dim res As Integer = 0
         Dim i As Integer
 
@@ -1384,14 +1582,14 @@ Public Class frmPagodeGastos
 
             Try
 
-                For i = 0 To grdCheques.RowCount - 1
+                For i = 0 To grdChequesTerceros.RowCount - 1
 
-                    If CBool(grdCheques.Rows(i).Cells(ColumnasDelGridCheques.Seleccionar).Value) = True Then
+                    If CBool(grdChequesTerceros.Rows(i).Cells(ColumnasDelGridCheques.Seleccionar).Value) = True Then
 
                         Dim param_IdCheque As New SqlClient.SqlParameter
                         param_IdCheque.ParameterName = "@IdCheque"
                         param_IdCheque.SqlDbType = SqlDbType.BigInt
-                        param_IdCheque.Value = grdCheques.Rows(i).Cells(ColumnasDelGridCheques.Id).Value
+                        param_IdCheque.Value = grdChequesTerceros.Rows(i).Cells(ColumnasDelGridCheques.Id).Value
                         param_IdCheque.Direction = ParameterDirection.Input
 
                         Dim param_IdPago As New SqlClient.SqlParameter
@@ -1407,36 +1605,26 @@ Public Class frmPagodeGastos
                         param_res.Direction = ParameterDirection.InputOutput
 
                         Try
-                            'If bolModo = True Then
                             SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spPagos_Cheques_Insert", _
                                 param_IdPago, param_IdCheque, param_res)
 
                             res = param_res.Value
-                            'Else
-                            'SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spPagos_Cheques_Update", _
-                            '    param_IdPago, param_IdCheque, param_res)
-
-                            'MsgBox(param_MENSAJE.Value.ToString)
-
-                            'res = param_res.Value
-
-                            'End If
 
                             If res < 0 Then
-                                AgregarRegistro_Cheques = -1
+                                AgregarRegistro_Cheques_Terceros = -1
                                 Exit Function
                             End If
 
                         Catch ex As Exception
                             Throw ex
-                            AgregarRegistro_Cheques = -1
+                            AgregarRegistro_Cheques_Terceros = -1
                             Exit Function
                         End Try
                     End If
 
                 Next
 
-                AgregarRegistro_Cheques = 1
+                AgregarRegistro_Cheques_Terceros = 1
             Finally
 
             End Try
@@ -1466,145 +1654,60 @@ Public Class frmPagodeGastos
 
                 For i = 0 To grdChequesPropios.RowCount - 1
 
-                    Dim param_Id As New SqlClient.SqlParameter
-                    param_Id.ParameterName = "@Id"
-                    param_Id.SqlDbType = SqlDbType.BigInt
-                    If grdChequesPropios.Rows(i).Cells(7).Value Is DBNull.Value Or grdChequesPropios.Rows(i).Cells(7).Value Is Nothing Then
-                        param_Id.Value = DBNull.Value
-                    Else
-                        param_Id.Value = grdChequesPropios.Rows(i).Cells(7).Value
-                    End If
-                    param_Id.Direction = ParameterDirection.Input
+                    If CBool(grdChequesPropios.Rows(i).Cells(ColumnasDelGridChequesPropios.Seleccionar).Value) = True Then
 
-                    Dim param_IdPago As New SqlClient.SqlParameter
-                    param_IdPago.ParameterName = "@IdPago"
-                    param_IdPago.SqlDbType = SqlDbType.BigInt
-                    param_IdPago.Value = txtID.Text
-                    param_IdPago.Direction = ParameterDirection.Input
+                        Dim param_IdCheque As New SqlClient.SqlParameter
+                        param_IdCheque.ParameterName = "@IdCheque"
+                        param_IdCheque.SqlDbType = SqlDbType.BigInt
+                        param_IdCheque.Value = grdChequesPropios.Rows(i).Cells(ColumnasDelGridChequesPropios.Id).Value
+                        param_IdCheque.Direction = ParameterDirection.Input
 
-                    Dim param_NroCheque As New SqlClient.SqlParameter
-                    param_NroCheque.ParameterName = "@NroCheque"
-                    param_NroCheque.SqlDbType = SqlDbType.BigInt
-                    param_NroCheque.Value = grdChequesPropios.Rows(i).Cells(0).Value
-                    param_NroCheque.Direction = ParameterDirection.Input
+                        Dim param_IdPago As New SqlClient.SqlParameter
+                        param_IdPago.ParameterName = "@IdPago"
+                        param_IdPago.SqlDbType = SqlDbType.BigInt
+                        param_IdPago.Value = txtID.Text
+                        param_IdPago.Direction = ParameterDirection.Input
 
-                    Dim param_IdCliente As New SqlClient.SqlParameter
-                    param_IdCliente.ParameterName = "@IdCliente"
-                    param_IdCliente.SqlDbType = SqlDbType.Int
-                    param_IdCliente.Value = 0
-                    param_IdCliente.Direction = ParameterDirection.Input
+                        Dim param_Monto As New SqlClient.SqlParameter
+                        param_Monto.ParameterName = "@Monto"
+                        param_Monto.SqlDbType = SqlDbType.Decimal
+                        param_Monto.Precision = 18
+                        param_Monto.Value = grdChequesPropios.Rows(i).Cells(ColumnasDelGridChequesPropios.MontoCheque).Value
+                        param_Monto.Direction = ParameterDirection.Input
 
-                    Dim param_ClienteChequeBco As New SqlClient.SqlParameter
-                    param_ClienteChequeBco.ParameterName = "@ClienteChequeBco"
-                    param_ClienteChequeBco.SqlDbType = SqlDbType.NVarChar
-                    param_ClienteChequeBco.Size = 50
-                    param_ClienteChequeBco.Value = grdChequesPropios.Rows(i).Cells(4).Value
-                    param_ClienteChequeBco.Direction = ParameterDirection.Input
+                        Dim param_Venc As New SqlClient.SqlParameter
+                        param_Venc.ParameterName = "@Venc"
+                        param_Venc.SqlDbType = SqlDbType.Date
+                        param_Venc.Value = grdChequesPropios.Rows(i).Cells(ColumnasDelGridChequesPropios.FechaCobro).Value
+                        param_Venc.Direction = ParameterDirection.Input
 
-                    Dim param_FechaCobro As New SqlClient.SqlParameter
-                    param_FechaCobro.ParameterName = "@FechaCobro"
-                    param_FechaCobro.SqlDbType = SqlDbType.DateTime
-                    param_FechaCobro.Value = grdChequesPropios.Rows(i).Cells(3).Value
-                    param_FechaCobro.Direction = ParameterDirection.Input
+                        Dim param_res As New SqlClient.SqlParameter
+                        param_res.ParameterName = "@res"
+                        param_res.SqlDbType = SqlDbType.Int
+                        param_res.Value = 0
+                        param_res.Direction = ParameterDirection.InputOutput
 
-                    Dim param_Moneda As New SqlClient.SqlParameter
-                    param_Moneda.ParameterName = "@IdMoneda"
-                    param_Moneda.SqlDbType = SqlDbType.Int
-                    param_Moneda.Value = 1 'grdChequesPropios.Rows(i).Cells(5).Value
-                    param_Moneda.Direction = ParameterDirection.Input
-
-                    Dim param_Monto As New SqlClient.SqlParameter
-                    param_Monto.ParameterName = "@Monto"
-                    param_Monto.SqlDbType = SqlDbType.Decimal
-                    param_Monto.Precision = 18
-                    param_Monto.Scale = 2
-                    param_Monto.Value = grdChequesPropios.Rows(i).Cells(2).Value
-                    param_Monto.Direction = ParameterDirection.Input
-
-                    Dim param_Banco As New SqlClient.SqlParameter
-                    param_Banco.ParameterName = "@Banco"
-                    param_Banco.SqlDbType = SqlDbType.NVarChar
-                    param_Banco.Size = 50
-                    param_Banco.Value = grdChequesPropios.Rows(i).Cells(1).Value
-                    param_Banco.Direction = ParameterDirection.Input
-
-                    Dim param_Observaciones As New SqlClient.SqlParameter
-                    param_Observaciones.ParameterName = "@Observaciones"
-                    param_Observaciones.SqlDbType = SqlDbType.NVarChar
-                    param_Observaciones.Size = 100
-                    param_Observaciones.Value = grdChequesPropios.Rows(i).Cells(6).Value
-                    param_Observaciones.Direction = ParameterDirection.Input
-
-                    Dim param_Propio As New SqlClient.SqlParameter
-                    param_Propio.ParameterName = "@Propio"
-                    param_Propio.SqlDbType = SqlDbType.Bit
-                    param_Propio.Value = True
-                    param_Propio.Direction = ParameterDirection.Input
-
-                    Dim param_Utilizado As New SqlClient.SqlParameter
-                    param_Utilizado.ParameterName = "@Utilizado"
-                    param_Utilizado.SqlDbType = SqlDbType.Bit
-                    param_Utilizado.Value = True
-                    param_Utilizado.Direction = ParameterDirection.Input
-
-                    Dim param_useradd As New SqlClient.SqlParameter
-                    If bolModo = True Then
-                        param_useradd.ParameterName = "@useradd"
-                    Else
-                        param_useradd.ParameterName = "@userupd"
-                    End If
-                    param_useradd.SqlDbType = SqlDbType.SmallInt
-                    param_useradd.Value = UserID
-                    param_useradd.Direction = ParameterDirection.Input
-
-                    Dim param_res As New SqlClient.SqlParameter
-                    param_res.ParameterName = "@res"
-                    param_res.SqlDbType = SqlDbType.Int
-                    param_res.Value = 0
-                    param_res.Direction = ParameterDirection.InputOutput
-
-                    Dim param_MENSAJE As New SqlClient.SqlParameter
-                    param_MENSAJE.ParameterName = "@MENSAJE"
-                    param_MENSAJE.SqlDbType = SqlDbType.VarChar
-                    param_MENSAJE.Size = 300
-                    param_MENSAJE.Value = DBNull.Value
-                    param_MENSAJE.Direction = ParameterDirection.InputOutput
-
-                    Try
-                        If bolModo = True Then
-                            SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spCheques_Insert2", _
-                                param_IdPago, param_NroCheque, param_IdCliente, _
-                                param_ClienteChequeBco, param_FechaCobro, param_Moneda, param_Monto, param_Utilizado, _
-                                param_Banco, param_Observaciones, param_Propio, param_useradd, param_res)
-
-                            res = param_res.Value
-                        Else
-                            SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spCheques_Update", _
-                                param_Id, param_IdPago, param_NroCheque, param_IdCliente, _
-                                param_ClienteChequeBco, param_FechaCobro, param_Moneda, param_Monto, _
-                                param_Banco, param_Observaciones, param_Propio, param_useradd, param_MENSAJE, param_res)
-
-                            'MsgBox(param_MENSAJE.Value.ToString)
+                        Try
+                            SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spPagos_Cheques_Propios_Insert", _
+                                param_IdPago, param_IdCheque, param_Monto, param_Venc, param_res)
 
                             res = param_res.Value
 
-                        End If
+                            If res < 0 Then
+                                AgregarRegistro_Cheques_Propios = -1
+                                Exit Function
+                            End If
 
-                        If res < 0 Then
+                        Catch ex As Exception
+                            Throw ex
                             AgregarRegistro_Cheques_Propios = -1
                             Exit Function
-                        End If
-
-                    Catch ex As Exception
-                        Throw ex
-                        AgregarRegistro_Cheques_Propios = -1
-                        Exit Function
-                    End Try
+                        End Try
+                    End If
 
                 Next
 
                 AgregarRegistro_Cheques_Propios = 1
-
             Finally
 
             End Try
@@ -1623,6 +1726,174 @@ Public Class frmPagodeGastos
 
         End Try
     End Function
+
+    'Private Function AgregarRegistro_Cheques_Propios() As Integer
+    '    Dim res As Integer = 0
+    '    Dim i As Integer
+
+    '    Try
+
+    '        Try
+
+    '            For i = 0 To grdChequesPropios.RowCount - 1
+
+    '                Dim param_Id As New SqlClient.SqlParameter
+    '                param_Id.ParameterName = "@Id"
+    '                param_Id.SqlDbType = SqlDbType.BigInt
+    '                If grdChequesPropios.Rows(i).Cells(7).Value Is DBNull.Value Or grdChequesPropios.Rows(i).Cells(7).Value Is Nothing Then
+    '                    param_Id.Value = DBNull.Value
+    '                Else
+    '                    param_Id.Value = grdChequesPropios.Rows(i).Cells(7).Value
+    '                End If
+    '                param_Id.Direction = ParameterDirection.Input
+
+    '                Dim param_IdPago As New SqlClient.SqlParameter
+    '                param_IdPago.ParameterName = "@IdPago"
+    '                param_IdPago.SqlDbType = SqlDbType.BigInt
+    '                param_IdPago.Value = txtID.Text
+    '                param_IdPago.Direction = ParameterDirection.Input
+
+    '                Dim param_NroCheque As New SqlClient.SqlParameter
+    '                param_NroCheque.ParameterName = "@NroCheque"
+    '                param_NroCheque.SqlDbType = SqlDbType.BigInt
+    '                param_NroCheque.Value = grdChequesPropios.Rows(i).Cells(0).Value
+    '                param_NroCheque.Direction = ParameterDirection.Input
+
+    '                Dim param_IdCliente As New SqlClient.SqlParameter
+    '                param_IdCliente.ParameterName = "@IdCliente"
+    '                param_IdCliente.SqlDbType = SqlDbType.Int
+    '                param_IdCliente.Value = 0
+    '                param_IdCliente.Direction = ParameterDirection.Input
+
+    '                Dim param_ClienteChequeBco As New SqlClient.SqlParameter
+    '                param_ClienteChequeBco.ParameterName = "@ClienteChequeBco"
+    '                param_ClienteChequeBco.SqlDbType = SqlDbType.NVarChar
+    '                param_ClienteChequeBco.Size = 50
+    '                param_ClienteChequeBco.Value = grdChequesPropios.Rows(i).Cells(4).Value
+    '                param_ClienteChequeBco.Direction = ParameterDirection.Input
+
+    '                Dim param_FechaCobro As New SqlClient.SqlParameter
+    '                param_FechaCobro.ParameterName = "@FechaCobro"
+    '                param_FechaCobro.SqlDbType = SqlDbType.DateTime
+    '                param_FechaCobro.Value = grdChequesPropios.Rows(i).Cells(3).Value
+    '                param_FechaCobro.Direction = ParameterDirection.Input
+
+    '                Dim param_Moneda As New SqlClient.SqlParameter
+    '                param_Moneda.ParameterName = "@IdMoneda"
+    '                param_Moneda.SqlDbType = SqlDbType.Int
+    '                param_Moneda.Value = 1 'grdChequesPropios.Rows(i).Cells(5).Value
+    '                param_Moneda.Direction = ParameterDirection.Input
+
+    '                Dim param_Monto As New SqlClient.SqlParameter
+    '                param_Monto.ParameterName = "@Monto"
+    '                param_Monto.SqlDbType = SqlDbType.Decimal
+    '                param_Monto.Precision = 18
+    '                param_Monto.Scale = 2
+    '                param_Monto.Value = grdChequesPropios.Rows(i).Cells(2).Value
+    '                param_Monto.Direction = ParameterDirection.Input
+
+    '                Dim param_Banco As New SqlClient.SqlParameter
+    '                param_Banco.ParameterName = "@Banco"
+    '                param_Banco.SqlDbType = SqlDbType.NVarChar
+    '                param_Banco.Size = 50
+    '                param_Banco.Value = grdChequesPropios.Rows(i).Cells(1).Value
+    '                param_Banco.Direction = ParameterDirection.Input
+
+    '                Dim param_Observaciones As New SqlClient.SqlParameter
+    '                param_Observaciones.ParameterName = "@Observaciones"
+    '                param_Observaciones.SqlDbType = SqlDbType.NVarChar
+    '                param_Observaciones.Size = 100
+    '                param_Observaciones.Value = grdChequesPropios.Rows(i).Cells(6).Value
+    '                param_Observaciones.Direction = ParameterDirection.Input
+
+    '                Dim param_Propio As New SqlClient.SqlParameter
+    '                param_Propio.ParameterName = "@Propio"
+    '                param_Propio.SqlDbType = SqlDbType.Bit
+    '                param_Propio.Value = True
+    '                param_Propio.Direction = ParameterDirection.Input
+
+    '                Dim param_Utilizado As New SqlClient.SqlParameter
+    '                param_Utilizado.ParameterName = "@Utilizado"
+    '                param_Utilizado.SqlDbType = SqlDbType.Bit
+    '                param_Utilizado.Value = True
+    '                param_Utilizado.Direction = ParameterDirection.Input
+
+    '                Dim param_useradd As New SqlClient.SqlParameter
+    '                If bolModo = True Then
+    '                    param_useradd.ParameterName = "@useradd"
+    '                Else
+    '                    param_useradd.ParameterName = "@userupd"
+    '                End If
+    '                param_useradd.SqlDbType = SqlDbType.SmallInt
+    '                param_useradd.Value = UserID
+    '                param_useradd.Direction = ParameterDirection.Input
+
+    '                Dim param_res As New SqlClient.SqlParameter
+    '                param_res.ParameterName = "@res"
+    '                param_res.SqlDbType = SqlDbType.Int
+    '                param_res.Value = 0
+    '                param_res.Direction = ParameterDirection.InputOutput
+
+    '                Dim param_MENSAJE As New SqlClient.SqlParameter
+    '                param_MENSAJE.ParameterName = "@MENSAJE"
+    '                param_MENSAJE.SqlDbType = SqlDbType.VarChar
+    '                param_MENSAJE.Size = 300
+    '                param_MENSAJE.Value = DBNull.Value
+    '                param_MENSAJE.Direction = ParameterDirection.InputOutput
+
+    '                Try
+    '                    If bolModo = True Then
+    '                        SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spCheques_Insert2", _
+    '                            param_IdPago, param_NroCheque, param_IdCliente, _
+    '                            param_ClienteChequeBco, param_FechaCobro, param_Moneda, param_Monto, param_Utilizado, _
+    '                            param_Banco, param_Observaciones, param_Propio, param_useradd, param_res)
+
+    '                        res = param_res.Value
+    '                    Else
+    '                        SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spCheques_Update", _
+    '                            param_Id, param_IdPago, param_NroCheque, param_IdCliente, _
+    '                            param_ClienteChequeBco, param_FechaCobro, param_Moneda, param_Monto, _
+    '                            param_Banco, param_Observaciones, param_Propio, param_useradd, param_MENSAJE, param_res)
+
+    '                        'MsgBox(param_MENSAJE.Value.ToString)
+
+    '                        res = param_res.Value
+
+    '                    End If
+
+    '                    If res < 0 Then
+    '                        AgregarRegistro_Cheques_Propios = -1
+    '                        Exit Function
+    '                    End If
+
+    '                Catch ex As Exception
+    '                    Throw ex
+    '                    AgregarRegistro_Cheques_Propios = -1
+    '                    Exit Function
+    '                End Try
+
+    '            Next
+
+    '            AgregarRegistro_Cheques_Propios = 1
+
+    '        Finally
+
+    '        End Try
+    '    Catch ex As Exception
+    '        Dim errMessage As String = ""
+    '        Dim tempException As Exception = ex
+
+    '        While (Not tempException Is Nothing)
+    '            errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+    '            tempException = tempException.InnerException
+    '        End While
+
+    '        MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+    '          + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+    '          "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+    '    End Try
+    'End Function
 
     'Private Function AgregarRegistro_Impuestos() As Integer
     '    Dim res As Integer = 0
@@ -1899,9 +2170,9 @@ Public Class frmPagodeGastos
 
             SqlHelper.ExecuteNonQuery(tran, CommandType.Text, "DELETE FROM TMP_Cheques_Pagos")
 
-            For i = 0 To grdCheques.RowCount - 1
+            For i = 0 To grdChequesTerceros.RowCount - 1
 
-                If CBool(grdCheques.Rows(i).Cells(ColumnasDelGridCheques.Seleccionar).Value) = True Then
+                If CBool(grdChequesTerceros.Rows(i).Cells(ColumnasDelGridCheques.Seleccionar).Value) = True Then
 
                     Dim param_id As New SqlClient.SqlParameter
                     param_id.ParameterName = "@idPago"
@@ -1912,7 +2183,7 @@ Public Class frmPagodeGastos
                     Dim param_idcheque As New SqlClient.SqlParameter
                     param_idcheque.ParameterName = "@idcheque"
                     param_idcheque.SqlDbType = SqlDbType.BigInt
-                    param_idcheque.Value = grdCheques.Rows(i).Cells(ColumnasDelGridCheques.Id).Value
+                    param_idcheque.Value = grdChequesTerceros.Rows(i).Cells(ColumnasDelGridCheques.Id).Value
                     param_idcheque.Direction = ParameterDirection.Input
 
                     SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spPagos_Cheques_TMP", _
@@ -1950,7 +2221,7 @@ Public Class frmPagodeGastos
 
             SqlHelper.ExecuteNonQuery(tran, CommandType.Text, "DELETE FROM TMP_Cheques_Propios_Pagos")
 
-            For i = 0 To grdCheques.RowCount - 1
+            For i = 0 To grdChequesTerceros.RowCount - 1
                 Dim param_id As New SqlClient.SqlParameter
                 param_id.ParameterName = "@idIngreso"
                 param_id.SqlDbType = SqlDbType.BigInt
@@ -1960,7 +2231,7 @@ Public Class frmPagodeGastos
                 Dim param_idcheque As New SqlClient.SqlParameter
                 param_idcheque.ParameterName = "@idcheque"
                 param_idcheque.SqlDbType = SqlDbType.BigInt
-                param_idcheque.Value = grdCheques.Rows(i).Cells(7).Value
+                param_idcheque.Value = grdChequesTerceros.Rows(i).Cells(7).Value
                 param_idcheque.Direction = ParameterDirection.Input
 
                 SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spPagos_Cheques_Propios_TMP", _
@@ -2530,11 +2801,16 @@ Public Class frmPagodeGastos
         dtpFECHA.Value = Date.Today
         dtpFECHA.Focus()
 
-        LlenarGridCheques()
+        LlenarGridCheques_Terceros()
+        LlenarGridCheques_Propios()
 
         band = 1
 
-        cmbClientes_SelectedIndexChanged(sender, e)
+        cmbProveedores.SelectedIndex = 0
+
+        cmbProveedores_SelectedIndexChanged(sender, e)
+
+        cmbProveedores.Focus()
 
     End Sub
 
@@ -2546,6 +2822,13 @@ Public Class frmPagodeGastos
         If txtOrdenPago.Text = "" Then
             If MessageBox.Show("No ha ingresado ninguna Orden de Pago del Proveedor. ¿Desea continuar sin este dato?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
                 txtOrdenPago.Focus()
+                Exit Sub
+            End If
+        End If
+
+        If txtIdProveedor.Text = "" Then
+            If MessageBox.Show("No ha ingresado un proveedor válido. Por favor, controle.", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
+                cmbProveedores.Focus()
                 Exit Sub
             End If
         End If
@@ -2593,7 +2876,9 @@ Public Class frmPagodeGastos
                                 If bolModo = False Then
                                     ControlarCantidad_Cheques_Propios()
                                 End If
+
                                 res = AgregarRegistro_Cheques_Propios()
+
                                 Select Case res
                                     Case -3
                                         Cancelar_Tran()
@@ -2614,12 +2899,14 @@ Public Class frmPagodeGastos
                                 End Select
 
                                 Util.MsgStatus(Status1, "Guardando la información sobre el detalle de los Cheques de Terceros...", My.Resources.Resources.indicator_white)
+
                                 If bolModo = False Then
                                     ControlarCantidad_Cheques()
                                 Else
                                     res = 1
                                 End If
-                                res = AgregarRegistro_Cheques()
+
+                                res = AgregarRegistro_Cheques_Terceros()
                                 Select Case res
                                     Case -1
                                         Cancelar_Tran()
@@ -2633,7 +2920,6 @@ Public Class frmPagodeGastos
                                         If bolModo = False Then
                                             EliminarItems_Cheques()
                                         End If
-
                                 End Select
 
                                 Util.MsgStatus(Status1, "Guardando la información sobre el detalle de las Transferencias...", My.Resources.Resources.indicator_white)
@@ -2915,153 +3201,164 @@ Public Class frmPagodeGastos
 
 #Region "   Cheques"
 
-    Private Sub btnNuevoCheque_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNuevoCheque.Click
-        txtNroCheque.Text = ""
-        txtObservacionesCheque.Text = ""
-        txtMontoCheque.Text = ""
-        txtPropietario.Text = "SEI SRL"
-        txtNroCheque.Focus()
-    End Sub
+    'Private Sub btnNuevoCheque_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    '    txtNroCheque.Text = ""
+    '    txtObservacionesCheque.Text = ""
+    '    txtMontoCheque.Text = ""
+    '    txtPropietario.Text = "SEI SRL"
+    '    txtNroCheque.Focus()
+    'End Sub
 
-    Private Sub btnModificarCheque_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnModificarCheque.Click
-        'modificar = 1
-        'btnAgregarCheque_Click(sender, e)
+    'Private Sub btnModificarCheque_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    '    'modificar = 1
+    '    'btnAgregarCheque_Click(sender, e)
 
-        Dim I As Integer
+    '    Dim I As Integer
 
-        For I = 0 To grdChequesPropios.RowCount - 1
-            If I <> grdChequesPropios.CurrentRow.Index Then
-                If grdChequesPropios.Rows(I).Cells(0).Value = txtNroCheque.Text Then
-                    Util.MsgStatus(Status1, "Ya existe un cheque con este Nro para este pago. Por favor, revise esta información.", My.Resources.Resources.alert.ToBitmap, True)
-                    Exit Sub
-                End If
-            End If
-        Next
+    '    For I = 0 To grdChequesPropios.RowCount - 1
+    '        If I <> grdChequesPropios.CurrentRow.Index Then
+    '            If grdChequesPropios.Rows(I).Cells(0).Value = txtNroCheque.Text Then
+    '                Util.MsgStatus(Status1, "Ya existe un cheque con este Nro para este pago. Por favor, revise esta información.", My.Resources.Resources.alert.ToBitmap, True)
+    '                Exit Sub
+    '            End If
+    '        End If
+    '    Next
 
-        grdChequesPropios.CurrentRow.Cells(0).Value = txtNroCheque.Text
-        grdChequesPropios.CurrentRow.Cells(1).Value = cmbBanco.Text
-        grdChequesPropios.CurrentRow.Cells(2).Value = CDec(txtMontoCheque.Text)
-        grdChequesPropios.CurrentRow.Cells(3).Value = dtpFechaCheque.Value
-        grdChequesPropios.CurrentRow.Cells(4).Value = txtPropietario.Text
-        grdChequesPropios.CurrentRow.Cells(5).Value = 1 'cmbMoneda.SelectedValue
-        grdChequesPropios.CurrentRow.Cells(6).Value = txtObservacionesCheque.Text
+    '    grdChequesPropios.CurrentRow.Cells(0).Value = txtNroCheque.Text
+    '    grdChequesPropios.CurrentRow.Cells(1).Value = cmbBanco.Text
+    '    grdChequesPropios.CurrentRow.Cells(2).Value = CDec(txtMontoCheque.Text)
+    '    grdChequesPropios.CurrentRow.Cells(3).Value = dtpFechaCheque.Value
+    '    grdChequesPropios.CurrentRow.Cells(4).Value = txtPropietario.Text
+    '    grdChequesPropios.CurrentRow.Cells(5).Value = 1 'cmbMoneda.SelectedValue
+    '    grdChequesPropios.CurrentRow.Cells(6).Value = txtObservacionesCheque.Text
 
-        lblEntregaChequesPropios.Text = "0"
+    '    lblEntregaChequesPropios.Text = "0"
 
-        For I = 0 To grdChequesPropios.RowCount - 1
-            lblEntregaChequesPropios.Text = CDbl(lblEntregaChequesPropios.Text) + grdChequesPropios.Rows(I).Cells(2).Value
-        Next
+    '    For I = 0 To grdChequesPropios.RowCount - 1
+    '        lblEntregaChequesPropios.Text = CDbl(lblEntregaChequesPropios.Text) + grdChequesPropios.Rows(I).Cells(2).Value
+    '    Next
 
-        Calcular_MontoEntregado()
+    '    Calcular_MontoEntregado()
 
-        btnNuevoCheque_Click(sender, e)
+    '    btnNuevoCheque_Click(sender, e)
 
-    End Sub
+    'End Sub
 
-    Private Sub btnAgregarCheque_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAgregarCheque.Click
-        If txtNroCheque.Text = "" Then
-            Util.MsgStatus(Status1, "Debe ingresar el número del cheque.", My.Resources.Resources.alert.ToBitmap)
-            Util.MsgStatus(Status1, "Debe ingresar el número del cheque.", My.Resources.Resources.alert.ToBitmap, True)
-            txtNroCheque.Focus()
-            Exit Sub
-        End If
+    'Private Sub btnAgregarCheque_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    '    If txtNroCheque.Text = "" Then
+    '        Util.MsgStatus(Status1, "Debe ingresar el número del cheque.", My.Resources.Resources.alert.ToBitmap)
+    '        Util.MsgStatus(Status1, "Debe ingresar el número del cheque.", My.Resources.Resources.alert.ToBitmap, True)
+    '        txtNroCheque.Focus()
+    '        Exit Sub
+    '    End If
 
-        If cmbBanco.Text = "" Then
-            Util.MsgStatus(Status1, "Debe ingresar el nombre del Banco.", My.Resources.Resources.alert.ToBitmap)
-            Util.MsgStatus(Status1, "Debe ingresar el nombre del Banco.", My.Resources.Resources.alert.ToBitmap, True)
-            cmbBanco.Focus()
-            Exit Sub
-        End If
+    '    If cmbBanco.Text = "" Then
+    '        Util.MsgStatus(Status1, "Debe ingresar el nombre del Banco.", My.Resources.Resources.alert.ToBitmap)
+    '        Util.MsgStatus(Status1, "Debe ingresar el nombre del Banco.", My.Resources.Resources.alert.ToBitmap, True)
+    '        cmbBanco.Focus()
+    '        Exit Sub
+    '    End If
 
-        If txtMontoCheque.Text = "" Then
-            Util.MsgStatus(Status1, "Debe ingresar el monto del cheque.", My.Resources.Resources.alert.ToBitmap)
-            Util.MsgStatus(Status1, "Debe ingresar el monto del cheque.", My.Resources.Resources.alert.ToBitmap, True)
-            txtMontoCheque.Focus()
-            Exit Sub
-        End If
+    '    If txtMontoCheque.Text = "" Then
+    '        Util.MsgStatus(Status1, "Debe ingresar el monto del cheque.", My.Resources.Resources.alert.ToBitmap)
+    '        Util.MsgStatus(Status1, "Debe ingresar el monto del cheque.", My.Resources.Resources.alert.ToBitmap, True)
+    '        txtMontoCheque.Focus()
+    '        Exit Sub
+    '    End If
 
-        Dim i As Integer
+    '    Dim i As Integer
 
-        For i = 0 To grdChequesPropios.RowCount - 1
-            If grdChequesPropios.Rows(i).Cells(0).Value = txtNroCheque.Text Then
-                Util.MsgStatus(Status1, "Ya existe un cheque con este Nro para este pago. Por favor, revise esta información.", My.Resources.Resources.alert.ToBitmap, True)
-                Exit Sub
-            End If
-        Next
+    '    For i = 0 To grdChequesPropios.RowCount - 1
+    '        If grdChequesPropios.Rows(i).Cells(0).Value = txtNroCheque.Text Then
+    '            Util.MsgStatus(Status1, "Ya existe un cheque con este Nro para este pago. Por favor, revise esta información.", My.Resources.Resources.alert.ToBitmap, True)
+    '            Exit Sub
+    '        End If
+    '    Next
 
-        Try
-            grdChequesPropios.Rows.Add(txtNroCheque.Text, cmbBanco.Text, CDec(txtMontoCheque.Text), dtpFechaCheque.Value, "SEI SRL", 1, txtObservacionesCheque.Text)
-        Catch ex As Exception
-            Exit Sub
-        End Try
+    '    Try
+    '        grdChequesPropios.Rows.Add(txtNroCheque.Text, cmbBanco.Text, CDec(txtMontoCheque.Text), dtpFechaCheque.Value, "SEI SRL", 1, txtObservacionesCheque.Text)
+    '    Catch ex As Exception
+    '        Exit Sub
+    '    End Try
 
-        lblEntregaChequesPropios.Text = CDbl(lblEntregaChequesPropios.Text) + CDbl(txtMontoCheque.Text)
+    '    lblEntregaChequesPropios.Text = CDbl(lblEntregaChequesPropios.Text) + CDbl(txtMontoCheque.Text)
 
-        Calcular_MontoEntregado()
+    '    Calcular_MontoEntregado()
 
 
-    End Sub
+    'End Sub
 
-    Private Sub btnEliminarCheque_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEliminarCheque.Click
-        Dim connection As SqlClient.SqlConnection = Nothing
+    'Private Sub btnEliminarCheque_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    '    Dim connection As SqlClient.SqlConnection = Nothing
 
-        Try
+    '    Try
 
-            If grdChequesPropios.CurrentRow.Cells(8).Value Is DBNull.Value Or grdChequesPropios.CurrentRow.Cells(8).Value = False Then
-                connection = SqlHelper.GetConnection(ConnStringSEI)
+    '        If grdChequesPropios.CurrentRow.Cells(8).Value Is DBNull.Value Or grdChequesPropios.CurrentRow.Cells(8).Value = False Then
+    '            connection = SqlHelper.GetConnection(ConnStringSEI)
 
-                If Not grdChequesPropios.CurrentRow.Cells(7).Value Is Nothing Then
-                    SqlHelper.ExecuteNonQuery(connection, CommandType.Text, "DELETE FROM TMP_Cheques_Ingreso where idCheque = " & grdChequesPropios.CurrentRow.Cells(7).Value)
-                End If
+    '            If Not grdChequesPropios.CurrentRow.Cells(7).Value Is Nothing Then
+    '                SqlHelper.ExecuteNonQuery(connection, CommandType.Text, "DELETE FROM TMP_Cheques_Ingreso where idCheque = " & grdChequesPropios.CurrentRow.Cells(7).Value)
+    '            End If
 
-                grdChequesPropios.Rows.Remove(grdChequesPropios.CurrentRow)
+    '            grdChequesPropios.Rows.Remove(grdChequesPropios.CurrentRow)
 
-                lblEntregaChequesPropios.Text = "0"
+    '            lblEntregaChequesPropios.Text = "0"
 
-                Dim i As Integer
+    '            Dim i As Integer
 
-                For i = 0 To grdChequesPropios.RowCount - 1
-                    lblEntregaChequesPropios.Text = CDbl(lblEntregaChequesPropios.Text) + grdChequesPropios.Rows(i).Cells(2).Value
-                Next
+    '            For i = 0 To grdChequesPropios.RowCount - 1
+    '                lblEntregaChequesPropios.Text = CDbl(lblEntregaChequesPropios.Text) + grdChequesPropios.Rows(i).Cells(2).Value
+    '            Next
 
-                Calcular_MontoEntregado()
+    '            Calcular_MontoEntregado()
 
-            Else
-                MsgBox("El cheque que intenta eliminar se encuentra utilizado en otro proceso")
-            End If
+    '        Else
+    '            MsgBox("El cheque que intenta eliminar se encuentra utilizado en otro proceso")
+    '        End If
 
-        Catch ex As Exception
+    '    Catch ex As Exception
 
-        Finally
-            If Not connection Is Nothing Then
-                CType(connection, IDisposable).Dispose()
-            End If
-        End Try
+    '    Finally
+    '        If Not connection Is Nothing Then
+    '            CType(connection, IDisposable).Dispose()
+    '        End If
+    '    End Try
 
-    End Sub
+    'End Sub
 
-    Private Sub grdChequesPropios_SelectionChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles grdChequesPropios.SelectionChanged
-        If Not grdChequesPropios.CurrentRow Is Nothing Then
-            txtNroCheque.Text = grdChequesPropios.CurrentRow.Cells(0).Value
-            cmbBanco.Text = grdChequesPropios.CurrentRow.Cells(1).Value
-            txtMontoCheque.Text = grdChequesPropios.CurrentRow.Cells(2).Value
-            Try
-                dtpFechaCheque.Value = grdChequesPropios.CurrentRow.Cells(3).Value
-            Catch ex As Exception
+    'Private Sub grdChequesPropios2_CellValueChanged(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles grdChequesPropios.CellValueChanged
+    '    Try
 
-            End Try
-            txtPropietario.Text = grdChequesPropios.CurrentRow.Cells(4).Value
-            cmbMoneda.SelectedValue = grdChequesPropios.CurrentRow.Cells(5).Value
-            txtObservacionesCheque.Text = grdChequesPropios.CurrentRow.Cells(6).Value
-        Else
-            txtNroCheque.Text = ""
-            txtMontoCheque.Text = ""
-            dtpFechaCheque.Value = Date.Today  'grdChequesPropios.CurrentRow.Cells(3).Value
-            txtPropietario.Text = "SEI SRL"
-            'cmbMoneda.SelectedValue = grd.CurrentRow.Cells(5).Value
-            txtObservacionesCheque.Text = ""
-        End If
-    End Sub
+    '        If e.ColumnIndex = ColumnasDelGridCheques.Seleccionar Then
+    '            'Dim i As Integer
+    '            'lblEntregaCheques.Text = "0"
+    '            'Dim subtotal As Double = 0
+
+    '            'For i = 0 To grdCheques.RowCount - 1
+
+    '            '    If CBool(grdCheques.Rows(i).Cells(ColumnasDelGridCheques.Seleccionar).Value) = True Then
+
+    '            '        subtotal = subtotal + grdCheques.Rows(i).Cells(ColumnasDelGridCheques.MontoCheque).Value
+
+    '            '        'Else
+    '            '        'If bolModo = False Then
+    '            '        ' subtotal = subtotal + grdCheques.Rows(i).Cells(ColumnasDelGridCheques.MontoCheque).Value
+    '            '        'End If
+    '            '    End If
+
+    '            'Next
+
+    '            'lblEntregaCheques.Text = subtotal.ToString
+
+    '            'Calcular_MontoEntregado()
+
+
+    '        End If
+
+    '    Catch ex As Exception
+    '        MsgBox("Error en Sub grdCheques_CellClick", MsgBoxStyle.Critical, "Error")
+    '    End Try
+    'End Sub
 
 #End Region
 

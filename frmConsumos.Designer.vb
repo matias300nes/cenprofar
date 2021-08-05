@@ -557,7 +557,7 @@ Partial Class frmConsumos
         '
         Me.PicNotas.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.PicNotas.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.PicNotas.Image = Global.PORKYS.My.Resources.Resources.Info
+        Me.PicNotas.Image = Global.SEYC.My.Resources.Resources.Info
         Me.PicNotas.Location = New System.Drawing.Point(1204, 111)
         Me.PicNotas.Name = "PicNotas"
         Me.PicNotas.Size = New System.Drawing.Size(18, 20)
@@ -705,7 +705,7 @@ Partial Class frmConsumos
         '
         Me.PicClientes.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.PicClientes.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.PicClientes.Image = Global.PORKYS.My.Resources.Resources.Info
+        Me.PicClientes.Image = Global.SEYC.My.Resources.Resources.Info
         Me.PicClientes.Location = New System.Drawing.Point(666, 32)
         Me.PicClientes.Name = "PicClientes"
         Me.PicClientes.Size = New System.Drawing.Size(18, 20)
@@ -776,7 +776,7 @@ Partial Class frmConsumos
         '
         Me.picGanancia.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.picGanancia.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.picGanancia.Image = Global.PORKYS.My.Resources.Resources.icono_ayuda
+        Me.picGanancia.Image = Global.SEYC.My.Resources.Resources.icono_ayuda
         Me.picGanancia.Location = New System.Drawing.Point(754, 95)
         Me.picGanancia.Name = "picGanancia"
         Me.picGanancia.Size = New System.Drawing.Size(18, 20)

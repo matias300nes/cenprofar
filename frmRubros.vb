@@ -196,27 +196,27 @@ Public Class frmRubros
                     'End If
                 End If
 
-                If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
-                    Try
-                        Dim sqlstring As String
+                'If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
+                'Try
+                '    Dim sqlstring As String
 
-                        If bolModo = True Then
-                            sqlstring = "INSERT INTO [dbo].[Familias] (ID, [Codigo],[Nombre],[Eliminado])" & _
-                                        " values ( " & txtID.Text & ", '" & codigo & "', '" & txtNOMBRE.Text.ToUpper & "' , 0 )"
+                '    If bolModo = True Then
+                '        sqlstring = "INSERT INTO [dbo].[" & NameTable_Familias & "] (ID, [Codigo],[Nombre],[Eliminado])" & _
+                '                    " values ( " & txtID.Text & ", '" & codigo & "', '" & txtNOMBRE.Text.ToUpper & "' , 0 )"
 
-                        Else
-                            sqlstring = "UPDATE [dbo].[Familias] SET [Codigo] = '" & txtCODIGO.Text & " ', " & _
-                                        " [Nombre] = '" & txtNOMBRE.Text.ToUpper & "' " & _
-                                        " WHERE ID = " & txtID.Text
-                        End If
+                '    Else
+                '        sqlstring = "UPDATE [dbo].[" & NameTable_Familias & "] SET [Codigo] = '" & txtCODIGO.Text & " ', " & _
+                '                    " [Nombre] = '" & txtNOMBRE.Text.ToUpper & "' " & _
+                '                    " WHERE ID = " & txtID.Text
+                '    End If
 
-                        tranWEB.Sql_Set(sqlstring)
+                '    tranWEB.Sql_Set(sqlstring)
 
-                    Catch ex As Exception
-                        'MsgBox(ex.Message)
-                        MsgBox("No se puede actualizar en la Web la lista de Marcas. Ejecute el botón sincronizar para actualizar el servidor WEB.")
-                    End Try
-                End If
+                'Catch ex As Exception
+                '    'MsgBox(ex.Message)
+                '    MsgBox("No se puede actualizar en la Web la lista de Marcas. Ejecute el botón sincronizar para actualizar el servidor WEB.")
+                'End Try
+                'End If
 
                 bolModo = False
                 Cerrar_Tran()
@@ -311,18 +311,18 @@ Public Class frmRubros
             ds_Update = SqlHelper.ExecuteDataset(connection, CommandType.Text, "UPDATE Familias SET Eliminado = 0 WHERE id = " & grd.CurrentRow.Cells(0).Value)
             ds_Update.Dispose()
 
-            If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
-                Try
-                    Dim sqlstring As String
+            'If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
+            'Try
+            '    Dim sqlstring As String
 
-                    sqlstring = "UPDATE [dbo].[Familias] SET [Eliminado] = 0 WHERE Codigo = '" & grd.CurrentRow.Cells(1).Value & "'"
-                    tranWEB.Sql_Set(sqlstring)
+            '    sqlstring = "UPDATE [dbo].[" & NameTable_Familias & "] SET [Eliminado] = 0 WHERE Codigo = '" & grd.CurrentRow.Cells(1).Value & "'"
+            '    tranWEB.Sql_Set(sqlstring)
 
-                Catch ex As Exception
-                    'MsgBox(ex.Message)
-                    MsgBox("No se puede Activa en la Web el Rubro seleccionado. Ejecute el botón sincronizar para actualizar el servidor WEB.")
-                End Try
-            End If
+            'Catch ex As Exception
+            '    'MsgBox(ex.Message)
+            '    MsgBox("No se puede Activa en la Web el Rubro seleccionado. Ejecute el botón sincronizar para actualizar el servidor WEB.")
+            'End Try
+            'End If
 
             SQL = "exec spFamilias_Select_All @Eliminado = 1"
 
@@ -642,18 +642,18 @@ Public Class frmRubros
 
                 If res > 0 Then
 
-                    If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
-                        Try
-                            Dim sqlstring As String
+                    'If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
+                    'Try
+                    '    Dim sqlstring As String
 
-                            sqlstring = "UPDATE [dbo].[Familias] SET [Eliminado] = 1 WHERE Codigo = '" & txtCODIGO.Text & "'"
-                            tranWEB.Sql_Set(sqlstring)
+                    '    sqlstring = "UPDATE [dbo].[" & NameTable_Familias & "] SET [Eliminado] = 1 WHERE Codigo = '" & txtCODIGO.Text & "'"
+                    '    tranWEB.Sql_Set(sqlstring)
 
-                        Catch ex As Exception
-                            'MsgBox(ex.Message)
-                            MsgBox("No se puede actualizar en la Web la lista de Rubros. Ejecute el botón sincronizar para actualizar el servidor WEB.")
-                        End Try
-                    End If
+                    'Catch ex As Exception
+                    '    'MsgBox(ex.Message)
+                    '    MsgBox("No se puede actualizar en la Web la lista de Rubros. Ejecute el botón sincronizar para actualizar el servidor WEB.")
+                    'End Try
+                    'End If
 
                     Util.BorrarGrilla(grd)
 

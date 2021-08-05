@@ -44,12 +44,14 @@ Partial Class frmCheques
         Me.Label12 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.GroupBox2 = New DevComponents.DotNetBar.Controls.GroupPanel()
+        Me.chkChequesPropios = New System.Windows.Forms.CheckBox()
         Me.txtNroChequeFin = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.txtNroChequeInicio = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.cmbBancoPropio = New System.Windows.Forms.ComboBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
@@ -58,6 +60,10 @@ Partial Class frmCheques
         '
         Me.LabelX9.AutoSize = True
         Me.LabelX9.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX9.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX9.Location = New System.Drawing.Point(231, 93)
         Me.LabelX9.Name = "LabelX9"
         Me.LabelX9.SingleLineColor = System.Drawing.Color.Transparent
@@ -73,7 +79,7 @@ Partial Class frmCheques
         Me.chkAnulados.BackColor = System.Drawing.Color.Transparent
         Me.chkAnulados.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.chkAnulados.ForeColor = System.Drawing.Color.Red
-        Me.chkAnulados.Location = New System.Drawing.Point(897, 66)
+        Me.chkAnulados.Location = New System.Drawing.Point(1228, 95)
         Me.chkAnulados.Name = "chkAnulados"
         Me.chkAnulados.Size = New System.Drawing.Size(109, 17)
         Me.chkAnulados.TabIndex = 145
@@ -101,7 +107,7 @@ Partial Class frmCheques
         '
         'cmbBanco
         '
-        Me.cmbBanco.AccessibleName = ""
+        Me.cmbBanco.AccessibleName = "*Banco"
         Me.cmbBanco.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.cmbBanco.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbBanco.FormattingEnabled = True
@@ -117,16 +123,16 @@ Partial Class frmCheques
         Me.Label5.ForeColor = System.Drawing.Color.Blue
         Me.Label5.Location = New System.Drawing.Point(654, 10)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(38, 13)
+        Me.Label5.Size = New System.Drawing.Size(42, 13)
         Me.Label5.TabIndex = 143
-        Me.Label5.Text = "Banco"
+        Me.Label5.Text = "Banco*"
         '
         'chkUtilizado
         '
         Me.chkUtilizado.AutoSize = True
         Me.chkUtilizado.BackColor = System.Drawing.Color.Transparent
         Me.chkUtilizado.ForeColor = System.Drawing.Color.Blue
-        Me.chkUtilizado.Location = New System.Drawing.Point(396, 64)
+        Me.chkUtilizado.Location = New System.Drawing.Point(398, 67)
         Me.chkUtilizado.Name = "chkUtilizado"
         Me.chkUtilizado.Size = New System.Drawing.Size(66, 17)
         Me.chkUtilizado.TabIndex = 7
@@ -250,8 +256,8 @@ Partial Class frmCheques
         Me.txtObservaciones.Decimals = CType(2, Byte)
         Me.txtObservaciones.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtObservaciones.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtObservaciones.Location = New System.Drawing.Point(6, 64)
-        Me.txtObservaciones.MaxLength = 50
+        Me.txtObservaciones.Location = New System.Drawing.Point(3, 64)
+        Me.txtObservaciones.MaxLength = 100
         Me.txtObservaciones.Name = "txtObservaciones"
         Me.txtObservaciones.Size = New System.Drawing.Size(384, 20)
         Me.txtObservaciones.TabIndex = 6
@@ -279,10 +285,10 @@ Partial Class frmCheques
         Me.txtUtilizado.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtUtilizado.Enabled = False
         Me.txtUtilizado.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtUtilizado.Location = New System.Drawing.Point(468, 62)
-        Me.txtUtilizado.MaxLength = 10
+        Me.txtUtilizado.Location = New System.Drawing.Point(470, 64)
+        Me.txtUtilizado.MaxLength = 100
         Me.txtUtilizado.Name = "txtUtilizado"
-        Me.txtUtilizado.Size = New System.Drawing.Size(384, 20)
+        Me.txtUtilizado.Size = New System.Drawing.Size(475, 20)
         Me.txtUtilizado.TabIndex = 8
         Me.txtUtilizado.Text_1 = Nothing
         Me.txtUtilizado.Text_2 = Nothing
@@ -325,6 +331,7 @@ Partial Class frmCheques
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox1.CanvasColor = System.Drawing.SystemColors.Control
         Me.GroupBox1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007
+        Me.GroupBox1.Controls.Add(Me.Label10)
         Me.GroupBox1.Controls.Add(Me.chkAnulados)
         Me.GroupBox1.Controls.Add(Me.txtNroCheque)
         Me.GroupBox1.Controls.Add(Me.txtMontoCheques)
@@ -344,9 +351,10 @@ Partial Class frmCheques
         Me.GroupBox1.Controls.Add(Me.Label2)
         Me.GroupBox1.Controls.Add(Me.txtID)
         Me.GroupBox1.Controls.Add(Me.Label1)
+        Me.GroupBox1.DisabledBackColor = System.Drawing.Color.Empty
         Me.GroupBox1.Location = New System.Drawing.Point(12, 94)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1022, 121)
+        Me.GroupBox1.Size = New System.Drawing.Size(1346, 121)
         '
         '
         '
@@ -367,21 +375,31 @@ Partial Class frmCheques
         Me.GroupBox1.Style.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
         Me.GroupBox1.Style.TextColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText
         Me.GroupBox1.Style.TextLineAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Near
+        '
+        '
+        '
+        Me.GroupBox1.StyleMouseDown.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        '
+        '
+        '
+        Me.GroupBox1.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.GroupBox1.TabIndex = 1
         '
         'GroupBox2
         '
         Me.GroupBox2.CanvasColor = System.Drawing.SystemColors.Control
         Me.GroupBox2.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007
+        Me.GroupBox2.Controls.Add(Me.chkChequesPropios)
         Me.GroupBox2.Controls.Add(Me.txtNroChequeFin)
         Me.GroupBox2.Controls.Add(Me.Label7)
         Me.GroupBox2.Controls.Add(Me.txtNroChequeInicio)
         Me.GroupBox2.Controls.Add(Me.cmbBancoPropio)
         Me.GroupBox2.Controls.Add(Me.Label8)
         Me.GroupBox2.Controls.Add(Me.Label9)
+        Me.GroupBox2.DisabledBackColor = System.Drawing.Color.Empty
         Me.GroupBox2.Location = New System.Drawing.Point(12, 28)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(1022, 60)
+        Me.GroupBox2.Size = New System.Drawing.Size(1346, 60)
         '
         '
         '
@@ -402,16 +420,37 @@ Partial Class frmCheques
         Me.GroupBox2.Style.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
         Me.GroupBox2.Style.TextColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText
         Me.GroupBox2.Style.TextLineAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Near
+        '
+        '
+        '
+        Me.GroupBox2.StyleMouseDown.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        '
+        '
+        '
+        Me.GroupBox2.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.GroupBox2.TabIndex = 0
+        '
+        'chkChequesPropios
+        '
+        Me.chkChequesPropios.AutoSize = True
+        Me.chkChequesPropios.BackColor = System.Drawing.Color.Transparent
+        Me.chkChequesPropios.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chkChequesPropios.ForeColor = System.Drawing.Color.Blue
+        Me.chkChequesPropios.Location = New System.Drawing.Point(6, 24)
+        Me.chkChequesPropios.Name = "chkChequesPropios"
+        Me.chkChequesPropios.Size = New System.Drawing.Size(183, 19)
+        Me.chkChequesPropios.TabIndex = 154
+        Me.chkChequesPropios.Text = "Alta de Cheques Propios"
+        Me.chkChequesPropios.UseVisualStyleBackColor = False
         '
         'txtNroChequeFin
         '
-        Me.txtNroChequeFin.AccessibleName = "*NroChequeFin"
+        Me.txtNroChequeFin.AccessibleName = ""
         Me.txtNroChequeFin.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.txtNroChequeFin.Decimals = CType(2, Byte)
         Me.txtNroChequeFin.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtNroChequeFin.Format = TextBoxConFormatoVB.tbFormats.SignedNumber
-        Me.txtNroChequeFin.Location = New System.Drawing.Point(184, 19)
+        Me.txtNroChequeFin.Location = New System.Drawing.Point(373, 25)
         Me.txtNroChequeFin.MaxLength = 25
         Me.txtNroChequeFin.Name = "txtNroChequeFin"
         Me.txtNroChequeFin.Size = New System.Drawing.Size(172, 20)
@@ -427,7 +466,7 @@ Partial Class frmCheques
         Me.Label7.AutoSize = True
         Me.Label7.BackColor = System.Drawing.Color.Transparent
         Me.Label7.ForeColor = System.Drawing.Color.Blue
-        Me.Label7.Location = New System.Drawing.Point(181, 4)
+        Me.Label7.Location = New System.Drawing.Point(370, 10)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(100, 13)
         Me.Label7.TabIndex = 153
@@ -435,12 +474,12 @@ Partial Class frmCheques
         '
         'txtNroChequeInicio
         '
-        Me.txtNroChequeInicio.AccessibleName = "*NroChequeInicio"
+        Me.txtNroChequeInicio.AccessibleName = ""
         Me.txtNroChequeInicio.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.txtNroChequeInicio.Decimals = CType(2, Byte)
         Me.txtNroChequeInicio.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtNroChequeInicio.Format = TextBoxConFormatoVB.tbFormats.SignedNumber
-        Me.txtNroChequeInicio.Location = New System.Drawing.Point(6, 19)
+        Me.txtNroChequeInicio.Location = New System.Drawing.Point(195, 25)
         Me.txtNroChequeInicio.MaxLength = 25
         Me.txtNroChequeInicio.Name = "txtNroChequeInicio"
         Me.txtNroChequeInicio.Size = New System.Drawing.Size(172, 20)
@@ -453,11 +492,11 @@ Partial Class frmCheques
         '
         'cmbBancoPropio
         '
-        Me.cmbBancoPropio.AccessibleName = "*Banco"
+        Me.cmbBancoPropio.AccessibleName = ""
         Me.cmbBancoPropio.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.cmbBancoPropio.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbBancoPropio.FormattingEnabled = True
-        Me.cmbBancoPropio.Location = New System.Drawing.Point(362, 18)
+        Me.cmbBancoPropio.Location = New System.Drawing.Point(551, 24)
         Me.cmbBancoPropio.Name = "cmbBancoPropio"
         Me.cmbBancoPropio.Size = New System.Drawing.Size(286, 21)
         Me.cmbBancoPropio.TabIndex = 2
@@ -467,7 +506,7 @@ Partial Class frmCheques
         Me.Label8.AutoSize = True
         Me.Label8.BackColor = System.Drawing.Color.Transparent
         Me.Label8.ForeColor = System.Drawing.Color.Blue
-        Me.Label8.Location = New System.Drawing.Point(359, 3)
+        Me.Label8.Location = New System.Drawing.Point(548, 9)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(42, 13)
         Me.Label8.TabIndex = 152
@@ -478,24 +517,35 @@ Partial Class frmCheques
         Me.Label9.AutoSize = True
         Me.Label9.BackColor = System.Drawing.Color.Transparent
         Me.Label9.ForeColor = System.Drawing.Color.Blue
-        Me.Label9.Location = New System.Drawing.Point(3, 4)
+        Me.Label9.Location = New System.Drawing.Point(192, 10)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(111, 13)
         Me.Label9.TabIndex = 151
         Me.Label9.Text = "Nro de Cheque Inicio*"
         '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.BackColor = System.Drawing.Color.Transparent
+        Me.Label10.ForeColor = System.Drawing.Color.Blue
+        Me.Label10.Location = New System.Drawing.Point(467, 48)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(121, 13)
+        Me.Label10.TabIndex = 146
+        Me.Label10.Text = "Observaciones Utilizado"
+        '
         'frmCheques
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1046, 543)
+        Me.ClientSize = New System.Drawing.Size(1370, 749)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.MaximizeBox = False
         Me.Name = "frmCheques"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Cheques en Cartera"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.Controls.SetChildIndex(Me.GroupBox1, 0)
         Me.Controls.SetChildIndex(Me.GroupBox2, 0)
         Me.GroupBox1.ResumeLayout(False)
@@ -533,4 +583,6 @@ Partial Class frmCheques
     Friend WithEvents cmbBancoPropio As System.Windows.Forms.ComboBox
     Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents Label9 As System.Windows.Forms.Label
+    Friend WithEvents chkChequesPropios As System.Windows.Forms.CheckBox
+    Friend WithEvents Label10 As System.Windows.Forms.Label
 End Class

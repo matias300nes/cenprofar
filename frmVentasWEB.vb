@@ -76,7 +76,7 @@ Public Class frmVentasWEB
         Reintegrar_Stock = 22
         Bonificacion = 23
         Promo = 24
-
+        Procesado = 25
 
 
     End Enum
@@ -104,6 +104,11 @@ Public Class frmVentasWEB
     Dim PrecioPromo As Double
     Dim DescripcionPromo As String
     Dim Principal As Boolean
+    Dim IDAlmacenTrans As Integer
+    Dim DesdeAnular As Boolean = False
+
+
+
 
 
 
@@ -133,12 +138,16 @@ Public Class frmVentasWEB
         End Select
     End Sub
 
+    Private Sub frmAjustes_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
+        btnSalir_Click(sender, e)
+    End Sub
+
     Private Sub frmPedidosWEB_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         Cursor = Cursors.WaitCursor
 
-        ToolStrip_lblCodMaterial.Visible = True
-        txtBusquedaMAT.Visible = True
+        ToolStrip_lblCodMaterial.Visible = False
+        txtBusquedaMAT.Visible = False
 
         band = 0
 
@@ -194,6 +203,8 @@ Public Class frmVentasWEB
         grd.Columns(16).Visible = False
         grd.Columns(17).Visible = False
         grd.Columns(18).Visible = False
+        grd.Columns(19).Visible = False
+        grd.Columns(20).Visible = False
         grd.Columns(21).Visible = False
         grd.Columns(22).Visible = False
         grd.Columns(23).Visible = False
@@ -202,17 +213,17 @@ Public Class frmVentasWEB
         'grd.Columns(31).Visible = False
 
         'habilito el txt precio solo si es un usuario habilitado (por ahora dejo que el mati cambie de precio)
-        If MDIPrincipal.EmpleadoLogueado = "4" Then
-            txtPrecioVta.ReadOnly = False
-        Else
-            txtPrecioVta.ReadOnly = Not MDIPrincipal.ControlUsuarioAutorizado(MDIPrincipal.EmpleadoLogueado)
-        End If
-
+        'If MDIPrincipal.EmpleadoLogueado = "4" Then
+        '    txtPrecioVta.ReadOnly = False
+        'Else
+        '    txtPrecioVta.ReadOnly = Not MDIPrincipal.ControlUsuarioAutorizado(MDIPrincipal.EmpleadoLogueado)
+        'End If
 
 
         Contar_Filas()
-
-        dtpFECHA.MaxDate = Today.Date
+        'pongo para que busque por codigo
+        chkCodigos.Checked = True
+        'dtpFECHA.MaxDate = Today.Date
 
         'desdeload = False
 
@@ -224,7 +235,7 @@ Public Class frmVentasWEB
             Principal = False
             PanelTotales.Location = New Point(355, 375)
         Else
-            Principal = True
+            Principal = False
             PanelTotales.Location = New Point(462, 375)
         End If
         'muestro la columna de peso
@@ -382,70 +393,80 @@ Public Class frmVentasWEB
                 txtIDPrecioLista.Text = dsCliente.Tables(0).Rows(0).Item(0)
                 lblLugarEntrega.Text = dsCliente.Tables(0).Rows(0).Item(1).ToString + " " + dsCliente.Tables(0).Rows(0).Item(2).ToString + " " + dsCliente.Tables(0).Rows(0).Item(3).ToString
                 cmbRepartidor.SelectedValue = dsCliente.Tables(0).Rows(0).Item(4)
-                DescLista = dsCliente.Tables(0).Rows(0).Item(5)
-                ValorNorte_cambio = dsCliente.Tables(0).Rows(0).Item(6)
-                Habilitar_Promo = dsCliente.Tables(0).Rows(0).Item(7)
+                'DescLista = dsCliente.Tables(0).Rows(0).Item(5)
+                'ValorNorte_cambio = dsCliente.Tables(0).Rows(0).Item(6)
+                'Habilitar_Promo = dsCliente.Tables(0).Rows(0).Item(7)
+                'chkTransferencia.Checked = BuscarAlmacen_Cliente()
+
             Catch ex As Exception
 
             End Try
 
-            If Principal Then
-                Try
-                    If grdItems.Rows.Count > 0 Then
+            'If Principal Then
+            '    Try
+            '        If grdItems.Rows.Count > 0 Then
 
-                        For i As Integer = 0 To grdItems.Rows.Count - 1
-                            If txtIDPrecioLista.Text = 3 Then
-                                dsCliente = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "Select PrecioCosto From Materiales Where eliminado = 0 and Codigo = '" & grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Material).Value & "'")
-                                grdItems.Rows(i).Cells(ColumnasDelGridItems.Precio).Value = dsCliente.Tables(0).Rows(0).Item(0)
+            '            For i As Integer = 0 To grdItems.Rows.Count - 1
+            '                If txtIDPrecioLista.Text = 3 Then
+            '                    dsCliente = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "Select PrecioCosto From Materiales Where eliminado = 0 and Codigo = '" & grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Material).Value & "'")
+            '                    grdItems.Rows(i).Cells(ColumnasDelGridItems.Precio).Value = dsCliente.Tables(0).Rows(0).Item(0)
 
-                            ElseIf txtIDPrecioLista.Text = 4 Then
-                                dsCliente = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "Select PrecioMayorista From Materiales Where eliminado = 0 and Codigo = '" & grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Material).Value & "'")
-                                grdItems.Rows(i).Cells(ColumnasDelGridItems.Precio).Value = dsCliente.Tables(0).Rows(0).Item(0)
-                            ElseIf txtIDPrecioLista.Text = 5 Then
-                                dsCliente = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "Select PrecioLista3 From Materiales Where eliminado = 0 and Codigo = '" & grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Material).Value & "'")
-                                grdItems.Rows(i).Cells(ColumnasDelGridItems.Precio).Value = dsCliente.Tables(0).Rows(0).Item(0)
-                            ElseIf txtIDPrecioLista.Text = 10 Then
-                                dsCliente = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "Select PrecioCompra From Materiales Where eliminado = 0 and Codigo = '" & grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Material).Value & "'")
-                                grdItems.Rows(i).Cells(ColumnasDelGridItems.Precio).Value = dsCliente.Tables(0).Rows(0).Item(0)
-                                chkTransferencia.Checked = True
-                            ElseIf DescLista.Contains("NORTE") Then
-                                dsCliente = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "Select PrecioCompra From Materiales Where eliminado = 0 and Codigo = '" & grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Material).Value & "'")
-                                grdItems.Rows(i).Cells(ColumnasDelGridItems.Precio).Value = dsCliente.Tables(0).Rows(0).Item(0) * ValorNorte_cambio
-                            Else
-                                dsCliente = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "Select PrecioLista4 From Materiales Where eliminado = 0 and Codigo = '" & grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Material).Value & "'")
-                                grdItems.Rows(i).Cells(ColumnasDelGridItems.Precio).Value = dsCliente.Tables(0).Rows(0).Item(0)
-                            End If
-                            'Me fijo si es horma o tira 
-                            If grdItems.Rows(i).Cells(ColumnasDelGridItems.Unidad).Value.ToString.Contains("HORMA") Or grdItems.Rows(i).Cells(ColumnasDelGridItems.Unidad).Value.ToString.Contains("TIRA") Then
-                                grdItems.Rows(i).Cells(ColumnasDelGridItems.Subtotal).Value = Math.Round((grdItems.Rows(i).Cells(ColumnasDelGridItems.Peso).Value * grdItems.Rows(i).Cells(ColumnasDelGridItems.Precio).Value), 2)
-                            Else
-                                grdItems.Rows(i).Cells(ColumnasDelGridItems.Subtotal).Value = Math.Round((grdItems.Rows(i).Cells(ColumnasDelGridItems.QtyEnviada).Value * grdItems.Rows(i).Cells(ColumnasDelGridItems.Precio).Value), 2)
-                            End If
+            '                ElseIf txtIDPrecioLista.Text = 4 Then
+            '                    dsCliente = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "Select PrecioMayorista From Materiales Where eliminado = 0 and Codigo = '" & grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Material).Value & "'")
+            '                    grdItems.Rows(i).Cells(ColumnasDelGridItems.Precio).Value = dsCliente.Tables(0).Rows(0).Item(0)
+            '                ElseIf txtIDPrecioLista.Text = 5 Then
+            '                    dsCliente = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "Select PrecioLista3 From Materiales Where eliminado = 0 and Codigo = '" & grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Material).Value & "'")
+            '                    grdItems.Rows(i).Cells(ColumnasDelGridItems.Precio).Value = dsCliente.Tables(0).Rows(0).Item(0)
+            '                ElseIf txtIDPrecioLista.Text = 10 Then
+            '                    dsCliente = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "Select PrecioCompra From Materiales Where eliminado = 0 and Codigo = '" & grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Material).Value & "'")
+            '                    grdItems.Rows(i).Cells(ColumnasDelGridItems.Precio).Value = dsCliente.Tables(0).Rows(0).Item(0)
+            '                    'chkTransferencia.Checked = True
+            '                ElseIf DescLista.Contains("NORTE") Then
+            '                    dsCliente = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "Select PrecioCompra From Materiales Where eliminado = 0 and Codigo = '" & grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Material).Value & "'")
+            '                    grdItems.Rows(i).Cells(ColumnasDelGridItems.Precio).Value = dsCliente.Tables(0).Rows(0).Item(0) * ValorNorte_cambio
+            '                Else
+            '                    dsCliente = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "Select PrecioLista4 From Materiales Where eliminado = 0 and Codigo = '" & grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Material).Value & "'")
+            '                    grdItems.Rows(i).Cells(ColumnasDelGridItems.Precio).Value = dsCliente.Tables(0).Rows(0).Item(0)
+            '                End If
+            '                'Me fijo si es horma o tira 
+            '                If grdItems.Rows(i).Cells(ColumnasDelGridItems.Unidad).Value.ToString.Contains("HORMA") Or grdItems.Rows(i).Cells(ColumnasDelGridItems.Unidad).Value.ToString.Contains("TIRA") Then
+            '                    grdItems.Rows(i).Cells(ColumnasDelGridItems.Subtotal).Value = Math.Round((grdItems.Rows(i).Cells(ColumnasDelGridItems.Peso).Value * grdItems.Rows(i).Cells(ColumnasDelGridItems.Precio).Value), 2)
+            '                Else
+            '                    grdItems.Rows(i).Cells(ColumnasDelGridItems.Subtotal).Value = Math.Round((grdItems.Rows(i).Cells(ColumnasDelGridItems.QtyEnviada).Value * grdItems.Rows(i).Cells(ColumnasDelGridItems.Precio).Value), 2)
+            '                End If
 
-                            dsCliente.Dispose()
-                        Next
-                        CalculoSubtotales()
-                    End If
-                Catch ex As Exception
+            '                dsCliente.Dispose()
+            '            Next
+            '            CalculoSubtotales()
+            '        End If
+            '    Catch ex As Exception
 
-                End Try
+            '    End Try
 
-                'cmbProducto.Enabled = True
-                'band = 0
-                'LlenarcmbPedidos()
-                'band = 1
-                'LimpiarGridItems(grdItems)
-                ' btnLlenarGrilla_Click(sender, e)
-                BuscarSaldo()
-            End If
+            'cmbProducto.Enabled = True
+            'band = 0
+            'LlenarcmbPedidos()
+            'band = 1
+            'LimpiarGridItems(grdItems)
+            ' btnLlenarGrilla_Click(sender, e)
+            BuscarSaldo()
+            'End If
             cmbProducto.Enabled = True
         End If
 
 
     End Sub
 
+    Private Sub cmbClientes_KeyDown(sender As Object, e As KeyEventArgs) Handles cmbClientes.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            If cmbClientes.Text <> "" Then
+                cmbProducto.Focus()
+            End If
+        End If
+    End Sub
+
     '(currentcellChanged)
-    Protected Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles grd.CurrentCellChanged
+    Protected Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs)
 
         If Permitir Then
             Try
@@ -673,6 +694,789 @@ Public Class frmVentasWEB
 
     End Sub
 
+    Private Sub cmbProducto_KeyDown(sender As Object, e As KeyEventArgs) Handles cmbProducto.KeyDown
+        If e.KeyData = Keys.Enter Then
+            'SendKeys.Send("{TAB}")
+            txtCantidad.Focus()
+        End If
+    End Sub
+
+    Private Sub cmbProducto_KeyUp(sender As Object, e As KeyEventArgs) Handles cmbProducto.KeyUp
+
+        If cmbProducto.Text = "" Then
+            lblStock.Text = ""
+            txtPrecioVta.Text = ""
+            txtCantidad.Text = ""
+            txtPeso.Text = ""
+            txtSubtotal.Text = ""
+        End If
+
+    End Sub
+
+    Private Sub txtPeso_KeyDown(sender As Object, e As KeyEventArgs) Handles txtPeso.KeyDown
+        If txtUnidad.Text = "HORMA" Or txtUnidad.Text = "TIRA" Then
+            txtCantidad_KeyDown(sender, e)
+        End If
+    End Sub
+
+    Private Sub txtCantidad_KeyDown(sender As Object, e As KeyEventArgs) Handles txtCantidad.KeyDown
+        If e.KeyCode = Keys.Enter Then
+
+            If cmbProducto.SelectedValue Is DBNull.Value Or cmbProducto.SelectedValue = 0 Then
+                Util.MsgStatus(Status1, "Debe ingresar un producto VÁLIDO.", My.Resources.Resources.stop_error.ToBitmap)
+                Util.MsgStatus(Status1, "Debe ingresar un producto VÁLIDO.", My.Resources.Resources.stop_error.ToBitmap, True)
+                '               GoTo Continuar
+                Exit Sub
+            End If
+
+            If cmbProducto.Text = "" Then
+                Util.MsgStatus(Status1, "Debe ingresar un producto VÁLIDO.", My.Resources.Resources.stop_error.ToBitmap)
+                Util.MsgStatus(Status1, "Debe ingresar un producto VÁLIDO.", My.Resources.Resources.stop_error.ToBitmap, True)
+                '              GoTo Continuar
+                Exit Sub
+            End If
+
+            If txtPrecioVta.Text = "" Or txtPrecioVta.Text = "0.00" Then
+                Util.MsgStatus(Status1, "El precio del producto no es VÁLIDO.", My.Resources.Resources.stop_error.ToBitmap)
+                Util.MsgStatus(Status1, "El precio del producto no es VÁLIDO.", My.Resources.Resources.stop_error.ToBitmap, True)
+                Exit Sub
+            End If
+
+            If CDbl(txtPrecioVta.Text) = 0 Then
+                Util.MsgStatus(Status1, "El precio del producto no puede ser igual a cero.", My.Resources.Resources.stop_error.ToBitmap)
+                Util.MsgStatus(Status1, "El precio del producto no puede ser igual a cero.", My.Resources.Resources.stop_error.ToBitmap, True)
+                Exit Sub
+            End If
+
+            If lblPromo.Visible = True Then
+                If txtValorPromo.Text = "" Or txtValorPromo.Text = "0.00" Then
+                    Util.MsgStatus(Status1, "El precio del producto no es VÁLIDO.", My.Resources.Resources.stop_error.ToBitmap)
+                    Util.MsgStatus(Status1, "El precio del producto no es VÁLIDO.", My.Resources.Resources.stop_error.ToBitmap, True)
+                    Exit Sub
+                End If
+                If CDbl(txtValorPromo.Text) = 0 Then
+                    Util.MsgStatus(Status1, "El precio del producto no puede ser igual a cero.", My.Resources.Resources.stop_error.ToBitmap)
+                    Util.MsgStatus(Status1, "El precio del producto no puede ser igual a cero.", My.Resources.Resources.stop_error.ToBitmap, True)
+                    Exit Sub
+                End If
+            End If
+
+            If txtCantidad.Text = "" Then
+                Util.MsgStatus(Status1, "Debe ingresar la cantidad del producto a Vender.", My.Resources.Resources.stop_error.ToBitmap)
+                Util.MsgStatus(Status1, "Debe ingresar la cantidad del producto a Vender.", My.Resources.Resources.stop_error.ToBitmap, True)
+                Exit Sub
+            End If
+
+            If CDbl(txtCantidad.Text) = 0 Then
+                Util.MsgStatus(Status1, "Debe ingresar la cantidad no puede ser igual a cero.", My.Resources.Resources.stop_error.ToBitmap)
+                Util.MsgStatus(Status1, "Debe ingresar la cantidad no puede ser igual a cero.", My.Resources.Resources.stop_error.ToBitmap, True)
+                Exit Sub
+            End If
+
+            'If MDIPrincipal.sucursal.Contains("PERON") Then
+            'If CDbl(lblStock.Text < 0) Or CDbl(txtCantidad.Text) > CDbl(lblStock.Text) Then
+
+            '    If txtIdUnidad.Text <> "PACK" And txtIdUnidad.Text <> "BOLSA" Then
+            '        If MessageBox.Show("No hay Stock suficiente, desea abrir un pack?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
+            '            MDIPrincipal.DesdePedidos = False
+            '            Dim pack As New frmAbriPack
+            '            pack.ShowDialog()
+            '            If MDIPrincipal.actualizarstock = True Then
+            '                cmbProducto_SelectedValueChanged(sender, e)
+            '            End If
+            '            Exit Sub
+            '        End If
+            '    End If
+            '    If MessageBox.Show("No hay Stock suficiente, desea continuar?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
+            '        Exit Sub
+            '    End If
+            'End If
+            'End If
+
+
+            If txtUnidad.Text.Contains("HORMA") Or txtUnidad.Text.Contains("TIRA") Then
+                If txtPeso.Text = "" Then
+                    Util.MsgStatus(Status1, "Debe ingresar el peso del producto a Vender.", My.Resources.Resources.stop_error.ToBitmap)
+                    Util.MsgStatus(Status1, "Debe ingresar el peso del producto a Vender.", My.Resources.Resources.stop_error.ToBitmap, True)
+                    Exit Sub
+                End If
+                If CDbl(txtPeso.Text) = 0 Then
+                    Util.MsgStatus(Status1, "Debe ingresar un peso válido del producto a Vender.", My.Resources.Resources.stop_error.ToBitmap)
+                    Util.MsgStatus(Status1, "Debe ingresar un peso válido del producto a Vender.", My.Resources.Resources.stop_error.ToBitmap, True)
+                    Exit Sub
+                End If
+            End If
+
+            Dim i As Integer
+            For i = 0 To grdItems.RowCount - 1
+                If cmbProducto.Text = grdItems.Rows(i).Cells(2).Value Then
+                    If MessageBox.Show("El producto '" & cmbProducto.Text & "' está repetido en la fila: " & (i + 1).ToString & ". Desea cargar el producto igual?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
+                        Exit Sub
+                    End If
+                End If
+            Next
+
+            'grdItems.Rows.Add(0, cmbProducto.SelectedValue, cmbProducto.Text, txtIDMarca.Text, txtMarca.Text, txtIdUnidad.Text, txtUnidad.Text, txtPrecioVta.Text, 0, txtSubtotal.Text, txtCantidad.Text, txtCantidad.Text, txtPeso.Text, "CUMPLIDO", 0, Date.Now.ToString, i + 1, "", False, "Eliminado")
+            Dim promo As String = ""
+            Dim bitpromo As Boolean = False
+            If lblPromo.Visible = True Then
+                'agrego la leyenda de promo
+                promo = "(PROMO)"
+                'coloco el bit de promo
+                bitpromo = True
+                'igualo el precio de venta con el de promo
+                txtPrecioVta.Text = txtValorPromo.Text
+            End If
+
+            If chkVentas.Checked = True Then
+
+                '----------------version (1)------------------------
+                ''me fijo si el cliente pertenece a la lista mayorista
+                'If txtIDPrecioLista.Text = "3" Then
+                '    'llamo a la funcion para buscar promo 
+                '    Dim res As Integer = BuscarPromoPorkys()
+                '    'controlo los valores que devuelve la funcion 
+                '    If res = 1 Then
+                '        grdItems.Rows.Add(0, i + 1, cmbProducto.SelectedValue, cmbProducto.Text + "(PROMO)", txtIDMarca.Text, txtMarca.Text, txtIdUnidad.Text, txtUnidad.Text, txtCantidad.Text, txtPeso.Text, Math.Round((PrecioPromo - DescuentoPromo), 2), 0, "", txtSubtotal.Text, txtCantidad.Text, 0, "CUMPLIDO", Date.Now.ToString, "", 0, False, 0, False, "Eliminado")
+                '    ElseIf res = -1 Then
+                '        If MessageBox.Show("Error al consultar promoción. Desea cargar el producto igual?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
+                '            grdItems.Rows.Add(0, i + 1, cmbProducto.SelectedValue, cmbProducto.Text, txtIDMarca.Text, txtMarca.Text, txtIdUnidad.Text, txtUnidad.Text, txtCantidad.Text, txtPeso.Text, txtPrecioVta.Text, 0, "", txtSubtotal.Text, txtCantidad.Text, 0, "CUMPLIDO", Date.Now.ToString, "", 0, False, 0, False, "Eliminado")
+                '            Exit Sub
+                '        End If
+                '    Else
+                '        grdItems.Rows.Add(0, i + 1, cmbProducto.SelectedValue, cmbProducto.Text, txtIDMarca.Text, txtMarca.Text, txtIdUnidad.Text, txtUnidad.Text, txtCantidad.Text, txtPeso.Text, txtPrecioVta.Text, 0, "", txtSubtotal.Text, txtCantidad.Text, 0, "CUMPLIDO", Date.Now.ToString, "", 0, False, 0, False, "Eliminado")
+                '    End If
+                'Else
+                grdItems.Rows.Add(0, i + 1, cmbProducto.SelectedValue, cmbProducto.Text + promo, txtIDMarca.Text, txtMarca.Text, txtIdUnidad.Text, txtUnidad.Text, txtCantidad.Text, txtPeso.Text, txtPrecioVta.Text, 0, "", txtSubtotal.Text, txtCantidad.Text, 0, "CUMPLIDO", Date.Now.ToString, "", 0, False, 0, False, False, bitpromo, False, "Eliminado")
+                'End If
+                '----------------------------------------------------------------
+            Else
+                grdItems.Rows.Add(0, i + 1, cmbProducto.SelectedValue, cmbProducto.Text, txtIDMarca.Text, txtMarca.Text, txtIdUnidad.Text, txtUnidad.Text, txtCantidad.Text, txtPeso.Text, txtPrecioVta.Text, 0, "", txtSubtotal.Text, txtCantidad.Text, 0, "CUMPLIDO", Date.Now.ToString, "", 0, False, 0, chkReintegrarStock.Checked, False, bitpromo, False, "Eliminado")
+            End If
+
+
+            Contar_Filas()
+            CalculoSubtotales()
+
+            OrdenarFilas()
+
+            txtCodigoBarra.Text = ""
+            txtCantidad.Text = ""
+            cmbProducto.Text = ""
+            txtPeso.Text = ""
+            txtPrecioVta.Text = "0.00"
+            lblStock.Text = "0.00"
+            txtSubtotal.Text = "0.00"
+            chkReintegrarStock.Checked = False
+            lblPromo.Visible = False
+            lblDescripcionPromo.Visible = False
+
+            'chkPrecioMayorista.Checked = False
+            'Continuar:
+            'cmbProducto.SelectedIndex = 0
+            txtNota.Focus()
+            SendKeys.Send("{TAB}")
+            If MDIPrincipal.sucursal.ToString.Contains("PRINCIPAL") Then
+                txtCodigoBarra.Focus()
+                SendKeys.Send("{TAB}")
+            End If
+            'cmbProducto.Focus()
+
+
+        End If
+
+    End Sub
+
+    Private Sub txtPeso_TextChanged(sender As Object, e As EventArgs) Handles txtPeso.TextChanged
+        Try
+            If txtUnidad.Text.Contains("HORMA") Or txtUnidad.Text.Contains("TIRA") Then
+                If txtPeso.Text = "" Then
+                    txtSubtotal.Text = "0"
+                Else
+                    txtSubtotal.Text = Math.Round(CDbl(txtPeso.Text) * CDbl(txtPrecioVta.Text), 2)
+                End If
+            End If
+
+        Catch ex As Exception
+
+        End Try
+
+    End Sub
+
+    Private Sub txtCantidad_TextChanged(sender As Object, e As EventArgs) Handles txtCantidad.TextChanged
+        Try
+            If Not txtUnidad.Text.Contains("HORMA") And Not txtUnidad.Text.Contains("TIRA") Then
+                If txtCantidad.Text = "" Then
+                    txtSubtotal.Text = "0"
+                Else
+                    txtSubtotal.Text = Math.Round(CDbl(txtCantidad.Text) * CDbl(txtPrecioVta.Text), 2)
+                End If
+            End If
+
+
+
+            'me fijo si el cliente pertenece a la lista mayorista
+            If Habilitar_Promo = True And txtCantidad.Text <> "" Then 'If Habilitar_Promo = True And chkVentas.Checked = True And txtCantidad.Text <> "" Then
+                If CDbl(txtCantidad.Text) > 0 Then
+                    'llamo a la funcion para buscar promo 
+                    BuscarPromoPorkys()
+                Else
+                    lblPromo.Visible = False
+                    lblDescripcionPromo.Visible = False
+                    txtValorPromo.Visible = False
+                End If
+            Else
+                lblPromo.Visible = False
+                lblDescripcionPromo.Visible = False
+                txtValorPromo.Visible = False
+            End If
+
+        Catch ex As Exception
+
+        End Try
+
+    End Sub
+
+    Private Sub cmbProducto_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbProducto.SelectedValueChanged
+        If band = 1 Then
+
+            Dim sqlstring As String = "SELECT m.IdUnidad, s.qty, m.Codigo, m.Nombre, s.IDAlmacen, m.Minimo, PrecioCosto, PrecioMayorista, PrecioLista3, PrecioLista4, Mar.Nombre, U.Nombre,m.IdMarca,m.PrecioCompra,PrecioMayoristaPeron,PrecioPeron " & _
+                                         " FROM Materiales m JOIN Stock s ON s.idmaterial = m.Codigo " & _
+                                         " JOIN Marcas Mar ON Mar.codigo = m.IdMarca JOIN Unidades U ON U.codigo = m.idunidad" & _
+                                         " where m.Codigo = '" & cmbProducto.SelectedValue & "' AND s.idalmacen = " & Utiles.numero_almacen
+
+            ds_Producto = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
+
+
+
+            ds_Producto.Dispose()
+
+            Try
+                'If Principal Then
+                '    If txtIDPrecioLista.Text = 3 Then
+                '        txtPrecioVta.Text = Math.Round(ds_Producto.Tables(0).Rows(0)(6), 2)
+                '    ElseIf txtIDPrecioLista.Text = 4 Then
+                '        txtPrecioVta.Text = Math.Round(ds_Producto.Tables(0).Rows(0)(7), 2)
+                '    ElseIf txtIDPrecioLista.Text = 5 Then
+                '        txtPrecioVta.Text = Math.Round(ds_Producto.Tables(0).Rows(0)(8), 2)
+                '    ElseIf txtIDPrecioLista.Text = 10 Then
+                '        txtPrecioVta.Text = Math.Round(ds_Producto.Tables(0).Rows(0)(13), 2)
+                '    ElseIf DescLista.Contains("NORTE") Then
+                '        txtPrecioVta.Text = Math.Round(ds_Producto.Tables(0).Rows(0)(13) * ValorNorte_cambio, 2)
+                '    Else
+                '        txtPrecioVta.Text = Math.Round(ds_Producto.Tables(0).Rows(0)(9), 2)
+                '    End If
+                'Else
+                If chkVentas2.Checked Then
+                    txtPrecioVta.Text = Math.Round(ds_Producto.Tables(0).Rows(0)(7), 2)
+                Else
+                    txtPrecioVta.Text = Math.Round(ds_Producto.Tables(0).Rows(0)(6), 2)
+                End If
+                'End If
+
+                txtIdUnidad.Text = ds_Producto.Tables(0).Rows(0)(0)
+                unidad_unitario = txtIdUnidad.Text
+                lblStock.Text = ds_Producto.Tables(0).Rows(0)(1)
+                stock_unitario = lblStock.Text
+                idproducto_unitario = ds_Producto.Tables(0).Rows(0)(2)
+                producto_unitario = ds_Producto.Tables(0).Rows(0)(3)
+                almacen_unitario = ds_Producto.Tables(0).Rows(0)(4)
+                'COMPARO EL STOCK QUE HAY DEL PRODUCTO PARA SABER SI ESTA POR DEBAJO DEL MINIMO 
+                If (ds_Producto.Tables(0).Rows(0)(5)).ToString <> "" Then
+                    If CDbl(stock_unitario) > CDbl(ds_Producto.Tables(0).Rows(0)(5)) Then
+                        lblStock.BackColor = Color.Green
+                    Else
+                        lblStock.BackColor = Color.Red
+                    End If
+                End If
+                txtMarca.Text = ds_Producto.Tables(0).Rows(0)(10)
+                txtUnidad.Text = ds_Producto.Tables(0).Rows(0)(11)
+
+                If txtUnidad.Text.Contains("HORMA") Or txtUnidad.Text.Contains("TIRA") Then
+                    Label18.Text = "Peso*"
+                Else
+                    Label18.Text = "Peso"
+                End If
+                txtIDMarca.Text = ds_Producto.Tables(0).Rows(0)(12)
+
+                'If MDIPrincipal.sucursal.Contains("PERON") Then
+                '    If lblStock.BackColor = Color.Red And Not txtUnidad.Text.Contains("PACKBOLSAHORMATIRA") Then
+
+                '        If MessageBox.Show("No hay Stock suficiente del producto " + cmbProducto.Text.ToString + ", desea abrir un PACK/BOLSA?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
+                '            'paso los valores a las variables globales de MDIPrincipal
+                '            MDIPrincipal.DesdePedidos = False
+                '            'abro la ventana de abrir pack
+                '            Dim pack As New frmAbriPack
+                '            pack.ShowDialog()
+                '            'me fijo si se actualizo el stock para pasarle el valor al item
+                '            If MDIPrincipal.actualizarstock Then
+                '                'lblStock.Text = CDbl(stocknuevo)
+                '                cmbProducto_SelectedValueChanged(sender, e)
+                '            End If
+
+                '        End If
+
+                '    End If
+                'End If
+
+
+            Catch ex As Exception
+
+            End Try
+
+        End If
+    End Sub
+
+    Private Sub txtPrecioVta_TextChanged(sender As Object, e As EventArgs) Handles txtPrecioVta.TextChanged
+        Try
+            If txtPrecioVta.Text = "" Then
+                txtSubtotal.Text = 0
+            Else
+                If txtUnidad.Text.Contains("HORMA") Or Not Not txtUnidad.Text.Contains("TIRA") Then
+                    If txtPeso.Text <> "" Then
+                        txtSubtotal.Text = Math.Round(CDbl(txtPeso.Text) * CDbl(txtPrecioVta.Text), 2)
+                    End If
+                Else
+                    If txtCantidad.Text <> "" Then
+                        txtSubtotal.Text = Math.Round(CDbl(txtCantidad.Text) * CDbl(txtPrecioVta.Text), 2)
+                    End If
+                End If
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub PicClientes_Click(sender As Object, e As EventArgs) Handles PicClientes.Click
+        Dim C As New frmClientes
+        LLAMADO_POR_FORMULARIO = True
+        ARRIBA = 90
+        IZQUIERDA = Me.Left + 20
+        texto_del_combo = cmbClientes.Text
+        C.ShowDialog()
+        'LlenarcmbFamilias_App(cmbFAMILIAS, ConnStringSEI)
+        LlenarcmbClientes()
+        cmbClientes.Text = texto_del_combo
+
+        'cmbClientes_SelectedIndexChanged(sender, e)
+    End Sub
+
+    Private Sub PicRepartidor_Click(sender As Object, e As EventArgs) Handles PicRepartidor.Click
+        Dim R As New frmEmpleados
+        LLAMADO_POR_FORMULARIO = True
+        ARRIBA = 90
+        IZQUIERDA = Me.Left + 20
+        texto_del_combo = cmbRepartidor.Text
+        R.ShowDialog()
+        'LlenarcmbFamilias_App(cmbFAMILIAS, ConnStringSEI)
+        llenarcmbRepartidor()
+        cmbRepartidor.Text = texto_del_combo
+    End Sub
+
+    Private Sub btnActualizarMat_Click(sender As Object, e As EventArgs) Handles btnActualizarMat.Click
+        'Dim estadobol As Boolean = bolModo
+        'Dim M As New frmMateriales
+        'LLAMADO_POR_FORMULARIO = True
+        'ARRIBA = 90
+        'IZQUIERDA = Me.Left + 20
+        texto_del_combo = cmbProducto.Text
+        'bolModo = False
+        'M.ShowDialog()
+        'LlenarcmbFamilias_App(cmbFAMILIAS, ConnStringSEI)
+        LlenarCombo_Productos()
+        cmbProducto.Text = texto_del_combo
+        MsgBox("Se actualizó la lista de productos correctamente.")
+        'bolModo = estadobol
+    End Sub
+
+    Private Sub btnActualizarMat_MouseHover(sender As Object, e As EventArgs) Handles btnActualizarMat.MouseHover
+        ToolTip1.Show("Haga click para actualizar la lista de productos.", btnActualizarMat)
+    End Sub
+
+    Private Sub chkVenta_CheckedChanged(sender As Object, e As EventArgs) Handles chkVentas.CheckedChanged
+
+        chkDevolucion.Checked = Not chkVentas.Checked
+        chkPresupuesto.Enabled = chkVentas.Checked
+
+        If chkVentas.Checked = True Then
+            Try
+
+                btnEliminar.Text = "Anular Envío"
+                'limpio la grilla de items
+                grdItems.Rows.Clear()
+                'oculto la columna de reintegro a stock
+                grdItems.Columns(22).Visible = False
+                If desdeload = False And bolModo = False Then
+                    rdTodasPed.Checked = True
+                    'SQL = "exec spPedidosWEB_Select_All @Eliminado = " & rdAnuladas.Checked & ", @Pendientes = " & rdPendientes.Checked & ", @PendientesyCumplidas = " & rdTodasPed.Checked & ", @Ventas_Norte = " & btnXNorte.Cheked
+                    SQL = "exec spPedidosWEB_Select_All @Eliminado = " & rdAnuladas.Checked & ", @Pendientes = " & rdPendientes.Checked & ", @PendientesyCumplidas = " & rdTodasPed.Checked & ", @Ventas_Norte = " & btnXNorte.Checked & ",@Devolucion = " & chkDevolucion.Checked
+                    ds = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, SQL)
+                    If ds.Tables(0).Rows.Count > 0 Then
+                        LlenarGrilla()
+                    Else
+                        btnNuevo_Click(sender, e)
+                    End If
+                End If
+
+            Catch ex As Exception
+
+            End Try
+            CambiarColores()
+        End If
+        desdeload = False
+    End Sub
+
+    Private Sub chkDevolucion_CheckedChanged(sender As Object, e As EventArgs) Handles chkDevolucion.CheckedChanged
+        chkVentas.Checked = Not chkDevolucion.Checked
+        chkReintegrarStock.Enabled = chkDevolucion.Checked
+        chkPresupuesto.Enabled = Not chkDevolucion.Checked
+        If chkDevolucion.Checked = True Then
+            Try
+                CambiarColores()
+                btnEliminar.Text = "Anular Devolución"
+                'limpio la grilla de items
+                grdItems.Rows.Clear()
+                'muestro la columna de reintegro a stock
+                grdItems.Columns(22).Visible = True
+                If desdeload = False And bolModo = False Then
+                    rdTodasPed.Checked = True
+                    SQL = "exec spPedidosWEB_Select_All @Eliminado = " & rdAnuladas.Checked & ", @Pendientes = " & rdPendientes.Checked & ", @PendientesyCumplidas = " & rdTodasPed.Checked & ", @Ventas_Norte = " & btnXNorte.Checked & ", @Devolucion = " & chkDevolucion.Checked
+                    ds = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, SQL)
+                    If ds.Tables(0).Rows.Count > 0 Then
+                        LlenarGrilla()
+                    Else
+                        btnNuevo_Click(sender, e)
+                    End If
+                End If
+
+            Catch ex As Exception
+
+            End Try
+            CambiarColores()
+        End If
+
+    End Sub
+
+    Private Sub chkReintegrarStock_MouseHover(sender As Object, e As EventArgs) Handles chkReintegrarStock.MouseHover
+        ToolTip1.Show("Haga click para que el producto que agregue a la lista se sume al stock.", chkReintegrarStock)
+    End Sub
+
+    Private Sub chkCodigos_CheckedChanged(sender As Object, e As EventArgs) Handles chkCodigos.CheckedChanged
+        If chkCodigos.Checked Then
+            chkCodigos.Text = "Por Código"
+        Else
+            chkCodigos.Text = "Por Cód.Barra"
+        End If
+        txtCodigoBarra.Focus()
+    End Sub
+
+    Private Sub chkCodigoss_MouseHover(sender As Object, e As EventArgs) Handles chkCodigos.MouseHover
+        ToolTip1.Show("Seleccione como desea realizar la búsqueda.", chkCodigos)
+    End Sub
+
+
+    'Private Sub chkNorte.ChekedChanged(sender As Object, e As EventArgs)
+
+    'If btnXNorte.Cheked = True Then
+    '    btnXNorte.SymbolColor = Color.Green
+    '    'GroupBox1.BackColor = SystemColors.GradientActiveCaption
+    '    chkNorte.ForeColor = Color.DarkBlue
+    '    'le agrego dos dias mas 
+    '    dtpFECHA.MaxDate = Today.Date.AddDays(2)
+    'Else
+    '    btnXNorte.SymbolColor = Color.Red
+    '    'GroupBox1.BackColor = SystemColors.Control
+    '    chkNorte.ForeColor = SystemColors.HotTrack
+    '    'como maximo el dia de hoy
+    '    dtpFECHA.MaxDate = Today.Date
+    'End If
+    ''le aviso que recargue la grilla 
+    'desdeload = False
+    ''me fijo que operacion esta seleccionada
+    'If chkVentas.Checked = True Then
+    '    chkVenta_CheckedChanged(sender, e)
+    'Else
+    '    chkDevolucion_CheckedChanged(sender, e)
+    'End If
+
+
+
+    'End Sub
+
+    Private Sub btnXNorte_Click(sender As Object, e As EventArgs) Handles btnXNorte.Click
+        btnXNorte.Checked = Not btnXNorte.Checked
+
+        If btnXNorte.Checked = True Then
+            btnXNorte.SymbolColor = Color.Green
+            'GroupBox1.BackColor = SystemColors.GradientActiveCaption
+            'chkNorte.ForeColor = Color.DarkBlue
+            'le agrego dos dias mas 
+            dtpFECHA.MaxDate = Today.Date.AddDays(2)
+        Else
+            btnXNorte.SymbolColor = Color.Red
+            'GroupBox1.BackColor = SystemColors.Control
+            'chkNorte.ForeColor = SystemColors.HotTrack
+            'como maximo el dia de hoy
+            dtpFECHA.MaxDate = Today.Date
+        End If
+        'le aviso que recargue la grilla 
+        desdeload = False
+        'me fijo que operacion esta seleccionada
+        If chkVentas.Checked = True Then
+            chkVenta_CheckedChanged(sender, e)
+        Else
+            chkDevolucion_CheckedChanged(sender, e)
+        End If
+    End Sub
+
+    Private Sub btnXNorte_MouseHover(sender As Object, e As EventArgs) Handles btnXNorte.MouseHover
+        If btnXNorte.Checked = False Then
+            ToolTip1.Show("Haga click para realizar una Venta Norte.", btnXNorte)
+        Else
+            ToolTip1.Show("Haga click para realizar una Venta Depósito.", btnXNorte)
+        End If
+    End Sub
+
+    Private Sub chkPresupuesto_CheckedChanged(sender As Object, e As EventArgs) Handles chkPresupuesto.CheckedChanged
+
+        CambiarColores()
+        FinalizarPresupuesto = False
+        If bolModo = False Then
+            btnActualizarMat.Enabled = chkPresupuesto.Checked
+            txtValorPromo.Enabled = chkPresupuesto.Checked
+            txtPrecioVta.Enabled = chkPresupuesto.Checked
+            txtCantidad.Enabled = chkPresupuesto.Checked
+            txtPeso.Enabled = chkPresupuesto.Checked
+            cmbProducto.Enabled = chkPresupuesto.Checked
+            PanelDescuento.Enabled = chkPresupuesto.Checked
+        End If
+
+
+    End Sub
+
+    '--------------------------CAJA
+
+    Private Sub btnIngresosDep_Click(sender As Object, e As EventArgs) Handles btnIngresos.Click
+        Dim I As New frmAnticiposIngresosDep
+        I.ShowDialog()
+    End Sub
+
+    Private Sub btnIngresos_MouseHover(sender As Object, e As EventArgs) Handles btnIngresos.MouseHover
+        ToolTip1.Show("Haga click para realizar un ingreso.", btnIngresos)
+    End Sub
+
+    Private Sub btnApCaja_Click(sender As Object, e As EventArgs) Handles btnApCaja.Click
+        Dim MP As New frmMovDia_Caja_Operacion
+        MDIPrincipal.OperacionCaja = "Ap. Caja"
+        MP.ShowDialog()
+    End Sub
+
+    Private Sub btnApCaja_MouseHover(sender As Object, e As EventArgs) Handles btnApCaja.MouseHover
+        ToolTip1.Show("Haga click para realizar una apertura de caja.", btnApCaja)
+    End Sub
+
+    Private Sub btnGastos_Click(sender As Object, e As EventArgs) Handles btnGastos.Click
+        Dim MP As New frmMovDia_Caja_Operacion
+        MDIPrincipal.OperacionCaja = "Gastos"
+        MP.ShowDialog()
+    End Sub
+
+    Private Sub btnGastos_MouseHover(sender As Object, e As EventArgs) Handles btnGastos.MouseHover
+        ToolTip1.Show("Haga click para ingresar un gasto.", btnGastos)
+    End Sub
+
+    Private Sub btnRetiros_Click(sender As Object, e As EventArgs) Handles btnRetiros.Click
+        Dim MP As New frmMovDia_Caja_Operacion
+        MDIPrincipal.OperacionCaja = "Retiros"
+        MP.ShowDialog()
+    End Sub
+
+    Private Sub btnRetiros_MouseHover(sender As Object, e As EventArgs) Handles btnRetiros.MouseHover
+        ToolTip1.Show("Haga click para realizar un retiro.", btnGastos)
+    End Sub
+
+    '---------------------------
+
+    Private Sub chkMayorista_CheckedChanged(sender As Object, e As EventArgs) Handles chkVentas2.CheckedChanged
+        If bolModo Then
+            Dim dsCliente As Data.DataSet
+            Try
+                If grdItems.Rows.Count > 0 Then
+                    For i As Integer = 0 To grdItems.Rows.Count - 1
+                        dsCliente = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "Select PrecioMayorista,PrecioCosto from Materiales where eliminado = 0 and Codigo = '" & grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Material).Value & "'")
+                        If chkVentas2.Checked Then
+                            grdItems.Rows(i).Cells(ColumnasDelGridItems.Precio).Value = dsCliente.Tables(0).Rows(0).Item(0)
+                        Else
+                            grdItems.Rows(i).Cells(ColumnasDelGridItems.Precio).Value = dsCliente.Tables(0).Rows(0).Item(1)
+                        End If
+
+                        grdItems.Rows(i).Cells(ColumnasDelGridItems.Subtotal).Value = (grdItems.Rows(i).Cells(ColumnasDelGridItems.QtyEnviada).Value * grdItems.Rows(i).Cells(ColumnasDelGridItems.Precio).Value) - IIf(grdItems.Rows(i).Cells(ColumnasDelGridItems.Descuento).Value = "", 0, grdItems.Rows(i).Cells(ColumnasDelGridItems.Descuento).Value)
+                        grdItems.Rows(i).Cells(ColumnasDelGridItems.Subtotal).Value = Math.Round(grdItems.Rows(i).Cells(ColumnasDelGridItems.Subtotal).Value, 2)
+                        ''Me fijo si es horma o tira 
+                        'If grdItems.Rows(i).Cells(ColumnasDelGridItems.Unidad).Value.ToString.Contains("HORMA") Or grdItems.Rows(i).Cells(ColumnasDelGridItems.Unidad).Value.ToString.Contains("TIRA") Then
+                        '    grdItems.Rows(i).Cells(ColumnasDelGridItems.Subtotal).Value = Math.Round((grdItems.Rows(i).Cells(ColumnasDelGridItems.Peso).Value * grdItems.Rows(i).Cells(ColumnasDelGridItems.Precio).Value), 2)
+                        'Else
+                        '    grdItems.Rows(i).Cells(ColumnasDelGridItems.Subtotal).Value = Math.Round((grdItems.Rows(i).Cells(ColumnasDelGridItems.QtyEnviada).Value * grdItems.Rows(i).Cells(ColumnasDelGridItems.Precio).Value), 2)
+                        'End If
+                    Next
+                    CalculoSubtotales()
+                End If
+            Catch ex As Exception
+
+            End Try
+        End If
+    End Sub
+
+    Private Sub txtCodigoBarra_KeyDown(sender As Object, e As KeyEventArgs) Handles txtCodigoBarra.KeyDown
+
+        If txtCodigoBarra.Text <> "" Then
+            If e.KeyCode = Keys.Enter Then
+
+
+                Dim sqlstring As String = ""
+                If chkCodigos.Checked Then
+                    sqlstring = "SELECT m.IdUnidad, s.qty, m.Codigo, m.Nombre, s.IDAlmacen, m.Minimo, PrecioCosto, PrecioMayorista, PrecioLista3, PrecioLista4, Mar.Nombre, U.Nombre,m.IdMarca,m.PrecioCompra,PrecioMayoristaPeron,PrecioPeron " & _
+                                          " FROM Materiales m JOIN Stock s ON s.idmaterial = m.Codigo " & _
+                                          " JOIN Marcas Mar ON Mar.codigo = m.IdMarca JOIN Unidades U ON U.codigo = m.idunidad" & _
+                                          " where m.Codigo = '" & txtCodigoBarra.Text & "' AND m.Eliminado = 0 AND s.idalmacen = " & Utiles.numero_almacen
+                Else
+                    sqlstring = "SELECT m.IdUnidad, s.qty, m.Codigo, m.Nombre, s.IDAlmacen, m.Minimo, PrecioCosto, PrecioMayorista, PrecioLista3, PrecioLista4, Mar.Nombre, U.Nombre,m.IdMarca,m.PrecioCompra,PrecioMayoristaPeron,PrecioPeron " & _
+                                           " FROM Materiales m JOIN Stock s ON s.idmaterial = m.Codigo " & _
+                                           " JOIN Marcas Mar ON Mar.codigo = m.IdMarca JOIN Unidades U ON U.codigo = m.idunidad" & _
+                                           " where m.CodigoBarra = '" & txtCodigoBarra.Text & "' AND m.Eliminado = 0 AND s.idalmacen = " & Utiles.numero_almacen
+                End If
+
+
+                ds_Producto = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
+                ds_Producto.Dispose()
+
+                Try
+                    band = 0
+                    cmbProducto.SelectedValue = ds_Producto.Tables(0).Rows(0)(2).ToString
+                    band = 1
+                    cmbProducto.Text = ds_Producto.Tables(0).Rows(0)(3).ToString
+                    'If Principal Then
+                    '    If txtIDPrecioLista.Text = 3 Then
+                    '        txtPrecioVta.Text = Math.Round(ds_Producto.Tables(0).Rows(0)(6), 2)
+                    '    ElseIf txtIDPrecioLista.Text = 4 Then
+                    '        txtPrecioVta.Text = Math.Round(ds_Producto.Tables(0).Rows(0)(7), 2)
+                    '    ElseIf txtIDPrecioLista.Text = 5 Then
+                    '        txtPrecioVta.Text = Math.Round(ds_Producto.Tables(0).Rows(0)(8), 2)
+                    '    ElseIf txtIDPrecioLista.Text = 10 Then
+                    '        txtPrecioVta.Text = Math.Round(ds_Producto.Tables(0).Rows(0)(13), 2)
+                    '    ElseIf DescLista.Contains("NORTE") Then
+                    '        txtPrecioVta.Text = Math.Round(ds_Producto.Tables(0).Rows(0)(13) * ValorNorte_cambio, 2)
+                    '    Else
+                    '        txtPrecioVta.Text = Math.Round(ds_Producto.Tables(0).Rows(0)(9), 2)
+                    '    End If
+                    'Else
+                    If chkVentas2.Checked Then
+                        txtPrecioVta.Text = Math.Round(ds_Producto.Tables(0).Rows(0)(7), 2)
+                    Else
+                        txtPrecioVta.Text = Math.Round(ds_Producto.Tables(0).Rows(0)(6), 2)
+                    End If
+                    'End If
+
+                    txtIdUnidad.Text = ds_Producto.Tables(0).Rows(0)(0)
+                    unidad_unitario = txtIdUnidad.Text
+                    lblStock.Text = ds_Producto.Tables(0).Rows(0)(1)
+                    stock_unitario = lblStock.Text
+                    idproducto_unitario = ds_Producto.Tables(0).Rows(0)(2)
+                    producto_unitario = ds_Producto.Tables(0).Rows(0)(3)
+                    almacen_unitario = ds_Producto.Tables(0).Rows(0)(4)
+                    'COMPARO EL STOCK QUE HAY DEL PRODUCTO PARA SABER SI ESTA POR DEBAJO DEL MINIMO 
+                    If (ds_Producto.Tables(0).Rows(0)(5)).ToString <> "" Then
+                        If CDbl(stock_unitario) > CDbl(ds_Producto.Tables(0).Rows(0)(5)) Then
+                            lblStock.BackColor = Color.Green
+                        Else
+                            lblStock.BackColor = Color.Red
+                        End If
+                    End If
+                    txtMarca.Text = ds_Producto.Tables(0).Rows(0)(10)
+                    txtUnidad.Text = ds_Producto.Tables(0).Rows(0)(11)
+
+                    If txtUnidad.Text.Contains("HORMA") Or txtUnidad.Text.Contains("TIRA") Then
+                        Label18.Text = "Peso*"
+                    Else
+                        Label18.Text = "Peso"
+                    End If
+                    txtIDMarca.Text = ds_Producto.Tables(0).Rows(0)(12)
+
+                    'If MDIPrincipal.sucursal.Contains("PERON") Then
+                    '    If lblStock.BackColor = Color.Red And Not txtUnidad.Text.Contains("PACKBOLSAHORMATIRA") Then
+
+                    '        If MessageBox.Show("No hay Stock suficiente del producto " + cmbProducto.Text.ToString + ", desea abrir un PACK/BOLSA?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
+                    '            'paso los valores a las variables globales de MDIPrincipal
+                    '            MDIPrincipal.DesdePedidos = False
+                    '            'abro la ventana de abrir pack
+                    '            Dim pack As New frmAbriPack
+                    '            pack.ShowDialog()
+                    '            'me fijo si se actualizo el stock para pasarle el valor al item
+                    '            If MDIPrincipal.actualizarstock Then
+                    '                'lblStock.Text = CDbl(stocknuevo)
+                    '                cmbProducto_SelectedValueChanged(sender, e)
+                    '            End If
+
+                    '        End If
+
+                    '    End If
+                    'End If
+                    txtCantidad.Focus()
+
+                Catch ex As Exception
+
+                End Try
+            End If
+        End If
+    End Sub
+
+    Private Sub txtCodigoBarra_GotFocus(sender As Object, e As EventArgs) Handles txtCodigoBarra.GotFocus
+        txtCodigoBarra.BackColor = Color.Aqua
+        band = 0
+        'cambio el modo de seleccion
+        grdItems.SelectionMode = DataGridViewSelectionMode.FullRowSelect
+        'me fijo si hay algo en la grilla para sacar la seleccion del primer item
+        If grdItems.Rows.Count > 0 Then
+            grdItems.Rows(0).Selected = False
+        End If
+    End Sub
+
+    Private Sub txtCodigoBarra_LostFocus(sender As Object, e As EventArgs) Handles txtCodigoBarra.LostFocus
+        txtCodigoBarra.BackColor = SystemColors.Window
+        band = 1
+    End Sub
+
+    Private Sub chkTransferencia_CheckedChanged(sender As Object, e As EventArgs) Handles chkTransferencia.CheckedChanged
+
+        If chkTransferencia.Checked And bolModo Then
+            'Try
+
+            '    Dim sqlstring As String = "update [" & NameTable_NotificacionesWEB & "] set BloqueoT = 1"
+            '    tranWEB.Sql_Set(sqlstring)
+            'Catch ex As Exception
+
+            'End Try
+        Else
+            'Try
+            '    Dim sqlstring As String = "update [" & NameTable_NotificacionesWEB & "] set BloqueoT = 0"
+            '    tranWEB.Sql_Set(sqlstring)
+            'Catch ex As Exception
+
+            'End Try
+        End If
+
+    End Sub
+
+    Private Sub chkHabilitar_EditGrilla_CheckedChanged(sender As Object, e As EventArgs) Handles chkHabilitar_EditGrilla.CheckedChanged
+        grdItems.Columns(ColumnasDelGridItems.QtyEnviada).ReadOnly = Not chkHabilitar_EditGrilla.Checked
+        grdItems.Columns(ColumnasDelGridItems.Peso).ReadOnly = Not chkHabilitar_EditGrilla.Checked
+        grdItems.Columns(ColumnasDelGridItems.QtySaldo).Visible = chkHabilitar_EditGrilla.Checked
+        txtNroProcesado.Visible = chkHabilitar_EditGrilla.Checked
+        If chkHabilitar_EditGrilla.Checked = False Then
+            txtNroProcesado.Text = ""
+        End If
+    End Sub
+
 #End Region
 
 #Region "   Procedimientos"
@@ -729,6 +1533,19 @@ Public Class frmVentasWEB
     Private Sub Verificar_Datos()
 
         bolpoliticas = False
+
+        If cmbClientes.Text.Trim = "Deposito Peron" And cmbAlmacenes.SelectedValue = 2 Then
+            Util.MsgStatus(Status1, "No se puede realizar una venta al mismo Depósito.", My.Resources.Resources.alert.ToBitmap)
+            Util.MsgStatus(Status1, "No se puede realizar una venta al mismo Depósito.", My.Resources.Resources.alert.ToBitmap, True)
+            Exit Sub
+        End If
+
+        If cmbClientes.Text.Trim = "Deposito Principal" And cmbAlmacenes.SelectedValue = 1 Then
+            Util.MsgStatus(Status1, "No se puede realizar una venta al mismo Depósito.", My.Resources.Resources.alert.ToBitmap)
+            Util.MsgStatus(Status1, "No se puede realizar una venta al mismo Depósito.", My.Resources.Resources.alert.ToBitmap, True)
+            Exit Sub
+        End If
+
 
         If lblSubtotal.Text = "" Or lblTotal.Text = "" Then
             Util.MsgStatus(Status1, "El total o Subtotal debe ser válido.", My.Resources.Resources.alert.ToBitmap)
@@ -818,6 +1635,31 @@ Public Class frmVentasWEB
                             Exit Sub
                         End If
                     End If
+                    If grdItems.Rows(i).Cells(ColumnasDelGridItems.Subtotal).Value Is DBNull.Value Then
+                        Util.MsgStatus(Status1, "El subtotal es incorrecto del producto en la fila: " & (i + 1).ToString, My.Resources.Resources.alert.ToBitmap)
+                        Util.MsgStatus(Status1, "El subtotal es incorrecto del producto en la fila: " & (i + 1).ToString, My.Resources.Resources.alert.ToBitmap, True)
+                        Exit Sub
+                    End If
+
+
+                    'control cuando se hace una devolucion en base de un nro de orden 
+                    If chkDevolucion.Checked And chkHabilitar_EditGrilla.Checked Then
+                        If grdItems.Rows(i).Cells(ColumnasDelGridItems.Unidad).Value.ToString.Contains("TIRA") Or grdItems.Rows(i).Cells(ColumnasDelGridItems.Unidad).Value.ToString.Contains("HORMA") Then
+                            If grdItems.Rows(i).Cells(ColumnasDelGridItems.Peso).Value > grdItems.Rows(i).Cells(ColumnasDelGridItems.QtySaldo).Value Then
+                                Util.MsgStatus(Status1, "El peso especificado supera al saldo: " & (i + 1).ToString, My.Resources.Resources.alert.ToBitmap)
+                                Util.MsgStatus(Status1, "El peso especificado supera al saldo: " & (i + 1).ToString, My.Resources.Resources.alert.ToBitmap, True)
+                                Exit Sub
+                            End If
+                        Else
+                            If grdItems.Rows(i).Cells(ColumnasDelGridItems.QtyEnviada).Value > grdItems.Rows(i).Cells(ColumnasDelGridItems.QtySaldo).Value Then
+                                Util.MsgStatus(Status1, "La cantidad especificada supera al saldo: " & (i + 1).ToString, My.Resources.Resources.alert.ToBitmap)
+                                Util.MsgStatus(Status1, "La cantidad especificada supera al saldo: " & (i + 1).ToString, My.Resources.Resources.alert.ToBitmap, True)
+                                Exit Sub
+                            End If
+                        End If
+
+                    End If
+
 
                 Catch ex As Exception
                     Util.MsgStatus(Status1, "El precio es incorrecto del producto en la fila: " & (i + 1).ToString, My.Resources.Resources.alert.ToBitmap)
@@ -1220,30 +2062,29 @@ Public Class frmVentasWEB
         dtpFECHA.Enabled = habilitar
         cmbAlmacenes.Enabled = habilitar
         cmbClientes.Enabled = habilitar
-        txtNota.Enabled = True
+        'txtNota.Enabled = True
         'cmbPedidos.Enabled = habilitar
-        lblNroPedido.Enabled = habilitar
+        'lblNroPedido.Enabled = habilitar
         PanelDescuento.Enabled = habilitar
-        lblNroPedido.Enabled = habilitar
         cmbRepartidor.Enabled = habilitar
-        chkTransferencia.Enabled = habilitar
-        chkPresupuesto.AutoCheck = habilitar
+        'chkTransferencia.Enabled = habilitar
+        'chkPresupuesto.AutoCheck = habilitar
         ' chkCambiarPrecios.Enabled = habilitar
-        cmbProducto.Enabled = habilitar
-        btnActualizarMat.Enabled = habilitar
-        txtValorPromo.Enabled = habilitar
-        txtPrecioVta.Enabled = habilitar
-        txtCantidad.Enabled = habilitar
-        txtPeso.Enabled = habilitar
-
+        'chkCodigos.Enabled = habilitar
+        'cmbProducto.Enabled = habilitar
+        'btnActualizarMat.Enabled = habilitar
+        'txtValorPromo.Enabled = habilitar
+        'txtPrecioVta.Enabled = habilitar
+        'txtCantidad.Enabled = habilitar
+        'txtPeso.Enabled = habilitar
+        'txtCodigoBarra.Enabled = habilitar
         'btnDescargarPedidos.Enabled = Not habilitar
         rdTodasPed.Enabled = Not habilitar
         rdPendientes.Enabled = Not habilitar
         rdAnuladas.Enabled = Not habilitar
 
         PicClientes.Enabled = habilitar
-        PicRepartidor.Enabled = habilitar
-        btnActualizarMat.Enabled = habilitar
+        'PicRepartidor.Enabled = habilitar
 
         chkVentas.AutoCheck = Not habilitar
         chkDevolucion.AutoCheck = Not habilitar
@@ -1332,11 +2173,12 @@ Public Class frmVentasWEB
 
                 If rdAbsoluto.Checked = True Then
                     Total = Math.Round(suma - Descuento, 2)
+                    lblDescuento.Text = Descuento
                 Else
 
                     Dim ValorDescuento As Double
                     ValorDescuento = Math.Round(suma * (Descuento / 100), 2)
-
+                    lblDescuento.Text = ValorDescuento
                     Total = Math.Round(suma - ValorDescuento, 2)
                 End If
             Else
@@ -1344,8 +2186,6 @@ Public Class frmVentasWEB
             End If
             lblTotal.Text = Math.Round(Total, 2)
         End If
-
-
 
     End Sub
 
@@ -1485,24 +2325,24 @@ Public Class frmVentasWEB
         End If
     End Sub
 
-    Private Sub DevolverEstado()
+    'Private Sub DevolverEstado()
 
-        Dim connection As SqlClient.SqlConnection = Nothing
-        Try
+    '    Dim connection As SqlClient.SqlConnection = Nothing
+    '    Try
 
-            connection = SqlHelper.GetConnection(ConnStringSEI)
-        Catch ex As Exception
-            MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
-        End Try
-        sqlstring_ped = "UPDATE PedidosWEB SET EnProceso = 0 Where OrdenPedido = '" & lblNroPedido.Text.ToString & "'"
-        ds_Pedidos = SqlHelper.ExecuteDataset(connection, CommandType.Text, sqlstring_ped)
-        Try
-            tranWEB.Sql_Set(sqlstring_ped)
-        Catch ex As Exception
-            MsgBox("Error al cambiar estado del pedido " + lblNroPedido.Text.ToString)
-        End Try
-    End Sub
+    '        connection = SqlHelper.GetConnection(ConnStringSEI)
+    '    Catch ex As Exception
+    '        MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+    '        Exit Sub
+    '    End Try
+    '    sqlstring_ped = "UPDATE PedidosWEB SET EnProceso = 0 Where OrdenPedido = '" & lblNroPedido.Text.ToString & "'"
+    '    ds_Pedidos = SqlHelper.ExecuteDataset(connection, CommandType.Text, sqlstring_ped)
+    '    Try
+    '        tranWEB.Sql_Set(sqlstring_ped)
+    '    Catch ex As Exception
+    '        MsgBox("Error al cambiar estado del pedido " + lblNroPedido.Text.ToString)
+    '    End Try
+    'End Sub
 
     Private Sub llenarcmbRepartidor()
         Dim connection As SqlClient.SqlConnection = Nothing
@@ -1601,7 +2441,7 @@ Public Class frmVentasWEB
                 Exit Sub
             End Try
 
-            ds_Equipos = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT Codigo, Nombre as 'Producto' FROM Materiales  WHERE nombre not like '%**FR%' and eliminado = 0 ")
+            ds_Equipos = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT Codigo, (Nombre + ' ** $ ' + CONVERT(VARCHAR(10), PrecioCosto)) as 'Producto' FROM Materiales  WHERE nombre not like '%**FR%' and eliminado = 0 ")
             ds_Equipos.Dispose()
 
             With Me.cmbProducto
@@ -1722,6 +2562,21 @@ Public Class frmVentasWEB
                 End With
 
             End If
+
+    End Sub
+
+    Private Sub Borrar_tmpStockmov()
+        Dim connection As SqlClient.SqlConnection = Nothing
+        Dim ds As Data.DataSet
+
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+        ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, "Truncate Table tmpStockMov_TransRecepWEB")
+        ds.Dispose()
 
     End Sub
 
@@ -1986,7 +2841,7 @@ Public Class frmVentasWEB
         Dim msg As String
         Dim i As Integer
         Dim ActualizarPrecio As Boolean = False
-        Dim ds_Empresa As Data.DataSet
+        'Dim ds_Empresa As Data.DataSet
 
         Dim ValorActual As Double
         Dim IdStockMov As Long
@@ -2066,6 +2921,19 @@ Public Class frmVentasWEB
                         param_qtyenviada.Scale = 2
                         param_qtyenviada.Value = CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.QtyEnviada).Value, Decimal)
                         param_qtyenviada.Direction = ParameterDirection.Input
+
+                        'esta variable es necesaria para las devoluciones que se hacen en base a un nro de venta
+                        Dim param_qtysaldo As New SqlClient.SqlParameter
+                        param_qtysaldo.ParameterName = "@QTYSALDO"
+                        param_qtysaldo.SqlDbType = SqlDbType.Decimal
+                        param_qtysaldo.Precision = 18
+                        param_qtysaldo.Scale = 2
+                        If grdItems.Rows(i).Cells(ColumnasDelGridItems.Unidad).Value.ToString.Contains("TIRA") Or grdItems.Rows(i).Cells(ColumnasDelGridItems.Unidad).Value.ToString.Contains("HORMA") Then
+                            param_qtysaldo.Value = CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.Peso).Value, Decimal)
+                        Else
+                            param_qtysaldo.Value = CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.QtyEnviada).Value, Decimal)
+                        End If
+                        param_qtysaldo.Direction = ParameterDirection.Input
 
                         Dim param_subtotal As New SqlClient.SqlParameter
                         param_subtotal.ParameterName = "@SUBTOTAL"
@@ -2182,6 +3050,19 @@ Public Class frmVentasWEB
                         param_finpresu.Value = FinalizarPresupuesto
                         param_finpresu.Direction = ParameterDirection.Input
 
+                        Dim param_procesado As New SqlClient.SqlParameter
+                        param_procesado.ParameterName = "@PROCESADO"
+                        param_procesado.SqlDbType = SqlDbType.Bit
+                        param_procesado.Value = IIf(grdItems.Rows(i).Cells(ColumnasDelGridItems.Procesado).Value = True, 1, 0)
+                        param_procesado.Direction = ParameterDirection.Input
+
+                        Dim param_nroprocesado As New SqlClient.SqlParameter
+                        param_nroprocesado.ParameterName = "@ORDENPROCESADO"
+                        param_nroprocesado.SqlDbType = SqlDbType.VarChar
+                        param_nroprocesado.Size = 25
+                        param_nroprocesado.Value = txtNroProcesado.Text
+                        param_nroprocesado.Direction = ParameterDirection.Input
+
                         'Dim param_control As New SqlClient.SqlParameter
                         'param_control.ParameterName = "@CONTROL"
                         'param_control.SqlDbType = SqlDbType.SmallInt
@@ -2208,7 +3089,7 @@ Public Class frmVentasWEB
                                                param_id, param_idpedidosweb, param_idAlmacen, param_idmaterial, param_presupuesto, param_finpresu, _
                                                param_marca, param_idunidad, param_qtyenviada, param_UnidadFac, param_precio, param_valorDescuento, param_devolucion, _
                                                param_subtotal, param_iva, param_notadet, param_useradd, param_ordenitem, param_fechacumplido, param_bonificacion, param_promo, _
-                                               param_reinstock, param_IdStockMov, param_Comprob, param_Stock, param_res, param_msg)
+                                               param_qtysaldo, param_procesado, param_nroprocesado, param_reinstock, param_IdStockMov, param_Comprob, param_Stock, param_res, param_msg)
                             'Else
                             '    SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spDevoluciones_PedidosWEB_Det_Insert", _
                             '                             param_id, param_idpedidosweb, param_idAlmacen, param_idmaterial, _
@@ -2234,37 +3115,48 @@ Public Class frmVentasWEB
                                 Exit Do
                             End If
 
-                            If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
-                                Dim tipo As String
-                                If chkVentas.Checked Then
-                                    tipo = "V"
-                                Else
-                                    tipo = "I"
-                                End If
-                                Try
-                                    If chkVentas.Checked Or grdItems.Rows(i).Cells(ColumnasDelGridItems.Reintegrar_Stock).Value = True Then
-                                        Dim sqlstring As String = "exec spStock_Insert '" & grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Material).Value & "', '" & _
-                                   grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Unidad).Value & "', " & Utiles.numero_almacen & ", '" & tipo & "', " & _
-                                   CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.QtyEnviada).Value, Decimal) & ", " & Stock & ", " & IdStockMov & ", '" & Comprob & "',4, " & UserID
+                            'If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
+                            'Dim tipo As String
+                            'If chkVentas.Checked Then
+                            '    tipo = "V"
+                            'Else
+                            '    tipo = "I"
+                            'End If
+                            'If chkTransferencia.Checked = False Then
+                            '    If tipo = "V" Or grdItems.Rows(i).Cells(ColumnasDelGridItems.Reintegrar_Stock).Value = True Or grdItems.Rows(i).Cells(ColumnasDelGridItems.Reintegrar_Stock).Value = 1 Then
+                            '        ' si devuelve true actualizo local
+                            '        If MDIPrincipal.InsertarMovWEB(grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Material).Value,
+                            '                          grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Unidad).Value,
+                            '                          Utiles.numero_almacen, tipo, CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.QtyEnviada).Value, Decimal),
+                            '                          CType(Stock, Decimal), IdStockMov, Comprob, 4, UserID) Then
 
-                                        If tranWEB.Sql_Get_Value(sqlstring) > 0 Then
-                                            ds_Empresa = SqlHelper.ExecuteDataset(tran, CommandType.Text, "UPDATE StockMov SET ActualizadoWEB = 1 WHERE id = " & IdStockMov)
-                                            ds_Empresa.Dispose()
-                                        End If
+                            '            ds_Empresa = SqlHelper.ExecuteDataset(tran, CommandType.Text, "UPDATE StockMov SET ActualizadoWEB = 1 WHERE id = " & IdStockMov)
+                            '            ds_Empresa.Dispose()
 
-                                    End If
-                                Catch ex As Exception
+                            '        End If
+                            '    End If
+                            'Else
+                            '    If tipo = "V" Then
+                            '        Dim sqlstring As String = " INSERT INTO [dbo].[tmpStockMov_TransRecepWEB]([NroMov],[IDAlmacen],[IDMaterial],[IDUnidad]," & _
+                            '                           " [IDMotivo],[IDStockMov],[Tipo],[Stock],[Qty],[Comprobante],[Eliminado],[DateAdd],[UserAdd])VALUES('" & _
+                            '                            lblNroPedido.Text & "'," & Utiles.numero_almacen & ",'" & grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Material).Value & "','" & _
+                            '                            grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Unidad).Value & "',4," & IdStockMov & ",'" & tipo & "'," & CType(Stock, Decimal) & "," & _
+                            '                            CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.QtyEnviada).Value, Decimal) & ",'" & Comprob & "',0, GETDATE()," & UserID & ")"
 
-                                End Try
-                            End If
+                            '        ds_Empresa = SqlHelper.ExecuteDataset(tran, CommandType.Text, sqlstring)
+                            '        ds_Empresa.Dispose()
+                            '    End If
+                            'End If
+
+                            'End If
 
                         Catch ex As Exception
                             Throw ex
                         End Try
 
-                            End If
+                    End If
 
-                            i = i + 1
+                    i = i + 1
 
                 Loop
 
@@ -2401,7 +3293,7 @@ Public Class frmVentasWEB
         Dim msg As String
         Dim i As Integer
         Dim ActualizarPrecio As Boolean = False
-
+        Dim ds_Empresa As Data.DataSet
         Dim ValorActual As Double
         Dim IdStockMov As Long
         Dim Stock As Double
@@ -2629,6 +3521,39 @@ Public Class frmVentasWEB
                                 Exit Do
                             End If
 
+                            Dim tipo As String
+                            'como es una anulación ahora los valores van invertidos (Venta = ingreso y Devolucion = Egreso)
+                            If chkVentas.Checked Then
+                                tipo = "I"
+                            Else
+                                tipo = "V"
+                            End If
+                            If chkTransferencia.Checked = False And DesdeAnular = False Then
+                                If tipo = "I" Or grdItems.Rows(i).Cells(ColumnasDelGridItems.Reintegrar_Stock).Value = True Or grdItems.Rows(i).Cells(ColumnasDelGridItems.Reintegrar_Stock).Value = 1 Then
+                                    ' si devuelve true actualizo local
+                                    If MDIPrincipal.InsertarMovWEB(grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Material).Value,
+                                                      grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Unidad).Value,
+                                                      Utiles.numero_almacen, tipo, CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.QtyEnviada).Value, Decimal),
+                                                      CType(Stock, Decimal), IdStockMov, Comprob, 4, UserID) Then
+
+                                        ds_Empresa = SqlHelper.ExecuteDataset(tran, CommandType.Text, "UPDATE StockMov SET ActualizadoWEB = 1 WHERE id = " & IdStockMov)
+                                        ds_Empresa.Dispose()
+
+                                    End If
+                                End If
+                                'Else
+                                '    If tipo = "V" Then
+                                '        Dim sqlstring As String = " INSERT INTO [dbo].[tmpStockMov_TransRecepWEB]([NroMov],[IDAlmacen],[IDMaterial],[IDUnidad]," & _
+                                '                           " [IDMotivo],[IDStockMov],[Tipo],[Stock],[Qty],[Comprobante],[Eliminado],[DateAdd],[UserAdd])VALUES('" & _
+                                '                            lblNroPedido.Text & "'," & Utiles.numero_almacen & ",'" & grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Material).Value & "','" & _
+                                '                            grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Unidad).Value & "',4," & IdStockMov & ",'" & tipo & "'," & CType(Stock, Decimal) & "," & _
+                                '                            CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.QtyEnviada).Value, Decimal) & ",'" & Comprob & "',0, GETDATE()," & UserID & ")"
+
+                                '        ds_Empresa = SqlHelper.ExecuteDataset(tran, CommandType.Text, sqlstring)
+                                '        ds_Empresa.Dispose()
+                                '    End If
+                            End If
+
                         Catch ex As Exception
                             Throw ex
                         End Try
@@ -2827,102 +3752,102 @@ Public Class frmVentasWEB
 
     End Function
 
-    Private Function EliminarRegistro() As Integer
+    'Private Function EliminarRegistro() As Integer
 
-        Dim connection As SqlClient.SqlConnection = Nothing
-        Dim res As Integer = 0
-        Dim resweb As Integer = 0
+    '    Dim connection As SqlClient.SqlConnection = Nothing
+    '    Dim res As Integer = 0
+    '    Dim resweb As Integer = 0
 
-        Try
-            connection = SqlHelper.GetConnection(ConnStringSEI)
-            ''Abrir una transaccion para guardar y asegurar que se guarda todo
-            'If Abrir_Tran(connection) = False Then
-            '    MessageBox.Show("No se pudo abrir una transaccion", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            '    Exit Function
-            'End If
+    '    Try
+    '        connection = SqlHelper.GetConnection(ConnStringSEI)
+    '        ''Abrir una transaccion para guardar y asegurar que se guarda todo
+    '        'If Abrir_Tran(connection) = False Then
+    '        '    MessageBox.Show("No se pudo abrir una transaccion", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+    '        '    Exit Function
+    '        'End If
 
-            Try
+    '        Try
 
-                Dim param_idordendecompra As New SqlClient.SqlParameter("@OrdenPedido", SqlDbType.VarChar, ParameterDirection.Input)
-                param_idordendecompra.Size = 25
-                param_idordendecompra.Value = lblNroPedido.Text
-                param_idordendecompra.Direction = ParameterDirection.Input
+    '            Dim param_idordendecompra As New SqlClient.SqlParameter("@OrdenPedido", SqlDbType.VarChar, ParameterDirection.Input)
+    '            param_idordendecompra.Size = 25
+    '            param_idordendecompra.Value = lblNroPedido.Text
+    '            param_idordendecompra.Direction = ParameterDirection.Input
 
-                Dim param_nota As New SqlClient.SqlParameter
-                param_nota.ParameterName = "@NOTA"
-                param_nota.SqlDbType = SqlDbType.VarChar
-                param_nota.Size = 150
-                param_nota.Value = txtNota.Text
-                param_nota.Direction = ParameterDirection.Input
+    '            Dim param_nota As New SqlClient.SqlParameter
+    '            param_nota.ParameterName = "@NOTA"
+    '            param_nota.SqlDbType = SqlDbType.VarChar
+    '            param_nota.Size = 150
+    '            param_nota.Value = txtNota.Text
+    '            param_nota.Direction = ParameterDirection.Input
 
-                Dim param_userdel As New SqlClient.SqlParameter
-                param_userdel.ParameterName = "@userdel"
-                param_userdel.SqlDbType = SqlDbType.Int
-                param_userdel.Value = UserID
-                param_userdel.Direction = ParameterDirection.Input
+    '            Dim param_userdel As New SqlClient.SqlParameter
+    '            param_userdel.ParameterName = "@userdel"
+    '            param_userdel.SqlDbType = SqlDbType.Int
+    '            param_userdel.Value = UserID
+    '            param_userdel.Direction = ParameterDirection.Input
 
-                Dim param_res As New SqlClient.SqlParameter
-                param_res.ParameterName = "@res"
-                param_res.SqlDbType = SqlDbType.Int
-                param_res.Value = DBNull.Value
-                param_res.Direction = ParameterDirection.Output
+    '            Dim param_res As New SqlClient.SqlParameter
+    '            param_res.ParameterName = "@res"
+    '            param_res.SqlDbType = SqlDbType.Int
+    '            param_res.Value = DBNull.Value
+    '            param_res.Direction = ParameterDirection.Output
 
-                Try
+    '            Try
 
-                    SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spPedidosWEB_Delete_Finalizar", param_idordendecompra, param_userdel, param_nota, param_res)
+    '                SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spPedidosWEB_Delete_Finalizar", param_idordendecompra, param_userdel, param_nota, param_res)
 
-                    res = param_res.Value
+    '                res = param_res.Value
 
-                    If res > 0 Then
+    '                If res > 0 Then
 
-                        Try
-                            Dim sqlstring As String
+    '                    Try
+    '                        Dim sqlstring As String
 
-                            sqlstring = "exec spPedidosWEB_Delete_Finalizar '" & lblNroPedido.Text & "','" & txtNota.Text & "'," & UserID & ""
+    '                        sqlstring = "exec spPedidosWEB_Delete_Finalizar '" & lblNroPedido.Text & "','" & txtNota.Text & "'," & UserID & ""
 
-                            resweb = tranWEB.Sql_Get_Value(sqlstring)
+    '                        resweb = tranWEB.Sql_Get_Value(sqlstring)
 
-                            If resweb < 0 Then
-                                res = -1
-                            End If
+    '                        If resweb < 0 Then
+    '                            res = -1
+    '                        End If
 
-                        Catch ex As Exception
+    '                    Catch ex As Exception
 
-                            MsgBox("Desde spPedidosWEB_Delete_Finalizar : " + ex.Message)
-                            res = -1
+    '                        MsgBox("Desde spPedidosWEB_Delete_Finalizar : " + ex.Message)
+    '                        res = -1
 
-                        End Try
+    '                    End Try
 
 
-                    End If
+    '                End If
 
-                    EliminarRegistro = res
+    '                EliminarRegistro = res
 
-                Catch ex As Exception
-                    '' 
-                    Throw ex
-                End Try
-            Finally
-                ''
-            End Try
-        Catch ex As Exception
-            Dim errMessage As String = ""
-            Dim tempException As Exception = ex
+    '            Catch ex As Exception
+    '                '' 
+    '                Throw ex
+    '            End Try
+    '        Finally
+    '            ''
+    '        End Try
+    '    Catch ex As Exception
+    '        Dim errMessage As String = ""
+    '        Dim tempException As Exception = ex
 
-            While (Not tempException Is Nothing)
-                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
-                tempException = tempException.InnerException
-            End While
+    '        While (Not tempException Is Nothing)
+    '            errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+    '            tempException = tempException.InnerException
+    '        End While
 
-            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
-              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If Not connection Is Nothing Then
-                CType(connection, IDisposable).Dispose()
-            End If
-        End Try
-    End Function
+    '        MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+    '          + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+    '          "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+    '    Finally
+    '        If Not connection Is Nothing Then
+    '            CType(connection, IDisposable).Dispose()
+    '        End If
+    '    End Try
+    'End Function
 
     Private Function CalcularNroPedido() As Integer
 
@@ -2945,7 +3870,7 @@ Public Class frmVentasWEB
             Dim param_devolucion As New SqlClient.SqlParameter
             param_devolucion.ParameterName = "@DEVOLUCION"
             param_devolucion.SqlDbType = SqlDbType.Bit
-            param_devolucion.Value = ChkDevolucion.Checked
+            param_devolucion.Value = chkDevolucion.Checked
             param_devolucion.Direction = ParameterDirection.Input
 
             Dim param_res As New SqlClient.SqlParameter
@@ -3080,6 +4005,19 @@ Public Class frmVentasWEB
                 param_montoimpuesto.Value = 0
                 param_montoimpuesto.Direction = ParameterDirection.Input
 
+                Dim param_ayid As New SqlClient.SqlParameter
+                param_ayid.ParameterName = "@Ayid"
+                param_ayid.SqlDbType = SqlDbType.Bit
+                param_ayid.Value = False
+                param_ayid.Direction = ParameterDirection.Input
+
+                Dim param_montoAyid As New SqlClient.SqlParameter
+                param_montoAyid.ParameterName = "@MontoAyid"
+                param_montoAyid.SqlDbType = SqlDbType.Decimal
+                param_montoAyid.Precision = 18
+                param_montoAyid.Scale = 2
+                param_montoAyid.Value = 0
+                param_montoAyid.Direction = ParameterDirection.Input
 
                 Dim param_montoiva As New SqlClient.SqlParameter
                 param_montoiva.ParameterName = "@montoiva"
@@ -3112,6 +4050,14 @@ Public Class frmVentasWEB
                 param_Redondeo.Scale = 2
                 param_Redondeo.Value = 0
                 param_Redondeo.Direction = ParameterDirection.Input
+
+                Dim param_Descuento As New SqlClient.SqlParameter
+                param_Descuento.ParameterName = "@Descuento"
+                param_Descuento.SqlDbType = SqlDbType.Decimal
+                param_Descuento.Precision = 18
+                param_Descuento.Scale = 2
+                param_Descuento.Value = CDbl(IIf(lblDescuento.Text = "", 0, lblDescuento.Text))
+                param_Descuento.Direction = ParameterDirection.Input
 
                 Dim param_ValorCambio As New SqlClient.SqlParameter
                 param_ValorCambio.ParameterName = "@ValorCambio"
@@ -3146,12 +4092,19 @@ Public Class frmVentasWEB
 
                 Try
 
+                    'SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spIngresos_Insert", _
+                    '                      param_id, param_codigo, param_nropago, param_idcliente, param_fecha, param_contado, param_montocontado, _
+                    '                      param_tarjeta, param_montotarjeta, param_cheque, param_montocheque, _
+                    '                      param_transferencia, param_montotransf, param_impuestos, param_montoimpuesto, _
+                    '                      param_montoiva, param_subtotal, param_total, param_Redondeo, param_ValorCambio, _
+                    '                      param_remitos, param_useradd, param_res)
+
                     SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spIngresos_Insert", _
-                                          param_id, param_codigo, param_nropago, param_idcliente, param_fecha, param_contado, param_montocontado, _
-                                          param_tarjeta, param_montotarjeta, param_cheque, param_montocheque, _
-                                          param_transferencia, param_montotransf, param_impuestos, param_montoimpuesto, _
-                                          param_montoiva, param_subtotal, param_total, param_Redondeo, param_ValorCambio, _
-                                          param_remitos, param_useradd, param_res)
+                                             param_id, param_codigo, param_nropago, param_idcliente, param_fecha, param_contado, param_montocontado, _
+                                             param_tarjeta, param_montotarjeta, param_cheque, param_montocheque, _
+                                             param_transferencia, param_montotransf, param_impuestos, param_montoimpuesto, _
+                                             param_montoiva, param_subtotal, param_total, param_Redondeo, param_Descuento, param_ValorCambio, _
+                                             param_remitos, param_ayid, param_montoAyid, param_useradd, param_res)
 
                     txtIDIngreso.Text = param_id.Value
                     txtCodigoIngreso.Text = param_codigo.Value
@@ -3343,19 +4296,10 @@ Public Class frmVentasWEB
             lblSaldo.Text = "$" + param_total.Value.ToString
             BuscarSaldo = param_res.Value
 
-
-
-
         Catch ex As Exception
-
-            ' MsgBox(ex.Message)
             BuscarSaldo = 0
             lblSaldo.Text = "$0,00"
         End Try
-
-
-
-
 
     End Function
 
@@ -3370,6 +4314,20 @@ Public Class frmVentasWEB
         Else
             Util.MsgStatus(Status1, "Haga click en [Guardar] despues de completar los datos.")
             AutorizarVenta = True
+        End If
+    End Function
+
+    Private Function BuscarAlmacen_Cliente() As Boolean
+        'Verifico que el clientes sea otro distinto al almacen de ventas
+        If cmbClientes.Text.Trim = "Deposito Peron" And cmbAlmacenes.SelectedValue <> 2 Then
+            BuscarAlmacen_Cliente = True
+            IDAlmacenTrans = 2
+        ElseIf cmbClientes.Text.Trim = "Deposito Principal" And cmbAlmacenes.SelectedValue <> 1 Then
+            IDAlmacenTrans = 1
+            BuscarAlmacen_Cliente = True
+        Else
+            BuscarAlmacen_Cliente = False
+            IDAlmacenTrans = 0
         End If
     End Function
 
@@ -3427,28 +4385,46 @@ Public Class frmVentasWEB
         txtValorPromo.Visible = False
         lblSaldo.ForeColor = Color.Black
         lblSaldo.Text = "$0"
+        chkCodigos.Checked = True
+
+        dtpFECHA.Value = Date.Today
+        dtpFECHA.Focus()
+        lblFechaEntrega.Text = dtpFECHA.Value.ToString
 
         If Principal = False Then
             Try
                 cmbClientes.SelectedValue = "227"
                 cmbRepartidor.SelectedValue = "14"
                 cmbProducto.Enabled = True
+                txtCodigoBarra.Focus()
             Catch ex As Exception
 
             End Try
         End If
 
-        dtpFECHA.Value = Date.Today
-        dtpFECHA.Focus()
-
-        lblFechaEntrega.Text = dtpFECHA.Value.ToString
-
         band = 1
+
+        If chkDevolucion.Checked Then
+            Dim D As New frmVentasWEB_PedirOrden
+            D.ShowDialog()
+            If grdItems.Rows.Count > 0 Then
+                CalculoSubtotales()
+                chkHabilitar_EditGrilla.Checked = True
+            End If
+
+        End If
+
 
 
     End Sub
 
     Private Sub btnGuardar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGuardar.Click
+
+        If txtIdCliente.Text = "" Then
+            MsgBox("Seleccione un Cliente para poder realizar la Venta", MsgBoxStyle.Critical, "Control de Errores")
+            Exit Sub
+        End If
+
 
         If bolModo = False And chkPresupuesto.Checked = True Then
             If MessageBox.Show("¿Está seguro que desea realizar una venta desde un presupuesto?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
@@ -3466,7 +4442,6 @@ Public Class frmVentasWEB
 
 
         Dim res As Integer, res_item As Integer, res_ingreso As Integer, res_conyfac As Integer, ControlSaldo As Integer
-
         If ReglasNegocio() Then
             If bolModo Or chkPresupuesto.Checked = True Then
                 Verificar_Datos()
@@ -3483,12 +4458,12 @@ Public Class frmVentasWEB
                         Exit Sub
                     End If
                 End If
-                'me fijo que sucursal es
-                If Principal Then
-                    ControlSaldo = BuscarSaldo()
-                Else
-                    ControlSaldo = 1
-                End If
+                'me fijo que sucursal es (por el momento no aplico el control de saldos
+                'If Principal Then
+                '    ControlSaldo = BuscarSaldo()
+                'Else
+                ControlSaldo = 1
+                'End If
                 If chkVentas.Checked Then
                     Dim texto As String
                     Select Case ControlSaldo
@@ -3554,7 +4529,7 @@ Public Class frmVentasWEB
                     End Select
                 End If
                 'muestro el resumen
-                Dim Resumen As New frmResumenEnvio
+                Dim Resumen As New frmVentasWEB_ResumenEnvio
                 Resumen.ShowDialog()
                 If MDIPrincipal.ConfirResPed = False Then
                     Util.MsgStatus(Status1, "Haga click en [Guardar] despues de completar los datos.")
@@ -3651,25 +4626,75 @@ Public Class frmVentasWEB
                                             End Select
                                     End Select
                                 End If
-
-                                Cerrar_Tran()
-
-                                If Principal Then
-                                    Imprimir_Pedido(lblNroPedido.Text)
-                                End If
-                                'If chkVentas.Checked = True Then
-                                '    subSQL = "spPedidosWEB_Select_All"
+                                'Me fijo transferencia entre sucursales (WEB)
+                                'If chkTransferencia.Checked = True And chkDevolucion.Checked = False Then
+                                '    If InsertarTransRecepWEB() Then
+                                '        Dim ds_TranRecep As Data.DataSet
+                                '        Dim ds_Empresa As Data.DataSet
+                                '        Dim sqltranrec As String = "select IDMaterial,IDUnidad,IDAlmacen,tipo,Qty,Stock," & _
+                                '                                   "IDStockMov,Comprobante,IDMotivo,UserAdd from " & _
+                                '                                   "tmpStockMov_TransRecepWEB where nromov = '" & lblNroPedido.Text & "'"
+                                '        ds_TranRecep = SqlHelper.ExecuteDataset(tran, CommandType.Text, sqltranrec)
+                                '        ds_TranRecep.Dispose()
+                                '        If ds_TranRecep.Tables(0).Rows.Count > 0 Then
+                                '            For i As Integer = 0 To ds_TranRecep.Tables(0).Rows.Count - 1
+                                '                If MDIPrincipal.InsertarMovWEB(ds_TranRecep.Tables(0).Rows(i).Item(0), ds_TranRecep.Tables(0).Rows(i).Item(1), ds_TranRecep.Tables(0).Rows(i).Item(2),
+                                '                               ds_TranRecep.Tables(0).Rows(i).Item(3), ds_TranRecep.Tables(0).Rows(i).Item(4), ds_TranRecep.Tables(0).Rows(i).Item(5),
+                                '                                ds_TranRecep.Tables(0).Rows(i).Item(6), ds_TranRecep.Tables(0).Rows(i).Item(7), ds_TranRecep.Tables(0).Rows(i).Item(8),
+                                '                                ds_TranRecep.Tables(0).Rows(i).Item(9)) Then
+                                '                    ds_Empresa = SqlHelper.ExecuteDataset(tran, CommandType.Text, "UPDATE StockMov SET ActualizadoWEB = 1 WHERE id = " & ds_TranRecep.Tables(0).Rows(i).Item(6))
+                                '                    ds_Empresa.Dispose()
+                                '                Else
+                                '                    Cancelar_Tran()
+                                '                    Util.MsgStatus(Status1, "No se pudo registrar el movimiento de Stock  entre sucursales en la Base de Datos WEB. Por favor intente más tarde.", My.Resources.Resources.stop_error.ToBitmap)
+                                '                    Exit Sub
+                                '                End If
+                                '            Next
+                                '        End If                               
+                                '        Cerrar_Tran()
+                                '        'borro la tabla temporal por eso cierro la transacción antes (esta contiene un truncate)
+                                '        Borrar_tmpStockmov()
+                                '        'inserto de manera local el envio
+                                '        ds_Empresa = tranWEB.Sql_Get("Select NroMov from [" & NameTable_TransRecepWEB & "] where nroasociado = '" & lblNroPedido.Text & "'")
+                                '        If ds_Empresa.Tables(0).Rows.Count > 0 Then
+                                '            res = Agregar_Registro_TransRecepWEB_Enviado(ds_Empresa.Tables(0).Rows(0).Item(0).ToString)
+                                '            Select Case res
+                                '                Case -1
+                                '                    Cancelar_Tran()
+                                '                    Util.MsgStatus(Status1, "No se pudo insertar La transferencia Localmente (Encabezado).", My.Resources.Resources.stop_error.ToBitmap)
+                                '                Case 0
+                                '                    Cancelar_Tran()
+                                '                    Util.MsgStatus(Status1, "No se pudo registra el movimiento local (Encabezado).", My.Resources.Resources.stop_error.ToBitmap)
+                                '                Case Else
+                                '                    res_item = AgregarRegistro_TransRecepWEB_Items_Enviado(ds_Empresa.Tables(0).Rows(0).Item(0).ToString)
+                                '                    Select Case res_item
+                                '                        Case -1
+                                '                            Cancelar_Tran()
+                                '                            Util.MsgStatus(Status1, "No se pudo insertar La transferencia Localmente (Detalle).", My.Resources.Resources.stop_error.ToBitmap)
+                                '                        Case 0
+                                '                            Cancelar_Tran()
+                                '                            Util.MsgStatus(Status1, "No se pudo registra el movimiento local (Detalle).", My.Resources.Resources.stop_error.ToBitmap)
+                                '                        Case Else
+                                '                            Cerrar_Tran()
+                                '                    End Select
+                                '            End Select
+                                '        Else
+                                '            Util.MsgStatus(Status1, "No se pudo obtener el nro de transferencia de la WEB.", My.Resources.Resources.stop_error.ToBitmap)
+                                '        End If
+                                '    Else
+                                '        Cancelar_Tran()
+                                '        Util.MsgStatus(Status1, "No se pudo registrar la transferencias entre sucursales en la Base de Datos WEB. Por favor intente más tarde.", My.Resources.Resources.stop_error.ToBitmap)
+                                '        Exit Sub
+                                '    End If
                                 'Else
-                                '    subSQL = "spDevoluciones_PedidosWEB_Select_All"
+                                Cerrar_Tran()
                                 'End If
-
+                                'If Principal Then
+                                Imprimir_Pedido(lblNroPedido.Text)
+                                'End If
                                 bolModo = False
+                                chkHabilitar_EditGrilla.Checked = False
                                 PrepararBotones()
-
-                                'rdPendientes.Checked = True
-                                'rdAnuladas.Checked = False
-                                'rdTodasPed.Checked = True
-                                'SQL = "exec " + subSQL + " @Eliminado = " & rdAnuladas.Checked & ", @Pendientes = " & rdPendientes.Checked & ", @PendientesyCumplidas = " & rdTodasPed.Checked
 
                                 DesbloquearComponentes(bolModo)
 
@@ -3688,10 +4713,6 @@ Public Class frmVentasWEB
                                 btnActualizar_Click(sender, e)
 
                                 Setear_Grilla()
-
-
-
-
                                 'btnEnviarTodos.Enabled = False
                                 Util.MsgStatus(Status1, "Se ha actualizado el Registro.", My.Resources.Resources.ok.ToBitmap)
                         End Select
@@ -3714,10 +4735,11 @@ Public Class frmVentasWEB
         ' Para borrar un vale hay que tener un permiso especial de eliminacion
         ' ademas, no se puede borrar un vale ya eliminado de antes.
         ' La eliminacion es lógica...y se reversan los items para ajustar el inventario
-
+        DesdeAnular = True
         If chkFacturaCancelada.Checked = True Then
             Util.MsgStatus(Status1, "No se puede anular esta venta porque está asociada a un pago que se efectuó. Anule el pago asociado y luego anule esta venta.", My.Resources.stop_error.ToBitmap)
             Util.MsgStatus(Status1, "No se puede anular esta venta porque está asociada a un pago que se efectuó." & vbCrLf & "Anule el pago asociado y luego anule esta venta.", My.Resources.stop_error.ToBitmap, True)
+            DesdeAnular = False
             Exit Sub
         End If
 
@@ -3739,6 +4761,7 @@ Public Class frmVentasWEB
             If ds_Pedidos.Tables(0).Rows.Count > 0 Then
                 Util.MsgStatus(Status1, "No se puede anular esta venta porque está asociada parcialmente a un pago que se efectuó. Anule el pago asociado y luego anule esta venta.", My.Resources.stop_error.ToBitmap)
                 Util.MsgStatus(Status1, "No se puede anular esta venta porque está asociada parcialmente a un pago que se efectuó." & vbCrLf & "Anule el pago asociado y luego anule esta venta.", My.Resources.stop_error.ToBitmap, True)
+                DesdeAnular = False
                 Exit Sub
             End If
 
@@ -3746,7 +4769,7 @@ Public Class frmVentasWEB
             MessageBox.Show("No se pudo verificar el estado del registro. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End Try
-   
+
 
 
 
@@ -3759,6 +4782,7 @@ Public Class frmVentasWEB
             If txtNota.Text.Trim = "" Then
                 Util.MsgStatus(Status1, "Por favor escriba una nota de anulación.", My.Resources.stop_error.ToBitmap)
                 Util.MsgStatus(Status1, "Por favor escriba una nota de anulación.", My.Resources.stop_error.ToBitmap, True)
+                DesdeAnular = False
                 txtNota.Focus()
                 Exit Sub
             End If
@@ -3768,6 +4792,7 @@ Public Class frmVentasWEB
             Au.ShowDialog()
 
             If MDIPrincipal.Autorizar = False Then
+                DesdeAnular = False
                 Exit Sub
             End If
 
@@ -3775,18 +4800,22 @@ Public Class frmVentasWEB
             res = EliminarRegistro_PedidosWEB()
             Select Case res
                 Case -3
+                    DesdeAnular = False
                     Cancelar_Tran()
                     Util.MsgStatus(Status1, "No se registró el mov. de stock.", My.Resources.stop_error.ToBitmap)
                     Util.MsgStatus(Status1, "No se registró el mov. de stock.", My.Resources.stop_error.ToBitmap, True)
                 Case -2
+                    DesdeAnular = False
                     Cancelar_Tran()
                     Util.MsgStatus(Status1, "El registro no existe.", My.Resources.stop_error.ToBitmap)
                     Util.MsgStatus(Status1, "El registro no existe.", My.Resources.stop_error.ToBitmap, True)
                 Case -1
+                    DesdeAnular = False
                     Cancelar_Tran()
                     Util.MsgStatus(Status1, "No se pudo anular el registro.", My.Resources.stop_error.ToBitmap)
                     Util.MsgStatus(Status1, "No se pudo anular el registro.", My.Resources.stop_error.ToBitmap, True)
                 Case 0
+                    DesdeAnular = False
                     Cancelar_Tran()
                     Util.MsgStatus(Status1, "No se pudo anular el registro.", My.Resources.stop_error.ToBitmap)
                     Util.MsgStatus(Status1, "No se pudo anular el registro.", My.Resources.stop_error.ToBitmap, True)
@@ -3794,22 +4823,27 @@ Public Class frmVentasWEB
                     res = EliminarRegistro_PediosWEB_Items()
                     Select Case res
                         Case -9
+                            DesdeAnular = False
                             Cancelar_Tran()
                             Util.MsgStatus(Status1, "Error al no modificar stock.", My.Resources.Resources.stop_error.ToBitmap)
                             Util.MsgStatus(Status1, "Error al no modificar stock.", My.Resources.Resources.stop_error.ToBitmap, True)
                         Case -8
+                            DesdeAnular = False
                             Cancelar_Tran()
                             Util.MsgStatus(Status1, "Error. No se puede restar el stock.", My.Resources.Resources.stop_error.ToBitmap)
                             Util.MsgStatus(Status1, "Error. No se puede restar el  stock.", My.Resources.Resources.stop_error.ToBitmap, True)
                         Case -7
+                            DesdeAnular = False
                             Cancelar_Tran()
                             Util.MsgStatus(Status1, "Error. No se pudo actualizar stockmov.", My.Resources.Resources.stop_error.ToBitmap)
                             Util.MsgStatus(Status1, "Error. No se pudo actualizar stockmov.", My.Resources.Resources.stop_error.ToBitmap, True)
                         Case 0
+                            DesdeAnular = False
                             Cancelar_Tran()
                             Util.MsgStatus(Status1, "No pudo realizarse la anulación(ítems).", My.Resources.Resources.stop_error.ToBitmap)
                             Util.MsgStatus(Status1, "No pudo realizarse la anulación(ítems).", My.Resources.Resources.stop_error.ToBitmap, True)
                         Case -1
+                            DesdeAnular = False
                             Cancelar_Tran()
                             Util.MsgStatus(Status1, "No pudo realizarse la anulación(ítems).", My.Resources.Resources.stop_error.ToBitmap)
                             Util.MsgStatus(Status1, "No pudo realizarse la anulación(ítems).", My.Resources.Resources.stop_error.ToBitmap, True)
@@ -3842,6 +4876,7 @@ Public Class frmVentasWEB
 
                             Util.MsgStatus(Status1, "Se ha anulado el registro.", My.Resources.ok.ToBitmap)
                             Util.MsgStatus(Status1, "Se ha anulado el registro.", My.Resources.ok.ToBitmap, True, True)
+                            DesdeAnular = False
                     End Select
             End Select
             'Else
@@ -3866,26 +4901,23 @@ Public Class frmVentasWEB
         Dim codigo As String
         Dim Solicitud As Boolean
 
-        Try
+        'Try
 
-        Catch ex As Exception
+        'Catch ex As Exception
 
-        End Try
+        'End Try
 
-        nbreformreportes = "Ordenes de Compra"
+        nbreformreportes = "Remito"
 
         param.AgregarParametros("Código :", "STRING", "", False, lblNroPedido.Text.ToString, "", cnn)
 
         param.ShowDialog()
-
-
 
         If cerroparametrosconaceptar = True Then
 
             codigo = param.ObtenerParametros(0)
             Dim saldo As Double = CDbl(lblSaldo.Text.Replace("$", ""))
             'rpt.NombreArchivoPDF = "Orden de Compra " & codigo & " - " & BuscarProveedor(codigo, Solicitud)
-
             'If chkVentas.Checked = True Then
             rpt.OrdenesDeCompra_Maestro_App(codigo, saldo, rpt, My.Application.Info.AssemblyName.ToString, Solicitud)
             'Else
@@ -3936,21 +4968,22 @@ Public Class frmVentasWEB
         'End Try
 
         ' btnEnviarTodos.Enabled = False
+        chkHabilitar_EditGrilla.Checked = False
         DesbloquearComponentes(False)
         grd_CurrentCellChanged(sender, e)
         bolModo = False
         rdTodasPed.Checked = True
 
         'me fijo si el chk de presupuesto esta activo
-        If chkPresupuesto.Checked = True Then
-            btnActualizarMat.Enabled = chkPresupuesto.Checked
-            txtValorPromo.Enabled = chkPresupuesto.Checked
-            txtPrecioVta.Enabled = chkPresupuesto.Checked
-            txtCantidad.Enabled = chkPresupuesto.Checked
-            txtPeso.Enabled = chkPresupuesto.Checked
-            cmbProducto.Enabled = chkPresupuesto.Checked
-            PanelDescuento.Enabled = chkPresupuesto.Checked
-        End If
+        'If chkPresupuesto.Checked = True Then
+        '    btnActualizarMat.Enabled = chkPresupuesto.Checked
+        '    txtValorPromo.Enabled = chkPresupuesto.Checked
+        '    txtPrecioVta.Enabled = chkPresupuesto.Checked
+        '    txtCantidad.Enabled = chkPresupuesto.Checked
+        '    txtPeso.Enabled = chkPresupuesto.Checked
+        '    cmbProducto.Enabled = chkPresupuesto.Checked
+        '    PanelDescuento.Enabled = chkPresupuesto.Checked
+        'End If
         FinalizarPresupuesto = False
     End Sub
 
@@ -3990,87 +5023,8 @@ Public Class frmVentasWEB
         End If
     End Sub
 
-    Private Sub btnFinalizar_Click(sender As Object, e As EventArgs)
-
-        Dim res As Integer
-
-        If MessageBox.Show("¿Está seguro que desea Finalizar el pedido seleccionado?" & vbCrLf & "Todos los items pendientes con saldo MENOR a la cantidad pedida quedarán con el estado Finalizado", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
-            Exit Sub
-        End If
-
-        If chkEliminado.Checked = False Then
-
-            If txtNota.Text = "" Then
-                MsgBox("Falta completar campo NOTA. Por favor verifique.", MsgBoxStyle.Information, "Control de Acceso")
-                txtNota.Focus()
-                Exit Sub
-            End If
-
-            'si tiene al menos una recepcion puede finalizar la OC
-            'res = CuentaRecepcionesPorOrdenDeCompra(CType(txtID.Text, Long))
-
-            'If res = 0 Then
-            '    Util.MsgStatus(Status1, "No se puede Finalizar la Orden de Compra ya que no tiene 'Recepciones' efectuadas." & vbCrLf & "Si desea puede Anular la OC seleccionada.", My.Resources.stop_error.ToBitmap)
-            '    Util.MsgStatus(Status1, "No se puede Finalizar la Orden de Compra ya que no tiene 'Recepciones' efectuadas." & vbCrLf & "Si desea puede Anular la OC seleccionada.", My.Resources.stop_error.ToBitmap, True)
-            '    Exit Sub
-            'End If
-
-            'If MessageBox.Show("Esta acción Finalizará el proceso en todos los items." + vbCrLf + "¿Está seguro que desea Finalizar la OC?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
-            Util.MsgStatus(Status1, "Finalizando el registro...", My.Resources.Resources.indicator_white)
-            res = EliminarRegistro()
-            Select Case res
-                Case -1
-                    Util.MsgStatus(Status1, "No se pudo Finalizar el Envío.", My.Resources.stop_error.ToBitmap)
-                    Util.MsgStatus(Status1, "No se pudo Finalizar la Envío.", My.Resources.stop_error.ToBitmap, True)
-                Case 0
-                    Util.MsgStatus(Status1, "No se pudo Finalizar la Envío.", My.Resources.stop_error.ToBitmap)
-                    Util.MsgStatus(Status1, "No se pudo Finalizar la Envío.", My.Resources.stop_error.ToBitmap, True)
-                Case Else
-                    bolModo = False
-                    PrepararBotones()
-
-                    rdPendientes.Checked = False
-                    rdAnuladas.Checked = False
-                    rdTodasPed.Checked = True
-
-                    SQL = "exec spPedidosWEB_Select_All @Eliminado = " & rdAnuladas.Checked & ", @Pendientes = " & rdPendientes.Checked & ", @PendientesyCumplidas = " & rdTodasPed.Checked & ", @Ventas_Norte = " & btnXNorte.Checked & ",@Devolucion = " & chkDevolucion.Checked
-                    'SQL = "exec spPedidosWEB_Select_All @Eliminado = " & rdAnuladas.Checked & ", @Pendientes = " & rdPendientes.Checked & ", @PendientesyCumplidas = " & rdTodasPed.Checked & ", @Ventas_Norte = " & btnXNorte.Cheked
-                    'SQL = "exec spPedidosWEB_Select_All  @Eliminado = 0"
-
-                    DesbloquearComponentes(bolModo)
-
-                    'btnActualizar_Click(sender, e)
-
-                    LlenarGrilla()
-
-                    'Setear_Grilla()
-
-                    'btnEnviarTodos.Enabled = False
-
-                    Util.MsgStatus(Status1, "Se ha Finalizado la Envío.", My.Resources.ok.ToBitmap)
-                    Util.MsgStatus(Status1, "Se ha Finalizado la Envío.", My.Resources.ok.ToBitmap, True, True)
-            End Select
-            'Else
-            '    Util.MsgStatus(Status1, "Acción de Finalizado cancelada.", My.Resources.stop_error.ToBitmap)
-            '    Util.MsgStatus(Status1, "Acción de Finalizado cancelada.", My.Resources.stop_error.ToBitmap, True)
-            'End If
-        Else
-            Util.MsgStatus(Status1, "El registro ya está Finalizado.", My.Resources.stop_error.ToBitmap)
-            Util.MsgStatus(Status1, "El registro ya está Finalizado.", My.Resources.stop_error.ToBitmap, True)
-        End If
-
-
-    End Sub
-
     Protected Overloads Sub btnSalir_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSalir.Click
-        'Try
-        '    If cmbPedidos.SelectedValue.ToString <> "" Then
-        '        DevolverEstado()
-        '    End If
-        'Catch ex As Exception
-
-        'End Try
-
+        chkTransferencia.Checked = False
     End Sub
 
 #End Region
@@ -4111,29 +5065,42 @@ Public Class frmVentasWEB
 
             'End If
 
+            If chkHabilitar_EditGrilla.Checked Then
+                If e.ColumnIndex = ColumnasDelGridItems.QtyEnviada Or e.ColumnIndex = ColumnasDelGridItems.Peso Then
+                    If grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Unidad).Value.ToString.Contains("TIRA") Or grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Unidad).Value.ToString.Contains("HORMA") Then
+                        grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Subtotal).Value = IIf(grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Peso).Value Is DBNull.Value, 0, grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Peso).Value) * grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Precio).Value '* IIf(grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.QtyEnviada).Value Is DBNull.Value, 0, grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.QtyEnviada).Value)
+                    Else
+                        grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Subtotal).Value = IIf(grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.QtyEnviada).Value Is DBNull.Value, 0, grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.QtyEnviada).Value) * grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Precio).Value
+                    End If
+                    grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Subtotal).Value = Math.Round(grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Subtotal).Value, 2)
+                End If
+            End If
+
             If e.ColumnIndex = ColumnasDelGridItems.Descuento Then
 
                 descuento = IIf(grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Descuento).Value Is DBNull.Value, 0, grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Descuento).Value)
 
-                If descuento > 100 Then
-                    grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Precio).Value = 0
-                    descuento = 0
+                'If descuento > 100 Then
+                '    grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Precio).Value = 0
+                '    descuento = 0
 
-                End If
+                'End If
 
-                If grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Unidad).Value.ToString.Contains("TIRA") Or grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Unidad).Value.ToString.Contains("HORMA") Then
-                    grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Subtotal).Value = IIf(grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Peso).Value Is DBNull.Value, 0, grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Peso).Value) * grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Precio).Value '* IIf(grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.QtyEnviada).Value Is DBNull.Value, 0, grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.QtyEnviada).Value)
-                Else
-                    grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Subtotal).Value = IIf(grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.QtyEnviada).Value Is DBNull.Value, 0, grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.QtyEnviada).Value) * grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Precio).Value
-                End If
+                'If grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Unidad).Value.ToString.Contains("TIRA") Or grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Unidad).Value.ToString.Contains("HORMA") Then
+                '    grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Subtotal).Value = IIf(grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Peso).Value Is DBNull.Value, 0, grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Peso).Value) * grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Precio).Value '* IIf(grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.QtyEnviada).Value Is DBNull.Value, 0, grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.QtyEnviada).Value)
+                'Else
+                grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Subtotal).Value = IIf(grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.QtyEnviada).Value Is DBNull.Value, 0, grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.QtyEnviada).Value) * grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Precio).Value
+                'End If
 
-                Dim calculo As Double = (descuento * grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Subtotal).Value) / 100
-                calculo = Math.Round(calculo, 2)
+                'Dim calculo As Double = (descuento * grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Subtotal).Value) / 100
+                'calculo = Math.Round(calculo, 2)
+
+                Dim calculo As Double = Math.Round(CDbl(IIf(grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Descuento).Value = "", 0, grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Descuento).Value)), 2)
 
                 grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Subtotal).Value = grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Subtotal).Value - calculo
                 grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Subtotal).Value = Math.Round(grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Subtotal).Value, 2)
 
-                If descuento = 100 Then
+                If descuento = grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Subtotal).Value Then
                     grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Nombre_Material).Value = grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Nombre_Material).Value + "(BONIF.)"
                     'coloco el bit de bonificacion en uno
                     grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonificacion).Value = True
@@ -4144,8 +5111,6 @@ Public Class frmVentasWEB
                 End If
 
             End If
-
-
 
             CalculoSubtotales()
 
@@ -4171,7 +5136,7 @@ Public Class frmVentasWEB
         Catch ex As Exception
 
         End Try
-    
+
 
         'If columna = ColumnasDelGridItems.ID_OrdenDeCompra Then
         'If columna = 7 Then
@@ -4209,7 +5174,7 @@ Public Class frmVentasWEB
     End Sub
 
     Private Sub grditems_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles grdItems.CellClick
-        If e.ColumnIndex = 25 And (bolModo = True Or chkPresupuesto.Checked = True) Then 'Marcar llegada
+        If e.ColumnIndex = 26 And (bolModo = True Or chkPresupuesto.Checked = True) Then 'Marcar llegada
             If MessageBox.Show("Está seguro que desea eliminar el producto?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
                 grdItems.Rows.RemoveAt(e.RowIndex)
                 CalculoSubtotales()
@@ -4226,617 +5191,381 @@ Public Class frmVentasWEB
 #End Region
 
 
-    Private Sub cmbProducto_KeyDown(sender As Object, e As KeyEventArgs) Handles cmbProducto.KeyDown
-        If e.KeyData = Keys.Enter Then
-            'SendKeys.Send("{TAB}")
-            txtCantidad.Focus()
-        End If
-    End Sub
-
-    Private Sub cmbProducto_KeyUp(sender As Object, e As KeyEventArgs) Handles cmbProducto.KeyUp
-
-        If cmbProducto.Text = "" Then
-            lblStock.Text = ""
-            txtPrecioVta.Text = ""
-            txtCantidad.Text = ""
-            txtPeso.Text = ""
-            txtSubtotal.Text = ""
-        End If
-
-    End Sub
-
-    Private Sub txtPeso_KeyDown(sender As Object, e As KeyEventArgs) Handles txtPeso.KeyDown
-        If txtUnidad.Text = "HORMA" Or txtUnidad.Text = "TIRA" Then
-            txtCantidad_KeyDown(sender, e)
-        End If
-    End Sub
-
-    Private Sub txtCantidad_KeyDown(sender As Object, e As KeyEventArgs) Handles txtCantidad.KeyDown
-        If e.KeyCode = Keys.Enter Then
-
-            If cmbProducto.SelectedValue Is DBNull.Value Or cmbProducto.SelectedValue = 0 Then
-                Util.MsgStatus(Status1, "Debe ingresar un producto VÁLIDO.", My.Resources.Resources.stop_error.ToBitmap)
-                Util.MsgStatus(Status1, "Debe ingresar un producto VÁLIDO.", My.Resources.Resources.stop_error.ToBitmap, True)
-                '               GoTo Continuar
-                Exit Sub
-            End If
-
-            If cmbProducto.Text = "" Then
-                Util.MsgStatus(Status1, "Debe ingresar un producto VÁLIDO.", My.Resources.Resources.stop_error.ToBitmap)
-                Util.MsgStatus(Status1, "Debe ingresar un producto VÁLIDO.", My.Resources.Resources.stop_error.ToBitmap, True)
-                '              GoTo Continuar
-                Exit Sub
-            End If
-
-            If txtPrecioVta.Text = "" Or txtPrecioVta.Text = "0.00" Then
-                Util.MsgStatus(Status1, "El precio del producto no es VÁLIDO.", My.Resources.Resources.stop_error.ToBitmap)
-                Util.MsgStatus(Status1, "El precio del producto no es VÁLIDO.", My.Resources.Resources.stop_error.ToBitmap, True)
-                Exit Sub
-            End If
-
-            If CDbl(txtPrecioVta.Text) = 0 Then
-                Util.MsgStatus(Status1, "El precio del producto no puede ser igual a cero.", My.Resources.Resources.stop_error.ToBitmap)
-                Util.MsgStatus(Status1, "El precio del producto no puede ser igual a cero.", My.Resources.Resources.stop_error.ToBitmap, True)
-                Exit Sub
-            End If
-
-            If lblPromo.Visible = True Then
-                If txtValorPromo.Text = "" Or txtValorPromo.Text = "0.00" Then
-                    Util.MsgStatus(Status1, "El precio del producto no es VÁLIDO.", My.Resources.Resources.stop_error.ToBitmap)
-                    Util.MsgStatus(Status1, "El precio del producto no es VÁLIDO.", My.Resources.Resources.stop_error.ToBitmap, True)
-                    Exit Sub
-                End If
-                If CDbl(txtValorPromo.Text) = 0 Then
-                    Util.MsgStatus(Status1, "El precio del producto no puede ser igual a cero.", My.Resources.Resources.stop_error.ToBitmap)
-                    Util.MsgStatus(Status1, "El precio del producto no puede ser igual a cero.", My.Resources.Resources.stop_error.ToBitmap, True)
-                    Exit Sub
-                End If
-            End If
-
-            If txtCantidad.Text = "" Then
-                Util.MsgStatus(Status1, "Debe ingresar la cantidad del producto a Vender.", My.Resources.Resources.stop_error.ToBitmap)
-                Util.MsgStatus(Status1, "Debe ingresar la cantidad del producto a Vender.", My.Resources.Resources.stop_error.ToBitmap, True)
-                Exit Sub
-            End If
-
-            If CDbl(txtCantidad.Text) = 0 Then
-                Util.MsgStatus(Status1, "Debe ingresar la cantidad no puede ser igual a cero.", My.Resources.Resources.stop_error.ToBitmap)
-                Util.MsgStatus(Status1, "Debe ingresar la cantidad no puede ser igual a cero.", My.Resources.Resources.stop_error.ToBitmap, True)
-                Exit Sub
-            End If
-
-            If MDIPrincipal.sucursal.Contains("PERON") Then
-                If CDbl(lblStock.Text < 0) Or CDbl(txtCantidad.Text) > CDbl(lblStock.Text) Then
-
-                    If txtIdUnidad.Text <> "PACK" Then
-                        If MessageBox.Show("No hay Stock suficiente, desea abrir un pack?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
-                            MDIPrincipal.DesdePedidos = False
-                            Dim pack As New frmAbriPack
-                            pack.ShowDialog()
-                            If MDIPrincipal.actualizarstock = True Then
-                                cmbProducto_SelectedValueChanged(sender, e)
-                            End If
-                            Exit Sub
-                        End If
-                    End If
-                    If MessageBox.Show("No hay Stock suficiente, desea continuar?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
-                        Exit Sub
-                    End If
-                End If
-            End If
-
-
-            If txtUnidad.Text.Contains("HORMA") Or txtUnidad.Text.Contains("TIRA") Then
-                If txtPeso.Text = "" Then
-                    Util.MsgStatus(Status1, "Debe ingresar el peso del producto a Vender.", My.Resources.Resources.stop_error.ToBitmap)
-                    Util.MsgStatus(Status1, "Debe ingresar el peso del producto a Vender.", My.Resources.Resources.stop_error.ToBitmap, True)
-                    Exit Sub
-                End If
-                If CDbl(txtPeso.Text) = 0 Then
-                    Util.MsgStatus(Status1, "Debe ingresar un peso válido del producto a Vender.", My.Resources.Resources.stop_error.ToBitmap)
-                    Util.MsgStatus(Status1, "Debe ingresar un peso válido del producto a Vender.", My.Resources.Resources.stop_error.ToBitmap, True)
-                    Exit Sub
-                End If
-            End If
-
-            Dim i As Integer
-            For i = 0 To grdItems.RowCount - 1
-                If cmbProducto.Text = grdItems.Rows(i).Cells(2).Value Then
-                    If MessageBox.Show("El producto '" & cmbProducto.Text & "' está repetido en la fila: " & (i + 1).ToString & ". Desea cargar el producto igual?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
-                        Exit Sub
-                    End If
-                End If
-            Next
-
-            'grdItems.Rows.Add(0, cmbProducto.SelectedValue, cmbProducto.Text, txtIDMarca.Text, txtMarca.Text, txtIdUnidad.Text, txtUnidad.Text, txtPrecioVta.Text, 0, txtSubtotal.Text, txtCantidad.Text, txtCantidad.Text, txtPeso.Text, "CUMPLIDO", 0, Date.Now.ToString, i + 1, "", False, "Eliminado")
-            Dim promo As String = ""
-            Dim bitpromo As Boolean = False
-            If lblPromo.Visible = True Then
-                'agrego la leyenda de promo
-                promo = "(PROMO)"
-                'coloco el bit de promo
-                bitpromo = True
-                'igualo el precio de venta con el de promo
-                txtPrecioVta.Text = txtValorPromo.Text
-            End If
-
-            If chkVentas.Checked = True Then
-
-                '----------------version (1)------------------------
-                ''me fijo si el cliente pertenece a la lista mayorista
-                'If txtIDPrecioLista.Text = "3" Then
-                '    'llamo a la funcion para buscar promo 
-                '    Dim res As Integer = BuscarPromoPorkys()
-                '    'controlo los valores que devuelve la funcion 
-                '    If res = 1 Then
-                '        grdItems.Rows.Add(0, i + 1, cmbProducto.SelectedValue, cmbProducto.Text + "(PROMO)", txtIDMarca.Text, txtMarca.Text, txtIdUnidad.Text, txtUnidad.Text, txtCantidad.Text, txtPeso.Text, Math.Round((PrecioPromo - DescuentoPromo), 2), 0, "", txtSubtotal.Text, txtCantidad.Text, 0, "CUMPLIDO", Date.Now.ToString, "", 0, False, 0, False, "Eliminado")
-                '    ElseIf res = -1 Then
-                '        If MessageBox.Show("Error al consultar promoción. Desea cargar el producto igual?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
-                '            grdItems.Rows.Add(0, i + 1, cmbProducto.SelectedValue, cmbProducto.Text, txtIDMarca.Text, txtMarca.Text, txtIdUnidad.Text, txtUnidad.Text, txtCantidad.Text, txtPeso.Text, txtPrecioVta.Text, 0, "", txtSubtotal.Text, txtCantidad.Text, 0, "CUMPLIDO", Date.Now.ToString, "", 0, False, 0, False, "Eliminado")
-                '            Exit Sub
-                '        End If
-                '    Else
-                '        grdItems.Rows.Add(0, i + 1, cmbProducto.SelectedValue, cmbProducto.Text, txtIDMarca.Text, txtMarca.Text, txtIdUnidad.Text, txtUnidad.Text, txtCantidad.Text, txtPeso.Text, txtPrecioVta.Text, 0, "", txtSubtotal.Text, txtCantidad.Text, 0, "CUMPLIDO", Date.Now.ToString, "", 0, False, 0, False, "Eliminado")
-                '    End If
-                'Else
-                grdItems.Rows.Add(0, i + 1, cmbProducto.SelectedValue, cmbProducto.Text + promo, txtIDMarca.Text, txtMarca.Text, txtIdUnidad.Text, txtUnidad.Text, txtCantidad.Text, txtPeso.Text, txtPrecioVta.Text, 0, "", txtSubtotal.Text, txtCantidad.Text, 0, "CUMPLIDO", Date.Now.ToString, "", 0, False, 0, False, False, bitpromo, "Eliminado")
-                'End If
-                '----------------------------------------------------------------
-            Else
-                grdItems.Rows.Add(0, i + 1, cmbProducto.SelectedValue, cmbProducto.Text, txtIDMarca.Text, txtMarca.Text, txtIdUnidad.Text, txtUnidad.Text, txtCantidad.Text, txtPeso.Text, txtPrecioVta.Text, 0, "", txtSubtotal.Text, txtCantidad.Text, 0, "CUMPLIDO", Date.Now.ToString, "", 0, False, 0, chkReintegrarStock.Checked, False, bitpromo, "Eliminado")
-            End If
-
-
-            Contar_Filas()
-            CalculoSubtotales()
-
-            OrdenarFilas()
-
-            txtCantidad.Text = ""
-            cmbProducto.Text = ""
-            txtPeso.Text = ""
-            txtPrecioVta.Text = "0.00"
-            lblStock.Text = "0.00"
-            txtSubtotal.Text = "0.00"
-            chkReintegrarStock.Checked = False
-            lblPromo.Visible = False
-            lblDescripcionPromo.Visible = False
-
-            'chkPrecioMayorista.Checked = False
-            'Continuar:
-            'cmbProducto.SelectedIndex = 0
-            txtNota.Focus()
-            SendKeys.Send("{TAB}")
-            'cmbProducto.Focus()
-
-
-        End If
-
-    End Sub
-
-    Private Sub txtPeso_TextChanged(sender As Object, e As EventArgs) Handles txtPeso.TextChanged
-        Try
-            If txtUnidad.Text.Contains("HORMA") Or txtUnidad.Text.Contains("TIRA") Then
-                If txtPeso.Text = "" Then
-                    txtSubtotal.Text = "0"
-                Else
-                    txtSubtotal.Text = Math.Round(CDbl(txtPeso.Text) * CDbl(txtPrecioVta.Text), 2)
-                End If
-            End If
-
-        Catch ex As Exception
-
-        End Try
-
-    End Sub
-
-    Private Sub txtCantidad_TextChanged(sender As Object, e As EventArgs) Handles txtCantidad.TextChanged
-        Try
-            If Not txtUnidad.Text.Contains("HORMA") And Not txtUnidad.Text.Contains("TIRA") Then
-                If txtCantidad.Text = "" Then
-                    txtSubtotal.Text = "0"
-                Else
-                    txtSubtotal.Text = Math.Round(CDbl(txtCantidad.Text) * CDbl(txtPrecioVta.Text), 2)
-                End If
-            End If
-
-
-
-            'me fijo si el cliente pertenece a la lista mayorista
-            If Habilitar_Promo = True And txtCantidad.Text <> "" Then 'If Habilitar_Promo = True And chkVentas.Checked = True And txtCantidad.Text <> "" Then
-                If CDbl(txtCantidad.Text) > 0 Then
-                    'llamo a la funcion para buscar promo 
-                    BuscarPromoPorkys()
-                Else
-                    lblPromo.Visible = False
-                    lblDescripcionPromo.Visible = False
-                    txtValorPromo.Visible = False
-                End If
-            Else
-                lblPromo.Visible = False
-                lblDescripcionPromo.Visible = False
-                txtValorPromo.Visible = False
-            End If
-
-        Catch ex As Exception
-
-        End Try
-
-
-    End Sub
-
-    Private Sub cmbProducto_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbProducto.SelectedValueChanged
-        If band = 1 Then
-
-            Dim sqlstring As String = "SELECT m.IdUnidad, s.qty, m.Codigo, m.Nombre, s.IDAlmacen, m.Minimo, PrecioCosto, PrecioMayorista, PrecioLista3, PrecioLista4, Mar.Nombre, U.Nombre,m.IdMarca,m.PrecioCompra,PrecioMayoristaPeron,PrecioPeron " & _
-                                         " FROM Materiales m JOIN Stock s ON s.idmaterial = m.Codigo " & _
-                                         " JOIN Marcas Mar ON Mar.codigo = m.IdMarca JOIN Unidades U ON U.codigo = m.idunidad" & _
-                                         " where m.Codigo = '" & cmbProducto.SelectedValue & "' AND s.idalmacen = " & Utiles.numero_almacen
-
-            ds_Producto = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
-
-
-
-            ds_Producto.Dispose()
-
-            Try
-                If Principal Then
-                    If txtIDPrecioLista.Text = 3 Then
-                        txtPrecioVta.Text = Math.Round(ds_Producto.Tables(0).Rows(0)(6), 2)
-                    ElseIf txtIDPrecioLista.Text = 4 Then
-                        txtPrecioVta.Text = Math.Round(ds_Producto.Tables(0).Rows(0)(7), 2)
-                    ElseIf txtIDPrecioLista.Text = 5 Then
-                        txtPrecioVta.Text = Math.Round(ds_Producto.Tables(0).Rows(0)(8), 2)
-                    ElseIf txtIDPrecioLista.Text = 10 Then
-                        txtPrecioVta.Text = Math.Round(ds_Producto.Tables(0).Rows(0)(13), 2)
-                    ElseIf DescLista.Contains("NORTE") Then
-                        txtPrecioVta.Text = Math.Round(ds_Producto.Tables(0).Rows(0)(13) * ValorNorte_cambio, 2)
-                    Else
-                        txtPrecioVta.Text = Math.Round(ds_Producto.Tables(0).Rows(0)(9), 2)
-                    End If
-                Else
-                    If chkMayorista.Checked Then
-                        txtPrecioVta.Text = Math.Round(ds_Producto.Tables(0).Rows(0)(14), 2)
-                    Else
-                        txtPrecioVta.Text = Math.Round(ds_Producto.Tables(0).Rows(0)(15), 2)
-                    End If
-                End If
-           
-                txtIdUnidad.Text = ds_Producto.Tables(0).Rows(0)(0)
-                unidad_unitario = txtIdUnidad.Text
-                lblStock.Text = ds_Producto.Tables(0).Rows(0)(1)
-                stock_unitario = lblStock.Text
-                idproducto_unitario = ds_Producto.Tables(0).Rows(0)(2)
-                producto_unitario = ds_Producto.Tables(0).Rows(0)(3)
-                almacen_unitario = ds_Producto.Tables(0).Rows(0)(4)
-                'COMPARO EL STOCK QUE HAY DEL PRODUCTO PARA SABER SI ESTA POR DEBAJO DEL MINIMO 
-                If (ds_Producto.Tables(0).Rows(0)(5)).ToString <> "" Then
-                    If CDbl(stock_unitario) > CDbl(ds_Producto.Tables(0).Rows(0)(5)) Then
-                        lblStock.BackColor = Color.Green
-                    Else
-                        lblStock.BackColor = Color.Red
-                    End If
-                End If
-                txtMarca.Text = ds_Producto.Tables(0).Rows(0)(10)
-                txtUnidad.Text = ds_Producto.Tables(0).Rows(0)(11)
-
-                If txtUnidad.Text.Contains("HORMA") Or txtUnidad.Text.Contains("TIRA") Then
-                    Label18.Text = "Peso*"
-                Else
-                    Label18.Text = "Peso"
-                End If
-                txtIDMarca.Text = ds_Producto.Tables(0).Rows(0)(12)
-
-                If MDIPrincipal.sucursal.Contains("PERON") Then
-                    If lblStock.BackColor = Color.Red And Not txtUnidad.Text.Contains("PACKBOLSAHORMATIRA") Then
-
-                        If MessageBox.Show("No hay Stock suficiente del producto " + cmbProducto.Text.ToString + ", desea abrir un PACK/BOLSA?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
-                            'paso los valores a las variables globales de MDIPrincipal
-                            MDIPrincipal.DesdePedidos = False
-                            'abro la ventana de abrir pack
-                            Dim pack As New frmAbriPack
-                            pack.ShowDialog()
-                            'me fijo si se actualizo el stock para pasarle el valor al item
-                            If MDIPrincipal.actualizarstock Then
-                                'lblStock.Text = CDbl(stocknuevo)
-                                cmbProducto_SelectedValueChanged(sender, e)
-                            End If
-
-                        End If
-
-                    End If
-                End If
-           
-
-            Catch ex As Exception
-
-            End Try
-
-        End If
-    End Sub
-
-    Private Sub txtPrecioVta_TextChanged(sender As Object, e As EventArgs) Handles txtPrecioVta.TextChanged
-        Try
-            If txtPrecioVta.Text = "" Then
-                txtSubtotal.Text = 0
-            Else
-                If txtUnidad.Text.Contains("HORMA") Or Not Not txtUnidad.Text.Contains("TIRA") Then
-                    If txtPeso.Text <> "" Then
-                        txtSubtotal.Text = Math.Round(CDbl(txtPeso.Text) * CDbl(txtPrecioVta.Text), 2)
-                    End If
-                Else
-                    If txtCantidad.Text <> "" Then
-                        txtSubtotal.Text = Math.Round(CDbl(txtCantidad.Text) * CDbl(txtPrecioVta.Text), 2)
-                    End If
-                End If
-            End If
-        Catch ex As Exception
-
-        End Try
-    End Sub
-
-    Private Sub PicClientes_Click(sender As Object, e As EventArgs) Handles PicClientes.Click
-        Dim C As New frmClientes
-        LLAMADO_POR_FORMULARIO = True
-        ARRIBA = 90
-        IZQUIERDA = Me.Left + 20
-        texto_del_combo = cmbClientes.Text
-        C.ShowDialog()
-        'LlenarcmbFamilias_App(cmbFAMILIAS, ConnStringSEI)
-        LlenarcmbClientes()
-        cmbClientes.Text = texto_del_combo
-
-        'cmbClientes_SelectedIndexChanged(sender, e)
-    End Sub
-
-    Private Sub PicRepartidor_Click(sender As Object, e As EventArgs) Handles PicRepartidor.Click
-        Dim R As New frmEmpleados
-        LLAMADO_POR_FORMULARIO = True
-        ARRIBA = 90
-        IZQUIERDA = Me.Left + 20
-        texto_del_combo = cmbRepartidor.Text
-        R.ShowDialog()
-        'LlenarcmbFamilias_App(cmbFAMILIAS, ConnStringSEI)
-        llenarcmbRepartidor()
-        cmbRepartidor.Text = texto_del_combo
-    End Sub
-
-    Private Sub btnActualizarMat_Click(sender As Object, e As EventArgs) Handles btnActualizarMat.Click
-        'Dim estadobol As Boolean = bolModo
-        'Dim M As New frmMateriales
-        'LLAMADO_POR_FORMULARIO = True
-        'ARRIBA = 90
-        'IZQUIERDA = Me.Left + 20
-        texto_del_combo = cmbProducto.Text
-        'bolModo = False
-        'M.ShowDialog()
-        'LlenarcmbFamilias_App(cmbFAMILIAS, ConnStringSEI)
-        LlenarCombo_Productos()
-        cmbProducto.Text = texto_del_combo
-        MsgBox("Se actualizó la lista de productos correctamente.")
-        'bolModo = estadobol
-    End Sub
-
-    Private Sub btnActualizarMat_MouseHover(sender As Object, e As EventArgs) Handles btnActualizarMat.MouseHover
-        ToolTip1.Show("Haga click para actualizar la lista de productos.", btnActualizarMat)
-    End Sub
-
-    Private Sub chkVenta_CheckedChanged(sender As Object, e As EventArgs) Handles chkVentas.CheckedChanged
-
-        chkDevolucion.Checked = Not chkVentas.Checked
-        chkPresupuesto.Enabled = chkVentas.Checked
-
-        If chkVentas.Checked = True Then
-            Try
-
-                btnEliminar.Text = "Anular Envío"
-                'limpio la grilla de items
-                grdItems.Rows.Clear()
-                'oculto la columna de reintegro a stock
-                grdItems.Columns(22).Visible = False
-                If desdeload = False And bolModo = False Then
-                    rdTodasPed.Checked = True
-                    'SQL = "exec spPedidosWEB_Select_All @Eliminado = " & rdAnuladas.Checked & ", @Pendientes = " & rdPendientes.Checked & ", @PendientesyCumplidas = " & rdTodasPed.Checked & ", @Ventas_Norte = " & btnXNorte.Cheked
-                    SQL = "exec spPedidosWEB_Select_All @Eliminado = " & rdAnuladas.Checked & ", @Pendientes = " & rdPendientes.Checked & ", @PendientesyCumplidas = " & rdTodasPed.Checked & ", @Ventas_Norte = " & btnXNorte.Checked & ",@Devolucion = " & chkDevolucion.Checked
-                    ds = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, SQL)
-                    If ds.Tables(0).Rows.Count > 0 Then
-                        LlenarGrilla()
-                    Else
-                        btnNuevo_Click(sender, e)
-                    End If
-                End If
-
-            Catch ex As Exception
-
-            End Try
-            CambiarColores()
-        End If
-        desdeload = False
-    End Sub
-
-    Private Sub chkDevolucion_CheckedChanged(sender As Object, e As EventArgs) Handles chkDevolucion.CheckedChanged
-        chkVentas.Checked = Not chkDevolucion.Checked
-        chkReintegrarStock.Enabled = chkDevolucion.Checked
-        chkPresupuesto.Enabled = Not chkDevolucion.Checked
-        If chkDevolucion.Checked = True Then
-            Try
-                CambiarColores()
-                btnEliminar.Text = "Anular Devolución"
-                'limpio la grilla de items
-                grdItems.Rows.Clear()
-                'muestro la columna de reintegro a stock
-                grdItems.Columns(22).Visible = True
-                If desdeload = False And bolModo = False Then
-                    rdTodasPed.Checked = True
-                    SQL = "exec spPedidosWEB_Select_All @Eliminado = " & rdAnuladas.Checked & ", @Pendientes = " & rdPendientes.Checked & ", @PendientesyCumplidas = " & rdTodasPed.Checked & ", @Ventas_Norte = " & btnXNorte.Checked & ", @Devolucion = " & chkDevolucion.Checked
-                    ds = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, SQL)
-                    If ds.Tables(0).Rows.Count > 0 Then
-                        LlenarGrilla()
-                    Else
-                        btnNuevo_Click(sender, e)
-                    End If
-                End If
-
-            Catch ex As Exception
-
-            End Try
-            CambiarColores()
-        End If
-
-    End Sub
-
-    Private Sub chkReintegrarStock_MouseHover(sender As Object, e As EventArgs) Handles chkReintegrarStock.MouseHover
-        ToolTip1.Show("Haga click para que el producto que agregue a la lista se sume al stock.", chkReintegrarStock)
-    End Sub
-
-    'Private Sub chkNorte.ChekedChanged(sender As Object, e As EventArgs)
-
-    'If btnXNorte.Cheked = True Then
-    '    btnXNorte.SymbolColor = Color.Green
-    '    'GroupBox1.BackColor = SystemColors.GradientActiveCaption
-    '    chkNorte.ForeColor = Color.DarkBlue
-    '    'le agrego dos dias mas 
-    '    dtpFECHA.MaxDate = Today.Date.AddDays(2)
-    'Else
-    '    btnXNorte.SymbolColor = Color.Red
-    '    'GroupBox1.BackColor = SystemColors.Control
-    '    chkNorte.ForeColor = SystemColors.HotTrack
-    '    'como maximo el dia de hoy
-    '    dtpFECHA.MaxDate = Today.Date
-    'End If
-    ''le aviso que recargue la grilla 
-    'desdeload = False
-    ''me fijo que operacion esta seleccionada
-    'If chkVentas.Checked = True Then
-    '    chkVenta_CheckedChanged(sender, e)
-    'Else
-    '    chkDevolucion_CheckedChanged(sender, e)
-    'End If
-
-
-
-    'End Sub
-
-    Private Sub btnXNorte_Click(sender As Object, e As EventArgs) Handles btnXNorte.Click
-        btnXNorte.Checked = Not btnXNorte.Checked
-
-        If btnXNorte.Checked = True Then
-            btnXNorte.SymbolColor = Color.Green
-            'GroupBox1.BackColor = SystemColors.GradientActiveCaption
-            'chkNorte.ForeColor = Color.DarkBlue
-            'le agrego dos dias mas 
-            dtpFECHA.MaxDate = Today.Date.AddDays(2)
-        Else
-            btnXNorte.SymbolColor = Color.Red
-            'GroupBox1.BackColor = SystemColors.Control
-            'chkNorte.ForeColor = SystemColors.HotTrack
-            'como maximo el dia de hoy
-            dtpFECHA.MaxDate = Today.Date
-        End If
-        'le aviso que recargue la grilla 
-        desdeload = False
-        'me fijo que operacion esta seleccionada
-        If chkVentas.Checked = True Then
-            chkVenta_CheckedChanged(sender, e)
-        Else
-            chkDevolucion_CheckedChanged(sender, e)
-        End If
-    End Sub
-
-    Private Sub btnXNorte_MouseHover(sender As Object, e As EventArgs) Handles btnXNorte.MouseHover
-        If btnXNorte.Checked = False Then
-            ToolTip1.Show("Haga click para realizar una Venta Norte.", btnXNorte)
-        Else
-            ToolTip1.Show("Haga click para realizar una Venta Depósito.", btnXNorte)
-        End If
-    End Sub
-
-    Private Sub chkPresupuesto_CheckedChanged(sender As Object, e As EventArgs) Handles chkPresupuesto.CheckedChanged
-
-        CambiarColores()
-        FinalizarPresupuesto = False
-        If bolModo = False Then
-            btnActualizarMat.Enabled = chkPresupuesto.Checked
-            txtValorPromo.Enabled = chkPresupuesto.Checked
-            txtPrecioVta.Enabled = chkPresupuesto.Checked
-            txtCantidad.Enabled = chkPresupuesto.Checked
-            txtPeso.Enabled = chkPresupuesto.Checked
-            cmbProducto.Enabled = chkPresupuesto.Checked
-            PanelDescuento.Enabled = chkPresupuesto.Checked
-        End If
-    
-
-    End Sub
-
-    '--------------------------CAJA
-  
-    Private Sub btnIngresosDep_Click(sender As Object, e As EventArgs) Handles btnIngresos.Click
-        Dim I As New frmAnticiposIngresosDep
-        I.ShowDialog()
-    End Sub
-
-    Private Sub btnIngresos_MouseHover(sender As Object, e As EventArgs) Handles btnIngresos.MouseHover
-        ToolTip1.Show("Haga click para realizar un ingreso.", btnIngresos)
-    End Sub
-
-    Private Sub btnApCaja_Click(sender As Object, e As EventArgs) Handles btnApCaja.Click
-        Dim MP As New frmMovDia_Caja_Operacion
-        MDIPrincipal.OperacionCaja = "Ap. Caja"
-        MP.ShowDialog()
-    End Sub
-
-    Private Sub btnApCaja_MouseHover(sender As Object, e As EventArgs) Handles btnApCaja.MouseHover
-        ToolTip1.Show("Haga click para realizar una apertura de caja.", btnApCaja)
-    End Sub
-
-    Private Sub btnGastos_Click(sender As Object, e As EventArgs) Handles btnGastos.Click
-        Dim MP As New frmMovDia_Caja_Operacion
-        MDIPrincipal.OperacionCaja = "Gastos"
-        MP.ShowDialog()
-    End Sub
-
-    Private Sub btnGastos_MouseHover(sender As Object, e As EventArgs) Handles btnGastos.MouseHover
-        ToolTip1.Show("Haga click para ingresar un gasto.", btnGastos)
-    End Sub
-
-    Private Sub btnRetiros_Click(sender As Object, e As EventArgs) Handles btnRetiros.Click
-        Dim MP As New frmMovDia_Caja_Operacion
-        MDIPrincipal.OperacionCaja = "Retiros"
-        MP.ShowDialog()
-    End Sub
-
-    Private Sub btnRetiros_MouseHover(sender As Object, e As EventArgs) Handles btnRetiros.MouseHover
-        ToolTip1.Show("Haga click para realizar un retiro.", btnGastos)
-    End Sub
-
-    '---------------------------
-
-    Private Sub chkMayorista_CheckedChanged(sender As Object, e As EventArgs) Handles chkMayorista.CheckedChanged
-        If bolModo Then
-            Dim dsCliente As Data.DataSet
-            Try
-                If grdItems.Rows.Count > 0 Then
-                    For i As Integer = 0 To grdItems.Rows.Count - 1
-                        dsCliente = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "Select PrecioMayoristaPeron,PrecioPeron from Materiales where eliminado = 0 and Codigo = '" & grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Material).Value & "'")
-                        If chkMayorista.Checked Then
-                            grdItems.Rows(i).Cells(ColumnasDelGridItems.Precio).Value = dsCliente.Tables(0).Rows(0).Item(0)
-                        Else
-                            grdItems.Rows(i).Cells(ColumnasDelGridItems.Precio).Value = dsCliente.Tables(0).Rows(0).Item(1)
-                        End If
-                        'Me fijo si es horma o tira 
-                        If grdItems.Rows(i).Cells(ColumnasDelGridItems.Unidad).Value.ToString.Contains("HORMA") Or grdItems.Rows(i).Cells(ColumnasDelGridItems.Unidad).Value.ToString.Contains("TIRA") Then
-                            grdItems.Rows(i).Cells(ColumnasDelGridItems.Subtotal).Value = Math.Round((grdItems.Rows(i).Cells(ColumnasDelGridItems.Peso).Value * grdItems.Rows(i).Cells(ColumnasDelGridItems.Precio).Value), 2)
-                        Else
-                            grdItems.Rows(i).Cells(ColumnasDelGridItems.Subtotal).Value = Math.Round((grdItems.Rows(i).Cells(ColumnasDelGridItems.QtyEnviada).Value * grdItems.Rows(i).Cells(ColumnasDelGridItems.Precio).Value), 2)
-                        End If
-                    Next
-                    CalculoSubtotales()
-                End If
-            Catch ex As Exception
-
-            End Try
-        End If
-    End Sub
+
+
+    '#Region "WEB"
+    '    '-------------------- Transferencia WEB
+    '    Private Function InsertarTransRecepWEB() As Boolean
+
+    '        Dim sqlstring As String
+    '        Dim sqlstringNotif As String
+    '        Dim resString As String
+
+    '        '-------------Variable Encabezado
+    '        Dim NroAsociado As String = lblNroPedido.Text
+    '        Dim Tipo As String = "T"
+    '        'BD Local
+    '        'Dim Fecha As String = Format(dtpFECHA.Value.Date, "dd/MM/yyyy").ToString + " " + Format(Date.Now, "hh:mm:ss").ToString
+    '        'BD web 
+    '        Dim Fecha As String = Format(dtpFECHA.Value.Date, "MM/dd/yyyy").ToString + " " + Format(Date.Now, "hh:mm:ss").ToString
+    '        Dim IDOrigen As Integer = IIf(txtidAlmacen.Text = "", cmbAlmacenes.SelectedValue, txtidAlmacen.Text)
+    '        Dim IDDestino As Integer = IDAlmacenTrans
+    '        Dim TotalPedido As Double = lblTotal.Text
+    '        Dim TotalRecepcionado As Double = 0
+    '        Dim StatusEnca As String = "P"
+    '        Dim Nota As String = txtNota.Text
+    '        Dim IDEmpleado As String = UserID.ToString
+    '        Dim DescargarEnOrigen As Boolean = False
+    '        Dim DescargarEnDestino As Boolean = True
+    '        '---------------Variable Detalle
+    '        Dim IDMaterial As String
+    '        Dim IDMarca As String
+    '        Dim IDUnidad As String
+    '        Dim UnidadFac As Double
+    '        Dim CantidadPACK As Double
+    '        Dim Precio As Double
+    '        Dim QtyPedida As Double
+    '        Dim QtyEnviada As Double
+    '        Dim QtySaldo As Double
+    '        Dim SubtotalPedido As Double
+    '        Dim SubtotalRecepcionado As Double
+    '        Dim StatusDet As String
+    '        Dim Nota_Det As String
+    '        Dim OrdenItem As Integer
+
+    '        Try
+    '            sqlstring = "BEGIN TRY BEGIN TRAN "
+    '            sqlstring = sqlstring + " Declare @nromov as varchar(25)"
+    '            sqlstring = sqlstring + " exec " & NameSP_spTransRecepWEB_Insert & " NUll,@nromov OUTPUT,'" & NroAsociado & "','" & Tipo & "','" & Fecha & "'," & _
+    '                                      IDOrigen & "," & IDDestino & "," & TotalPedido & "," & TotalRecepcionado & ",'" & StatusEnca & "','" & Nota & "','" & _
+    '                                      IDEmpleado & "'," & IIf(DescargarEnOrigen = False, 0, 1) & "," & IIf(DescargarEnDestino = False, 0, 1) & ", NULL "
+
+    '            For i As Integer = 0 To grdItems.Rows.Count - 1
+
+    '                IDMaterial = grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Material).Value
+    '                IDMarca = IIf(grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Marca).Value Is DBNull.Value, " ", grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Marca).Value)
+    '                IDUnidad = IIf(grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Unidad).Value Is DBNull.Value, "U", grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Unidad).Value)
+    '                UnidadFac = IIf(grdItems.Rows(i).Cells(ColumnasDelGridItems.Peso).Value.ToString = "", 0, grdItems.Rows(i).Cells(ColumnasDelGridItems.Peso).Value)
+    '                CantidadPACK = IIf(grdItems.Rows(i).Cells(ColumnasDelGridItems.Peso).Value.ToString = "", 0, grdItems.Rows(i).Cells(ColumnasDelGridItems.Peso).Value) / CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.QtyEnviada).Value, Decimal)
+    '                Precio = IIf(grdItems.Rows(i).Cells(ColumnasDelGridItems.Precio).Value Is DBNull.Value, 0, grdItems.Rows(i).Cells(ColumnasDelGridItems.Precio).Value)
+    '                QtyPedida = CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.QtyEnviada).Value, Decimal)
+    '                QtyEnviada = 0
+    '                QtySaldo = CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.QtyEnviada).Value, Decimal)
+    '                SubtotalPedido = IIf(grdItems.Rows(i).Cells(ColumnasDelGridItems.Subtotal).Value Is DBNull.Value, 0, grdItems.Rows(i).Cells(ColumnasDelGridItems.Subtotal).Value)
+    '                SubtotalRecepcionado = 0
+    '                StatusDet = "P"
+    '                Nota_Det = grdItems.Rows(i).Cells(ColumnasDelGridItems.Nota_Det).Value
+    '                OrdenItem = grdItems.Rows(i).Cells(ColumnasDelGridItems.Orden_Item).Value
+
+    '                sqlstring = sqlstring + "INSERT INTO [dbo].[" & NameTable_TransRecepWEBdet & "] ([IDNroMov],[IDMaterial],[IDMarca],[IDUnidad]," & _
+    '                                        "[UnidadFac],[CantidadPACK],[Precio],[QtyPedida],[QtyEnviada],[QtySaldo],[SubtotalPedido]," & _
+    '                                        "[SubtotalRecepcionado],[Status],[Nota_Det],[OrdenItem],[Fecha]) VALUES (@nromov,'" & IDMaterial & "','" & _
+    '                                        IDMarca & "','" & IDUnidad & "'," & UnidadFac & "," & CantidadPACK & "," & Precio & "," & QtyPedida & "," & _
+    '                                        QtyEnviada & "," & QtySaldo & "," & SubtotalPedido & "," & SubtotalRecepcionado & ",'" & StatusDet & "','" & _
+    '                                        Nota_Det & "'," & OrdenItem & ",'" & Fecha & "')"
+
+    '            Next
+
+    '            sqlstring = sqlstring + " COMMIT TRAN End Try BEGIN CATCH ROLLBACK TRAN END CATCH"
+
+    '            resString = tranWEB.Sql_Set(sqlstring)
+
+    '            If resString = "Funcionó" Then
+    '                Try
+    '                    sqlstringNotif = "update [" & NameTable_NotificacionesWEB & "] set Transferencias = 1 where idalmacen = " & IDDestino
+    '                    tranWEB.Sql_Set(sqlstringNotif)
+
+    '                Catch ex As Exception
+    '                    'MsgBox(ex)
+    '                End Try
+    '                InsertarTransRecepWEB = True
+    '            Else
+    '                InsertarTransRecepWEB = False
+    '            End If
+
+    '        Catch ex As Exception
+    '            InsertarTransRecepWEB = False
+    '        End Try
+    '    End Function
+
+    '    Private Function Agregar_Registro_TransRecepWEB_Enviado(ByVal NroMov As String) As Integer
+    '        Dim res As Integer = 0
+
+    '        Try
+    '            Try
+    '                conn_del_form = SqlHelper.GetConnection(ConnStringSEI)
+    '            Catch ex As Exception
+    '                MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+    '                Exit Function
+    '            End Try
+
+    '            'Abrir una transaccion para guardar y asegurar que se guarda todo
+    '            If Abrir_Tran(conn_del_form) = False Then
+    '                MessageBox.Show("No se pudo abrir una transaccion", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+    '                Exit Function
+    '            End If
+
+    '            Try
+    '                Dim param_id As New SqlClient.SqlParameter
+    '                param_id.ParameterName = "@id"
+    '                param_id.SqlDbType = SqlDbType.BigInt
+    '                param_id.Value = DBNull.Value
+    '                param_id.Direction = ParameterDirection.Input
+
+    '                Dim param_ordenpedido As New SqlClient.SqlParameter
+    '                param_ordenpedido.ParameterName = "@NROMOV"
+    '                param_ordenpedido.SqlDbType = SqlDbType.VarChar
+    '                param_ordenpedido.Size = 25
+    '                param_ordenpedido.Value = NroMov
+    '                param_ordenpedido.Direction = ParameterDirection.Input
+
+    '                Dim param_ordenpedidoAsoc As New SqlClient.SqlParameter
+    '                param_ordenpedidoAsoc.ParameterName = "@NroAsociado"
+    '                param_ordenpedidoAsoc.SqlDbType = SqlDbType.VarChar
+    '                param_ordenpedidoAsoc.Size = 25
+    '                param_ordenpedidoAsoc.Value = lblNroPedido.Text
+    '                param_ordenpedidoAsoc.Direction = ParameterDirection.Input
+
+    '                Dim param_tipo As New SqlClient.SqlParameter
+    '                param_tipo.ParameterName = "@Tipo"
+    '                param_tipo.SqlDbType = SqlDbType.VarChar
+    '                param_tipo.Size = 25
+    '                param_tipo.Value = "T"
+    '                param_tipo.Direction = ParameterDirection.Input
+
+    '                Dim param_fecha As New SqlClient.SqlParameter
+    '                param_fecha.ParameterName = "@FECHA"
+    '                param_fecha.SqlDbType = SqlDbType.DateTime
+    '                param_fecha.Value = dtpFECHA.Value.ToShortDateString + " " + Now.ToString("HH:mm:ss")
+    '                param_fecha.Direction = ParameterDirection.Input
+
+    '                Dim param_idAlmacen As New SqlClient.SqlParameter
+    '                param_idAlmacen.ParameterName = "@IDOrigen"
+    '                param_idAlmacen.SqlDbType = SqlDbType.BigInt
+    '                param_idAlmacen.Value = IIf(txtidAlmacen.Text = "", cmbAlmacenes.SelectedValue, txtidAlmacen.Text)
+    '                param_idAlmacen.Direction = ParameterDirection.Input
+
+    '                Dim param_destino As New SqlClient.SqlParameter
+    '                param_destino.ParameterName = "@IDDestino"
+    '                param_destino.SqlDbType = SqlDbType.BigInt
+    '                param_destino.Value = IDAlmacenTrans
+    '                param_destino.Direction = ParameterDirection.Input
+
+    '                Dim param_SubtotalPedido As New SqlClient.SqlParameter
+    '                param_SubtotalPedido.ParameterName = "@TOTALPEDIDO"
+    '                param_SubtotalPedido.SqlDbType = SqlDbType.Decimal
+    '                param_SubtotalPedido.Precision = 18
+    '                param_SubtotalPedido.Size = 2
+    '                param_SubtotalPedido.Value = lblTotal.Text
+    '                param_SubtotalPedido.Direction = ParameterDirection.Input
+
+    '                Dim param_nota As New SqlClient.SqlParameter
+    '                param_nota.ParameterName = "@NOTA"
+    '                param_nota.SqlDbType = SqlDbType.VarChar
+    '                param_nota.Size = 150
+    '                param_nota.Value = txtNota.Text
+    '                param_nota.Direction = ParameterDirection.Input
+
+    '                Dim param_useradd As New SqlClient.SqlParameter
+    '                param_useradd.ParameterName = "@IDEmpleado"
+    '                param_useradd.SqlDbType = SqlDbType.Int
+    '                param_useradd.Value = UserID
+    '                param_useradd.Direction = ParameterDirection.Input
+
+    '                Dim param_res As New SqlClient.SqlParameter
+    '                param_res.ParameterName = "@res"
+    '                param_res.SqlDbType = SqlDbType.Int
+    '                param_res.Value = DBNull.Value
+    '                param_res.Direction = ParameterDirection.InputOutput
+
+    '                Try
+    '                    SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spTransRecepWEB_Enviado_Insert", _
+    '                                              param_id, param_ordenpedido, param_ordenpedidoAsoc, param_idAlmacen, _
+    '                                              param_destino, param_SubtotalPedido, param_fecha, param_tipo, _
+    '                                              param_nota, param_useradd, param_res)
+
+    '                    Agregar_Registro_TransRecepWEB_Enviado = param_res.Value
+
+
+
+    '                Catch ex As Exception
+    '                    Throw ex
+    '                End Try
+    '            Finally
+
+    '            End Try
+    '        Catch ex As Exception
+    '            Dim errMessage As String = ""
+    '            Dim tempException As Exception = ex
+
+    '            While (Not tempException Is Nothing)
+    '                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+    '                tempException = tempException.InnerException
+    '            End While
+
+    '            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+    '              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+    '              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+    '        End Try
+    '    End Function
+
+    '    Private Function AgregarRegistro_TransRecepWEB_Items_Enviado(ByVal idNroMov As String) As Integer
+    '        Dim res As Integer = 0
+    '        Dim i As Integer
+    '        Dim ActualizarPrecio As Boolean = False
+    '        Dim ValorActual As Double
+
+    '        Try
+    '            Try
+    '                i = 0
+
+    '                Do While i < grdItems.Rows.Count
+
+    '                    If CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.QtyEnviada).Value, Decimal) > 0 Then
+
+    '                        ValorActual = grdItems.Rows(i).Cells(ColumnasDelGridItems.QtyEnviada).Value
+
+    '                        Dim param_id As New SqlClient.SqlParameter
+    '                        param_id.ParameterName = "@id"
+    '                        param_id.SqlDbType = SqlDbType.BigInt
+    '                        param_id.Value = DBNull.Value
+    '                        param_id.Direction = ParameterDirection.Input
+
+    '                        Dim param_idpedidosweb As New SqlClient.SqlParameter
+    '                        param_idpedidosweb.ParameterName = "@IDNroMov"
+    '                        param_idpedidosweb.SqlDbType = SqlDbType.VarChar
+    '                        param_idpedidosweb.Size = 25
+    '                        param_idpedidosweb.Value = idNroMov
+    '                        param_idpedidosweb.Direction = ParameterDirection.Input
+
+    '                        Dim param_idmaterial As New SqlClient.SqlParameter
+    '                        param_idmaterial.ParameterName = "@IDMATERIAL"
+    '                        param_idmaterial.SqlDbType = SqlDbType.VarChar
+    '                        param_idmaterial.Size = 25
+    '                        param_idmaterial.Value = grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Material).Value
+    '                        param_idmaterial.Direction = ParameterDirection.Input
+
+    '                        Dim param_idmarca As New SqlClient.SqlParameter
+    '                        param_idmarca.ParameterName = "@IDMARCA"
+    '                        param_idmarca.SqlDbType = SqlDbType.VarChar
+    '                        param_idmarca.Size = 25
+    '                        param_idmarca.Value = grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Marca).Value
+    '                        param_idmarca.Direction = ParameterDirection.Input
+
+    '                        Dim param_idunidad As New SqlClient.SqlParameter
+    '                        param_idunidad.ParameterName = "@IDUNIDAD"
+    '                        param_idunidad.SqlDbType = SqlDbType.VarChar
+    '                        param_idunidad.Size = 25
+    '                        param_idunidad.Value = IIf(grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Unidad).Value Is DBNull.Value, "U", grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Unidad).Value)
+    '                        param_idunidad.Direction = ParameterDirection.Input
+
+    '                        Dim param_cantidadpack As New SqlClient.SqlParameter
+    '                        param_cantidadpack.ParameterName = "@CantidadPACK"
+    '                        param_cantidadpack.SqlDbType = SqlDbType.Decimal
+    '                        param_cantidadpack.Precision = 18
+    '                        param_cantidadpack.Scale = 2
+    '                        param_cantidadpack.Value = IIf(grdItems.Rows(i).Cells(ColumnasDelGridItems.Peso).Value.ToString = "", 0, grdItems.Rows(i).Cells(ColumnasDelGridItems.Peso).Value) / CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.QtyEnviada).Value, Decimal)
+    '                        param_cantidadpack.Direction = ParameterDirection.Input
+
+    '                        Dim param_precio As New SqlClient.SqlParameter
+    '                        param_precio.ParameterName = "@PRECIO"
+    '                        param_precio.SqlDbType = SqlDbType.Decimal
+    '                        param_precio.Precision = 18
+    '                        param_precio.Scale = 2
+    '                        param_precio.Value = IIf(grdItems.Rows(i).Cells(ColumnasDelGridItems.Precio).Value Is DBNull.Value, 0, grdItems.Rows(i).Cells(ColumnasDelGridItems.Precio).Value)
+    '                        param_precio.Direction = ParameterDirection.Input
+
+    '                        Dim param_qtypedida As New SqlClient.SqlParameter
+    '                        param_qtypedida.ParameterName = "@QTYPEDIDA"
+    '                        param_qtypedida.SqlDbType = SqlDbType.Decimal
+    '                        param_qtypedida.Precision = 18
+    '                        param_qtypedida.Scale = 2
+    '                        param_qtypedida.Value = CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.QtyEnviada).Value, Decimal)
+    '                        param_qtypedida.Direction = ParameterDirection.Input
+
+    '                        Dim param_subtotalped As New SqlClient.SqlParameter
+    '                        param_subtotalped.ParameterName = "@SubtotalPedido"
+    '                        param_subtotalped.SqlDbType = SqlDbType.Decimal
+    '                        param_subtotalped.Precision = 18
+    '                        param_subtotalped.Scale = 2
+    '                        param_subtotalped.Value = IIf(grdItems.Rows(i).Cells(ColumnasDelGridItems.Subtotal).Value Is DBNull.Value, 0, grdItems.Rows(i).Cells(ColumnasDelGridItems.Subtotal).Value)
+    '                        param_subtotalped.Direction = ParameterDirection.Input
+
+    '                        Dim param_notadet As New SqlClient.SqlParameter
+    '                        param_notadet.ParameterName = "@NOTA_DET"
+    '                        param_notadet.SqlDbType = SqlDbType.VarChar
+    '                        param_notadet.Size = 300
+    '                        param_notadet.Value = grdItems.Rows(i).Cells(ColumnasDelGridItems.Nota_Det).Value
+    '                        param_notadet.Direction = ParameterDirection.Input
+
+    '                        Dim param_UnidadFac As New SqlClient.SqlParameter
+    '                        param_UnidadFac.ParameterName = "@UnidadFac"
+    '                        param_UnidadFac.SqlDbType = SqlDbType.Decimal
+    '                        param_UnidadFac.Precision = 18
+    '                        param_UnidadFac.Scale = 2
+    '                        param_UnidadFac.Value = IIf(grdItems.Rows(i).Cells(ColumnasDelGridItems.Peso).Value.ToString = "", 0, grdItems.Rows(i).Cells(ColumnasDelGridItems.Peso).Value)
+    '                        param_UnidadFac.Direction = ParameterDirection.Input
+
+    '                        Dim param_ordenitem As New SqlClient.SqlParameter
+    '                        param_ordenitem.ParameterName = "@ORDENITEM"
+    '                        param_ordenitem.SqlDbType = SqlDbType.SmallInt
+    '                        param_ordenitem.Value = grdItems.Rows(i).Cells(ColumnasDelGridItems.Orden_Item).Value
+    '                        param_ordenitem.Direction = ParameterDirection.Input
+
+    '                        Dim param_res As New SqlClient.SqlParameter
+    '                        param_res.ParameterName = "@res"
+    '                        param_res.SqlDbType = SqlDbType.Int
+    '                        param_res.Value = DBNull.Value
+    '                        param_res.Direction = ParameterDirection.InputOutput
+
+
+    '                        Try
+    '                            SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spTransRecepWEB_Det_Enviado_Insert", _
+    '                                                    param_id, param_idpedidosweb, param_idmaterial, param_idmarca, _
+    '                                                    param_idunidad, param_cantidadpack, param_precio, param_qtypedida, _
+    '                                                    param_subtotalped, param_notadet, param_UnidadFac, param_ordenitem, param_res)
+
+    '                            res = param_res.Value
+
+    '                            If (res <= 0) Then
+    '                                Exit Do
+    '                            End If
+
+    '                        Catch ex As Exception
+    '                            Throw ex
+    '                        End Try
+
+    '                    End If
+
+    '                    i = i + 1
+
+    '                Loop
+
+    '                AgregarRegistro_TransRecepWEB_Items_Enviado = res
+
+    '            Catch ex2 As Exception
+    '                Throw ex2
+    '            Finally
+
+    '            End Try
+    '        Catch ex As Exception
+    '            Dim errMessage As String = ""
+    '            Dim tempException As Exception = ex
+
+    '            While (Not tempException Is Nothing)
+    '                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+    '                tempException = tempException.InnerException
+    '            End While
+
+    '            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+    '              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+    '              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+    '        End Try
+    '    End Function
+
+
+    '#End Region
 
 
 End Class

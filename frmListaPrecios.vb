@@ -53,15 +53,15 @@ Public Class frmListaPrecios
         configurarform()
         asignarTags()
 
-        Try
-            If MDIPrincipal.EmpleadoLogueado = "12" Or MDIPrincipal.EmpleadoLogueado = "13" Or MDIPrincipal.EmpleadoLogueado = "2" Then
-                Dim sqlstring As String = "update NotificacionesWEB set BloqueoL = 1"
-                tranWEB.Sql_Set(sqlstring)
-            End If
+        'Try
+        '    If MDIPrincipal.EmpleadoLogueado = "12" Or MDIPrincipal.EmpleadoLogueado = "13" Or MDIPrincipal.EmpleadoLogueado = "2" Then
+        '        Dim sqlstring As String = "update [" & NameTable_NotificacionesWEB & "] set BloqueoL = 1"
+        '        tranWEB.Sql_Set(sqlstring)
+        '    End If
 
-        Catch ex As Exception
+        'Catch ex As Exception
 
-        End Try
+        'End Try
 
         'LlenarLocalidad()
         'LlenarProvincia()
@@ -186,21 +186,21 @@ Public Class frmListaPrecios
                         If bolModo = False Then
                             res = ActualizarPreciosPorLista()
                         Else
-                            Try
-                                Dim sqlstring As String
-                                Dim valorcambio As Decimal
+                            'Try
+                            '    Dim sqlstring As String
+                            '    Dim valorcambio As Decimal
 
-                                valorcambio = (1 + CDbl(txtPorcentaje.Text) / 100)
+                            '    valorcambio = (1 + CDbl(txtPorcentaje.Text) / 100)
 
-                                sqlstring = "insert into [Lista_Precios] (ID, Codigo, Descripcion, Porcentaje, Valor_Cambio, Eliminado, DateUpd) " & _
-                                  "values ( " & txtID.Text & ", " & txtCODIGO.Text & ",'" & txtDescripcion.Text.ToUpper & "', " & txtPorcentaje.Text & ", " & _
-                                              valorcambio & ", 0 , '" & Format(Date.Now, "MM/dd/yyyy").ToString & " " & Format(Date.Now, "hh:mm:ss").ToString & "')"
+                            '    sqlstring = "insert into [" & NameTable_ListaPrecios & "] (ID, Codigo, Descripcion, Porcentaje, Valor_Cambio, Eliminado, DateUpd) " & _
+                            '      "values ( " & txtID.Text & ", " & txtCODIGO.Text & ",'" & txtDescripcion.Text.ToUpper & "', " & txtPorcentaje.Text & ", " & _
+                            '                  valorcambio & ", 0 , '" & Format(Date.Now, "MM/dd/yyyy").ToString & " " & Format(Date.Now, "hh:mm:ss").ToString & "')"
 
-                                tranWEB.Sql_Set(sqlstring)
+                            '    tranWEB.Sql_Set(sqlstring)
 
-                            Catch ex As Exception
-                                MsgBox("No se pudo agregar en la Web la nueva lista de precios. Ejecute el botón sincronizar para actualizar el servidor WEB.")
-                            End Try
+                            'Catch ex As Exception
+                            '    MsgBox("No se pudo agregar en la Web la nueva lista de precios. Ejecute el botón sincronizar para actualizar el servidor WEB.")
+                            'End Try
                             res = 1
                         End If
                         Select Case res
@@ -294,18 +294,18 @@ Public Class frmListaPrecios
                 '    MsgBox("No se puede eliminar en la Web la Lista de Precios actual. Ejecute el botón sincronizar para actualizar el servidor WEB.")
                 'End Try
 
-                If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
-                    Try
-                        Dim sqlstring As String
+                'If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
+                'Try
+                '    Dim sqlstring As String
 
-                        sqlstring = "UPDATE [dbo].[Lista_Precios] SET [Eliminado] = 1 WHERE Codigo = " & codigo
-                        tranWEB.Sql_Set(sqlstring)
+                '    sqlstring = "UPDATE [dbo].[" & NameTable_ListaPrecios & "] SET [Eliminado] = 1 WHERE Codigo = " & codigo
+                '    tranWEB.Sql_Set(sqlstring)
 
-                    Catch ex As Exception
-                        'MsgBox(ex.Message)
-                        MsgBox("No se puede actualizar en la Web la lista de Precios. Ejecute el botón sincronizar para actualizar el servidor WEB.")
-                    End Try
-                End If
+                'Catch ex As Exception
+                '    'MsgBox(ex.Message)
+                '    MsgBox("No se puede actualizar en la Web la lista de Precios. Ejecute el botón sincronizar para actualizar el servidor WEB.")
+                'End Try
+                'End If
 
                 If Me.grd.RowCount = 0 Then
                     bolModo = True
@@ -373,18 +373,18 @@ Public Class frmListaPrecios
 
 
 
-            If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
-                Try
-                    Dim sqlstring As String
+            'If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
+            'Try
+            '    Dim sqlstring As String
 
-                    sqlstring = "UPDATE [dbo].[Marcas] SET [Eliminado] = 0 WHERE Codigo = " & grd.CurrentRow.Cells(1).Value
-                    tranWEB.Sql_Set(sqlstring)
+            '    sqlstring = "UPDATE [dbo].[" & NameTable_ListaPrecios & "] SET [Eliminado] = 0 WHERE Codigo = " & grd.CurrentRow.Cells(1).Value
+            '    tranWEB.Sql_Set(sqlstring)
 
-                Catch ex As Exception
-                    'MsgBox(ex.Message)
-                    MsgBox("No se puede Activa en la Web la Marca seleccionada. Ejecute el botón sincronizar para actualizar el servidor WEB.")
-                End Try
-            End If
+            'Catch ex As Exception
+            '    'MsgBox(ex.Message)
+            '    MsgBox("No se puede Activa en la Web la lista de Precio seleccionada. Ejecute el botón sincronizar para actualizar el servidor WEB.")
+            'End Try
+            'End If
 
             SQL = "exec spLista_Precios_Select_All @Eliminado = 1"
 
@@ -418,15 +418,15 @@ Public Class frmListaPrecios
 
     Protected Overloads Sub btnSalir_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSalir.Click
 
-        Try
-            If MDIPrincipal.sucursal.ToUpper.Contains("PRINCIPAL") And (MDIPrincipal.EmpleadoLogueado = "12" Or MDIPrincipal.EmpleadoLogueado = "13" Or MDIPrincipal.EmpleadoLogueado = "2") Then
-                Dim sqlstring As String = "update NotificacionesWEB set BloqueoL = 0"
-                tranWEB.Sql_Set(sqlstring)
-            End If
+        'Try
+        '    If MDIPrincipal.sucursal.ToUpper.Contains("PRINCIPAL") And (MDIPrincipal.EmpleadoLogueado = "12" Or MDIPrincipal.EmpleadoLogueado = "13" Or MDIPrincipal.EmpleadoLogueado = "2") Then
+        '        Dim sqlstring As String = "update [" & NameTable_NotificacionesWEB & "] set BloqueoL = 0"
+        '        tranWEB.Sql_Set(sqlstring)
+        '    End If
 
-        Catch ex As Exception
+        'Catch ex As Exception
 
-        End Try
+        'End Try
 
     End Sub
 
@@ -875,50 +875,50 @@ Public Class frmListaPrecios
 
             ActualizarPreciosPorLista = res
 
-            If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
+            'If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
 
-                If ActualizarPreciosPorLista = 1 Then
+            If ActualizarPreciosPorLista = 1 Then
 
-                    Try
-                        Dim sqlstring As String
-                        Dim valorcambio As Decimal
+                'Try
+                '    Dim sqlstring As String
+                '    Dim valorcambio As Decimal
 
-                        valorcambio = (1 + CDbl(txtPorcentaje.Text) / 100)
+                '    valorcambio = (1 + CDbl(txtPorcentaje.Text) / 100)
 
-                        'If bolModo = True Then
-                        '    sqlstring = "insert into [Lista_Precios] (ID, Codigo, Descripcion, Porcentaje, Valor_Cambio, Eliminado, DateUpd) " & _
-                        '                "values ( " & txtID.Text & ", " & txtCODIGO.Text & ",'" & txtDescripcion.Text.ToUpper & "', " & txtPorcentaje.Text & ", " & _
-                        '                            valorcambio & ", 0 , '" & Format(Date.Now, "MM/dd/yyyy").ToString & " " & Format(Date.Now, "hh:mm:ss").ToString & "')"
-                        'Else
-                        sqlstring = "update [Lista_Precios] SET Codigo =  " & txtCODIGO.Text & ", Descripcion = '" & txtDescripcion.Text.ToUpper & "', Porcentaje = " & txtPorcentaje.Text & ", Valor_Cambio = " & valorcambio & ", " & _
-                                    "DateUpd = '" & Format(Date.Now, "MM/dd/yyyy").ToString & " " & Format(Date.Now, "hh:mm:ss").ToString & "' where ID = " & txtID.Text
-                        'End If
+                '    'If bolModo = True Then
+                '    '    sqlstring = "insert into [Lista_Precios] (ID, Codigo, Descripcion, Porcentaje, Valor_Cambio, Eliminado, DateUpd) " & _
+                '    '                "values ( " & txtID.Text & ", " & txtCODIGO.Text & ",'" & txtDescripcion.Text.ToUpper & "', " & txtPorcentaje.Text & ", " & _
+                '    '                            valorcambio & ", 0 , '" & Format(Date.Now, "MM/dd/yyyy").ToString & " " & Format(Date.Now, "hh:mm:ss").ToString & "')"
+                '    'Else
+                '    sqlstring = "update [" & NameTable_ListaPrecios & "] SET Codigo =  " & txtCODIGO.Text & ", Descripcion = '" & txtDescripcion.Text.ToUpper & "', Porcentaje = " & txtPorcentaje.Text & ", Valor_Cambio = " & valorcambio & ", " & _
+                '                "DateUpd = '" & Format(Date.Now, "MM/dd/yyyy").ToString & " " & Format(Date.Now, "hh:mm:ss").ToString & "' where ID = " & txtID.Text
+                '    'End If
 
-                        tranWEB.Sql_Set(sqlstring)
+                '    tranWEB.Sql_Set(sqlstring)
 
-                        Try
-                            res = 0
-                            sqlstring = "exec spActualizar_PrecioPorLista " & txtCODIGO.Text & "," & chkPrincipal.Checked & "," & chkPeron.Checked & ""
+                '    Try
+                '        res = 0
+                '        sqlstring = "exec " & NameSP_spActualizarPrecioPorLista & " " & txtCODIGO.Text & "," & chkPrincipal.Checked & "," & chkPeron.Checked & ""
 
-                            res = tranWEB.Sql_Get_Value(sqlstring)
+                '        res = tranWEB.Sql_Get_Value(sqlstring)
 
-                            If res = -1 Then
-                                MsgBox("No se puede actualizar en la Web los precios de los productos asociados a la Lista de Precios actual. Ejecute el botón sincronizar para actualizar el servidor WEB.")
-                            End If
+                '        If res = -1 Then
+                '            MsgBox("No se puede actualizar en la Web los precios de los productos asociados a la Lista de Precios actual. Ejecute el botón sincronizar para actualizar el servidor WEB.")
+                '        End If
 
-                        Catch ex As Exception
-                            MsgBox("No se puede actualizar en la Web los precios de los productos asociados a la Lista de Precios actual. Ejecute el botón sincronizar para actualizar el servidor WEB.")
-                        End Try
+                '    Catch ex As Exception
+                '        MsgBox("No se puede actualizar en la Web los precios de los productos asociados a la Lista de Precios actual. Ejecute el botón sincronizar para actualizar el servidor WEB.")
+                '    End Try
 
-                    Catch ex As Exception
-                        'MsgBox(ex.Message)
-                        MsgBox("No se puede actualizar en la Web la Lista de Precios actual. Ejecute el botón sincronizar para actualizar el servidor WEB.")
-                    End Try
-
-                End If
-
+                'Catch ex As Exception
+                '    'MsgBox(ex.Message)
+                '    MsgBox("No se puede actualizar en la Web la Lista de Precios actual. Ejecute el botón sincronizar para actualizar el servidor WEB.")
+                'End Try
 
             End If
+
+
+            'End If
 
 
 

@@ -635,7 +635,7 @@ Partial Class frmPresupuestos
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnAbrirWord.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnAbrirWord.ForeColor = System.Drawing.Color.Green
-        Me.btnAbrirWord.Image = Global.PORKYS.My.Resources.Resources.word2
+        Me.btnAbrirWord.Image = Global.SEYC.My.Resources.Resources.word2
         Me.btnAbrirWord.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.btnAbrirWord.Location = New System.Drawing.Point(1221, 57)
         Me.btnAbrirWord.Name = "btnAbrirWord"

@@ -17,7 +17,7 @@ Public Class MDIPrincipal
     Public ImpresorValesAbierto As Boolean = True
 
     Public sucursal As String
-    Public NoActualizar As Boolean = False
+
     Public DesdePedidos As Boolean = False
     Public actualizarstock As Boolean
     Public NoActualizarBase As Boolean
@@ -30,22 +30,28 @@ Public Class MDIPrincipal
     Public iva As Decimal
     Public OperacionCaja As String
     Dim AbrirNotif As Boolean = False
+    Dim ModoTest As String = ""
     'Public desdeVentasWEB As Boolean = False
     'Public comm As New CommManager
+    'variable global para insertar o no mov de stock en la WEB (con mi maquina no hago movimientos)
+    'Public ConStockPublic As Boolean = True
+    'Public NoActualizar As Boolean = False
 
     Dim tranWEB As New WS_Porkys.WS_PorkysSoapClient
 
 
+
+
     Private Sub MDIPrincipal_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
         If MessageBox.Show("Desea salir del sistema?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
-            Try
-                If sucursal.ToUpper.Contains("PRINCIPAL") And (EmpleadoLogueado = "12" Or EmpleadoLogueado = "13" Or EmpleadoLogueado = "2") Then
-                    Dim sqlstring As String = "update NotificacionesWEB set BloqueoT = 0,BloqueoR = 0,BloqueoM = 0,BloqueoL = 0,BloqueoC = 0,BloqueoE = 0"
-                    tranWEB.Sql_Set(sqlstring)
-                End If
-            Catch ex As Exception
+            'Try
+            '    If sucursal.ToUpper.Contains("PRINCIPAL") And (EmpleadoLogueado = "12" Or EmpleadoLogueado = "13" Or EmpleadoLogueado = "2") Then
+            '        Dim sqlstring As String = "update [" & NameTable_NotificacionesWEB & "] set BloqueoT = 0,BloqueoR = 0,BloqueoM = 0,BloqueoL = 0,BloqueoC = 0,BloqueoE = 0 "
+            '        tranWEB.Sql_Set(sqlstring)
+            '    End If
+            'Catch ex As Exception
 
-            End Try
+            'End Try
             End
         Else
             e.Cancel = True
@@ -138,18 +144,26 @@ logindenuevo:
         End If
         login.Dispose()
 
-
+        'esta variable la paso asi para usar las tablas test de la base de datos web  (por defecto la dejo vacia)
+        Dim test As String = ""
         'habilito el timer segun el usuario 
-        If SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Or SystemInformation.ComputerName.ToString.ToUpper = "NACHO-PC" Then
-            NoActualizar = True
-        End If
+        If SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Or SystemInformation.ComputerName.ToString.ToUpper = "NACHO-PC" Or SystemInformation.ComputerName.ToString.ToUpper = "MVARAB" Then
+            ''dejo siempre noactualizar en true y constockpublic en false para no impactar en la WEB
+            'NoActualizar = True
+            'ConStockPublic = False
 
-        If NoActualizar = False Then
-            'me fijo si la maquina es la de deposito para no activar el timer
-            If Not SystemInformation.ComputerName.ToString.ToUpper = "PUESTO2" Then
-                'Timer1.Enabled = True
+            '-----[ ESTA VARIABLE TEST STRING ES LA QUE CAMBIO PARA USAR LAS TABLAS TEST DE LA WEB ]--------------
+            test = "_Test"
+            If test = "" Then
+                If MessageBox.Show("Está en modo producción desea continuar?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
+                    Me.Close()
+                End If
+            Else
+                ModoTest = " Modo Tablas WEB de Test : ACTIVADO"
             End If
         End If
+        'llamo al procedimiento para usar las tablas de test de la WEB
+        ModificarName_TablasWEB(test)
 
         Dim connection As SqlClient.SqlConnection = Nothing
 
@@ -172,6 +186,8 @@ logindenuevo:
         sucursal = ds.Tables(0).Rows(0).Item(7).ToString
 
         Utiles.numero_almacen = ds.Tables(0).Rows(0).Item(8).ToString
+
+        'MsgBox(numero_almacen.ToString)
 
 
         'Controlo que sucursal es para ver que parte del menu muestro y que parte no 
@@ -196,6 +212,9 @@ logindenuevo:
             EnvíosDePedidosToolStripMenuItem.Visible = False
             VentasDepósitoToolStripMenuItem.Visible = False
             ReportesDepositoToolStripMenuItem.Visible = False
+            TransferenciasToolStripMenuItem.Visible = False
+            MovSalonToolStripMenuItem.Visible = False
+            DevoluciónAProveedoresToolStripMenuItem.Visible = False
             AbrirNotif = True
         Else
             'VentasToolStripMenuItem.Enabled = False
@@ -212,7 +231,6 @@ logindenuevo:
                 OrdenDeCompraToolStripMenuItem.Enabled = False
                 RecepcionesDeMaterialToolStripMenuItem.Enabled = False
                 AjustesDeInventarioToolStripMenuItem.Enabled = False
-
             Else
                 If sucursal.Contains("PERON") Then
                     ContabilidadToolStripMenuItem.Visible = True
@@ -227,14 +245,17 @@ logindenuevo:
                     FamiliasToolStripMenuItem.Visible = True
                     UnidadesToolStripMenuItem1.Visible = True
                     PromocionesToolStripMenuItem.Visible = True
+
                 End If
                 AjustesDeInventarioToolStripMenuItem.Enabled = True
-                MovimientosDelDíaToolStripMenuItem_Click(sender, e)
+                'MovimientosDelDíaToolStripMenuItem_Click(sender, e)
                 'AbrirNotif = True
             End If
 
             'habilitación para Maria Jesus
             If EmpleadoLogueado = "12" Then
+                OrdenDeCompraToolStripMenuItem.Enabled = True
+                RecepcionesDeMaterialToolStripMenuItem.Enabled = True
                 ContabilidadToolStripMenuItem.Enabled = True
                 AbrirNotif = True
             End If
@@ -254,7 +275,7 @@ logindenuevo:
             If EmpleadoLogueado = "4" Then 'Or EmpleadoLogueado = "11" Then
                 InformesToolStripMenuItem1.Enabled = True
                 RankingDeProductosPresupuestadosToolStripMenuItem.Enabled = True
-
+                AjustesDeInventarioToolStripMenuItem.Enabled = True
                 DeudaDeClientesToolStripMenuItem.Enabled = False
                 MovimientosDelDíaToolStripMenuItem.Enabled = False
                 MovimientosDelDíaToolStripMenuItem1.Enabled = False
@@ -276,20 +297,22 @@ logindenuevo:
             Exit Sub
         End If
 
-        Try
+        'Try
 
-            Dim sqlstring As String = "update NotificacionesWEB set BloqueoT = 0,BloqueoR = 0,BloqueoM = 0,BloqueoL = 0,BloqueoC = 0,BloqueoE = 0"
-            tranWEB.Sql_Set(sqlstring)
+        '    Dim sqlstring As String = "update [" & NameTable_NotificacionesWEB & "] set BloqueoT = 0,BloqueoR = 0,BloqueoM = 0,BloqueoL = 0,BloqueoC = 0,BloqueoE = 0"
+        '    tranWEB.Sql_Set(sqlstring)
 
-        Catch ex As Exception
+        'Catch ex As Exception
 
-        End Try
+        'End Try
 
-        If AbrirNotif = True Then
-            ActualizarSistemaToolStripMenuItem_Click(sender, e)
-        End If
-       
+        'EstablecerConexionWEB_ServerLocal()
+        'If AbrirNotif = True Then
+        '    ActualizarSistemaToolStripMenuItem_Click(sender, e)
+        'End If
 
+
+        ToolStripStatusLabel.Text = ToolStripStatusLabel.Text + " - Sucursal: " + sucursal '+ ModoTest
 
     End Sub
 
@@ -998,7 +1021,7 @@ logindenuevo:
         Dim paramreporte As New frmParametros
         Dim rpt As New frmReportes
         Dim Cnn As New SqlConnection(ConnStringSEI)
-        Dim Cliente As String, Estado As String
+        Dim Cliente As String, Estado As String, Repartidor As String
 
         Dim consulta As String = "select '' as Nombre UNION select nombre from clientes c JOIN PedidosWeb F on f.idcliente = c.codigo where c.eliminado = 0 order by nombre asc"
 
@@ -1006,11 +1029,16 @@ logindenuevo:
         'Dim consulta1 As String = "SELECT Nombre FROM (SELECT 0 AS Orden, 'Todas' as Nombre UNION SELECT 1 AS Orden, 'Canceladas' as Nombre UNION select 2 AS Orden, 'Pendientes' AS nombre UNION SELECT 3 AS Orden, 'Anuladas' as Nombre) aa"
         Dim consulta1 As String = "SELECT Nombre FROM (SELECT 0 AS Orden, 'Todas' as Nombre UNION SELECT 1 AS Orden, 'Canceladas' as Nombre UNION select 2 AS Orden, 'Pendientes' AS nombre UNION SELECT 3 AS Orden, 'Anuladas' as Nombre UNION SELECT 4 AS Orden, 'Resumen de Cuenta' as Nombre) aa"
 
+        Dim consulta2 As String = "SELECT '' as Nombre UNION select (apellido + ', ' + Nombre) AS Nombre from empleados where repartidor = 1 ORDER BY NOMBRE"
+        'Dim consulta2 As String = "SELECT '' as Nombre UNION select apellido from empleados where repartidor = 1 ORDER BY NOMBRE"
+
+
         Dim Inicial As String = "01/" & Mid$(Now, 4, 2) & "/" & Mid$(Now, 7, 4)
         Dim Final As String = Mid$(Now, 1, 2) & "/" & Mid$(Now, 4, 2) & "/" & Mid$(Now, 7, 4)
 
         paramreporte.AgregarParametros("Inicio :", "DATE", "", False, Inicial, "", Cnn)
         paramreporte.AgregarParametros("Fin :", "DATE", "", False, Final, "", Cnn)
+        paramreporte.AgregarParametros("Repartidor :", "STRING", "", False, "", consulta2, Cnn)
         paramreporte.AgregarParametros("Cliente :", "STRING", "", False, "", consulta, Cnn)
         paramreporte.AgregarParametros("Estado :", "STRING", "", False, "", consulta1, Cnn)
 
@@ -1025,18 +1053,21 @@ logindenuevo:
 
                 Inicial = paramreporte.ObtenerParametros(0).ToString
                 Final = paramreporte.ObtenerParametros(1).ToString
-                Cliente = paramreporte.ObtenerParametros(2).ToString
-                Estado = paramreporte.ObtenerParametros(3).ToString
+                Repartidor = paramreporte.ObtenerParametros(2).ToString
+                Cliente = paramreporte.ObtenerParametros(3).ToString
+                Estado = paramreporte.ObtenerParametros(4).ToString
 
                 If Estado = "Resumen de Cuenta" Then
                     If Cliente <> "" Then
                         Estado = "Pendientes"
-                        rpt.DeudaClientes_App(Inicial, Final, Cliente, Estado, rpt, My.Application.Info.AssemblyName.ToString, True)
+                        'rpt.DeudaClientes_App(Inicial, Final, Cliente, Estado, rpt, My.Application.Info.AssemblyName.ToString, True)
+                        rpt.DeudaClientes_SEYC(Inicial, Final, Cliente, Estado, "", rpt, My.Application.Info.AssemblyName.ToString, True)
                     Else
-                        MsgBox("Por favor seleccione un cliente para poder ver su resumen de cuenta", MsgBoxStyle.Exclamation)
+                        MsgBox("Por favor seleccione un Cliente para poder ver su resumen de cuenta", MsgBoxStyle.Exclamation)
                     End If
                 Else
-                    rpt.DeudaClientes_App(Inicial, Final, Cliente, Estado, rpt, My.Application.Info.AssemblyName.ToString, False)
+                    'rpt.DeudaClientes_App(Inicial, Final, Cliente, Estado, rpt, My.Application.Info.AssemblyName.ToString, False)
+                    rpt.DeudaClientes_SEYC(Inicial, Final, Cliente, Estado, Repartidor, rpt, My.Application.Info.AssemblyName.ToString, False)
                 End If
 
 
@@ -2187,7 +2218,7 @@ logindenuevo:
         frmVentas.Show()
     End Sub
 
-    Public Sub ActualizarSistemaToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ActualizarSistemaToolStripMenuItem.Click
+    Public Sub ActualizarSistemaToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NotifWEBToolStripMenuItem.Click
         'If NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
         '    ActualizarSistema(False)
         'End If
@@ -2195,7 +2226,99 @@ logindenuevo:
         frmActuliazarSistema.Show()
     End Sub
 
-    Public Sub ActualizarSistema(ByVal desdePedidos As Boolean)
+
+
+    Private Sub EnvíosDePedidosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EnvíosDePedidosToolStripMenuItem.Click
+
+
+        Dim abrir As Boolean = False
+
+        ActualizarSistema_Viejo(True)
+
+        abrir = True
+
+        If abrir = True Then
+            frmPedidosWEB.MdiParent = Me
+            frmPedidosWEB.Show()
+        End If
+
+
+
+    End Sub
+
+    Private Sub ReportesDepositoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ReportesDepositoToolStripMenuItem.Click
+
+        frmReportesDeposito.MdiParent = Me
+        frmReportesDeposito.Show()
+
+    End Sub
+
+    Private Sub VentasDepósitoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles VentasDepósitoToolStripMenuItem.Click
+
+        frmVentasWEB.MdiParent = Me
+        frmVentasWEB.Show()
+
+    End Sub
+
+    Private Sub VentasPorClientesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles VentasPorClientesToolStripMenuItem.Click
+
+        frmventasclientes.MdiParent = Me
+        frmventasclientes.Show()
+
+    End Sub
+
+    Private Sub PromocionesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PromocionesToolStripMenuItem.Click
+
+        frmPromocionesPorkys.MdiParent = Me
+        frmPromocionesPorkys.Show()
+
+    End Sub
+
+    Private Sub TransferenciasToolStripMenuItem_Click_1(sender As Object, e As EventArgs) Handles TransferenciasToolStripMenuItem.Click
+
+        frmTransferenciasPorkys.MdiParent = Me
+        frmTransferenciasPorkys.Show()
+
+    End Sub
+
+    Private Sub MovimientosDelDíaToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MovimientosDelDíaToolStripMenuItem.Click
+        frmMovDia_Caja.MdiParent = Me
+        frmMovDia_Caja.Show()
+    End Sub
+
+    Private Sub AnticiposYIngresosDepósitoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AnticiposYIngresosDepósitoToolStripMenuItem.Click
+        frmAnticiposIngresosDep.MdiParent = Me
+        frmAnticiposIngresosDep.Show()
+    End Sub
+
+    Private Sub TarjetasToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TarjetasToolStripMenuItem.Click
+        frmTarjetas.MdiParent = Me
+        frmTarjetas.Show()
+    End Sub
+
+    Private Sub MovimientosDelDíaToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles MovimientosDelDíaToolStripMenuItem1.Click
+        frmMovDia.MdiParent = Me
+        frmMovDia.Show()
+    End Sub
+
+    Private Sub ProductosMásSolicitadosToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ProductosMásSolicitadosToolStripMenuItem1.Click
+        frmMateriales_MasSolicitados.MdiParent = Me
+        frmMateriales_MasSolicitados.Show()
+    End Sub
+
+    Private Sub ActualizarPreciosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ActualizarPreciosToolStripMenuItem.Click
+        frmMateriales_ActualizacionPrecios.MdiParent = Me
+        frmMateriales_ActualizacionPrecios.Show()
+    End Sub
+
+    Private Sub MovSalonToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MovSalonToolStripMenuItem.Click
+        frmMovSalon_Opciones.MdiParent = Me
+        frmMovSalon_Opciones.Show()
+    End Sub
+
+#Region "Funciones MDI"
+    'Version vieja
+    Public Sub ActualizarSistema_Viejo(ByVal desdePedidos As Boolean)
 
         Dim ds_Empresa As Data.DataSet
         Dim Conexion As SqlConnection
@@ -3177,87 +3300,969 @@ Pedidos:
 
     End Function
 
-    Private Sub EnvíosDePedidosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EnvíosDePedidosToolStripMenuItem.Click
+    '-----WEB
+
+    Public Function InsertarMovWEB(ByVal CodProducto As String, ByVal CodUnidad As String, ByVal IdAlmacen As Long, ByVal tipo As String, ByVal Cantidad As Decimal, ByVal Stock As Double, ByVal idStockMov As Long, ByVal comprob As String, ByVal IDModito As Long, ByVal Idusuario As Long) As Boolean
+        Try
+            Dim sqlstring As String = "exec " & NameSP_spStockInsert & " '" & CodProducto & "', '" & CodUnidad & "', " & IdAlmacen & ", '" & tipo & "', " & Cantidad & ", " & Stock & ", " & idStockMov & ", '" & comprob & "',4, " & UserID
+
+            If tranWEB.Sql_Get_Value(sqlstring) > 0 Then
+                InsertarMovWEB = True
+            Else
+                InsertarMovWEB = False
+            End If
+        Catch ex As Exception
+            InsertarMovWEB = False
+        End Try
+
+        'Utiles.numero_almacen
+        'UserID
+    End Function
+
+    Public Sub EstablecerConexionWEB_ServerLocal()
+        Try
+            'MI MAQUINA SIMULA A (SIMULA A MARCONI)
+            If SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
+                ''---MI MAQUINA---
+                'BD Peron
+                'Conexion = New SqlConnection("Data Source=SAMBA-PC;Initial Catalog=Porkys_Peron;User ID=sa;Password=industrial")
+                'BD Principal
+                ConexionWEB = New SqlConnection("Data Source=SAMBA-PC;Initial Catalog=Porkys;User ID=sa;Password=industrial")
+                otroAlmacen = 2
+                'MAQUINA DE PRUEBAS (SIMULA PERON)
+            ElseIf SystemInformation.ComputerName.ToString.ToUpper = "MVARAB" Then
+                ConexionWEB = New SqlConnection("Data Source=SAMBA-PC;Initial Catalog=Porkys_Peron;User ID=sa;Password=industrial")
+                otroAlmacen = 1
+
+            ElseIf sucursal.Contains("PERON") Then
+                ' ---PERÓN---
+                ConexionWEB = New SqlConnection("Data Source=PORKIS-SERVER;Initial Catalog=Porkys;User ID=sa;Password=industrial")
+                otroAlmacen = 1
+            Else
+                '---MARCONI---
+                ConexionWEB = New SqlConnection("Data Source=servidor;Initial Catalog=Porkys;User ID=sa;Password=industrial")
+                otroAlmacen = 2
+            End If
+        Catch ex As Exception
+            MsgBox("No se puedo establecer conexión con servidor local para realizar cambios en la WEB " + ex.Message, MsgBoxStyle.Exclamation)
+        End Try
 
 
-        Dim abrir As Boolean = False
 
-        ActualizarSistema(True)
 
-        abrir = True
 
-        If abrir = True Then
-            frmPedidosWEB.MdiParent = Me
-            frmPedidosWEB.Show()
+    End Sub
+
+    Public Sub DescargarAjustesStock()
+        Me.Cursor = Cursors.WaitCursor
+        Dim ds_Empresa As Data.DataSet
+        Dim sqlstring As String
+        Try
+            ds_Empresa = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "truncate table tmpStock_Web")
+            ds_Empresa.Dispose()
+
+            Dim ds_Stock As DataSet = tranWEB.Sql_Get("SELECT idalmacen, idmaterial, qty,idunidad FROM [" & NameTable_Stock & "] where idalmacen = " & Utiles.numero_almacen)
+
+            Dim bulk_Stock As New SqlBulkCopy(ConexionWEB, SqlBulkCopyOptions.TableLock, Nothing)
+
+            ConexionWEB.Open()
+            bulk_Stock.DestinationTableName = "tmpStock_Web"
+            bulk_Stock.WriteToServer(ds_Stock.Tables(0))
+            ConexionWEB.Close()
+
+            sqlstring = " UPDATE Stock SET qty = TMP.qty FROM Stock s Join tmpStock_Web tmp ON tmp.idmaterial = s.Idmaterial " & _
+                " and tmp.idalmacen = s.idalmacen and tmp.idunidad = s.idunidad "
+
+            ds_Empresa = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
+            ds_Empresa.Dispose()
+            Me.Cursor = Cursors.Arrow
+
+        Catch ex As Exception
+            Me.Cursor = Cursors.Arrow
+        End Try
+    End Sub
+
+    Public Sub ActualizarSistema(ByVal Transferencia As Boolean, ByVal Recepciones As Boolean, ByVal Materiales As Boolean, ByVal ListaPrecios As Boolean, Clientes As Boolean, ByVal Empleados As Boolean, ByVal Stock As Boolean)
+
+        'Timer1.Enabled = False
+        ' Cambiamos el cursor por el de carga
+        Me.Cursor = Cursors.WaitCursor
+        Dim ds_Empresa As Data.DataSet
+        Dim prueba As String
+        Dim sqlstring As String
+
+        '********************************************************STOCK**********************************************************
+        If Stock Then
+            Try
+                ds_Empresa = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "truncate table tmpStock_Web")
+                ds_Empresa.Dispose()
+
+                Dim sqlstrinStock As String = ""
+                Dim FechaAjuste As String = "12/05/2020"
+                ' me fijo si traigo los datos del almacen principal(1)
+                If otroAlmacen <> 1 Then
+                    'en esta consulta tengo en cuenta el movimiento de ajuste que se hizo inicialmente ( de esa forma solo traigo los productos que se venden en ese almacen)
+                    sqlstrinStock = " SELECT DISTINCT s.idalmacen, s.idmaterial, s.qty,s.idunidad FROM [" & NameTable_Stock & "] S join [" & NameTable_StockMov & "] SM on s.IDMaterial = sm.IDMaterial " & _
+                                    " where convert(varchar(10),sm.dateadd,103)>='" & FechaAjuste & "' and s.Qty <> 0 and S.IDAlmacen = " & otroAlmacen
+                Else
+                    sqlstrinStock = " SELECT idalmacen, idmaterial, qty,idunidad FROM [" & NameTable_Stock & "] where idalmacen = " & otroAlmacen
+                End If
+
+                Dim ds_Stock As DataSet = tranWEB.Sql_Get(sqlstrinStock)
+                Dim bulk_Stock As New SqlBulkCopy(ConexionWEB, SqlBulkCopyOptions.TableLock, Nothing)
+
+                ConexionWEB.Open()
+                bulk_Stock.DestinationTableName = "tmpStock_Web"
+                bulk_Stock.WriteToServer(ds_Stock.Tables(0))
+                ConexionWEB.Close()
+
+                sqlstring = " UPDATE Stock SET qty = TMP.qty, DateUpd = GetDate() FROM Stock s Join tmpStock_Web tmp ON tmp.idmaterial = s.Idmaterial " & _
+                    " and tmp.idalmacen = s.idalmacen and tmp.idunidad = s.idunidad "
+
+                ds_Empresa = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
+                ds_Empresa.Dispose()
+
+
+            Catch ex As Exception
+                Me.Cursor = Cursors.Arrow
+            End Try
+
+
+
+        End If
+        '****************************************************************Transferencias*******************************************
+        If Transferencia Then
+            Try
+                ds_Empresa = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "truncate table tmpTransferencias_Recepciones_WEB")
+                ds_Empresa.Dispose()
+
+                Dim ds_Clientes As DataSet = tranWEB.Sql_Get("SELECT * FROM Transferencias_Recepciones_WEB Where Procesado = 0 And Tipo  = 'T' And IDDestino = " & numero_almacen)
+
+                Dim bulk_Clientes As New SqlBulkCopy(ConexionWEB, SqlBulkCopyOptions.TableLock, Nothing)
+
+                ConexionWEB.Open()
+                bulk_Clientes.DestinationTableName = "tmpTransferencias_Recepciones_WEB"
+                bulk_Clientes.WriteToServer(ds_Clientes.Tables(0))
+                ConexionWEB.Close()
+
+                sqlstring = " Select [Codigo],[Fecha],[IDOrigen],[IDDestino],[IDMaterial], " & _
+                            "[Qty],[Procesado],[Tipo] from tmpTransferencias_Recepciones_WEB"
+
+                ds_Empresa = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
+                ds_Empresa.Dispose()
+
+                Dim i As Integer = 0
+                Dim ds_tmpClientes As Data.DataSet
+
+                If ds_Empresa.Tables(0).Rows.Count > 0 Then
+                    For i = 0 To ds_Empresa.Tables(0).Rows.Count - 1
+                        sqlstring = "UPDATE [dbo].[Stock] SET " & _
+                            " [Qty] = qty + " & ds_Empresa.Tables(0).Rows(i)(5) & ", " & _
+                            " [DATEUPD] = '" & Format(ds_Empresa.Tables(0).Rows(i)(1), "dd/MM/yyyy") & " " & Format(Date.Now, "hh:mm:ss").ToString & "' " & _
+                            " WHERE IDMaterial = '" & ds_Empresa.Tables(0).Rows(i)(4) & "' And [IDAlmacen] = " & numero_almacen
+                        '" [ActualizadoWeb] = 1 " & _
+
+                        prueba = ds_Empresa.Tables(0).Rows(i)(3).ToString
+                        '-------------------------------------------------------------------------------------------
+                        ds_tmpClientes = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
+                        ds_tmpClientes.Dispose()
+
+                        sqlstring = "UPDATE Transferencias_Recepciones_WEB SET Procesado = 1 WHERE CODIGO = '" & ds_Empresa.Tables(0).Rows(i)(0).ToString & "' And IdMaterial = '" & ds_Empresa.Tables(0).Rows(i)(4) & "'"
+                        'proceso la transferencia
+                        tranWEB.Sql_Get(sqlstring)
+
+
+                        '------------------------------------------------------------------------------------------
+                    Next
+
+                    'hago un join con stock para actualizar la web
+                    sqlstring = " select s.Qty,tmp.IDMaterial,tmp.IDDestino from tmpTransferencias_Recepciones_WEB tmp join stock s on s.IDMaterial = tmp.IDMaterial and s.IDAlmacen = tmp.IDDestino"
+                    'actualizo el stock de la web
+                    ds_tmpClientes = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
+                    ds_tmpClientes.Dispose()
+                    For i = 0 To ds_tmpClientes.Tables(0).Rows.Count - 1
+                        sqlstring = "UPDATE [dbo].[Stock] SET " & _
+                     " [Qty] = " & ds_tmpClientes.Tables(0).Rows(i)(0) & ", " & _
+                     " [DATEUPD] = getdate()," & _
+                     " [ActualizadoLocal] = 1 " & _
+                     " WHERE IDMaterial = '" & ds_tmpClientes.Tables(0).Rows(i)(1) & "' And [IDAlmacen] = " & ds_tmpClientes.Tables(0).Rows(i)(2)
+                        tranWEB.Sql_Get(sqlstring)
+                    Next
+
+                    tranWEB.Sql_Get("UPDATE NotificacionesWEB SET Transferencias = 0 ")
+                End If
+
+                frmActuliazarSistema.btnTransferencia.SymbolColor = Color.Green
+
+                MsgBox("Recuerde hacer click en " & frmActuliazarSistema.btnStock.Text & " para obtener el stock del otro Almacen.", MsgBoxStyle.Information)
+
+            Catch ex As Exception
+                MsgBox(" Desde Actualización Transferencias " + ex.Message)
+                Me.Cursor = Cursors.Arrow
+            End Try
+        End If
+
+        '****************************************************************Recepciones*******************************************
+        If Recepciones Then
+            Try
+                ds_Empresa = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "truncate table tmpTransferencias_Recepciones_WEB")
+                ds_Empresa.Dispose()
+
+                Dim ds_Clientes As DataSet = tranWEB.Sql_Get("SELECT * FROM Transferencias_Recepciones_WEB Where Procesado = 0 And Tipo  = 'R' And IDDestino = " & numero_almacen)
+
+                Dim bulk_Clientes As New SqlBulkCopy(ConexionWEB, SqlBulkCopyOptions.TableLock, Nothing)
+
+                ConexionWEB.Open()
+                bulk_Clientes.DestinationTableName = "tmpTransferencias_Recepciones_WEB"
+                bulk_Clientes.WriteToServer(ds_Clientes.Tables(0))
+                ConexionWEB.Close()
+
+                sqlstring = " Select [Codigo],[Fecha],[IDOrigen],[IDDestino],[IDMaterial], " & _
+                            "[Qty],[Procesado],[Tipo] from tmpTransferencias_Recepciones_WEB"
+
+                ds_Empresa = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
+                ds_Empresa.Dispose()
+
+                Dim i As Integer = 0
+                Dim ds_tmpClientes As Data.DataSet
+
+                If ds_Empresa.Tables(0).Rows.Count > 0 Then
+                    For i = 0 To ds_Empresa.Tables(0).Rows.Count - 1
+                        sqlstring = "UPDATE [dbo].[Stock] SET " & _
+                            " [Qty] = qty + " & ds_Empresa.Tables(0).Rows(i)(5) & ", " & _
+                            " [DATEUPD] = '" & Format(ds_Empresa.Tables(0).Rows(i)(1), "dd/MM/yyyy") & " " & Format(Date.Now, "hh:mm:ss").ToString & "' " & _
+                            " WHERE IDMaterial = '" & ds_Empresa.Tables(0).Rows(i)(4) & "' And [IDAlmacen] = " & numero_almacen
+                        '" [ActualizadoWeb] = 1 " & _
+
+
+                        prueba = ds_Empresa.Tables(0).Rows(i)(3).ToString
+                        '-------------------------------------------------------------------------------------------
+                        ds_tmpClientes = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
+                        ds_tmpClientes.Dispose()
+
+                        sqlstring = "UPDATE Transferencias_Recepciones_WEB SET Procesado = 1 WHERE CODIGO = '" & ds_Empresa.Tables(0).Rows(i)(0).ToString & "' And IdMaterial = '" & ds_Empresa.Tables(0).Rows(i)(4) & "'"
+                        'proceso la transferencia
+                        tranWEB.Sql_Get(sqlstring)
+
+
+                        '------------------------------------------------------------------------------------------
+                    Next
+
+                    'hago un join con stock para actualizar la web
+                    sqlstring = " select s.Qty,tmp.IDMaterial,tmp.IDDestino from tmpTransferencias_Recepciones_WEB tmp join stock s on s.IDMaterial = tmp.IDMaterial and s.IDAlmacen = tmp.IDDestino"
+                    'actualizo el stock de la web
+                    ds_tmpClientes = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
+                    ds_tmpClientes.Dispose()
+                    For i = 0 To ds_tmpClientes.Tables(0).Rows.Count - 1
+                        sqlstring = "UPDATE [dbo].[Stock] SET " & _
+                     " [Qty] = " & ds_tmpClientes.Tables(0).Rows(i)(0) & ", " & _
+                     " [DATEUPD] = getdate()," & _
+                     " [ActualizadoLocal] = 1 " & _
+                     " WHERE IDMaterial = '" & ds_tmpClientes.Tables(0).Rows(i)(1) & "' And [IDAlmacen] = " & ds_tmpClientes.Tables(0).Rows(i)(2)
+                        tranWEB.Sql_Get(sqlstring)
+                    Next
+
+                    tranWEB.Sql_Get("UPDATE NotificacionesWEB SET Recepciones = 0 ")
+                End If
+
+                frmActuliazarSistema.btnRecepciones.SymbolColor = Color.Green
+
+                MsgBox("Recuerde hacer click en " & frmActuliazarSistema.btnStock.Text & " para obtener el stock del otro Almacen.", MsgBoxStyle.Information)
+
+            Catch ex As Exception
+                MsgBox(" Desde Actualización Transferencias " + ex.Message)
+                Me.Cursor = Cursors.Arrow
+            End Try
+        End If
+
+
+        Dim ds_Marcas As Data.DataSet
+        '*****************************************************************MATERIALES**********************************************
+        If Materiales Then
+            Try
+
+                ds_Empresa = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "truncate table tmpMateriales_Web")
+                ds_Empresa.Dispose()
+
+                Dim ds_Clientes As DataSet = tranWEB.Sql_Get("SELECT * FROM [" & NameTable_Materiales & "] Where ActualizadoLocal = 0 ")
+
+                Dim bulk_Clientes As New SqlBulkCopy(ConexionWEB, SqlBulkCopyOptions.TableLock, Nothing)
+
+                ConexionWEB.Open()
+                bulk_Clientes.DestinationTableName = "tmpMateriales_Web"
+                bulk_Clientes.WriteToServer(ds_Clientes.Tables(0))
+                ConexionWEB.Close()
+
+
+                'Dim sqlstring As String
+                'Clientes que están en la WEB y no están en la sucursal/central
+                sqlstring = " SELECT [IdMarca],[IdFamilia],[IDUnidad],[Codigo],[Nombre], " & _
+                        " [Ganancia], [PrecioCosto], [PrecioCompra], [PrecioPeron], [Minimo], [Maximo], " & _
+                        " [CodigoBarra], [Eliminado], [Pasillo], [Estante], [Fila], [ControlStock], [CantidadPACK], [DateAdd], " & _
+                        " [PrecioMayorista] , [PrecioMayoristaPeron], [IDListaMayorista] , [IDListaMayoristaPeron]," & _
+                        " [IDListaMinorista] , [IDListaMinoristaPeron],[PrecioLista3],[IDLista3],[PrecioLista4],[IDLista4],[UnidadRef]," & _
+                        " [Cambiar1] ,[Cambiar2],[Cambiar3],[Cambiar4],[VentaMayorista],[ActualizadoLocal]" & _
+                        " FROM tmpMateriales_Web WHERE Codigo NOT IN (SELECT Codigo FROM Materiales ) "
+
+                ds_Empresa = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
+                ds_Empresa.Dispose()
+
+                Dim i As Integer = 0
+                Dim ds_tmpClientes As Data.DataSet
+
+                If ds_Empresa.Tables(0).Rows.Count > 0 Then
+                    For i = 0 To ds_Empresa.Tables(0).Rows.Count - 1
+                        sqlstring = " BEGIN TRAN; " & _
+                            " INSERT INTO [dbo].[Materiales] ([IdMarca],[IdFamilia],[IDUnidad],[Codigo],[Nombre], " & _
+                            " [Ganancia], [PrecioCosto], [PrecioCompra], [PrecioPeron], [Minimo], [Maximo], " & _
+                            " [CodigoBarra], [Eliminado], [Pasillo], [Estante], [Fila], [ControlStock], [CantidadPACK], [DateAdd], " & _
+                            " [PrecioMayorista] , [PrecioMayoristaPeron], [IDListaMayorista] , [IDListaMayoristaPeron], " & _
+                            " [IDListaMinorista] , [IDListaMinoristaPeron],[PrecioLista3],[IDLista3],[PrecioLista4],[IDLista4], " & _
+                            " [UnidadRef],[Cambiar1] ,[Cambiar2],[Cambiar3],[Cambiar4],[VentaMayorista],[ActualizadoWeb]) " & _
+                            "  values ( '" & ds_Empresa.Tables(0).Rows(i)(0) & "', '" & ds_Empresa.Tables(0).Rows(i)(1) & "', '" & _
+                            ds_Empresa.Tables(0).Rows(i)(2) & "', '" & ds_Empresa.Tables(0).Rows(i)(3) & "', '" & ds_Empresa.Tables(0).Rows(i)(4) & "', " & _
+                            ds_Empresa.Tables(0).Rows(i)(5) & ", " & ds_Empresa.Tables(0).Rows(i)(6) & ", " & ds_Empresa.Tables(0).Rows(i)(7) & ", " & _
+                            ds_Empresa.Tables(0).Rows(i)(8) & ", " & ds_Empresa.Tables(0).Rows(i)(9) & ", " & ds_Empresa.Tables(0).Rows(i)(10) & ", '" & _
+                            ds_Empresa.Tables(0).Rows(i)(11) & "', " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(12)) = True, 1, 0) & ", '" & ds_Empresa.Tables(0).Rows(i)(13) & "', '" & _
+                            ds_Empresa.Tables(0).Rows(i)(14) & "', '" & ds_Empresa.Tables(0).Rows(i)(15) & "', " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(16)) = True, 1, 0) & ", " & _
+                            ds_Empresa.Tables(0).Rows(i)(17) & ", '" & Format(ds_Empresa.Tables(0).Rows(i)(18), "dd/MM/yyyy hh:ss") & "', " & _
+                            IIf(ds_Empresa.Tables(0).Rows(i)(19).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(19)) & ", " & _
+                            IIf(ds_Empresa.Tables(0).Rows(i)(20).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(20)) & ", " & _
+                            IIf(ds_Empresa.Tables(0).Rows(i)(21).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(21)) & ", " & _
+                            IIf(ds_Empresa.Tables(0).Rows(i)(22).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(22)) & ", " & _
+                            IIf(ds_Empresa.Tables(0).Rows(i)(23).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(23)) & ", " & _
+                            IIf(ds_Empresa.Tables(0).Rows(i)(24).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(24)) & ", " & _
+                            ds_Empresa.Tables(0).Rows(i)(25) & "," & _
+                            IIf(ds_Empresa.Tables(0).Rows(i)(26).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(26)) & "," & _
+                            ds_Empresa.Tables(0).Rows(i)(27) & "," & _
+                            IIf(ds_Empresa.Tables(0).Rows(i)(28).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(28)) & ",'" & _
+                            ds_Empresa.Tables(0).Rows(i)(29) & "'," & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(30)) = True, 1, 0) & "," & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(31)) = True, 1, 0) & "," & _
+                            IIf(CBool(ds_Empresa.Tables(0).Rows(i)(32)) = True, 1, 0) & "," & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(33)) = True, 1, 0) & "," & _
+                            IIf(CBool(ds_Empresa.Tables(0).Rows(i)(34)) = True, 1, 0) & ",1); " & _
+                            " COMMIT TRAN;"
+
+                        prueba = ds_Empresa.Tables(0).Rows(i)(3).ToString
+
+                        ds_tmpClientes = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
+                        ds_tmpClientes.Dispose()
+
+                        'agregar insert stock aca 
+                        ds_Marcas = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "truncate table tmpStock_Web")
+                        ds_Marcas.Dispose()
+
+                        ds_Clientes = tranWEB.Sql_Get("SELECT IDAlmacen,IDMaterial,Qty,IDUnidad,ActualizadoLocal FROM [" & NameTable_Stock & "] Where idmaterial = '" & ds_Empresa.Tables(0).Rows(i)(3).ToString & "'")
+
+                        Dim bulk_Clientes2 As New SqlBulkCopy(ConexionWEB, SqlBulkCopyOptions.TableLock, Nothing)
+
+                        ConexionWEB.Open()
+                        bulk_Clientes2.DestinationTableName = "tmpStock_Web"
+                        bulk_Clientes2.WriteToServer(ds_Clientes.Tables(0))
+                        ConexionWEB.Close()
+
+                        sqlstring = "select IDAlmacen,IDMaterial,Qty,IDUnidad,ActualizadoLocal from tmpStock_Web "
+
+                        ds_Marcas = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
+                        ds_Marcas.Dispose()
+                        If ds_Marcas.Tables(0).Rows.Count > 0 Then
+                            For j As Integer = 0 To ds_Marcas.Tables(0).Rows.Count - 1
+                                sqlstring = " insert into [Stock] ( IDAlmacen,IDMaterial, Qty, IDUnidad) values ( " & _
+                                             ds_Marcas.Tables(0).Rows(j)(0) & ",'" & ds_Marcas.Tables(0).Rows(j)(1) & "'," & _
+                                             ds_Marcas.Tables(0).Rows(j)(2) & ",'" & ds_Empresa.Tables(0).Rows(i)(2) & "') "
+                                ds_tmpClientes = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
+                                ds_tmpClientes.Dispose()
+                            Next
+                        End If
+                    Next
+
+                End If
+
+                sqlstring = " SELECT [IdMarca],[IdFamilia],[IDUnidad],[Codigo],[Nombre], " & _
+                        " [Ganancia], [PrecioCosto], [PrecioCompra], [PrecioPeron], [Minimo], [Maximo], " & _
+                        " [CodigoBarra], [Eliminado], [Pasillo], [Estante], [Fila], [ControlStock], [CantidadPACK], isnull([DateUPD], '01/01/1900 00:00:00') ," & _
+                        " [PrecioMayorista] , [PrecioMayoristaPeron], [IDListaMayorista] , [IDListaMayoristaPeron], [IDListaMinorista] , [IDListaMinoristaPeron], " & _
+                        " [PrecioLista3],[IDLista3],[PrecioLista4],[IDLista4],[UnidadRef],[Cambiar1] ,[Cambiar2],[Cambiar3],[Cambiar4],[VentaMayorista],[ActualizadoLocal] FROM tmpMateriales_Web "
+
+                ds_Empresa = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
+                ds_Empresa.Dispose()
+
+                For i = 0 To ds_Empresa.Tables(0).Rows.Count - 1
+                    sqlstring = "UPDATE [dbo].[Materiales] SET " & _
+                        " [IdMarca] = '" & ds_Empresa.Tables(0).Rows(i)(0) & "', " & _
+                        " [IdFamilia] = '" & ds_Empresa.Tables(0).Rows(i)(1) & "', " & _
+                        " [IDUnidad] = '" & ds_Empresa.Tables(0).Rows(i)(2) & "', " & _
+                        " [Codigo] = '" & ds_Empresa.Tables(0).Rows(i)(3) & "', " & _
+                        " [Nombre] = '" & ds_Empresa.Tables(0).Rows(i)(4) & "', " & _
+                        " [Ganancia] = " & ds_Empresa.Tables(0).Rows(i)(5) & ", " & _
+                        " [PrecioCosto] = " & ds_Empresa.Tables(0).Rows(i)(6) & ", " & _
+                        " [PrecioCompra] = " & ds_Empresa.Tables(0).Rows(i)(7) & ", " & _
+                        " [PrecioPeron] = " & ds_Empresa.Tables(0).Rows(i)(8) & ", " & _
+                        " [Minimo] = " & ds_Empresa.Tables(0).Rows(i)(9) & ", " & _
+                        " [Maximo] = " & ds_Empresa.Tables(0).Rows(i)(10) & ", " & _
+                        " [CodigoBarra] = '" & ds_Empresa.Tables(0).Rows(i)(11) & "', " & _
+                        " [Eliminado] = " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(12)) = True, 1, 0) & ", " & _
+                        " [Pasillo] = '" & ds_Empresa.Tables(0).Rows(i)(13) & "', " & _
+                        " [Estante] = '" & ds_Empresa.Tables(0).Rows(i)(14) & "', " & _
+                        " [Fila] = '" & ds_Empresa.Tables(0).Rows(i)(15) & "', " & _
+                        " [ControlStock] = " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(16)) = True, 1, 0) & ", " & _
+                        " [CantidadPACK] = " & ds_Empresa.Tables(0).Rows(i)(17) & ", " & _
+                        " DATEUPD = '" & Format(ds_Empresa.Tables(0).Rows(i)(18), "dd/MM/yyyy") & "' , " & _
+                        " [PrecioMayorista] = " & IIf(ds_Empresa.Tables(0).Rows(i)(19).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(19)) & ", " & _
+                        " [PrecioMayoristaPeron] = " & IIf(ds_Empresa.Tables(0).Rows(i)(20).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(20)) & ", " & _
+                        " [IDListaMayorista] = " & IIf(ds_Empresa.Tables(0).Rows(i)(21).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(21)) & ", " & _
+                        " [IDListaMayoristaPeron] = " & IIf(ds_Empresa.Tables(0).Rows(i)(22).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(22)) & ", " & _
+                        " [IDListaMinorista] = " & IIf(ds_Empresa.Tables(0).Rows(i)(23).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(23)) & ", " & _
+                        " [IDListaMinoristaPeron] = " & IIf(ds_Empresa.Tables(0).Rows(i)(24).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(24)) & ", " & _
+                        " [PrecioLista3] = " & ds_Empresa.Tables(0).Rows(i)(25) & "," & _
+                        " [IDLista3] = " & IIf(ds_Empresa.Tables(0).Rows(i)(26).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(26)) & "," & _
+                        " [PrecioLista4] = " & ds_Empresa.Tables(0).Rows(i)(27) & "," & _
+                        " [IDLista4] = " & IIf(ds_Empresa.Tables(0).Rows(i)(28).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(28)) & "," & _
+                        " [UnidadRef] = '" & ds_Empresa.Tables(0).Rows(i)(29) & "'," & _
+                        " [Cambiar1] = " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(30)) = True, 1, 0) & "," & _
+                        " [Cambiar2] = " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(31)) = True, 1, 0) & "," & _
+                        " [Cambiar3] = " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(32)) = True, 1, 0) & "," & _
+                        " [Cambiar4] = " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(33)) = True, 1, 0) & "," & _
+                        " [VentaMayorista] = " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(34)) = True, 1, 0) & "," & _
+                        " [ActualizadoWeb] = 1 " & _
+                        " WHERE Codigo = '" & ds_Empresa.Tables(0).Rows(i)(3) & "'"
+
+                    prueba = ds_Empresa.Tables(0).Rows(i)(3).ToString
+
+
+
+                    ds_tmpClientes = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
+                    ds_tmpClientes.Dispose()
+
+                Next
+
+                'ajusto la unidad entre las materiales y el stock descargado
+                sqlstring = " update Stock set IDUnidad = m.IDUnidad from Stock s  join Materiales m " & _
+                            " on m.Codigo = s.IDMaterial where m.IDUnidad <> s.IDUnidad"
+
+                ds_tmpClientes = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
+                ds_tmpClientes.Dispose()
+
+                For i = 0 To ds_Empresa.Tables(0).Rows.Count - 1
+                    tranWEB.Sql_Get("UPDATE [" & NameTable_Materiales & "] SET ActualizadoLocal = 1 WHERE CODIGO = '" & ds_Empresa.Tables(0).Rows(i)(3).ToString & "'")
+                Next
+
+                tranWEB.Sql_Get("UPDATE [" & NameTable_NotificacionesWEB & "] SET Materiales = 0 where idalmacen <> " & Util.numero_almacen)
+
+
+            Catch ex As Exception
+                MsgBox(" Desde Actualización Materiales " + ex.Message)
+                Me.Cursor = Cursors.Arrow
+            End Try
+            ''**************************************************************************Unidades****************************************************************************
+            Dim ds_Unidades As Data.DataSet
+            Try
+                ds_Unidades = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "truncate table tmpUnidades_Web")
+                ds_Unidades.Dispose()
+
+                Dim ds_UnidadesWEB As DataSet = tranWEB.Sql_Get("SELECT * FROM [" & NameTable_Unidades & "] ")
+
+                Dim bulk_unidades As New SqlBulkCopy(ConexionWEB, SqlBulkCopyOptions.TableLock, Nothing)
+
+                ConexionWEB.Open()
+                bulk_unidades.DestinationTableName = "tmpUnidades_Web"
+                bulk_unidades.WriteToServer(ds_UnidadesWEB.Tables(0))
+                ConexionWEB.Close()
+
+
+                'Clientes que están en la WEB y no están en la sucursal/central
+                sqlstring = " SELECT [Codigo],[Nombre],[Eliminado] " & _
+                            " FROM tmpUnidades_WEB WHERE codigo NOT IN (SELECT codigo FROM Unidades ) "
+
+                ds_Unidades = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
+                ds_Unidades.Dispose()
+
+                Dim i As Integer = 0
+                Dim ds_tmpUnidades As Data.DataSet
+
+                If ds_Unidades.Tables(0).Rows.Count > 0 Then
+                    For i = 0 To ds_Unidades.Tables(0).Rows.Count - 1
+                        sqlstring = " BEGIN TRAN; " & _
+                            " INSERT INTO [dbo].[Unidades] ([Codigo],[Nombre],[Eliminado] ) " & _
+                            " VALUES ( '" & ds_Unidades.Tables(0).Rows(i)(0) & "', '" & ds_Unidades.Tables(0).Rows(i)(1) & "', " & _
+                            IIf(CBool(ds_Unidades.Tables(0).Rows(i)(2)) = True, 1, 0) & " ); " & _
+                            " COMMIT TRAN;"
+
+                        ds_tmpUnidades = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
+                        ds_tmpUnidades.Dispose()
+
+                    Next
+                End If
+
+                sqlstring = " SELECT [codigo],[Nombre],[Eliminado]" & _
+                            " FROM tmpUnidades_Web "
+
+                ds_Unidades = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
+                ds_Unidades.Dispose()
+
+                For i = 0 To ds_Unidades.Tables(0).Rows.Count - 1
+                    sqlstring = " UPDATE [dbo].[Unidades] SET " & _
+                                " [Codigo] = '" & ds_Unidades.Tables(0).Rows(i)(0) & "', " & _
+                                " [Nombre] = '" & ds_Unidades.Tables(0).Rows(i)(1) & "', " & _
+                                " [Eliminado] = " & IIf(CBool(ds_Unidades.Tables(0).Rows(i)(2)) = True, 1, 0) & " " & _
+                                " WHERE codigo = '" & ds_Unidades.Tables(0).Rows(i)(0) & "'"
+
+                    ds_tmpUnidades = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
+                    ds_tmpUnidades.Dispose()
+                Next
+            Catch ex As Exception
+                MsgBox("Desde Actualización de Unidades " + ex.Message)
+                Me.Cursor = Cursors.Arrow
+            End Try
+
+
+            ''**************************************************************************Rubros****************************************************************************
+            Dim ds_Rubros As Data.DataSet
+            Try
+                ds_Rubros = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "truncate table tmpFamilias_Web")
+                ds_Rubros.Dispose()
+
+                Dim ds_FamiliasWEB As DataSet = tranWEB.Sql_Get("SELECT * FROM [" & NameTable_Familias & "] ")
+
+                Dim bulk_familias As New SqlBulkCopy(ConexionWEB, SqlBulkCopyOptions.TableLock, Nothing)
+
+                ConexionWEB.Open()
+                bulk_familias.DestinationTableName = "tmpFamilias_Web"
+                bulk_familias.WriteToServer(ds_FamiliasWEB.Tables(0))
+                ConexionWEB.Close()
+
+
+                'Clientes que están en la WEB y no están en la sucursal/central
+                sqlstring = " SELECT [Codigo],[Nombre],[Eliminado] " & _
+                            " FROM tmpFamilias_WEB WHERE codigo NOT IN (SELECT codigo FROM Familias) "
+
+                ds_Rubros = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
+                ds_Rubros.Dispose()
+
+                Dim i As Integer = 0
+                Dim ds_tmpFamilias As Data.DataSet
+
+                If ds_Rubros.Tables(0).Rows.Count > 0 Then
+                    For i = 0 To ds_Rubros.Tables(0).Rows.Count - 1
+                        sqlstring = " BEGIN TRAN; " & _
+                            " INSERT INTO [dbo].[Familias] ([Codigo],[Nombre],[Eliminado] ) " & _
+                            " VALUES ('" & ds_Rubros.Tables(0).Rows(i)(0) & "', '" & ds_Rubros.Tables(0).Rows(i)(1) & "', " & _
+                            IIf(CBool(ds_Rubros.Tables(0).Rows(i)(2)) = True, 1, 0) & " ); " & _
+                            " COMMIT TRAN;"
+
+                        ds_tmpFamilias = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
+                        ds_tmpFamilias.Dispose()
+
+                    Next
+                End If
+
+                sqlstring = " SELECT [codigo],[Nombre],[Eliminado]" & _
+                            " FROM tmpFamilias_Web "
+
+                ds_Rubros = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
+                ds_Rubros.Dispose()
+
+                For i = 0 To ds_Rubros.Tables(0).Rows.Count - 1
+                    sqlstring = " UPDATE [dbo].[Familias] SET " & _
+                                " [Codigo] = '" & ds_Rubros.Tables(0).Rows(i)(0) & "', " & _
+                                " [Nombre] = '" & ds_Rubros.Tables(0).Rows(i)(1) & "', " & _
+                                " [Eliminado] = " & IIf(CBool(ds_Rubros.Tables(0).Rows(i)(2)) = True, 1, 0) & " " & _
+                                " WHERE codigo = '" & ds_Rubros.Tables(0).Rows(i)(0) & "'"
+
+                    ds_tmpFamilias = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
+                    ds_tmpFamilias.Dispose()
+                Next
+            Catch ex As Exception
+                MsgBox("Desde Actualización de Familias " + ex.Message)
+                Me.Cursor = Cursors.Arrow
+            End Try
+
+            ''**************************************************************************Marcas****************************************************************************
+
+            Try
+                ds_Marcas = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "truncate table tmpMarcas_Web")
+                ds_Marcas.Dispose()
+
+                Dim ds_MarcasWEB As DataSet = tranWEB.Sql_Get("SELECT * FROM [" & NameTable_Marcas & "] ")
+
+                Dim bulk_marcas As New SqlBulkCopy(ConexionWEB, SqlBulkCopyOptions.TableLock, Nothing)
+
+                ConexionWEB.Open()
+                bulk_marcas.DestinationTableName = "tmpMarcas_Web"
+                bulk_marcas.WriteToServer(ds_MarcasWEB.Tables(0))
+                ConexionWEB.Close()
+
+
+                'Clientes que están en la WEB y no están en la sucursal/central
+                sqlstring = " SELECT [Codigo],[Nombre],[Eliminado] " & _
+                            " FROM tmpMarcas_WEB WHERE codigo NOT IN (SELECT codigo FROM Marcas ) "
+
+                ds_Marcas = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
+                ds_Marcas.Dispose()
+
+                Dim i As Integer = 0
+                Dim ds_tmpMarcas As Data.DataSet
+
+                If ds_Marcas.Tables(0).Rows.Count > 0 Then
+                    For i = 0 To ds_Marcas.Tables(0).Rows.Count - 1
+                        sqlstring = " BEGIN TRAN; " & _
+                            " INSERT INTO [dbo].[Marcas] ([Codigo],[Nombre],[Eliminado] ) " & _
+                            " VALUES ( '" & ds_Marcas.Tables(0).Rows(i)(0) & "', '" & ds_Marcas.Tables(0).Rows(i)(1) & "', " & _
+                            IIf(CBool(ds_Marcas.Tables(0).Rows(i)(2)) = True, 1, 0) & " ); " & _
+                            " COMMIT TRAN;"
+
+                        ds_tmpMarcas = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
+                        ds_tmpMarcas.Dispose()
+
+                    Next
+                End If
+
+                sqlstring = " SELECT [codigo],[Nombre],[Eliminado]" & _
+                            " FROM tmpMarcas_Web "
+
+                ds_Marcas = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
+                ds_Marcas.Dispose()
+
+                For i = 0 To ds_Marcas.Tables(0).Rows.Count - 1
+                    sqlstring = " UPDATE [dbo].[Marcas] SET " & _
+                                " [Codigo] = '" & ds_Marcas.Tables(0).Rows(i)(0) & "', " & _
+                                " [Nombre] = '" & ds_Marcas.Tables(0).Rows(i)(1) & "', " & _
+                                " [Eliminado] = " & IIf(CBool(ds_Marcas.Tables(0).Rows(i)(2)) = True, 1, 0) & " " & _
+                                " WHERE Codigo = '" & ds_Marcas.Tables(0).Rows(i)(0) & "'"
+
+                    ds_tmpMarcas = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
+                    ds_tmpMarcas.Dispose()
+                Next
+            Catch ex As Exception
+                MsgBox("Desde Actualización de Marcas " + ex.Message)
+                Me.Cursor = Cursors.Arrow
+            End Try
+            frmActuliazarSistema.btnMateriales.SymbolColor = Color.Green
+        End If
+
+        ''**************************************************************************LISTA_PRECIOS****************************************************************************
+        If ListaPrecios Then
+            Dim ds_Lista As Data.DataSet
+
+            Try
+
+                ds_Lista = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "truncate table tmpLista_Precios_Web")
+                ds_Lista.Dispose()
+
+                Dim ds_ListaWEB As DataSet = tranWEB.Sql_Get("SELECT * FROM [" & NameTable_ListaPrecios & "] ")
+
+                Dim bulk_Lista As New SqlBulkCopy(ConexionWEB, SqlBulkCopyOptions.TableLock, Nothing)
+
+                ConexionWEB.Open()
+                bulk_Lista.DestinationTableName = "tmpLista_Precios_Web"
+                bulk_Lista.WriteToServer(ds_ListaWEB.Tables(0))
+                ConexionWEB.Close()
+
+                'ds_Lista = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "truncate table tmpLista_Precios_WEB")
+                'ds_Lista.Dispose()
+
+                'Clientes que están en la WEB y no están en la sucursal/central
+                sqlstring = " SELECT [Codigo], [Descripcion],[Porcentaje],[Valor_Cambio],[Eliminado], [DateUpd] " & _
+                            " FROM tmpLista_Precios_WEB WHERE Codigo NOT IN (SELECT Codigo FROM Lista_Precios ) "
+
+                ds_Lista = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
+                ds_Lista.Dispose()
+
+                Dim i As Integer = 0
+                Dim ds_tmpLista As Data.DataSet
+
+                If ds_Lista.Tables(0).Rows.Count > 0 Then
+                    For i = 0 To ds_Lista.Tables(0).Rows.Count - 1
+                        sqlstring = " BEGIN TRAN; " & _
+                            " INSERT INTO [dbo].[Lista_Precios] ([Codigo], [Descripcion],[Porcentaje],[Eliminado] ,[DateUpd] ) " & _
+                            " VALUES ( " & ds_Lista.Tables(0).Rows(i)(0) & " , '" & ds_Lista.Tables(0).Rows(i)(1) & "', " & ds_Lista.Tables(0).Rows(i)(2) & ", " & _
+                            IIf(CBool(ds_Lista.Tables(0).Rows(i)(4)) = True, 1, 0) & " , '" & Format(ds_Lista.Tables(0).Rows(i)(5), "dd/MM/yyyy hh:ss") & "' ); " & _
+                            " COMMIT TRAN;"
+
+                        ds_tmpLista = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
+                        ds_tmpLista.Dispose()
+
+                    Next
+                End If
+
+                sqlstring = " SELECT [Codigo] , [Descripcion],[Porcentaje],[Valor_Cambio], [Eliminado], isnull([DateUPD], '01/01/1900 00:00:00')" & _
+                            " FROM tmpLista_Precios_Web "
+
+                ds_Lista = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
+                ds_Lista.Dispose()
+
+                For i = 0 To ds_Lista.Tables(0).Rows.Count - 1
+                    sqlstring = " UPDATE [dbo].[Lista_Precios] SET " & _
+                                " [Codigo] = " & ds_Lista.Tables(0).Rows(i)(0) & ", " & _
+                                " [Descripcion] = '" & ds_Lista.Tables(0).Rows(i)(1) & "', " & _
+                                " [Porcentaje] = " & ds_Lista.Tables(0).Rows(i)(2) & ", " & _
+                                " [Eliminado] = " & IIf(CBool(ds_Lista.Tables(0).Rows(i)(4)) = True, 1, 0) & ", " & _
+                                " [DATEUPD] = '" & Format(ds_Lista.Tables(0).Rows(i)(5), "dd/MM/yyyy") & "'  " & _
+                                " WHERE Codigo = " & ds_Lista.Tables(0).Rows(i)(0)
+
+                    ds_tmpLista = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
+                    ds_tmpLista.Dispose()
+                Next
+            Catch ex As Exception
+                MsgBox("Desde Actualización de Lista de Precios " + ex.Message)
+                Me.Cursor = Cursors.Arrow
+            End Try
+        End If
+
+        '***************************************************************************************clientes**********************************************************************
+        Dim ds_Client As Data.DataSet
+
+        If Clientes Then
+            Try
+                ds_Client = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "truncate table tmpClientes_Web")
+                ds_Client.Dispose()
+
+                Dim ds_ClientWEB As DataSet = tranWEB.Sql_Get("SELECT * FROM [" & NameTable_Clientes & "] ")
+
+                Dim bulk_client As New SqlBulkCopy(ConexionWEB, SqlBulkCopyOptions.TableLock, Nothing)
+
+                ConexionWEB.Open()
+                bulk_client.DestinationTableName = "tmpClientes_Web"
+                bulk_client.WriteToServer(ds_ClientWEB.Tables(0))
+                ConexionWEB.Close()
+
+
+                'Clientes que están en la WEB y no están en la sucursal/central
+                sqlstring = " SELECT [IDPrecioLista],[Codigo],[Nombre],[TipoDocumento],[CUIT],[Direccion],[CodPostal]," & _
+                            "[Localidad],[Provincia],[Telefono],[Fax],[Email],[Contacto],[Observaciones],[Contrasena]," & _
+                            "[Usuario],[UsuarioWEB],[Repartidor],[Eliminado],[DateAdd],[Promo],[CondicionIVA],[MontoMaxCred],[DiasMaxCred],[CtaCte]" & _
+                            " FROM tmpClientes_WEB WHERE codigo NOT IN (SELECT codigo FROM Clientes ) "
+
+                ds_Client = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
+                ds_Client.Dispose()
+
+                Dim i As Integer = 0
+                Dim ds_tmpClientes As Data.DataSet
+
+
+                If ds_Client.Tables(0).Rows.Count > 0 Then
+                    For i = 0 To ds_Client.Tables(0).Rows.Count - 1
+                        sqlstring = " BEGIN TRAN; " & _
+                         " INSERT INTO [dbo].[Clientes] ([IDPrecioLista],[Codigo],[Nombre],[TipoDocumento],[CUIT],[Direccion],[CodPostal]," & _
+                            "[Localidad],[Provincia],[Telefono],[Fax],[Email],[Contacto],[Observaciones],[Contrasena]," & _
+                            "[Usuario],[UsuarioWEB],[Repartidor],[Eliminado],[DateAdd],[Promo],[CondicionIVA],[MontoMaxCred],[DiasMaxCred],[CtaCte])" & _
+                            " values ( " & ds_Client.Tables(0).Rows(i)(0) & ", '" & ds_Client.Tables(0).Rows(i)(1) & "','" & _
+                            ds_Client.Tables(0).Rows(i)(2) & "'," & ds_Client.Tables(0).Rows(i)(3) & ", " & ds_Client.Tables(0).Rows(i)(4) & ",'" & _
+                            ds_Client.Tables(0).Rows(i)(5) & "','" & ds_Client.Tables(0).Rows(i)(6) & "','" & ds_Client.Tables(0).Rows(i)(7) & "','" & _
+                            ds_Client.Tables(0).Rows(i)(8) & "','" & ds_Client.Tables(0).Rows(i)(9) & "','" & ds_Client.Tables(0).Rows(i)(10) & "','" & _
+                            ds_Client.Tables(0).Rows(i)(11) & "','" & ds_Client.Tables(0).Rows(i)(12) & "','" & ds_Client.Tables(0).Rows(i)(13) & "','" & _
+                            ds_Client.Tables(0).Rows(i)(14) & "','" & ds_Client.Tables(0).Rows(i)(15) & "'," & IIf(CBool(ds_Client.Tables(0).Rows(i)(16)) = True, 1, 0) & ",'" & _
+                            ds_Client.Tables(0).Rows(i)(17) & "'," & IIf(CBool(ds_Client.Tables(0).Rows(i)(18)) = True, 1, 0) & ",'" & _
+                            Format(ds_Client.Tables(0).Rows(i)(19), "dd/MM/yyyy hh:ss") & "'," & IIf(CBool(ds_Client.Tables(0).Rows(i)(20)) = True, 1, 0) & ",'" & ds_Client.Tables(0).Rows(i)(21) & "'," & _
+                            ds_Client.Tables(0).Rows(i)(22) & "," & ds_Client.Tables(0).Rows(i)(23) & "," & ds_Client.Tables(0).Rows(i)(24) & "); " & _
+                            " COMMIT TRAN;"
+
+                        ds_tmpClientes = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
+                        ds_tmpClientes.Dispose()
+                    Next
+                End If
+
+                sqlstring = " SELECT [IDPrecioLista],[Codigo],[Nombre],[TipoDocumento],[CUIT],[Direccion],[CodPostal]," & _
+                            " [Localidad],[Provincia],[Telefono],[Fax],[Email],[Contacto],[Observaciones],[Contrasena]," & _
+                            " [Usuario],[UsuarioWEB],[Repartidor],[Eliminado],isnull([DateUPD], '01/01/1900 00:00:00')," & _
+                            " [Promo],[CondicionIVA],[MontoMaxCred],[DiasMaxCred],[CtaCte]" & _
+                            " FROM tmpClientes_WEB "
+
+                ds_Client = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
+                ds_Client.Dispose()
+
+                For i = 0 To ds_Client.Tables(0).Rows.Count - 1
+                    sqlstring = "UPDATE [dbo].[Clientes] SET " & _
+                              "[IDPrecioLista] = " & ds_Client.Tables(0).Rows(i)(0) & "," & _
+                              "[Nombre] = '" & ds_Client.Tables(0).Rows(i)(2) & "'," & _
+                              "[TipoDocumento] = " & ds_Client.Tables(0).Rows(i)(3) & "," & _
+                              "[CUIT] = " & ds_Client.Tables(0).Rows(i)(4) & "," & _
+                              "[Direccion] = '" & ds_Client.Tables(0).Rows(i)(5) & "'," & _
+                              "[CodPostal] = '" & ds_Client.Tables(0).Rows(i)(6) & "'," & _
+                              "[Localidad] = '" & ds_Client.Tables(0).Rows(i)(7) & "'," & _
+                              "[Provincia] = '" & ds_Client.Tables(0).Rows(i)(8) & "'," & _
+                              "[Telefono] = '" & ds_Client.Tables(0).Rows(i)(9) & "'," & _
+                              "[Fax] = '" & ds_Client.Tables(0).Rows(i)(10) & "'," & _
+                              "[Email] ='" & ds_Client.Tables(0).Rows(i)(11) & "'," & _
+                              "[Contacto] = '" & ds_Client.Tables(0).Rows(i)(12) & "'," & _
+                              "[Observaciones] = '" & ds_Client.Tables(0).Rows(i)(13) & "'," & _
+                              "[Contrasena] = '" & ds_Client.Tables(0).Rows(i)(14) & "'," & _
+                              "[Usuario] = '" & ds_Client.Tables(0).Rows(i)(15) & "'," & _
+                              "[UsuarioWEB] = " & IIf(CBool(ds_Client.Tables(0).Rows(i)(16)) = True, 1, 0) & "," & _
+                              "[Repartidor] = '" & ds_Client.Tables(0).Rows(i)(17) & "'," & _
+                              "[Eliminado] = " & IIf(CBool(ds_Client.Tables(0).Rows(i)(18)) = True, 1, 0) & "," & _
+                              "[DateUpd] = '" & Format(ds_Client.Tables(0).Rows(i)(19), "dd/MM/yyyy hh:ss") & "'," & _
+                              "[Promo] = " & IIf(CBool(ds_Client.Tables(0).Rows(i)(20)) = True, 1, 0) & "," & _
+                              "[CondicionIVA] = '" & ds_Client.Tables(0).Rows(i)(21) & "'," & _
+                              "[MontoMaxCred] = " & ds_Client.Tables(0).Rows(i)(22) & "," & _
+                              "[DiasMaxCred]  = " & ds_Client.Tables(0).Rows(i)(23) & "," & _
+                              "[CtaCte] = " & ds_Client.Tables(0).Rows(i)(24) & " " & _
+                              " WHERE Codigo = '" & ds_Client.Tables(0).Rows(i)(1) & "'"
+
+                    ds_tmpClientes = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
+                    ds_tmpClientes.Dispose()
+                Next
+
+
+
+            Catch ex As Exception
+                'MsgBox(sqlstring)
+                MsgBox(" Desde Actualización clientes " + ex.Message)
+                Me.Cursor = Cursors.Arrow
+            End Try
         End If
 
 
 
+        '*******************************************************************************empleados**********************************************************************
+        Dim ds_Empleado As Data.DataSet
+
+        If Empleados Then
+            Try
+                ds_Empleado = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "truncate table tmpEmpleados_Web")
+                ds_Empleado.Dispose()
+
+                Dim ds_ClientWEB As DataSet = tranWEB.Sql_Get("SELECT * FROM [" & NameTable_Empleados & "] ")
+
+                Dim bulk_client As New SqlBulkCopy(ConexionWEB, SqlBulkCopyOptions.TableLock, Nothing)
+
+                ConexionWEB.Open()
+                bulk_client.DestinationTableName = "tmpEmpleados_Web"
+                bulk_client.WriteToServer(ds_ClientWEB.Tables(0))
+                ConexionWEB.Close()
+
+                sqlstring = "SELECT [Codigo],[Apellido],[Nombre],[Domicilio],[Telefono],[Celular],[Cuit] ," & _
+                            "[Email],[UsuarioSistema],[Usuario],[Pass],[Revendedor],[Repartidor],[Eliminado],[DateAdd],[Autoriza],[Vendedor]" & _
+                            " FROM tmpEmpleados_WEB WHERE codigo NOT IN (SELECT codigo FROM Empleados ) "
+
+                Dim i As Integer = 0
+                ds_Empleado = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
+                ds_Empleado.Dispose()
+
+                Dim ds_tmpEmpleados As Data.DataSet
+
+                If ds_Empleado.Tables(0).Rows.Count > 0 Then
+                    For i = 0 To ds_Empleado.Tables(0).Rows.Count - 1
+                        sqlstring = " BEGIN TRAN; " & _
+                       " INSERT INTO [dbo].[Empleados] ([Codigo],[Apellido],[Nombre],[Domicilio],[Telefono],[Celular],[Cuit]," & _
+                       " [Email],[UsuarioSistema],[Usuario],[Pass],[Revendedor],[Repartidor],[Eliminado],[DateAdd],[Autoriza],[Vendedor]) " & _
+                       " VALUES ( '" & ds_Empleado.Tables(0).Rows(i)(0) & "','" & ds_Empleado.Tables(0).Rows(i)(1) & "','" & _
+                        ds_Empleado.Tables(0).Rows(i)(2) & "','" & ds_Empleado.Tables(0).Rows(i)(3) & "','" & ds_Empleado.Tables(0).Rows(i)(4) & "','" & _
+                        ds_Empleado.Tables(0).Rows(i)(5) & "'," & ds_Empleado.Tables(0).Rows(i)(6) & ",'" & ds_Empleado.Tables(0).Rows(i)(7) & "'," & _
+                        IIf(CBool(ds_Empleado.Tables(0).Rows(i)(8)) = True, 1, 0) & ",'" & ds_Empleado.Tables(0).Rows(i)(9) & "','" & ds_Empleado.Tables(0).Rows(i)(10) & "'," & _
+                        IIf(CBool(ds_Empleado.Tables(0).Rows(i)(11)) = True, 1, 0) & "," & IIf(CBool(ds_Empleado.Tables(0).Rows(i)(12)) = True, 1, 0) & "," & _
+                        IIf(CBool(ds_Empleado.Tables(0).Rows(i)(13)) = True, 1, 0) & ",'" & Format(ds_Empleado.Tables(0).Rows(i)(14), "dd/MM/yyyy hh:ss") & "'," & IIf(CBool(ds_Empleado.Tables(0).Rows(i)(15)) = True, 1, 0) & "," & _
+                        IIf(CBool(ds_Empleado.Tables(0).Rows(i)(16)) = True, 1, 0) & "); " & _
+                      " COMMIT TRAN;"
+
+                        ds_tmpEmpleados = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
+                        ds_tmpEmpleados.Dispose()
+
+                    Next
+                End If
+
+                sqlstring = "SELECT [Codigo],[Apellido],[Nombre],[Domicilio],[Telefono],[Celular],[Cuit] ," & _
+                          "[Email],[UsuarioSistema],[Usuario],[Pass],[Revendedor],[Repartidor],[Eliminado],isnull([DateUPD], '01/01/1900 00:00:00'),[Autoriza],[Vendedor]" & _
+                          " FROM tmpEmpleados_WEB "
+
+                ds_Empleado = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
+                ds_Empleado.Dispose()
+
+                '"[Pass] = '" & ds_Empleado.Tables(0).Rows(i)(10) & "'," & _
+
+                For i = 0 To ds_Empleado.Tables(0).Rows.Count - 1
+                    sqlstring = "UPDATE [dbo].[Empleados] SET " & _
+                    "[Apellido] = '" & ds_Empleado.Tables(0).Rows(i)(1) & "'," & _
+                    "[Nombre] = '" & ds_Empleado.Tables(0).Rows(i)(2) & "'," & _
+                    "[Domicilio] = '" & ds_Empleado.Tables(0).Rows(i)(3) & "'," & _
+                    "[Telefono] = '" & ds_Empleado.Tables(0).Rows(i)(4) & "'," & _
+                    "[Celular] = '" & ds_Empleado.Tables(0).Rows(i)(5) & "'," & _
+                    "[Cuit] = " & ds_Empleado.Tables(0).Rows(i)(6) & "," & _
+                    "[Email] = '" & ds_Empleado.Tables(0).Rows(i)(7) & "'," & _
+                    "[UsuarioSistema] = " & IIf(CBool(ds_Empleado.Tables(0).Rows(i)(8)) = True, 1, 0) & "," & _
+                    "[Usuario] = '" & ds_Empleado.Tables(0).Rows(i)(9) & "'," & _
+                    "[Revendedor] = " & IIf(CBool(ds_Empleado.Tables(0).Rows(i)(11)) = True, 1, 0) & "," & _
+                    "[Repartidor] = " & IIf(CBool(ds_Empleado.Tables(0).Rows(i)(12)) = True, 1, 0) & "," & _
+                    "[Eliminado] = " & IIf(CBool(ds_Empleado.Tables(0).Rows(i)(13)) = True, 1, 0) & "," & _
+                    "[DateUPD] = '" & Format(ds_Empleado.Tables(0).Rows(i)(14), "dd/MM/yyyy hh:ss") & "'," & _
+                    "[Autoriza] = " & IIf(CBool(ds_Empleado.Tables(0).Rows(i)(15)) = True, 1, 0) & "," & _
+                    "[Vendedor] = " & IIf(CBool(ds_Empleado.Tables(0).Rows(i)(16)) = True, 1, 0) & " " & _
+                    " WHERE Codigo = '" & ds_Empleado.Tables(0).Rows(i)(0) & "'"
+
+                    ds_tmpEmpleados = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
+                    ds_tmpEmpleados.Dispose()
+
+                Next
+
+            Catch ex As Exception
+                MsgBox(" Desde Actualización Empleados " + ex.Message)
+                Me.Cursor = Cursors.Arrow
+            End Try
+        End If
+
+        Me.Cursor = Cursors.Arrow
+        '------------------------------temporalmente inactivo-----------------------------
+        'Timer1.Enabled = True
+        ToolStripStatusLabel.BackColor = Color.Lime
+        ToolStripStatusLabel.Text = "Actualizado"
+
     End Sub
 
-    Private Sub ReportesDepositoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ReportesDepositoToolStripMenuItem.Click
-
-        frmReportesDeposito.MdiParent = Me
-        frmReportesDeposito.Show()
-
+    'procedimiento para ver que tablas uso en la WEB
+    Public Sub ModificarName_TablasWEB(ByVal add As String)
+        'modifico nombre de tablas
+        NameTable_Materiales = NameTable_Materiales + add
+        NameTable_Stock = NameTable_Stock + add
+        NameTable_StockMov = NameTable_StockMov + add
+        NameTable_Unidades = NameTable_Unidades + add
+        NameTable_Familias = NameTable_Familias + add
+        NameTable_Marcas = NameTable_Marcas + add
+        NameTable_ListaPrecios = NameTable_ListaPrecios + add
+        NameTable_Clientes = NameTable_Clientes + add
+        NameTable_Empleados = NameTable_Empleados + add
+        NameTable_NotificacionesWEB = NameTable_NotificacionesWEB + add
+        NameTable_TransRecepWEB = NameTable_TransRecepWEB + add
+        NameTable_TransRecepWEBdet = NameTable_TransRecepWEBdet + add
+        'modifico nombre de SP
+        NameSP_spActualizarPrecioPorLista = NameSP_spActualizarPrecioPorLista + add
+        NameSP_spStockInsert = NameSP_spStockInsert + add
+        NameSP_spTransRecepWEB_Insert = NameSP_spTransRecepWEB_Insert + add
     End Sub
 
-    Private Sub VentasDepósitoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles VentasDepósitoToolStripMenuItem.Click
+    '---WEB
+#End Region
+   
+    Private Sub InformeGeneralToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles InformeGeneralToolStripMenuItem.Click
+        Dim paramreporte As New frmParametros
+        Dim rpt As New frmReportes
+        Dim Cnn As New SqlConnection(ConnStringSEI)
 
-        frmVentasWEB.MdiParent = Me
-        frmVentasWEB.Show()
+        Dim Inicial As String = "01/" & Mid$(Now, 4, 2) & "/" & Mid$(Now, 7, 4)
+        Dim Final As String = Mid$(Now, 1, 2) & "/" & Mid$(Now, 4, 2) & "/" & Mid$(Now, 7, 4)
 
-    End Sub
+        paramreporte.AgregarParametros("Inicio :", "DATE", "", False, Inicial, "", Cnn)
+        paramreporte.AgregarParametros("Fin :", "DATE", "", False, Final, "", Cnn)
 
-    Private Sub VentasPorClientesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles VentasPorClientesToolStripMenuItem.Click
+        paramreporte.ShowDialog()
 
-        frmventasclientes.MdiParent = Me
-        frmventasclientes.Show()
+        nbreformreportes = "Informe General"
 
-    End Sub
+        Cursor = System.Windows.Forms.Cursors.WaitCursor
 
-    Private Sub PromocionesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PromocionesToolStripMenuItem.Click
+        Try
+            If cerroparametrosconaceptar = True Then
 
-        frmPromocionesPorkys.MdiParent = Me
-        frmPromocionesPorkys.Show()
+                Inicial = paramreporte.ObtenerParametros(0).ToString
+                Final = paramreporte.ObtenerParametros(1).ToString
 
-    End Sub
+                rpt.InformeGeneral_SEYC(Inicial, Final, rpt)
+            End If
+        Catch ex As Exception
 
-    Private Sub TransferenciasToolStripMenuItem_Click_1(sender As Object, e As EventArgs) Handles TransferenciasToolStripMenuItem.Click
+        End Try
 
-        frmTransferenciasPorkys.MdiParent = Me
-        frmTransferenciasPorkys.Show()
+        Cursor = System.Windows.Forms.Cursors.Default
+        'Cnn = Nothing
 
-    End Sub
-
-    Private Sub MovimientosDelDíaToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MovimientosDelDíaToolStripMenuItem.Click
-    
-        frmMovDia_Caja.MdiParent = Me
-        frmMovDia_Caja.Show()
-    End Sub
-
-    Private Sub AnticiposYIngresosDepósitoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AnticiposYIngresosDepósitoToolStripMenuItem.Click
-        frmAnticiposIngresosDep.MdiParent = Me
-        frmAnticiposIngresosDep.Show()
-    End Sub
-
-    Private Sub TarjetasToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TarjetasToolStripMenuItem.Click
-        frmTarjetas.MdiParent = Me
-        frmTarjetas.Show()
-    End Sub
-
-    Private Sub MovimientosDelDíaToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles MovimientosDelDíaToolStripMenuItem1.Click
-        frmMovDia.MdiParent = Me
-        frmMovDia.Show()
-    End Sub
-
-    Private Sub ProductosMásSolicitadosToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ProductosMásSolicitadosToolStripMenuItem1.Click
-        frmMateriales_MasSolicitados.MdiParent = Me
-        frmMateriales_MasSolicitados.Show()
-    End Sub
-
-    Private Sub PresentacionesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PresentacionesToolStripMenuItem.Click
-        frmPresentaciones.MdiParent = Me
-        frmPresentaciones.Show()
+        CType(paramreporte, IDisposable).Dispose()
+        CType(Cnn, IDisposable).Dispose()
     End Sub
 End Class

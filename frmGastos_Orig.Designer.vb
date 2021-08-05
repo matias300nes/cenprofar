@@ -1059,7 +1059,7 @@ Partial Class frmGastoS_ORIG
         '
         Me.picProveedores.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.picProveedores.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.picProveedores.Image = Global.PORKYS.My.Resources.Resources.Info
+        Me.picProveedores.Image = Global.SEYC.My.Resources.Resources.Info
         Me.picProveedores.Location = New System.Drawing.Point(352, 71)
         Me.picProveedores.Name = "picProveedores"
         Me.picProveedores.Size = New System.Drawing.Size(18, 20)
@@ -1236,7 +1236,7 @@ Partial Class frmGastoS_ORIG
         Me.PicClientes.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.PicClientes.Cursor = System.Windows.Forms.Cursors.Hand
         Me.PicClientes.Enabled = False
-        Me.PicClientes.Image = Global.PORKYS.My.Resources.Resources.Info
+        Me.PicClientes.Image = Global.SEYC.My.Resources.Resources.Info
         Me.PicClientes.Location = New System.Drawing.Point(352, 110)
         Me.PicClientes.Name = "PicClientes"
         Me.PicClientes.Size = New System.Drawing.Size(18, 20)
@@ -1261,7 +1261,7 @@ Partial Class frmGastoS_ORIG
         Me.PicObras.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.PicObras.Cursor = System.Windows.Forms.Cursors.Hand
         Me.PicObras.Enabled = False
-        Me.PicObras.Image = Global.PORKYS.My.Resources.Resources.Info
+        Me.PicObras.Image = Global.SEYC.My.Resources.Resources.Info
         Me.PicObras.Location = New System.Drawing.Point(352, 149)
         Me.PicObras.Name = "PicObras"
         Me.PicObras.Size = New System.Drawing.Size(18, 20)

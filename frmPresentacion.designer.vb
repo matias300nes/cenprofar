@@ -39,7 +39,7 @@ Partial Class frmPresentacion
         'MainLayoutPanel
         '
         Me.MainLayoutPanel.BackColor = System.Drawing.Color.White
-        Me.MainLayoutPanel.BackgroundImage = Global.PORKYS.My.Resources.Resources.Presentacion3
+        Me.MainLayoutPanel.BackgroundImage = Global.SEYC.My.Resources.Resources.Presentacion3
         Me.MainLayoutPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.MainLayoutPanel.ColumnCount = 2
         Me.MainLayoutPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 243.0!))

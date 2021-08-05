@@ -548,7 +548,7 @@ Partial Class frmPromocionesPorkys
         '
         'btnActualizarMat
         '
-        Me.btnActualizarMat.BackgroundImage = Global.PORKYS.My.Resources.Resources.Sincro
+        Me.btnActualizarMat.BackgroundImage = Global.SEYC.My.Resources.Resources.Sincro
         Me.btnActualizarMat.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.btnActualizarMat.Location = New System.Drawing.Point(635, 126)
         Me.btnActualizarMat.Name = "btnActualizarMat"

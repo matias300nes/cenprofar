@@ -436,7 +436,7 @@ Public Module Util
             End While
 
             MessageBox.Show(String.Format("Se provocó un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software Factory a través del correo soporte@kaizensoftware.com.ar", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "AsignarPermisos", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         Finally
@@ -583,7 +583,6 @@ Public Module Util
         For Each oControl As Object In oVControls
             Try
                 If TypeOf (oControl) Is TextBox Then
-                    ' MsgBox(oControl.Tag)
                     If oControl.Tag <> "" Then
                         oControl.Text = IIf(g.CurrentRow.Cells(CType(oControl.Tag, Integer)).Value Is DBNull.Value, "", g.CurrentRow.Cells(CType(oControl.Tag, Integer)).Value)
                         Try
@@ -1254,7 +1253,7 @@ Public Module Util
             End While
 
             MessageBox.Show(String.Format("Se provocó un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software Factory a través del correo soporte@kaizensoftware.com.ar", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         Finally
@@ -1324,7 +1323,7 @@ Public Module Util
             End While
 
             MessageBox.Show(String.Format("Se provocó un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software Factory a través del correo soporte@kaizensoftware.com.ar", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         Finally
@@ -1895,7 +1894,7 @@ Public Module Util
             End While
 
             MessageBox.Show(String.Format("Se provocó un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software Factory a través del correo soporte@kaizensoftware.com.ar", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         Finally
@@ -2062,7 +2061,7 @@ Public Module Util
             End While
 
             MessageBox.Show(String.Format("Se provocó un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software Factory a través del correo soporte@kaizensoftware.com.ar", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         Finally
@@ -2165,7 +2164,7 @@ Public Module Util
             End While
 
             MessageBox.Show(String.Format("Se provocó un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software Factory a través del correo soporte@kaizensoftware.com.ar", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         Finally
@@ -2268,7 +2267,7 @@ Public Module Util
             End While
 
             MessageBox.Show(String.Format("Se provocó un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software Factory a través del correo soporte@kaizensoftware.com.ar", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         Finally
@@ -2341,7 +2340,7 @@ Public Module Util
             End While
 
             MessageBox.Show(String.Format("Se provocó un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software Factory a través del correo soporte@kaizensoftware.com.ar", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         Finally
@@ -2489,7 +2488,7 @@ Public Module Util
             End While
 
             MessageBox.Show(String.Format("Se provocó un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software Factory a través del correo soporte@kaizensoftware.com.ar", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         Finally
@@ -2641,7 +2640,7 @@ Public Module Util
             End While
 
             MessageBox.Show(String.Format("Se provocó un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software Factory a través del correo soporte@kaizensoftware.com.ar", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         Finally
@@ -2730,7 +2729,7 @@ Public Module Util
             End While
 
             MessageBox.Show(String.Format("Se provocó un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software Factory a través del correo soporte@kaizensoftware.com.ar", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         Finally
@@ -2846,7 +2845,7 @@ Public Module Util
             End While
 
             MessageBox.Show(String.Format("Se provocó un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software Factory a través del correo soporte@kaizensoftware.com.ar", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         Finally
@@ -3274,7 +3273,7 @@ Public Module Util
             End While
 
             MessageBox.Show(String.Format("Se provocó un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software Factory a través del correo soporte@kaizensoftware.com.ar", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         Finally
@@ -3388,7 +3387,7 @@ Public Module Util
             End While
 
             MessageBox.Show(String.Format("Se provocó un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software Factory a través del correo soporte@kaizensoftware.com.ar", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         Finally
@@ -3485,7 +3484,7 @@ Public Module Util
             End While
 
             MessageBox.Show(String.Format("Se provocó un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software Factory a través del correo soporte@kaizensoftware.com.ar", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         Finally
@@ -3593,7 +3592,7 @@ Public Module Util
             End While
 
             MessageBox.Show(String.Format("Se provocó un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software Factory a través del correo soporte@kaizensoftware.com.ar", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         Finally
@@ -3690,7 +3689,7 @@ Public Module Util
             End While
 
             MessageBox.Show(String.Format("Se provocó un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software Factory a través del correo soporte@kaizensoftware.com.ar", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         Finally
@@ -3757,7 +3756,7 @@ Public Module Util
                 tempException = tempException.InnerException
             End While
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software Factory a través del correo soporte@kaizensoftware.com.ar", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
             ObtenerMoneda_ValorCambioDolar = ""
@@ -3866,7 +3865,7 @@ Public Module Util
             End While
 
             MessageBox.Show(String.Format("Se provocó un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software Factory a través del correo soporte@kaizensoftware.com.ar", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         Finally
@@ -3925,7 +3924,7 @@ Public Module Util
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software Factory a través del correo soporte@kaizensoftware.com.ar", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             If Not connection Is Nothing Then
@@ -3948,7 +3947,7 @@ Public Module Util
 
         Try
 
-            If Sistema = "FEAFIP" Or Sistema.Contains("Magenta2") Then
+            If Sistema = "FEAFIP" Then
                 ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, "select c.codigo, c.comprobantenro, CodigoBarra, c.id from Consumos c JOIN Comprobantes cp ON convert(int, cp.codigo) = c.comprobantetipo where cp.descripcion = '" & TipoComprobante & "' and comprobantenro =  " & NroFactura)
             Else
                 ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, "select f.codigo, f.nrofactura, ISNULL(CodigoBarra,''), f.id from Facturacion f JOIN Comprobantes cp ON convert(int, cp.codigo) = f.comprobantetipo where (CAE <> '' OR CAE IS NOT NULL) AND cp.descripcion = '" & TipoComprobante & "' and nrofactura =  " & NroFactura)
@@ -3976,7 +3975,7 @@ Public Module Util
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software Factory a través del correo soporte@kaizensoftware.com.ar", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             If Not connection Is Nothing Then
@@ -4249,7 +4248,7 @@ Public Module Util
             End While
 
             MessageBox.Show(String.Format("Se provocó un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software Factory a través del correo soporte@kaizensoftware.com.ar", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         Finally
@@ -4348,7 +4347,7 @@ Public Module Util
             End While
 
             MessageBox.Show(String.Format("Se provocó un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software Factory a través del correo soporte@kaizensoftware.com.ar", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         Finally
@@ -4487,7 +4486,7 @@ Public Module Util
             End While
 
             MessageBox.Show(String.Format("Se provocó un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software Factory a través del correo soporte@kaizensoftware.com.ar", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         Finally
@@ -4567,7 +4566,7 @@ Public Module Util
             End While
 
             MessageBox.Show(String.Format("Se provocó un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software Factory a través del correo soporte@kaizensoftware.com.ar", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         Finally
@@ -4647,7 +4646,7 @@ Public Module Util
             End While
 
             MessageBox.Show(String.Format("Se provocó un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software Factory a través del correo soporte@kaizensoftware.com.ar", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         Finally
@@ -4974,7 +4973,7 @@ Public Module Util
             End While
 
             MessageBox.Show(String.Format("Se provocó un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software Factory a través del correo soporte@kaizensoftware.com.ar", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         Finally
@@ -5166,7 +5165,7 @@ Public Module Util
             End While
 
             MessageBox.Show(String.Format("Se provocó un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software Factory a través del correo soporte@kaizensoftware.com.ar", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         Finally
@@ -5486,7 +5485,7 @@ Public Module Util
             End While
 
             MessageBox.Show(String.Format("Se provocó un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software Factory a través del correo soporte@kaizensoftware.com.ar", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         Finally
@@ -5539,7 +5538,7 @@ Public Module Util
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software Factory a través del correo soporte@kaizensoftware.com.ar", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             If Not connection Is Nothing Then
@@ -5806,7 +5805,7 @@ Public Module Util
             End While
 
             MessageBox.Show(String.Format("Se provocó un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software Factory a través del correo soporte@kaizensoftware.com.ar", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         Finally

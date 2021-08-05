@@ -302,7 +302,7 @@ Partial Class frmDevoluciones
         '
         Me.PicCENTROSCOSTOS.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.PicCENTROSCOSTOS.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.PicCENTROSCOSTOS.Image = Global.PORKYS.My.Resources.Resources.Info
+        Me.PicCENTROSCOSTOS.Image = Global.SEYC.My.Resources.Resources.Info
         Me.PicCENTROSCOSTOS.Location = New System.Drawing.Point(268, 16)
         Me.PicCENTROSCOSTOS.Name = "PicCENTROSCOSTOS"
         Me.PicCENTROSCOSTOS.Size = New System.Drawing.Size(18, 20)

@@ -595,7 +595,6 @@ D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA PORKYS\obj\Debug\PORKYS.fr
 D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA PORKYS\obj\Debug\PORKYS.frmPromocionesPorkys.resources
 D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA PORKYS\obj\Debug\PORKYS.frmPromociones.resources
 D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA PORKYS\obj\Debug\PORKYS.frmVentasClientes.resources
-D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA PORKYS\obj\Debug\PORKYS.frmResumenEnvio.resources
 D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA PORKYS\obj\Debug\PORKYS.frmVentasWEB.resources
 D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA PORKYS\obj\Debug\PORKYS.frmReportesDeposito.resources
 D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA PORKYS\obj\Debug\PORKYS.frmMaterialesExport.resources
@@ -686,127 +685,147 @@ D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA PORKYS\obj\Debug\PORKYS.fr
 \\SAMBA-PC\Proyectos\SISTEMA PORKYS\SISTEMA PORKYS\obj\Debug\PORKYS.xml
 \\SAMBA-PC\Proyectos\SISTEMA PORKYS\SISTEMA PORKYS\obj\Debug\PORKYS.pdb
 D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA PORKYS\obj\Debug\PORKYS.frmActuliazarSistema.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\bin\Debug\PORKYS.exe.config
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\Porkys.vbproj.ResolveComReference.cache
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.exe
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.xml
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.pdb
-C:\Users\ignac\Documents\SISTEMA PORKYS\bin\Debug\PORKYS.exe
-C:\Users\ignac\Documents\SISTEMA PORKYS\bin\Debug\PORKYS.pdb
-C:\Users\ignac\Documents\SISTEMA PORKYS\bin\Debug\PORKYS.xml
-C:\Users\ignac\Documents\SISTEMA PORKYS\bin\Debug\Microsoft.VisualBasic.PowerPacks.Vs.dll
-C:\Users\ignac\Documents\SISTEMA PORKYS\bin\Debug\Microsoft.VisualBasic.PowerPacks.Vs.resources.dll
-C:\Users\ignac\Documents\SISTEMA PORKYS\bin\Debug\GMap.NET.WindowsForms.dll
-C:\Users\ignac\Documents\SISTEMA PORKYS\bin\Debug\GMap.NET.Core.dll
-C:\Users\ignac\Documents\SISTEMA PORKYS\bin\Debug\Microsoft.ApplicationBlocks.Data.pdb
-C:\Users\ignac\Documents\SISTEMA PORKYS\bin\Debug\Microsoft.ApplicationBlocks.Data.xml
-C:\Users\ignac\Documents\SISTEMA PORKYS\bin\Debug\ReportesNet.pdb
-C:\Users\ignac\Documents\SISTEMA PORKYS\bin\Debug\ReportesNet.xml
-C:\Users\ignac\Documents\SISTEMA PORKYS\bin\Debug\TextBoxConFormatoVB.pdb
-C:\Users\ignac\Documents\SISTEMA PORKYS\bin\Debug\TextBoxConFormatoVB.xml
-C:\Users\ignac\Documents\SISTEMA PORKYS\bin\Debug\Utiles.pdb
-C:\Users\ignac\Documents\SISTEMA PORKYS\bin\Debug\Utiles.xml
-C:\Users\ignac\Documents\SISTEMA PORKYS\bin\Debug\WebServicePorkys.pdb
-C:\Users\ignac\Documents\SISTEMA PORKYS\bin\Debug\WebServicePorkys.xml
-C:\Users\ignac\Documents\SISTEMA PORKYS\bin\Debug\es\Microsoft.VisualBasic.PowerPacks.Vs.resources.dll
-C:\Users\ignac\Documents\SISTEMA PORKYS\bin\Debug\Microsoft.Office.Interop.Word.dll
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\Porkys.vbprojResolveAssemblyReference.cache
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmAcercade.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmActuliazarSistema.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmMateriales_MasSolicitados.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmTarjetas.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmBusquedaFacturas.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmUnidades.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmVentasCliente_Det.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmMovDia_Caja.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmAnticiposIngresosDep.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmMovDia.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmVentaSalon_Pop.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmBusquedaProducto.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmBusquedaCliente.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmVentaSalon.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmTransferenciasPorkys.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmVentasMostrador.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmPromocionesPorkys.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmPromociones.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmVentasClientes.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmResumenEnvio.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmVentasWEB.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmReportesDeposito.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmMaterialesExport.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmPedidosWEB.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmConsultarPrecios.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmAbriPack.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmListaPrecios.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmLoginVendedor.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmRemitosSinPresupuesto.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmRequirimientos.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmAsistenciasTablet.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmOrdenTrabajo_Det.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmOrdenTrabajo.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmAsistencias.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmConsolidaciones.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmDeposito.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmJornadas.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmPresupuestos.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.Form1.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmGastosSueldos.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmChequesPropios.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmEnsayos.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmPresupuestos_Tipos.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmMaqHerramientas_Mov.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmMaqHerramientas.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmEmpleados.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmMarcas.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmMateriales2.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmMateriales_ImagenExcel.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmOrdenCompra_Abierta.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmPresentacion.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmRecepciones_Complejo.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmPagodeClientes_Fletes.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmPagodeGastos_Recepciones.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmPagodeGastos.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmGastos_ORIG.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmCondiciondePago.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmNotaCredito.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmPagodeClientes_Contado.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmFacturacion_Manual.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmImpuestos.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmPagodeClientes.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmConsumos.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmFacturacion.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmIngresos.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmMaterialesPrecios.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmCheques.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmCierredeObras.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmGastos.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmClientes.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmAjustes.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmAlmacenes.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmBase.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmConsumos_OLD.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmDevoluciones.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmDevolucionesProveedor.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmPresupuestos_Historia.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmRubros.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmIngresos_postTrabajo.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmNotas.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmObras.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmImpresorVales.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmMateriales.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmOrdenCompra.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmPresupuestos_old.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmRemitos.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmProveedores.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmRecepciones.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmTableros.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmTipoMoneda.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmTransferencias.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmUsuarioModo.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmUsuarios.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmVentas.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.MDIPrincipal.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.Resources.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\PORKYS.frmMovDia_Caja_Operacion.resources
-C:\Users\ignac\Documents\SISTEMA PORKYS\obj\Debug\Porkys.vbproj.GenerateResource.Cache
-E:\SISTEMA CENPROFAR\obj\Debug\PORKYS.vbprojResolveAssemblyReference.cache
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA PORKYS\obj\Debug\PORKYS.frmTransRecepWEB.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA PORKYS\obj\Debug\PORKYS.frmMateriales_ActualizacionPrecios.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA PORKYS\obj\Debug\PORKYS.frmMovSalon_Opciones.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA PORKYS\obj\Debug\PORKYS.frmMovSalon_Productos.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA PORKYS\obj\Debug\PORKYS.frmVentasWEB_PedirOrden.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA PORKYS\obj\Debug\PORKYS.frmVentasWEB_ResumenEnvio.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\bin\Debug\PORKYS.exe.config
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\Porkys.vbproj.ResolveComReference.cache
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.exe
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.xml
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.pdb
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\bin\Debug\PORKYS.exe
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\bin\Debug\PORKYS.pdb
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\bin\Debug\PORKYS.xml
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\bin\Debug\Microsoft.ApplicationBlocks.Data.dll
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\bin\Debug\Microsoft.VisualBasic.PowerPacks.Vs.dll
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\bin\Debug\Microsoft.VisualBasic.PowerPacks.Vs.resources.dll
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\bin\Debug\ReportesNet.exe
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\bin\Debug\TextBoxConFormatoVB.dll
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\bin\Debug\Utiles.dll
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\bin\Debug\WebServicePorkys.dll
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\bin\Debug\GMap.NET.WindowsForms.dll
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\bin\Debug\GMap.NET.Core.dll
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\bin\Debug\Microsoft.ApplicationBlocks.Data.pdb
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\bin\Debug\Microsoft.ApplicationBlocks.Data.xml
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\bin\Debug\ReportesNet.pdb
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\bin\Debug\ReportesNet.xml
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\bin\Debug\TextBoxConFormatoVB.pdb
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\bin\Debug\TextBoxConFormatoVB.xml
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\bin\Debug\Utiles.pdb
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\bin\Debug\Utiles.xml
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\bin\Debug\WebServicePorkys.pdb
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\bin\Debug\WebServicePorkys.xml
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\bin\Debug\es\Microsoft.VisualBasic.PowerPacks.Vs.resources.dll
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\bin\Debug\Microsoft.Office.Interop.Word.dll
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\Porkys.vbprojResolveAssemblyReference.cache
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmAcercade.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmDevolucionesProveedor.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmVentasWEB_PedirOrden.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmMovSalon_Opciones.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmMovSalon_Productos.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmMateriales_ActualizacionPrecios.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmTransRecepWEB.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmActuliazarSistema.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmMateriales_MasSolicitados.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmTarjetas.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmBusquedaFacturas.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmUnidades.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmVentasCliente_Det.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmMovDia_Caja.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmAnticiposIngresosDep.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmMovDia.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmVentaSalon_Pop.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmBusquedaProducto.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmBusquedaCliente.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmVentaSalon.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmTransferenciasPorkys.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmVentasMostrador.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmPromocionesPorkys.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmPromociones.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmVentasClientes.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmVentasWEB_ResumenEnvio.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmVentasWEB.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmReportesDeposito.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmMaterialesExport.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmPedidosWEB.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmConsultarPrecios.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmAbriPack.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmListaPrecios.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmLoginVendedor.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmRemitosSinPresupuesto.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmRequirimientos.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmAsistenciasTablet.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmOrdenTrabajo_Det.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmOrdenTrabajo.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmAsistencias.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmConsolidaciones.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmDeposito.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmJornadas.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmPresupuestos.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.Form1.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmGastosSueldos.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmChequesPropios.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmEnsayos.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmPresupuestos_Tipos.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmMaqHerramientas_Mov.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmMaqHerramientas.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmEmpleados.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmMarcas.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmMateriales2.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmMateriales_ImagenExcel.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmOrdenCompra_Abierta.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmPresentacion.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmRecepciones_Complejo.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmPagodeClientes_Fletes.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmPagodeGastos_Recepciones.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmPagodeGastos.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmGastos_ORIG.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmCondiciondePago.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmNotaCredito.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmPagodeClientes_Contado.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmFacturacion_Manual.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmImpuestos.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmPagodeClientes.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmConsumos.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmFacturacion.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmIngresos.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmMaterialesPrecios.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmCheques.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmCierredeObras.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmGastos.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmClientes.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmAjustes.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmAlmacenes.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmBase.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmConsumos_OLD.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmDevoluciones.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmPresupuestos_Historia.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmRubros.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmIngresos_postTrabajo.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmNotas.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmObras.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmImpresorVales.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmMateriales.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmOrdenCompra.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmPresupuestos_old.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmRemitos.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmProveedores.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmRecepciones.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmTableros.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmTipoMoneda.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmTransferencias.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmUsuarioModo.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmUsuarios.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmVentas.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.MDIPrincipal.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.Resources.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\PORKYS.frmMovDia_Caja_Operacion.resources
+D:\Programación-HDD\Proyectos\SISTEMA PORKYS\SISTEMA RESPO\obj\Debug\Porkys.vbproj.GenerateResource.Cache
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\bin\Debug\PORKYS.exe.config
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\Porkys.vbproj.ResolveComReference.cache
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\PORKYS.exe
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\PORKYS.xml
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\PORKYS.pdb

@@ -96,7 +96,6 @@ E:\MIT\Utiles\bin\Debug\Microsoft.ApplicationBlocks.Data.pdb
 E:\MIT\Utiles\bin\Debug\Microsoft.ApplicationBlocks.Data.xml
 E:\MIT\Utiles\bin\Debug\TextBoxConFormatoVB.pdb
 E:\MIT\Utiles\bin\Debug\TextBoxConFormatoVB.xml
-E:\MIT\Utiles\obj\Debug\Utiles.vbprojResolveAssemblyReference.cache
 E:\MIT\Utiles\obj\Debug\Utiles.frmParametros.resources
 E:\MIT\Utiles\obj\Debug\Utiles.Login.resources
 E:\MIT\Utiles\obj\Debug\Utiles.Resources.resources
@@ -104,11 +103,26 @@ E:\MIT\Utiles\obj\Debug\Utiles.vbproj.GenerateResource.Cache
 E:\MIT\Utiles\obj\Debug\Utiles.dll
 E:\MIT\Utiles\obj\Debug\Utiles.xml
 E:\MIT\Utiles\obj\Debug\Utiles.pdb
-E:\MIT\Utiles\bin\Debug\GMap.NET.Core.dll
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\Utiles\bin\Debug\Utiles.dll
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\Utiles\bin\Debug\Utiles.pdb
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\Utiles\bin\Debug\Utiles.xml
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\Utiles\bin\Debug\Microsoft.ApplicationBlocks.Data.dll
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\Utiles\bin\Debug\TextBoxConFormatoVB.dll
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\Utiles\bin\Debug\Microsoft.ApplicationBlocks.Data.pdb
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\Utiles\bin\Debug\Microsoft.ApplicationBlocks.Data.xml
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\Utiles\bin\Debug\TextBoxConFormatoVB.pdb
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\Utiles\bin\Debug\TextBoxConFormatoVB.xml
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\Utiles\obj\Debug\Utiles.frmParametros.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\Utiles\obj\Debug\Utiles.Login.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\Utiles\obj\Debug\Utiles.Resources.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\Utiles\obj\Debug\Utiles.vbproj.GenerateResource.Cache
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\Utiles\obj\Debug\Utiles.dll
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\Utiles\obj\Debug\Utiles.xml
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\Utiles\obj\Debug\Utiles.pdb
+E:\MIT\Utiles\obj\Debug\Utiles.vbprojResolveAssemblyReference.cache
 H:\MIT\Utiles\bin\Debug\Utiles.dll
 H:\MIT\Utiles\bin\Debug\Utiles.pdb
 H:\MIT\Utiles\bin\Debug\Utiles.xml
-H:\MIT\Utiles\bin\Debug\GMap.NET.Core.dll
 H:\MIT\Utiles\bin\Debug\Microsoft.ApplicationBlocks.Data.dll
 H:\MIT\Utiles\bin\Debug\TextBoxConFormatoVB.dll
 H:\MIT\Utiles\bin\Debug\Microsoft.ApplicationBlocks.Data.pdb
@@ -123,37 +137,20 @@ H:\MIT\Utiles\obj\Debug\Utiles.vbproj.GenerateResource.Cache
 H:\MIT\Utiles\obj\Debug\Utiles.dll
 H:\MIT\Utiles\obj\Debug\Utiles.xml
 H:\MIT\Utiles\obj\Debug\Utiles.pdb
-C:\Users\tomas\Documents\Software SEI\Utiles\bin\Debug\Utiles.dll
-C:\Users\tomas\Documents\Software SEI\Utiles\bin\Debug\Utiles.pdb
-C:\Users\tomas\Documents\Software SEI\Utiles\bin\Debug\Utiles.xml
-C:\Users\tomas\Documents\Software SEI\Utiles\bin\Debug\Microsoft.ApplicationBlocks.Data.dll
-C:\Users\tomas\Documents\Software SEI\Utiles\bin\Debug\TextBoxConFormatoVB.dll
-C:\Users\tomas\Documents\Software SEI\Utiles\bin\Debug\Microsoft.ApplicationBlocks.Data.pdb
-C:\Users\tomas\Documents\Software SEI\Utiles\bin\Debug\Microsoft.ApplicationBlocks.Data.xml
-C:\Users\tomas\Documents\Software SEI\Utiles\bin\Debug\TextBoxConFormatoVB.pdb
-C:\Users\tomas\Documents\Software SEI\Utiles\bin\Debug\TextBoxConFormatoVB.xml
-C:\Users\tomas\Documents\Software SEI\Utiles\obj\Debug\Utiles.vbprojResolveAssemblyReference.cache
-C:\Users\tomas\Documents\Software SEI\Utiles\obj\Debug\Utiles.frmParametros.resources
-C:\Users\tomas\Documents\Software SEI\Utiles\obj\Debug\Utiles.Login.resources
-C:\Users\tomas\Documents\Software SEI\Utiles\obj\Debug\Utiles.Resources.resources
-C:\Users\tomas\Documents\Software SEI\Utiles\obj\Debug\Utiles.vbproj.GenerateResource.Cache
-C:\Users\tomas\Documents\Software SEI\Utiles\obj\Debug\Utiles.dll
-C:\Users\tomas\Documents\Software SEI\Utiles\obj\Debug\Utiles.xml
-C:\Users\tomas\Documents\Software SEI\Utiles\obj\Debug\Utiles.pdb
-C:\Users\ignac\Documents\SISTEMA CIAPA\Utiles\bin\Debug\Utiles.dll
-C:\Users\ignac\Documents\SISTEMA CIAPA\Utiles\bin\Debug\Utiles.pdb
-C:\Users\ignac\Documents\SISTEMA CIAPA\Utiles\bin\Debug\Utiles.xml
-C:\Users\ignac\Documents\SISTEMA CIAPA\Utiles\bin\Debug\Microsoft.ApplicationBlocks.Data.dll
-C:\Users\ignac\Documents\SISTEMA CIAPA\Utiles\bin\Debug\TextBoxConFormatoVB.dll
-C:\Users\ignac\Documents\SISTEMA CIAPA\Utiles\bin\Debug\Microsoft.ApplicationBlocks.Data.pdb
-C:\Users\ignac\Documents\SISTEMA CIAPA\Utiles\bin\Debug\Microsoft.ApplicationBlocks.Data.xml
-C:\Users\ignac\Documents\SISTEMA CIAPA\Utiles\bin\Debug\TextBoxConFormatoVB.pdb
-C:\Users\ignac\Documents\SISTEMA CIAPA\Utiles\bin\Debug\TextBoxConFormatoVB.xml
-C:\Users\ignac\Documents\SISTEMA CIAPA\Utiles\obj\Debug\Utiles.vbprojResolveAssemblyReference.cache
-C:\Users\ignac\Documents\SISTEMA CIAPA\Utiles\obj\Debug\Utiles.frmParametros.resources
-C:\Users\ignac\Documents\SISTEMA CIAPA\Utiles\obj\Debug\Utiles.Login.resources
-C:\Users\ignac\Documents\SISTEMA CIAPA\Utiles\obj\Debug\Utiles.Resources.resources
-C:\Users\ignac\Documents\SISTEMA CIAPA\Utiles\obj\Debug\Utiles.vbproj.GenerateResource.Cache
-C:\Users\ignac\Documents\SISTEMA CIAPA\Utiles\obj\Debug\Utiles.dll
-C:\Users\ignac\Documents\SISTEMA CIAPA\Utiles\obj\Debug\Utiles.xml
-C:\Users\ignac\Documents\SISTEMA CIAPA\Utiles\obj\Debug\Utiles.pdb
+E:\SISTEMA CENPROFAR\Utiles\bin\Debug\Utiles.dll
+E:\SISTEMA CENPROFAR\Utiles\bin\Debug\Utiles.pdb
+E:\SISTEMA CENPROFAR\Utiles\bin\Debug\Utiles.xml
+E:\SISTEMA CENPROFAR\Utiles\bin\Debug\Microsoft.ApplicationBlocks.Data.dll
+E:\SISTEMA CENPROFAR\Utiles\bin\Debug\TextBoxConFormatoVB.dll
+E:\SISTEMA CENPROFAR\Utiles\bin\Debug\TextBoxConFormatoVB.pdb
+E:\SISTEMA CENPROFAR\Utiles\bin\Debug\TextBoxConFormatoVB.xml
+E:\SISTEMA CENPROFAR\Utiles\bin\Debug\Microsoft.ApplicationBlocks.Data.pdb
+E:\SISTEMA CENPROFAR\Utiles\bin\Debug\Microsoft.ApplicationBlocks.Data.xml
+E:\SISTEMA CENPROFAR\Utiles\obj\Debug\Utiles.vbprojResolveAssemblyReference.cache
+E:\SISTEMA CENPROFAR\Utiles\obj\Debug\Utiles.frmParametros.resources
+E:\SISTEMA CENPROFAR\Utiles\obj\Debug\Utiles.Login.resources
+E:\SISTEMA CENPROFAR\Utiles\obj\Debug\Utiles.Resources.resources
+E:\SISTEMA CENPROFAR\Utiles\obj\Debug\Utiles.vbproj.GenerateResource.Cache
+E:\SISTEMA CENPROFAR\Utiles\obj\Debug\Utiles.dll
+E:\SISTEMA CENPROFAR\Utiles\obj\Debug\Utiles.xml
+E:\SISTEMA CENPROFAR\Utiles\obj\Debug\Utiles.pdb

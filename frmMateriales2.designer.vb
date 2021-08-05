@@ -871,7 +871,7 @@ Partial Class frmMateriales2
         '
         Me.PicMONEDAS.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.PicMONEDAS.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.PicMONEDAS.Image = Global.PORKYS.My.Resources.Resources.Info
+        Me.PicMONEDAS.Image = Global.SEYC.My.Resources.Resources.Info
         Me.PicMONEDAS.Location = New System.Drawing.Point(1023, 98)
         Me.PicMONEDAS.Name = "PicMONEDAS"
         Me.PicMONEDAS.Size = New System.Drawing.Size(18, 20)
@@ -1236,7 +1236,7 @@ Partial Class frmMateriales2
         '
         Me.PicFAMILIAS.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.PicFAMILIAS.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.PicFAMILIAS.Image = Global.PORKYS.My.Resources.Resources.Info
+        Me.PicFAMILIAS.Image = Global.SEYC.My.Resources.Resources.Info
         Me.PicFAMILIAS.Location = New System.Drawing.Point(789, 31)
         Me.PicFAMILIAS.Name = "PicFAMILIAS"
         Me.PicFAMILIAS.Size = New System.Drawing.Size(18, 20)
@@ -1261,7 +1261,7 @@ Partial Class frmMateriales2
         '
         Me.PicUNIDADES.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.PicUNIDADES.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.PicUNIDADES.Image = Global.PORKYS.My.Resources.Resources.Info
+        Me.PicUNIDADES.Image = Global.SEYC.My.Resources.Resources.Info
         Me.PicUNIDADES.Location = New System.Drawing.Point(1296, 32)
         Me.PicUNIDADES.Name = "PicUNIDADES"
         Me.PicUNIDADES.Size = New System.Drawing.Size(18, 20)
@@ -1273,7 +1273,7 @@ Partial Class frmMateriales2
         '
         Me.picGanancia.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.picGanancia.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.picGanancia.Image = Global.PORKYS.My.Resources.Resources.icono_ayuda
+        Me.picGanancia.Image = Global.SEYC.My.Resources.Resources.icono_ayuda
         Me.picGanancia.Location = New System.Drawing.Point(727, 164)
         Me.picGanancia.Name = "picGanancia"
         Me.picGanancia.Size = New System.Drawing.Size(18, 20)

@@ -154,7 +154,7 @@ Public Class frmOrdenCompra
         LlenarcmbCondicionDePago_App(cmbCONDICIONDEPAGO, ConnStringSEI)
         LlenarcmbProveedores_App(cmbPROVEEDORES, ConnStringSEI, 0, 0)
 
-        Me.LlenarCombo_Productos()
+        Me.LlenarCombo_Productos("")
 
         SQL = "exec spOrdenDeCompra_Select_All @Eliminado = " & rdAnuladas.Checked & ", @Pendientes = " & rdPendientes.Checked & ", @PendientesyCumplidas = " & rdTodasOC.Checked
 
@@ -230,7 +230,11 @@ Public Class frmOrdenCompra
 
         If band = 1 Then
 
-            ds_Empresa = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "SELECT PrecioCompra, m.IdUnidad, SUM(s.qty) FROM Materiales m JOIN Stock s ON s.idmaterial = m.Codigo where m.Codigo = " & cmbProducto.SelectedValue & "GROUP BY PrecioCompra, M.IDUnidad ")
+
+            Dim sqlstring As String
+            sqlstring = "SELECT PrecioCompra, m.IdUnidad, SUM(s.qty) FROM Materiales m JOIN Stock s ON s.idmaterial = m.Codigo where m.Codigo = " & cmbProducto.SelectedValue & "GROUP BY PrecioCompra, M.IDUnidad "
+            'sqlstring = "SELECT PrecioCompra, m.IdUnidad, s.qty FROM Materiales m JOIN Stock s ON s.idmaterial = m.Codigo where m.Codigo = ' " & cmbProducto.SelectedValue & "' And s.IDAlmacen = " & cmbAlmacenes.SelectedValue
+            ds_Empresa = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
             ds_Empresa.Dispose()
 
             txtPrecioCosto.Text = Math.Round(CDbl(ds_Empresa.Tables(0).Rows(0)(0)), 2)
@@ -255,7 +259,7 @@ Public Class frmOrdenCompra
         Catch ex As Exception
 
         End Try
-   
+
     End Sub
 
     Private Sub txtCantidad_KeyDown(sender As Object, e As KeyEventArgs) Handles txtCantidad.KeyDown
@@ -939,7 +943,7 @@ Public Class frmOrdenCompra
         Catch ex As Exception
 
         End Try
-  
+
 
 
     End Sub
@@ -963,7 +967,7 @@ Public Class frmOrdenCompra
             Catch ex As Exception
 
             End Try
-    
+
         End If
 
     End Sub
@@ -983,7 +987,7 @@ Public Class frmOrdenCompra
             Catch ex As Exception
 
             End Try
-      
+
 
         End If
 
@@ -1096,7 +1100,13 @@ Public Class frmOrdenCompra
                                         Util.MsgStatus(Status1, "No se pudo borrar el Item.", My.Resources.stop_error.ToBitmap)
                                         Util.MsgStatus(Status1, "No se pudo borrar el Item.", My.Resources.stop_error.ToBitmap, True)
                                     Case Else
+
+                                        rdPendientes.Checked = 1
+                                        SQL = "exec spOrdenDeCompra_Select_All @Eliminado = " & rdAnuladas.Checked & ", @Pendientes = " & rdPendientes.Checked & ", @PendientesyCumplidas = " & rdTodasOC.Checked
+
+                                        bolModo = False
                                         PrepararBotones()
+                                        MDIPrincipal.NoActualizarBase = False
                                         btnActualizar_Click(sender, e)
                                         'Setear_Grilla()
                                         Util.MsgStatus(Status1, "Se ha borrado el Item.", My.Resources.ok.ToBitmap)
@@ -1117,6 +1127,18 @@ Public Class frmOrdenCompra
         End If
 
 
+    End Sub
+
+    Private Sub chkMaterialesProveedor_CheckedChanged(sender As Object, e As EventArgs) Handles chkMaterialesProveedor.CheckedChanged
+        If chkMaterialesProveedor.Checked Then
+            If cmbPROVEEDORES.Text <> "" Then
+                LlenarCombo_Productos(cmbPROVEEDORES.SelectedValue.ToString)
+            Else
+                LlenarCombo_Productos("")
+            End If
+        Else
+            LlenarCombo_Productos("")
+        End If
     End Sub
 
 #End Region
@@ -1827,8 +1849,9 @@ Public Class frmOrdenCompra
 
     'End Sub
 
-    Private Sub LlenarCombo_Productos()
+    Private Sub LlenarCombo_Productos(ByVal idProveedor As String)
         Dim ds_Equipos As Data.DataSet
+        Dim sqlstring As String
         Dim connection As SqlClient.SqlConnection = Nothing
 
         Try
@@ -1840,8 +1863,17 @@ Public Class frmOrdenCompra
                 MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End Try
-
-            ds_Equipos = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT m.Codigo, (m.Nombre + ' - ' + ma.Nombre) as Producto FROM Materiales m JOIN Marcas ma ON m.idmarca = ma.Codigo WHERE m.nombre not like '%**FR%' and m.eliminado = 0 ")
+            If idProveedor = "" Then
+                sqlstring = "SELECT m.Codigo, (m.Nombre + ' - ' + ma.Nombre) as Producto FROM Materiales m JOIN Marcas ma ON m.idmarca = ma.Codigo WHERE m.nombre not like '%**FR%' and m.eliminado = 0"
+            Else
+                sqlstring = "SELECT m.Codigo, (m.Nombre + ' - ' + ma.Nombre) as Producto FROM Materiales_Proveedor mp JOIN Materiales M ON M.Codigo = MP.IdMaterial JOIN Marcas ma ON mp.idmarca = ma.Codigo WHERE  mp.eliminado = 0 and mp.IdProveedor = '" & idProveedor & "'"
+            End If
+            ds_Equipos = SqlHelper.ExecuteDataset(connection, CommandType.Text, sqlstring)
+            If ds_Equipos.Tables(0).Rows.Count = 0 And idProveedor <> "" Then
+                sqlstring = "SELECT m.Codigo, (m.Nombre + ' - ' + ma.Nombre) as Producto FROM Materiales m JOIN Marcas ma ON m.idmarca = ma.Codigo WHERE m.nombre not like '%**FR%' and m.eliminado = 0"
+                ds_Equipos = SqlHelper.ExecuteDataset(connection, CommandType.Text, sqlstring)
+                Util.MsgStatus(Status1, "No hay productos asociados a este proveedor.", My.Resources.Resources.stop_error.ToBitmap)
+            End If
             ds_Equipos.Dispose()
 
             With Me.cmbProducto
@@ -2426,7 +2458,7 @@ Public Class frmOrdenCompra
                 param_montoivatotal.SqlDbType = SqlDbType.Decimal
                 param_montoivatotal.Precision = 18
                 param_montoivatotal.Scale = 2
-                param_montoivatotal.Value = txtMontoIVA.Text
+                param_montoivatotal.Value = 0 'txtMontoIVA.Text
                 param_montoivatotal.Direction = ParameterDirection.Input
 
                 Dim param_total As New SqlClient.SqlParameter
@@ -3547,6 +3579,7 @@ Public Class frmOrdenCompra
     End Sub
 
 #End Region
+
 
 
 

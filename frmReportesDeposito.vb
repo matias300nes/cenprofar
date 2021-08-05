@@ -24,102 +24,75 @@ Public Class frmReportesDeposito
 
     Private Sub RecaudacionRepartidor(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        rdRecaudacion.Checked = True
-        dtpFechaReca.Value = Date.Now
-        dtpDesde.Enabled = False
-        dtpHasta.Enabled = False
+        'dtpDesde.Enabled = False
+        'dtpHasta.Enabled = False
         dtpDesde.Value = Date.Now
         dtpHasta.Value = Date.Now
-        chkDeposito.Enabled = False
-        chkNorte.Enabled = False
-
+     
 
         LlenarRepartidor()
 
     End Sub
 
-    Private Sub btnCancelar_Click(sender As Object, e As EventArgs) Handles btnCancelar.Click
+    'Private Sub btnCancelar_Click(sender As Object, e As EventArgs)
 
-        chkDeposito.Checked = False
-        chkNorte.Checked = False
-        dtpFechaReca.Value = Date.Now
-        dtpDesde.Value = Date.Now
-        dtpHasta.Value = Date.Now
-        cmbRepartidor.SelectedIndex = 0
+    '    dtpDesde.Value = Date.Now
+    '    dtpHasta.Value = Date.Now
+    '    cmbRepartidor.SelectedIndex = 0
 
 
-    End Sub
+    'End Sub
 
-    Private Sub btnImprimir_Click(sender As Object, e As EventArgs) Handles btnImprimir.Click
+    'Private Sub btnImprimir_Click(sender As Object, e As EventArgs)
 
-        Dim rpt As New frmReportes()
-        Dim param As New frmParametros
-        Dim cnn As New SqlConnection(ConnStringSEI)
-        Dim codigo As String
-        Dim Fecha As DateTime
-        Dim Hasta As DateTime
-        Dim Norte As Boolean
-        Dim Deposito As Boolean
-        Dim ds_Recaudacion As Data.DataSet
-        Dim sqlstring As String
-
-        If rdDevolucion.Checked = True Then
-            If chkDeposito.Checked = False And chkNorte.Checked = False Then
-                MsgBox("Por favor seleccione al menos tipo de Devolución.")
-                Exit Sub
-            End If
-        End If
-    
-
-        If rdRecaudacion.Checked = True Then
-            Try
-
-                sqlstring = "SELECT Isnull(TotalFacturado,0) FROM PedidosWEB WHERE Presupuesto = 0 AND IDEmpleado = '" & cmbRepartidor.SelectedValue & "' AND convert(varchar(10),Fecha,103) = '" & dtpFechaReca.Value.ToShortDateString & "'"
-
-                ds_Recaudacion = SqlHelper.ExecuteDataset(cnn, CommandType.Text, sqlstring)
-
-                If ds_Recaudacion.Tables(0).Rows.Count = 0 Then
-                    MsgBox("No hay envíos realizados por el repartidor " & cmbRepartidor.Text & " en la fecha seleccionada. Por favor verifique.", MsgBoxStyle.Information, "Atención")
-                    Exit Sub
-                End If
+    '    Dim rpt As New frmReportes()
+    '    Dim param As New frmParametros
+    '    Dim cnn As New SqlConnection(ConnStringSEI)
+    '    Dim codigo As String
+    '    Dim Fecha As DateTime
+    '    Dim Hasta As DateTime
+    '    Dim ds_Recaudacion As Data.DataSet
+    '    Dim sqlstring As String
 
 
-            Catch ex As Exception
-                'MsgBox(ex.Message)
-                MsgBox("No hay envíos realizados por el repartidor " & cmbRepartidor.Text & " en la fecha seleccionada o bien no se pudo realizar la consulta. Por favor verifique.", MsgBoxStyle.Information, "Atención")
+    '    Try
 
-                Exit Sub
-            End Try
+    '        sqlstring = "SELECT Isnull(TotalFacturado,0) FROM PedidosWEB WHERE Presupuesto = 0 AND IDEmpleado = '" & cmbRepartidor.SelectedValue & "' AND convert(varchar(10),Fecha,103) >= '" & dtpDesde.Value.ToShortDateString & "' AND convert(varchar(10),Fecha,103) <= '" & dtpHasta.Value.ToShortDateString & "'"
 
-            nbreformreportes = "Recaucadión por Repartidores"
+    '        ds_Recaudacion = SqlHelper.ExecuteDataset(cnn, CommandType.Text, sqlstring)
 
-
-            codigo = cmbRepartidor.SelectedValue.ToString
-            Fecha = dtpFechaReca.Value
-            'rpt.NombreArchivoPDF = "Orden de Compra " & codigo & " - " & BuscarProveedor(codigo, Solicitud)
-            rpt.Recaudacion_Maestro_App(codigo, "A", Fecha, rpt, My.Application.Info.AssemblyName.ToString)
-
-        Else
+    '        If ds_Recaudacion.Tables(0).Rows.Count = 0 Then
+    '            MsgBox("No hay envíos realizados por el repartidor " & cmbRepartidor.Text & " en la fecha seleccionada. Por favor verifique.", MsgBoxStyle.Information, "Atención")
+    '            Exit Sub
+    '        End If
 
 
-            nbreformreportes = "Devoluciones por Clientes"
+    '    Catch ex As Exception
+    '        'MsgBox(ex.Message)
+    '        MsgBox("No hay envíos realizados por el repartidor " & cmbRepartidor.Text & " en la fecha seleccionada o bien no se pudo realizar la consulta. Por favor verifique.", MsgBoxStyle.Information, "Atención")
+
+    '        Exit Sub
+    '    End Try
+
+    '    nbreformreportes = "Reportes Depósito"
 
 
-            Fecha = dtpDesde.Value
-            Hasta = dtpHasta.Value
-            Norte = chkNorte.Checked
-            Deposito = chkDeposito.Checked
+    '    codigo = cmbRepartidor.SelectedValue.ToString
+    '    Fecha = dtpDesde.Value
+    '    Hasta = dtpHasta.Value
+    '    'rpt.NombreArchivoPDF = "Orden de Compra " & codigo & " - " & BuscarProveedor(codigo, Solicitud)
+    '    rpt.Recaudacion_Maestro_App(codigo, "A", Fecha, Hasta, rpt, My.Application.Info.AssemblyName.ToString)
 
-            'rpt.NombreArchivoPDF = "Orden de Compra " & codigo & " - " & BuscarProveedor(codigo, Solicitud)
-            rpt.DevolucionesClientes_Maestro_App(Fecha, Hasta, Norte, Deposito, rpt, My.Application.Info.AssemblyName.ToString)
+    '    If MessageBox.Show("Desea Imprimir la planilla de Carga?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
+    '        Dim rptA As New frmReportes()
+    '        rptA.PlanillaCargaRepartidor_Maestro_App(codigo, "B", Fecha, Hasta, rptA, My.Application.Info.AssemblyName.ToString)
+    '    End If
 
-        End If
+    '    cerroparametrosconaceptar = False
+    '    param = Nothing
+    '    cnn = Nothing
 
-        cerroparametrosconaceptar = False
-        param = Nothing
-        cnn = Nothing
-
-    End Sub
+    'End Sub
 
     Private Sub LlenarRepartidor()
 
@@ -167,19 +140,62 @@ Public Class frmReportesDeposito
         End Try
     End Sub
 
-    Private Sub rdRecaudacion_CheckedChanged(sender As Object, e As EventArgs) Handles rdRecaudacion.CheckedChanged
-        rdDevolucion.Checked = Not rdRecaudacion.Checked
-        dtpFechaReca.Enabled = rdRecaudacion.Checked
-        cmbRepartidor.Enabled = rdRecaudacion.Checked
+
+
+    Private Sub btnImprimir_Click(sender As Object, e As EventArgs) Handles btnImprimir.Click
+
+        Dim rpt As New frmReportes()
+        Dim param As New frmParametros
+        Dim cnn As New SqlConnection(ConnStringSEI)
+        Dim codigo As String
+        Dim Fecha As DateTime
+        Dim Hasta As DateTime
+        Dim ds_Recaudacion As Data.DataSet
+        Dim sqlstring As String
+
+
+        Try
+
+            sqlstring = "SELECT Isnull(TotalFacturado,0) FROM PedidosWEB WHERE Presupuesto = 0 AND IDEmpleado = '" & cmbRepartidor.SelectedValue & "' AND convert(varchar(10),Fecha,103) >= '" & dtpDesde.Value.ToShortDateString & "' AND convert(varchar(10),Fecha,103) <= '" & dtpHasta.Value.ToShortDateString & "'"
+
+            ds_Recaudacion = SqlHelper.ExecuteDataset(cnn, CommandType.Text, sqlstring)
+
+            If ds_Recaudacion.Tables(0).Rows.Count = 0 Then
+                MsgBox("No hay envíos realizados por el repartidor " & cmbRepartidor.Text & " en la fecha seleccionada. Por favor verifique.", MsgBoxStyle.Information, "Atención")
+                Exit Sub
+            End If
+
+
+        Catch ex As Exception
+            'MsgBox(ex.Message)
+            MsgBox("No hay envíos realizados por el repartidor " & cmbRepartidor.Text & " en la fecha seleccionada o bien no se pudo realizar la consulta. Por favor verifique.", MsgBoxStyle.Information, "Atención")
+
+            Exit Sub
+        End Try
+
+        nbreformreportes = "Reportes Depósito"
+
+
+        codigo = cmbRepartidor.SelectedValue.ToString
+        Fecha = dtpDesde.Value
+        Hasta = dtpHasta.Value
+        'rpt.NombreArchivoPDF = "Orden de Compra " & codigo & " - " & BuscarProveedor(codigo, Solicitud)
+        rpt.Recaudacion_Maestro_App(codigo, "A", Fecha, Hasta, rpt, My.Application.Info.AssemblyName.ToString)
+
+        If MessageBox.Show("Desea Imprimir la planilla de Carga?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
+            Dim rptA As New frmReportes()
+            rptA.PlanillaCargaRepartidor_Maestro_App(codigo, "B", Fecha, Hasta, rptA, My.Application.Info.AssemblyName.ToString)
+        End If
+
+        cerroparametrosconaceptar = False
+        param = Nothing
+        cnn = Nothing
+
     End Sub
 
-    Private Sub rdDevolucion_CheckedChanged(sender As Object, e As EventArgs) Handles rdDevolucion.CheckedChanged
-        rdRecaudacion.Checked = Not rdDevolucion.Checked
-        dtpDesde.Enabled = rdDevolucion.Checked
-        dtpHasta.Enabled = rdDevolucion.Checked
-        chkDeposito.Enabled = rdDevolucion.Checked
-        chkNorte.Enabled = rdDevolucion.Checked
+    Private Sub btnCancelar_Click(sender As Object, e As EventArgs) Handles btnCancelar.Click
+        dtpDesde.Value = Date.Now
+        dtpHasta.Value = Date.Now
+        cmbRepartidor.SelectedIndex = 0
     End Sub
-
-
 End Class

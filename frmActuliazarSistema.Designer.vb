@@ -39,6 +39,7 @@ Partial Class frmActuliazarSistema
         Me.btnClientes = New DevComponents.DotNetBar.ButtonX()
         Me.btnEmpleados = New DevComponents.DotNetBar.ButtonX()
         Me.btnActualizarSistema = New DevComponents.DotNetBar.ButtonX()
+        Me.btnDescargarAjuste = New DevComponents.DotNetBar.ButtonX()
         Me.SuspendLayout()
         '
         'Timer1
@@ -210,18 +211,31 @@ Partial Class frmActuliazarSistema
         '
         Me.btnActualizarSistema.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
         Me.btnActualizarSistema.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnActualizarSistema.Location = New System.Drawing.Point(390, 121)
+        Me.btnActualizarSistema.Location = New System.Drawing.Point(390, 96)
         Me.btnActualizarSistema.Name = "btnActualizarSistema"
-        Me.btnActualizarSistema.Size = New System.Drawing.Size(120, 46)
+        Me.btnActualizarSistema.Size = New System.Drawing.Size(120, 23)
         Me.btnActualizarSistema.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnActualizarSistema.TabIndex = 30
         Me.btnActualizarSistema.Text = "Actualizar Sistema"
+        Me.btnActualizarSistema.Visible = False
+        '
+        'btnDescargarAjuste
+        '
+        Me.btnDescargarAjuste.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnDescargarAjuste.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
+        Me.btnDescargarAjuste.Location = New System.Drawing.Point(390, 134)
+        Me.btnDescargarAjuste.Name = "btnDescargarAjuste"
+        Me.btnDescargarAjuste.Size = New System.Drawing.Size(120, 45)
+        Me.btnDescargarAjuste.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnDescargarAjuste.TabIndex = 31
+        Me.btnDescargarAjuste.Text = "Ajustes de Stock"
         '
         'frmActuliazarSistema
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(535, 191)
+        Me.Controls.Add(Me.btnDescargarAjuste)
         Me.Controls.Add(Me.btnActualizarSistema)
         Me.Controls.Add(Me.btnEmpleados)
         Me.Controls.Add(Me.btnClientes)
@@ -251,13 +265,14 @@ Partial Class frmActuliazarSistema
     Friend WithEvents LabelX5 As DevComponents.DotNetBar.LabelX
     Friend WithEvents LabelX6 As DevComponents.DotNetBar.LabelX
     Friend WithEvents LabelX9 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents btnTransferencia As DevComponents.DotNetBar.ButtonX
-    Friend WithEvents btnRecepciones As DevComponents.DotNetBar.ButtonX
-    Friend WithEvents btnMateriales As DevComponents.DotNetBar.ButtonX
-    Friend WithEvents btnListaPrecios As DevComponents.DotNetBar.ButtonX
     Friend WithEvents btnStock As DevComponents.DotNetBar.ButtonX
-    Friend WithEvents btnClientes As DevComponents.DotNetBar.ButtonX
-    Friend WithEvents btnEmpleados As DevComponents.DotNetBar.ButtonX
     Friend WithEvents btnActualizarSistema As DevComponents.DotNetBar.ButtonX
     Public WithEvents Timer1 As System.Windows.Forms.Timer
+    Public WithEvents btnTransferencia As DevComponents.DotNetBar.ButtonX
+    Public WithEvents btnRecepciones As DevComponents.DotNetBar.ButtonX
+    Public WithEvents btnMateriales As DevComponents.DotNetBar.ButtonX
+    Public WithEvents btnListaPrecios As DevComponents.DotNetBar.ButtonX
+    Public WithEvents btnClientes As DevComponents.DotNetBar.ButtonX
+    Public WithEvents btnEmpleados As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents btnDescargarAjuste As DevComponents.DotNetBar.ButtonX
 End Class

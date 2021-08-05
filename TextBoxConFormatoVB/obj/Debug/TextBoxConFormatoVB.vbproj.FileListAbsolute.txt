@@ -74,3 +74,11 @@ C:\Users\ignac\Documents\SISTEMA CIAPA\TextBoxConFormatoVB\obj\Debug\TextBoxConF
 C:\Users\ignac\Documents\SISTEMA CIAPA\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.dll
 C:\Users\ignac\Documents\SISTEMA CIAPA\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.xml
 C:\Users\ignac\Documents\SISTEMA CIAPA\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.pdb
+E:\SISTEMA CENPROFAR\TextBoxConFormatoVB\bin\TextBoxConFormatoVB.dll
+E:\SISTEMA CENPROFAR\TextBoxConFormatoVB\bin\TextBoxConFormatoVB.pdb
+E:\SISTEMA CENPROFAR\TextBoxConFormatoVB\bin\TextBoxConFormatoVB.xml
+E:\SISTEMA CENPROFAR\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.FormattedTextBoxVB.resources
+E:\SISTEMA CENPROFAR\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.vbproj.GenerateResource.Cache
+E:\SISTEMA CENPROFAR\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.dll
+E:\SISTEMA CENPROFAR\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.xml
+E:\SISTEMA CENPROFAR\TextBoxConFormatoVB\obj\Debug\TextBoxConFormatoVB.pdb

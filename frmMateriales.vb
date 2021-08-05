@@ -126,9 +126,9 @@ Public Class frmMateriales
     Private Sub frmMateriales_Activated(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Activated
         If bolModo = False Then
             If chkEliminados.Checked = False Then
-                SQL = "exec spMateriales_Select_All @Eliminado = 0,@Fraccionados = 0"
+                SQL = "exec spMateriales_Select_All @Eliminado = 0"
             Else
-                SQL = "exec spMateriales_Select_All @Eliminado = 1,@Fraccionados = 0"
+                SQL = "exec spMateriales_Select_All @Eliminado = 1"
             End If
             btnActualizar_Click(sender, e)
         End If
@@ -166,7 +166,7 @@ Public Class frmMateriales
         Else
             Try
                 If MDIPrincipal.EmpleadoLogueado = "12" Or MDIPrincipal.EmpleadoLogueado = "13" Or MDIPrincipal.EmpleadoLogueado = "2" Then
-                    Dim sqlstring As String = "update NotificacionesWEB set BloqueoM = 1"
+                    Dim sqlstring As String = "update [" & NameTable_NotificacionesWEB & "] set BloqueoM = 1"
                     tranWEB.Sql_Set(sqlstring)
                 End If
               
@@ -183,16 +183,8 @@ Public Class frmMateriales
         LlenarcmbUnidades()
         LlenarcmbRubros()
         LlenarcmbMarcas()
-        CargarlistaPrincipales()
-        'LlenarcmbListaMayorista()
-        'LlenarcmbListaMinorista()
-        LlenarcmbListaMinoristaPeron()
-        LlenarcmbListaMayoristaPeron()
-        'LlenarcmbLista3()
-        LlenarcmbLista4()
-        'Traer_ValorCambio()
 
-        SQL = "exec spMateriales_Select_All @Eliminado = 0, @Fraccionados = 0"
+        SQL = "exec spMateriales_Select_All @Eliminado = 0"
         LlenarGrilla()
 
         Permitir = True
@@ -210,55 +202,27 @@ Public Class frmMateriales
         End If
         Try
             If grd.RowCount > 0 Then
-                'cmbAlmacenes.SelectedValue = grd.CurrentRow.Cells(2).Value
                 cmbFAMILIAS.SelectedValue = grd.CurrentRow.Cells(4).Value
                 cmbUNIDADES.SelectedValue = grd.CurrentRow.Cells(6).Value
-                'txtPrecioCompra.Text = grd.CurrentRow.Cells(8).Value
-                'txtPrecioMinorista.Text = grd.CurrentRow.Cells(9).Value
-                'txtPrecioMayorista.Text = grd.CurrentRow.Cells(10).Value
-                'txtPrecio3.Text = grd.CurrentRow.Cells(11).Value
-                'txtPrecio4.Text = grd.CurrentRow.Cells(12).Value
-                'txtPrecioMinoristaPeron.Text = grd.CurrentRow.Cells(13).Value
-                'txtPrecioMayoristaPeron.Text = grd.CurrentRow.Cells(14).Value
-                cmbMarca.SelectedValue = grd.CurrentRow.Cells(24).Value
-                'cmbMayorista.SelectedValue = grd.CurrentRow.Cells(26).Value
-                cmbMayoristaPeron.SelectedValue = grd.CurrentRow.Cells(27).Value
-                'cmbMinorista.SelectedValue = grd.CurrentRow.Cells(28).Value
-                cmbMinoristaPeron.SelectedValue = grd.CurrentRow.Cells(29).Value
-                'cmbLista3.SelectedValue = grd.CurrentRow.Cells(30).Value
+                cmbMarca.SelectedValue = grd.CurrentRow.Cells(25).Value
+     
                 'ME FIJO SI TIENE UNA UNIDAD DE REFERENCIA
-                Select Case grd.CurrentRow.Cells(32).Value.ToString <> ""
-                    Case grd.CurrentRow.Cells(32).Value.ToString.Contains("KILOGRAMO")
+                Select Case grd.CurrentRow.Cells(33).Value.ToString <> ""
+                    Case grd.CurrentRow.Cells(33).Value.ToString.Contains("KILOGRAMO")
                         chkUniRef.Checked = True
                         rdKilo.Checked = True
                         Label15.Text = "Precio de Costo (KG)*"
-                    Case grd.CurrentRow.Cells(32).Value.ToString.Contains("LITROS")
+                    Case grd.CurrentRow.Cells(33).Value.ToString.Contains("LITROS")
                         chkUniRef.Checked = True
                         rdLitros.Checked = True
                         Label15.Text = "Precio de Costo (L)*"
-                    Case grd.CurrentRow.Cells(32).Value.ToString.Contains("UNIDAD")
+                    Case grd.CurrentRow.Cells(33).Value.ToString.Contains("UNIDAD")
                         chkUniRef.Checked = True
                         rdUnidad.Checked = True
                         Label15.Text = "Precio de Costo (U)*"
                     Case Else
                         chkUniRef.Checked = False
                 End Select
-                chk1.Checked = grd.CurrentRow.Cells(33).Value
-                chk2.Checked = grd.CurrentRow.Cells(34).Value
-                chk3.Checked = grd.CurrentRow.Cells(35).Value
-                chk4.Checked = grd.CurrentRow.Cells(36).Value
-                chkVentaMayorista.Checked = grd.CurrentRow.Cells(37).Value
-                cmbLista4.SelectedValue = grd.CurrentRow.Cells(31).Value
-                cmbLista4.Enabled = Not chk4.Checked
-                ds_cmblista = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "select Valor_Cambio,Porcentaje from lista_precios where Codigo =" & cmbLista4.SelectedValue)
-                Valor4 = ds_cmblista.Tables(0).Rows(0).Item(0)
-                Porcen4 = Math.Round(ds_cmblista.Tables(0).Rows(0).Item(1), 2)
-                CalcularPorcentaje_Precio(0)
-                ds_cmblista = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "select Valor_Cambio,Porcentaje from lista_precios where Codigo =" & cmbMinoristaPeron.SelectedValue)
-                lblPorcenPeronMin.Text = Math.Round(ds_cmblista.Tables(0).Rows(0).Item(1), 2)
-                ds_cmblista = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "select Valor_Cambio,Porcentaje from lista_precios where Codigo =" & cmbMayoristaPeron.SelectedValue)
-                ds_cmblista.Dispose()
-                lblPorcenPeronMay.Text = Math.Round(ds_cmblista.Tables(0).Rows(0).Item(1), 2)
             End If
         Catch ex As Exception
 
@@ -280,8 +244,8 @@ Public Class frmMateriales
         'grd.Columns(12).Width = 200
         'grd.Columns(13).Width = 200
         'grd.Columns(14).Width = 200
-
-
+        grd.Columns(13).Visible = False
+        grd.Columns(14).Visible = False
         grd.Columns(15).Visible = False
         grd.Columns(16).Visible = False
         grd.Columns(17).Visible = False
@@ -293,18 +257,20 @@ Public Class frmMateriales
         grd.Columns(23).Visible = False
         grd.Columns(24).Visible = False
         grd.Columns(25).Visible = False
-        grd.Columns(26).Visible = False
+        'grd.Columns(26).Visible = False
         grd.Columns(27).Visible = False
         grd.Columns(28).Visible = False
         grd.Columns(29).Visible = False
         grd.Columns(30).Visible = False
         grd.Columns(31).Visible = False
-
-        grd.Columns(33).Visible = False
+        grd.Columns(32).Visible = False
+        'grd.Columns(33).Visible = False
         grd.Columns(34).Visible = False
         grd.Columns(35).Visible = False
         grd.Columns(36).Visible = False
         grd.Columns(37).Visible = False
+        grd.Columns(38).Visible = False
+
 
         permitir_evento_CellChanged = True
 
@@ -328,7 +294,7 @@ Public Class frmMateriales
     Private Sub txtid_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) _
      Handles txtID.KeyPress, txtCODIGO.KeyPress, txtNOMBRE.KeyPress, _
             cmbFAMILIAS.KeyPress, cmbUNIDADES.KeyPress, txtPrecioCompra.KeyPress, _
-            txtMinimo.KeyPress, txtPrecioMayorista.KeyPress, txtPrecioMinorista.KeyPress, txtPrecio3.KeyPress, txtPrecio4.KeyPress
+            txtMinimo.KeyPress
 
         Dim strAcentos As String = "ÄÅÁÂÀÃäáâàãÉÊËÈéêëèÍÎÏÌíîïìÖÓÔÒÕöóôòõÜÚÛüúûùÇç'"
 
@@ -399,33 +365,21 @@ Public Class frmMateriales
                 If grd.RowCount > 0 Then
                     cmbFAMILIAS.SelectedValue = grd.CurrentRow.Cells(4).Value
                     cmbUNIDADES.SelectedValue = grd.CurrentRow.Cells(6).Value
-                    cmbMarca.SelectedValue = grd.CurrentRow.Cells(24).Value
-                    ' cmbMayorista.SelectedValue = grd.CurrentRow.Cells(26).Value
-                    cmbMayoristaPeron.SelectedValue = grd.CurrentRow.Cells(27).Value
-                    ' cmbMinorista.SelectedValue = grd.CurrentRow.Cells(28).Value
-                    cmbMinoristaPeron.SelectedValue = grd.CurrentRow.Cells(29).Value
-                    ' cmbLista3.SelectedValue = grd.CurrentRow.Cells(30).Value
+                    cmbMarca.SelectedValue = grd.CurrentRow.Cells(25).Value
                     'ME FIJO SI TIENE UNA UNIDAD DE REFERENCIA
-                    Select Case grd.CurrentRow.Cells(32).Value.ToString <> ""
-                        Case grd.CurrentRow.Cells(32).Value.ToString.Contains("KILOGRAMO")
+                    Select Case grd.CurrentRow.Cells(33).Value.ToString <> ""
+                        Case grd.CurrentRow.Cells(33).Value.ToString.Contains("KILOGRAMO")
                             chkUniRef.Checked = True
                             rdKilo.Checked = True
-                        Case grd.CurrentRow.Cells(32).Value.ToString.Contains("LITROS")
+                        Case grd.CurrentRow.Cells(33).Value.ToString.Contains("LITROS")
                             chkUniRef.Checked = True
                             rdLitros.Checked = True
-                        Case grd.CurrentRow.Cells(32).Value.ToString.Contains("UNIDAD")
+                        Case grd.CurrentRow.Cells(33).Value.ToString.Contains("UNIDAD")
                             chkUniRef.Checked = True
                             rdUnidad.Checked = True
                         Case Else
                             chkUniRef.Checked = False
                     End Select
-                    chk1.Checked = grd.CurrentRow.Cells(33).Value
-                    chk2.Checked = grd.CurrentRow.Cells(34).Value
-                    chk3.Checked = grd.CurrentRow.Cells(35).Value
-                    chk4.Checked = grd.CurrentRow.Cells(36).Value
-                    chkVentaMayorista.Checked = grd.CurrentRow.Cells(37).Value
-                    cmbLista4.SelectedValue = grd.CurrentRow.Cells(31).Value
-                    CalcularPorcentaje_Precio(0)
 
                 End If
             Catch ex As Exception
@@ -441,9 +395,9 @@ Public Class frmMateriales
         btnActivar.Enabled = chkEliminados.Checked
 
         If chkEliminados.Checked = True Then
-            SQL = "exec spMateriales_Select_All @Eliminado = 1,@Fraccionados = " & IIf(chkFraccionados.Checked, 1, 0)
+            SQL = "exec spMateriales_Select_All @Eliminado = 1"
         Else
-            SQL = "exec spMateriales_Select_All @Eliminado = 0,@Fraccionados = " & IIf(chkFraccionados.Checked, 1, 0)
+            SQL = "exec spMateriales_Select_All @Eliminado = 0"
         End If
 
         LlenarGrilla()
@@ -881,27 +835,7 @@ Public Class frmMateriales
         Try
 
             If txtPrecioCompra.Text <> "" Then
-
-                CalcularPorcentaje_Precio(0)
-                'cmbMayorista_SelectedIndexChanged(sender, e)
-                'cmbMinorista_SelectedIndexChanged(sender, e)
-                cmbMayoristaPeron_SelectedIndexChanged(sender, e)
-                cmbMinoristaPeron_SelectedIndexChanged(sender, e)
-            Else
-                If chk2.Checked = False Then
-                    txtPrecioMayorista.Text = "0.00"
-                End If
-                If chk1.Checked = False Then
-                    txtPrecioMinorista.Text = "0.00"
-                End If
-                If chk3.Checked = False Then
-                    txtPrecio3.Text = "0.00"
-                End If
-                If chk4.Checked = False Then
-                    txtPrecio4.Text = "0.00"
-                End If
-                txtPrecioMinoristaPeron.Text = "0.00"
-                txtPrecioMayoristaPeron.Text = "0.00"
+                Calcular_Precios(True, False, False, CDbl(txtPrecioCompra.Text))
             End If
         Catch ex As Exception
 
@@ -910,122 +844,26 @@ Public Class frmMateriales
 
     End Sub
 
-    'Private Sub cmbMinorista_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbMinorista.SelectedIndexChanged
-    '    If band = 1 Then
-    '        Try
-    '            lblPorcen1.Text = ""
-    '            txtIDMinorista.Text = cmbMinorista.SelectedValue
+    Private Sub txtganancia1_KeyUp(sender As Object, e As KeyEventArgs) Handles txtganancia1.KeyUp
+        Try
 
-    '            ds_cmblista = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "SELECT  Valor_Cambio,Porcentaje FROM Lista_Precios WHERE Codigo =  " & IIf(txtIDMinorista.Text = "", cmbMinorista.SelectedValue, txtIDMinorista.Text))
-    '            ds_cmblista.Dispose()
+            If txtganancia1.Text <> "" Then
+                Calcular_Precios(False, True, False, CDbl(txtPrecioCompra.Text))
+            End If
+        Catch ex As Exception
 
-    '            txtPrecioMinorista.Text = Math.Round(CDbl(txtPrecioCompra.Text) * CDbl(ds_cmblista.Tables(0).Rows(0).Item(0)), 2)
-    '            lblPorcen1.Text = CInt(ds_cmblista.Tables(0).Rows(0).Item(1)).ToString
-
-    '        Catch ex As Exception
-
-    '        End Try
-    '    End If
-    'End Sub
-
-    'Private Sub cmbMayorista_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbMayorista.SelectedIndexChanged
-
-    '    If band = 1 Then
-    '        Try
-    '            lblPorcen2.Text = ""
-    '            txtIDMayorista.Text = cmbMayorista.SelectedValue
-
-    '            ds_cmblista = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "SELECT  Valor_Cambio,Porcentaje FROM Lista_Precios WHERE Codigo =  " & IIf(txtIDMayorista.Text = "", cmbMayorista.SelectedValue, txtIDMayorista.Text))
-    '            ds_cmblista.Dispose()
-
-    '            txtPrecioMayorista.Text = Math.Round(CDbl(txtPrecioCompra.Text) * CDbl(ds_cmblista.Tables(0).Rows(0).Item(0)), 2)
-    '            lblPorcen2.Text = CInt(ds_cmblista.Tables(0).Rows(0).Item(1)).ToString
-
-
-    '        Catch ex As Exception
-
-    '        End Try
-    '    End If
-    'End Sub
-
-    Private Sub cmbMinoristaPeron_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbMinoristaPeron.SelectedIndexChanged
-        If band = 1 Then
-            Try
-
-                lblPorcenPeronMin.Text = ""
-                txtIDMinoristaPeron.Text = cmbMinoristaPeron.SelectedValue
-
-
-                ds_cmblista = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "SELECT  Valor_Cambio, Porcentaje FROM Lista_Precios WHERE Codigo =  " & IIf(txtIDMinoristaPeron.Text = "", cmbMinoristaPeron.SelectedValue, txtIDMinoristaPeron.Text))
-                ds_cmblista.Dispose()
-
-                txtPrecioMinoristaPeron.Text = Math.Round(CDbl(txtPrecioCompra.Text) * ds_cmblista.Tables(0).Rows(0).Item(0), 2)
-                lblPorcenPeronMin.Text = Math.Round(ds_cmblista.Tables(0).Rows(0).Item(1), 2)
-
-            Catch ex As Exception
-
-            End Try
-        End If
+        End Try
     End Sub
 
-    Private Sub cmbMayoristaPeron_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbMayoristaPeron.SelectedIndexChanged
-        If band = 1 Then
-            Try
+    Private Sub txtganancia2_KeyUp(sender As Object, e As KeyEventArgs) Handles txtganancia2.KeyUp
+        Try
 
-                lblPorcenPeronMay.Text = ""
-                txtIDMayoristaPeron.Text = cmbMayoristaPeron.SelectedValue
+            If txtganancia2.Text <> "" Then
+                Calcular_Precios(False, False, True, CDbl(txtPrecioCompra.Text))
+            End If
+        Catch ex As Exception
 
-                ds_cmblista = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "SELECT  Valor_Cambio,Porcentaje FROM Lista_Precios WHERE Codigo =  " & IIf(txtIDMayoristaPeron.Text = "", cmbMayoristaPeron.SelectedValue, txtIDMayoristaPeron.Text))
-                ds_cmblista.Dispose()
-
-                txtPrecioMayoristaPeron.Text = Math.Round(CDbl(txtPrecioCompra.Text) * ds_cmblista.Tables(0).Rows(0).Item(0), 2)
-                lblPorcenPeronMay.Text = Math.Round(ds_cmblista.Tables(0).Rows(0).Item(1), 2)
-
-            Catch ex As Exception
-
-            End Try
-        End If
-    End Sub
-
-    'Private Sub cmbLista3_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbLista3.SelectedIndexChanged
-    '    If band = 1 Then
-    '        Try
-    '            lblPorcen3.Text = ""
-    '            txtIDLista3.Text = cmbLista3.SelectedValue
-
-    '            ds_cmblista = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "SELECT  Valor_Cambio,Porcentaje FROM Lista_Precios WHERE Codigo =  " & IIf(txtIDLista3.Text = "", cmbLista3.SelectedValue, txtIDLista3.Text))
-    '            ds_cmblista.Dispose()
-
-    '            txtPrecio3.Text = Math.Round(CDbl(txtPrecioCompra.Text) * ds_cmblista.Tables(0).Rows(0).Item(0), 2)
-    '            lblPorcen3.Text = CInt(ds_cmblista.Tables(0).Rows(0).Item(1)).ToString
-
-    '        Catch ex As Exception
-
-    '        End Try
-    '    End If
-    'End Sub
-
-    Private Sub cmbLista4_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbLista4.SelectedIndexChanged
-        If band = 1 Then
-            Try
-                lblPorcen4.Text = ""
-                txtIDLista4.Text = cmbLista4.SelectedValue
-
-                ds_cmblista = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "SELECT  Valor_Cambio,Porcentaje FROM Lista_Precios WHERE Codigo =  " & IIf(txtIDLista4.Text = "", cmbLista4.SelectedValue, txtIDLista4.Text))
-                ds_cmblista.Dispose()
-
-
-                Valor4 = ds_cmblista.Tables(0).Rows(0).Item(0)
-                If chk4.Checked = False Then
-                    txtPrecio4.Text = Math.Round(CDbl(txtPrecioCompra.Text) * ds_cmblista.Tables(0).Rows(0).Item(0), 2)
-                End If
-                Porcen4 = Math.Round(ds_cmblista.Tables(0).Rows(0).Item(1), 2)
-                lblPorcen4.Text = Porcen4
-
-            Catch ex As Exception
-
-            End Try
-        End If
+        End Try
     End Sub
 
     Private Sub chkUniRef_CheckedChanged(sender As Object, e As EventArgs) Handles chkUniRef.CheckedChanged
@@ -1035,11 +873,9 @@ Public Class frmMateriales
         rdUnidad.Enabled = chkUniRef.Checked
         Label8.Enabled = chkUniRef.Checked
         txtCantidadPACK.Enabled = chkUniRef.Checked
-        chkCrearFR.Enabled = chkUniRef.Checked
 
         If chkUniRef.Checked = False Then
             Label15.Text = "Precio de Costo*"
-            chkCrearFR.Checked = False
             rdKilo.Checked = False
             rdLitros.Checked = False
             rdUnidad.Checked = False
@@ -1060,107 +896,10 @@ Public Class frmMateriales
 
     End Sub
 
-    Private Sub chk1_CheckedChanged(sender As Object, e As EventArgs) Handles chk1.CheckedChanged
-        txtPrecioMinorista.Enabled = chk1.Checked
-        'lista 1
-        If chk1.Checked = True Then
-            txtPrecioMinorista.BackColor = Color.Aquamarine
-            txtPrecioMinorista.Focus()
-        Else
-            txtPrecioMinorista.BackColor = Color.White
-        End If
-        CalcularPorcentaje_Precio(1)
-    End Sub
-
-    Private Sub chk2_CheckedChanged(sender As Object, e As EventArgs) Handles chk2.CheckedChanged
-        txtPrecioMayorista.Enabled = chk2.Checked
-        'lista 2
-        If chk2.Checked = True Then
-            txtPrecioMayorista.BackColor = Color.Aquamarine
-            txtPrecioMayorista.Focus()
-        Else
-            txtPrecioMayorista.BackColor = Color.White
-        End If
-        CalcularPorcentaje_Precio(2)
-    End Sub
-
-    Private Sub chk3_CheckedChanged(sender As Object, e As EventArgs) Handles chk3.CheckedChanged
-        txtPrecio3.Enabled = chk3.Checked
-        'lista 3
-        If chk3.Checked = True Then
-            txtPrecio3.BackColor = Color.Aquamarine
-            txtPrecio3.Focus()
-        Else
-            txtPrecio3.BackColor = Color.White
-        End If
-        CalcularPorcentaje_Precio(3)
-    End Sub
-
-    Private Sub chk4_CheckedChanged(sender As Object, e As EventArgs) Handles chk4.CheckedChanged
-        txtPrecio4.Enabled = chk4.Checked
-        cmbLista4.Enabled = Not chk4.Checked
-        'lista 4
-        If chk4.Checked = True Then
-            txtPrecio4.BackColor = Color.Aquamarine
-            txtPrecio4.Focus()
-        Else
-            txtPrecio4.BackColor = Color.White
-        End If
-        CalcularPorcentaje_Precio(4)
-    End Sub
-
-    Private Sub chk1_MouseHover(sender As Object, e As EventArgs) Handles chk1.MouseHover
-        ToolTip1.Show("Haga click para cambiar el precio de forma manual.", chk1)
-    End Sub
-
-    Private Sub chk2_MouseHover(sender As Object, e As EventArgs) Handles chk2.MouseHover
-        ToolTip1.Show("Haga click para cambiar el precio de forma manual.", chk2)
-    End Sub
-
-    Private Sub chk3_MouseHover(sender As Object, e As EventArgs) Handles chk3.MouseHover
-        ToolTip1.Show("Haga click para cambiar el precio de forma manual.", chk3)
-    End Sub
-
-    Private Sub chk4_MouseHover(sender As Object, e As EventArgs) Handles chk4.MouseHover
-        ToolTip1.Show("Haga click para cambiar el precio de forma manual.", chk4)
-    End Sub
-
-    Private Sub txtPrecioMinorista_KeyUp(sender As Object, e As KeyEventArgs) Handles txtPrecioMinorista.KeyUp
-        If txtPrecioMinorista.Text <> "" Then
-            If CDbl(txtPrecioMinorista.Text) >= CDbl(txtPrecioCompra.Text) Then
-                CalcularPorcentaje_Precio(1)
-            End If
-        End If
-    End Sub
-
-    Private Sub txtPrecioMayorista_KeyUp(sender As Object, e As KeyEventArgs) Handles txtPrecioMayorista.KeyUp
-        If txtPrecioMayorista.Text <> "" Then
-            If CDbl(txtPrecioMayorista.Text) >= CDbl(txtPrecioCompra.Text) Then
-                CalcularPorcentaje_Precio(2)
-            End If
-        End If
-    End Sub
-
-    Private Sub txtPrecio3_KeyUp(sender As Object, e As KeyEventArgs) Handles txtPrecio3.KeyUp
-        If txtPrecio3.Text <> "" Then
-            If CDbl(txtPrecio3.Text) >= CDbl(txtPrecioCompra.Text) Then
-                CalcularPorcentaje_Precio(3)
-            End If
-        End If
-    End Sub
-
-    Private Sub txtPrecio4_KeyUp(sender As Object, e As KeyEventArgs) Handles txtPrecio4.KeyUp
-        If txtPrecio4.Text <> "" Then
-            If CDbl(txtPrecio4.Text) >= CDbl(txtPrecioCompra.Text) Then
-                CalcularPorcentaje_Precio(4)
-            End If
-        End If
-    End Sub
-
     Private Sub rdKilo_CheckedChanged(sender As Object, e As EventArgs) Handles rdKilo.CheckedChanged
 
         If rdKilo.Checked = True Then
-            Label15.Text = "Precio de Costo (KG)*"
+            Label15.Text = "Precio de Costo*"
 
         End If
 
@@ -1169,14 +908,14 @@ Public Class frmMateriales
     Private Sub rdLitros_CheckedChanged(sender As Object, e As EventArgs) Handles rdLitros.CheckedChanged
 
         If rdLitros.Checked = True Then
-            Label15.Text = "Precio de Costo (L)*"
+            Label15.Text = "Precio de Costo*"
         End If
 
     End Sub
 
     Private Sub rdUnidad_CheckedChanged(sender As Object, e As EventArgs) Handles rdUnidad.CheckedChanged
         If rdUnidad.Checked = True Then
-            Label15.Text = "Precio de Costo (U)*"
+            Label15.Text = "Precio de Costo*"
         End If
     End Sub
 
@@ -1185,99 +924,14 @@ Public Class frmMateriales
         Dim Expo As New frmMaterialesExport
         Expo.ShowDialog()
 
-        '  Dim ds_Empresa As Data.DataSet
-        '' Cambiamos el cursor por el de carga
-        '  Me.Cursor = Cursors.WaitCursor
-
-        '  ' Conexión con la base de datos
-        '  Dim connection As SqlClient.SqlConnection = Nothing
-
-        '  Try
-        '      connection = SqlHelper.GetConnection(ConnStringSEI)
-        '  Catch ex As Exception
-        '      MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        '      Exit Sub
-        '  End Try
-
-        '  Try
-        '      ' Creamos todo lo necesario para un excel
-        '      Dim appXL As Excel.Application
-        '      Dim wbXl As Excel.Workbook
-        '      Dim shXL As Excel.Worksheet
-        '      Dim indice As Integer = 2
-        '      appXL = CreateObject("Excel.Application")
-        '      appXL.Visible = False 'Para que no se muestre mientras se crea
-        '      wbXl = appXL.Workbooks.Add
-        '      shXL = wbXl.ActiveSheet
-        '      ' Añadimos las cabeceras de las columnas con formato en negrita
-        '      Dim formatRange As Excel.Range
-        '      formatRange = shXL.Range("a1")
-        '      formatRange.EntireRow.Font.Bold = True
-        '      shXL.Cells(1, 1).Value = "CODIGO"
-        '      shXL.Cells(1, 2).Value = "MARCA"
-        '      shXL.Cells(1, 3).Value = "NOMBRE"
-        '      shXL.Cells(1, 4).Value = "RUBRO"
-        '      shXL.Cells(1, 5).Value = "UNIDAD"
-        '      shXL.Cells(1, 6).Value = "COSTO"
-        '      shXL.Cells(1, 7).Value = "MAYORISTA"
-        '      shXL.Cells(1, 8).Value = "REVENDEDOR"
-        '      shXL.Cells(1, 9).Value = "YAMILA"
-        '      shXL.Cells(1, 10).Value = "LISTA 4"
-        '      shXL.Cells(1, 11).Value = "CANTIDAD X PAQUETE"
-        '      shXL.Cells(1, 12).Value = "UNIDAD DE REF."
-
-        '      ' Obtenemos los datos que queremos exportar desde base de datos.
-        '      Dim sqlstring As String = "exec spMateriales_Select_All_Excel 0,0,0,0"
-        '      ds_Empresa = SqlHelper.ExecuteDataset(connection, CommandType.Text, sqlstring)
-        '      ds_Empresa.Dispose()
-
-        '      Dim Fila As Integer
-
-        '      Fila = 0
-
-        '      For Fila = 0 To ds_Empresa.Tables(0).Rows.Count - 1
-        '          ' Cargamos la información en el excel
-        '          shXL.Cells(indice, 1).Value = ds_Empresa.Tables(0).Rows(Fila)(0)
-        '          shXL.Cells(indice, 2).Value = ds_Empresa.Tables(0).Rows(Fila)(1)
-        '          shXL.Cells(indice, 3).Value = ds_Empresa.Tables(0).Rows(Fila)(2)
-        '          shXL.Cells(indice, 4).Value = ds_Empresa.Tables(0).Rows(Fila)(3)
-        '          shXL.Cells(indice, 5).Value = ds_Empresa.Tables(0).Rows(Fila)(4)
-        '          shXL.Cells(indice, 6).Value = ds_Empresa.Tables(0).Rows(Fila)(5)
-        '          shXL.Cells(indice, 7).Value = ds_Empresa.Tables(0).Rows(Fila)(6)
-        '          shXL.Cells(indice, 8).Value = ds_Empresa.Tables(0).Rows(Fila)(7)
-        '          shXL.Cells(indice, 9).Value = ds_Empresa.Tables(0).Rows(Fila)(8)
-        '          shXL.Cells(indice, 10).Value = ds_Empresa.Tables(0).Rows(Fila)(9)
-        '          shXL.Cells(indice, 11).Value = ds_Empresa.Tables(0).Rows(Fila)(10)
-        '          shXL.Cells(indice, 12).Value = ds_Empresa.Tables(0).Rows(Fila)(11)
-
-        '          indice += 1
-        '      Next
-
-
-        '      ' Mostramos un dialog para que el usuario indique donde quiere guardar el excel
-        '      Dim saveFileDialog1 As New SaveFileDialog()
-        '      saveFileDialog1.Title = "Guardar documento Excel"
-        '      saveFileDialog1.Filter = "Excel File|*.xls"
-        '      saveFileDialog1.FileName = "Materiales " + Format(Date.Now, "dd-MM-yyyy").ToString
-        '      saveFileDialog1.ShowDialog()
-        '      ' Guardamos el excel en la ruta que ha especificado el usuario
-        '      wbXl.SaveAs(saveFileDialog1.FileName)
-        '      ' Cerramos el workbook
-        '      appXL.Workbooks.Close()
-        '      ' Eliminamos el objeto excel
-        '      appXL.Quit()
-        '  Catch ex As Exception
-        '      MessageBox.Show("Error al exportar los datos a excel.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        '  Finally
-        '      ' Cerramos la conexión y ponemos el cursor por defecto de nuevo
-        '      ' conexion.Close()
-        '      Me.Cursor = Cursors.Arrow
-        '  End Try
-
     End Sub
 
     Private Sub PicExcelExportar_MouseHover(sender As Object, e As EventArgs) Handles PicExcelExportar.MouseHover
         'ToolTip1.Show("Haga click para exportar la lista de producto a un archivo excel", PicExcelExportar)
+    End Sub
+
+    Private Sub txtNOMBRE_MouseHover(sender As Object, e As EventArgs) Handles txtNOMBRE.MouseHover
+        ToolTip1.Show("Se recomienda que el nombre este compuesto por : Nombre + Marca + Medida + Unidades (Opcional) ", txtNOMBRE)
     End Sub
 
 #End Region
@@ -1322,35 +976,32 @@ Public Class frmMateriales
         cmbUNIDADES.Tag = "7"
 
         txtPrecioCompra.Tag = "8"
-        txtPrecioMinorista.Tag = "9"
-        txtPrecioMayorista.Tag = "10"
-        txtPrecio3.Tag = "11"
-        txtPrecio4.Tag = "12"
-        txtPrecioMinoristaPeron.Tag = "13"
-        txtPrecioMayoristaPeron.Tag = "14"
 
-        txtganancia.Tag = "15"
-        txtMinimo.Tag = "16"
-        txtMaximo.Tag = "17"
+        txtganancia1.Tag = "9"
+        lblVentas1.Tag = "10"
+        txtganancia2.Tag = "11"
+        lblVentas2.Tag = "12"
+        txtMinimo.Tag = "17"
+        txtMaximo.Tag = "18"
         'lblStockActual.Tag = "16"
-        txtFechaUpd.Tag = "18"
+        txtFechaUpd.Tag = "19"
 
-        txtCodBarra.Tag = "19"
-        txtPasillo.Tag = "20"
-        txtEstante.Tag = "21"
-        txtFila.Tag = "22"
-        chkControlStock.Tag = "23"
+        txtCodBarra.Tag = "20"
+        txtPasillo.Tag = "21"
+        txtEstante.Tag = "22"
+        txtFila.Tag = "23"
+        chkControlStock.Tag = "24"
 
 
         txtIdUnidad.Tag = "6"
-        txtIdMarca.Tag = "24"
-        txtCantidadPACK.Tag = "25"
+        txtIdMarca.Tag = "25"
+        txtCantidadPACK.Tag = "26"
 
-        chk1.Tag = "33"
-        chk2.Tag = "34"
-        chk3.Tag = "35"
-        chk4.Tag = "36"
-        chkVentaMayorista.Tag = "37"
+        'chk1.Tag = "33"
+        'chk2.Tag = "34"
+        'chk3.Tag = "35"
+        'chk4.Tag = "36"
+        'chkVentaMayorista.Tag = "37"
 
 
 
@@ -1399,14 +1050,6 @@ Public Class frmMateriales
             txtCantidadPACK.Text = "0"
         End If
 
-        If chkCrearFR.Checked Then
-            If cmbUNIDADES.SelectedValue = "KG" Or cmbUNIDADES.SelectedValue = "LITROS" Then
-                Util.MsgStatus(Status1, "No se puede crear un fragmentado con la unidad seleccionada. Por favor verifique el dato.", My.Resources.Resources.alert.ToBitmap)
-                Util.MsgStatus(Status1, "No se puede crear un fragmentado con la unidad seleccionada. Por favor verifique el dato.", My.Resources.Resources.alert.ToBitmap, True)
-                cmbUNIDADES.Focus()
-                Exit Sub
-            End If
-        End If
         'If txtMaximo.Text = "" Or txtMaximo.Text = "0" Then
         '    Util.MsgStatus(Status1, "El campo máximo está vacío o en Cero.", My.Resources.Resources.alert.ToBitmap)
         '    Util.MsgStatus(Status1, "El campo máximo está vacío o en Cero.", My.Resources.Resources.alert.ToBitmap, True)
@@ -1450,43 +1093,18 @@ Public Class frmMateriales
             txtPrecioCompra.Focus()
             Exit Sub
         End If
-        If CDbl(txtPrecioMinorista.Text) <= 0 Then
-            Util.MsgStatus(Status1, "El precio Lista 1 es incorrecto. Por favor verifique.", My.Resources.Resources.alert.ToBitmap)
-            Util.MsgStatus(Status1, "El precio Lista 1 es incorrecto. Por favor verifique.", My.Resources.Resources.alert.ToBitmap, True)
-            txtPrecioMinorista.Focus()
+        If CDbl(txtganancia1.Text) <= 0 Then
+            Util.MsgStatus(Status1, "El valor de ganancia V1 es incorrecto. Por favor verifique.", My.Resources.Resources.alert.ToBitmap)
+            Util.MsgStatus(Status1, "El valor de ganancia V1 es incorrecto. Por favor verifique.", My.Resources.Resources.alert.ToBitmap, True)
+            txtganancia1.Focus()
             Exit Sub
         End If
-        If CDbl(txtPrecioMayorista.Text) <= 0 Then
-            Util.MsgStatus(Status1, "El precio Lista 2 es incorrecto. Por favor verifique.", My.Resources.Resources.alert.ToBitmap)
-            Util.MsgStatus(Status1, "El precio Lista 2 es incorrecto. Por favor verifique.", My.Resources.Resources.alert.ToBitmap, True)
-            txtPrecioMayorista.Focus()
+        If CDbl(txtganancia2.Text) <= 0 Then
+            Util.MsgStatus(Status1, "El valor de ganancia V2 es incorrecto. Por favor verifique.", My.Resources.Resources.alert.ToBitmap)
+            Util.MsgStatus(Status1, "El valor de ganancia V2 es incorrecto. Por favor verifique.", My.Resources.Resources.alert.ToBitmap, True)
+            txtganancia2.Focus()
             Exit Sub
         End If
-        If CDbl(txtPrecioMinoristaPeron.Text) <= 0 Then
-            Util.MsgStatus(Status1, "El precio Minorista Perón es incorrecto. Por favor verifique.", My.Resources.Resources.alert.ToBitmap)
-            Util.MsgStatus(Status1, "El precio Minorista Perón es incorrecto. Por favor verifique.", My.Resources.Resources.alert.ToBitmap, True)
-            txtPrecioMinoristaPeron.Focus()
-            Exit Sub
-        End If
-        If CDbl(txtPrecioMayoristaPeron.Text) <= 0 Then
-            Util.MsgStatus(Status1, "El precio Mayorista Perón es incorrecto. Por favor verifique.", My.Resources.Resources.alert.ToBitmap)
-            Util.MsgStatus(Status1, "El precio Mayorista Perón es incorrecto. Por favor verifique.", My.Resources.Resources.alert.ToBitmap, True)
-            txtPrecioMayoristaPeron.Focus()
-            Exit Sub
-        End If
-        If txtPrecio3.Text <= 0 Then
-            Util.MsgStatus(Status1, "El precio Lista 3 es incorrecto. Por favor verifique.", My.Resources.Resources.alert.ToBitmap)
-            Util.MsgStatus(Status1, "El precio Lista 3 es incorrecto. Por favor verifique.", My.Resources.Resources.alert.ToBitmap, True)
-            txtPrecio3.Focus()
-            Exit Sub
-        End If
-        If txtPrecio4.Text <= 0 Then
-            Util.MsgStatus(Status1, "El precio Lista 4 es incorrecto. Por favor verifique.", My.Resources.Resources.alert.ToBitmap)
-            Util.MsgStatus(Status1, "El precio Lista 4 es incorrecto. Por favor verifique.", My.Resources.Resources.alert.ToBitmap, True)
-            txtPrecio4.Focus()
-            Exit Sub
-        End If
-
 
         ''controlo solo si se esta cargando un producto nuevo 
         'If bolModo = True Then
@@ -1607,288 +1225,6 @@ Public Class frmMateriales
             End If
         End Try
 
-    End Sub
-
-    Private Sub LlenarcmbListaMinorista()
-        Dim connection As SqlClient.SqlConnection = Nothing
-        Dim ds_listas As Data.DataSet
-
-        Try
-            connection = SqlHelper.GetConnection(ConnStringSEI)
-        Catch ex As Exception
-            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
-        End Try
-
-        Try
-
-            ds_listas = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT Codigo, rtrim(Descripcion) as Descripcion FROM Lista_Precios WHERE Eliminado = 0 ORDER BY Descripcion")
-            ds_listas.Dispose()
-
-            With Me.cmbMinorista
-                .DataSource = ds_listas.Tables(0).DefaultView
-                .DisplayMember = "Descripcion"
-                .ValueMember = "Codigo"
-                '.AutoCompleteMode = AutoCompleteMode.Suggest
-                '.AutoCompleteSource = AutoCompleteSource.ListItems
-                '.DropDownStyle = ComboBoxStyle.DropDown
-                '.BindingContext = Me.BindingContext
-                .SelectedIndex = 0
-            End With
-
-
-        Catch ex As Exception
-            Dim errMessage As String = ""
-            Dim tempException As Exception = ex
-
-            While (Not tempException Is Nothing)
-                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
-                tempException = tempException.InnerException
-            End While
-
-            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
-              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If Not connection Is Nothing Then
-                CType(connection, IDisposable).Dispose()
-            End If
-        End Try
-    End Sub
-
-    Private Sub LlenarcmbListaMayorista()
-        Dim connection As SqlClient.SqlConnection = Nothing
-        Dim ds_listas As Data.DataSet
-
-        Try
-            connection = SqlHelper.GetConnection(ConnStringSEI)
-        Catch ex As Exception
-            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
-        End Try
-
-        Try
-
-            ds_listas = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT Codigo, rtrim(Descripcion) as Descripcion FROM Lista_Precios WHERE Eliminado = 0 ORDER BY Descripcion")
-            ds_listas.Dispose()
-
-            With Me.cmbMayorista
-                .DataSource = ds_listas.Tables(0).DefaultView
-                .DisplayMember = "Descripcion"
-                .ValueMember = "Codigo"
-                '.AutoCompleteMode = AutoCompleteMode.Suggest
-                '.AutoCompleteSource = AutoCompleteSource.ListItems
-                '.DropDownStyle = ComboBoxStyle.DropDown
-                '.BindingContext = Me.BindingContext
-                .SelectedIndex = 0
-            End With
-
-
-        Catch ex As Exception
-            Dim errMessage As String = ""
-            Dim tempException As Exception = ex
-
-            While (Not tempException Is Nothing)
-                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
-                tempException = tempException.InnerException
-            End While
-
-            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
-              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If Not connection Is Nothing Then
-                CType(connection, IDisposable).Dispose()
-            End If
-        End Try
-    End Sub
-
-    Private Sub LlenarcmbListaMinoristaPeron()
-        Dim connection As SqlClient.SqlConnection = Nothing
-        Dim ds_listas As Data.DataSet
-
-        Try
-            connection = SqlHelper.GetConnection(ConnStringSEI)
-        Catch ex As Exception
-            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
-        End Try
-
-        Try
-
-            ds_listas = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT Codigo, rtrim(Descripcion) as Descripcion FROM Lista_Precios WHERE Eliminado = 0 ORDER BY Descripcion")
-            ds_listas.Dispose()
-
-            With Me.cmbMinoristaPeron
-                .DataSource = ds_listas.Tables(0).DefaultView
-                .DisplayMember = "Descripcion"
-                .ValueMember = "Codigo"
-                '.AutoCompleteMode = AutoCompleteMode.Suggest
-                '.AutoCompleteSource = AutoCompleteSource.ListItems
-                '.DropDownStyle = ComboBoxStyle.DropDown
-                '.BindingContext = Me.BindingContext
-                .SelectedIndex = 0
-            End With
-
-
-        Catch ex As Exception
-            Dim errMessage As String = ""
-            Dim tempException As Exception = ex
-
-            While (Not tempException Is Nothing)
-                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
-                tempException = tempException.InnerException
-            End While
-
-            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
-              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If Not connection Is Nothing Then
-                CType(connection, IDisposable).Dispose()
-            End If
-        End Try
-    End Sub
-
-    Private Sub LlenarcmbListaMayoristaPeron()
-        Dim connection As SqlClient.SqlConnection = Nothing
-        Dim ds_listas As Data.DataSet
-
-        Try
-            connection = SqlHelper.GetConnection(ConnStringSEI)
-        Catch ex As Exception
-            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
-        End Try
-
-        Try
-
-            ds_listas = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT Codigo, rtrim(Descripcion) as Descripcion FROM Lista_Precios WHERE Eliminado = 0 ORDER BY Descripcion")
-            ds_listas.Dispose()
-
-            With Me.cmbMayoristaPeron
-                .DataSource = ds_listas.Tables(0).DefaultView
-                .DisplayMember = "Descripcion"
-                .ValueMember = "Codigo"
-                '.AutoCompleteMode = AutoCompleteMode.Suggest
-                '.AutoCompleteSource = AutoCompleteSource.ListItems
-                '.DropDownStyle = ComboBoxStyle.DropDown
-                '.BindingContext = Me.BindingContext
-                .SelectedIndex = 0
-            End With
-
-
-        Catch ex As Exception
-            Dim errMessage As String = ""
-            Dim tempException As Exception = ex
-
-            While (Not tempException Is Nothing)
-                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
-                tempException = tempException.InnerException
-            End While
-
-            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
-              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If Not connection Is Nothing Then
-                CType(connection, IDisposable).Dispose()
-            End If
-        End Try
-    End Sub
-
-    Private Sub LlenarcmbLista3()
-        Dim connection As SqlClient.SqlConnection = Nothing
-        Dim ds_listas As Data.DataSet
-
-        Try
-            connection = SqlHelper.GetConnection(ConnStringSEI)
-        Catch ex As Exception
-            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
-        End Try
-
-        Try
-
-            ds_listas = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT Codigo, rtrim(Descripcion) as Descripcion FROM Lista_Precios WHERE Eliminado = 0 ORDER BY Descripcion")
-            ds_listas.Dispose()
-
-            With Me.cmbLista3
-                .DataSource = ds_listas.Tables(0).DefaultView
-                .DisplayMember = "Descripcion"
-                .ValueMember = "Codigo"
-                '.AutoCompleteMode = AutoCompleteMode.Suggest
-                '.AutoCompleteSource = AutoCompleteSource.ListItems
-                '.DropDownStyle = ComboBoxStyle.DropDown
-                '.BindingContext = Me.BindingContext
-                .SelectedIndex = 0
-            End With
-
-
-        Catch ex As Exception
-            Dim errMessage As String = ""
-            Dim tempException As Exception = ex
-
-            While (Not tempException Is Nothing)
-                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
-                tempException = tempException.InnerException
-            End While
-
-            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
-              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If Not connection Is Nothing Then
-                CType(connection, IDisposable).Dispose()
-            End If
-        End Try
-    End Sub
-
-    Private Sub LlenarcmbLista4()
-        Dim connection As SqlClient.SqlConnection = Nothing
-        Dim ds_listas As Data.DataSet
-
-        Try
-            connection = SqlHelper.GetConnection(ConnStringSEI)
-        Catch ex As Exception
-            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
-        End Try
-
-        Try
-
-            ds_listas = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT Codigo, rtrim(Descripcion) as Descripcion FROM Lista_Precios WHERE Eliminado = 0 ORDER BY Descripcion")
-            ds_listas.Dispose()
-
-            With Me.cmbLista4
-                .DataSource = ds_listas.Tables(0).DefaultView
-                .DisplayMember = "Descripcion"
-                .ValueMember = "Codigo"
-                '.AutoCompleteMode = AutoCompleteMode.Suggest
-                '.AutoCompleteSource = AutoCompleteSource.ListItems
-                '.DropDownStyle = ComboBoxStyle.DropDown
-                '.BindingContext = Me.BindingContext
-                .SelectedIndex = 0
-            End With
-
-
-        Catch ex As Exception
-            Dim errMessage As String = ""
-            Dim tempException As Exception = ex
-
-            While (Not tempException Is Nothing)
-                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
-                tempException = tempException.InnerException
-            End While
-
-            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
-              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If Not connection Is Nothing Then
-                CType(connection, IDisposable).Dispose()
-            End If
-        End Try
     End Sub
 
     Private Sub LlenarcmbRubros()
@@ -2375,7 +1711,7 @@ Public Class frmMateriales
             ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT ISNULL(gananciaxdefecto,0) AS GananciaxDefecto FROM Parametros")
 
             txtgananciaoriginal.Text = IIf(ds.Tables(0).Rows(0)(0) Is Nothing, 0, ds.Tables(0).Rows(0)(0))
-            txtganancia.Text = IIf(ds.Tables(0).Rows(0)(0) Is Nothing, 0, ds.Tables(0).Rows(0)(0))
+            txtganancia1.Text = IIf(ds.Tables(0).Rows(0)(0) Is Nothing, 0, ds.Tables(0).Rows(0)(0))
 
         Catch ex As Exception
             Dim errMessage As String = ""
@@ -2396,32 +1732,6 @@ Public Class frmMateriales
         End Try
     End Sub
 
-    Private Sub Traer_ValorCambio()
-
-        Dim connection As SqlClient.SqlConnection = Nothing
-        Dim ds_ValorCambio As Data.DataSet
-
-
-        Try
-            connection = SqlHelper.GetConnection(ConnStringSEI)
-        Catch ex As Exception
-            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
-        End Try
-
-
-        ds_ValorCambio = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT Valor_Cambio FROM Lista_Precios WHERE Descripcion = 'REVENDEDOR' AND Eliminado = 0")
-        ds_ValorCambio.Dispose()
-
-        If ds_ValorCambio.Tables(0).Rows.Count = 0 Then
-            ValorCambio = 0.0
-            Exit Sub
-        Else
-            ValorCambio = ds_ValorCambio.Tables(0).Rows(0).Item(0)
-        End If
-
-    End Sub
-
     Private Sub LlenarGridItemStock()
 
         If grdItemsStock.Columns.Count > 0 Then
@@ -2429,7 +1739,7 @@ Public Class frmMateriales
         End If
 
         If txtID.Text = "" Then
-            SQL = "SELECT 0.00 as StockPrincipal,  0.00 as StockPeron"
+            SQL = "SELECT 0.00 as PRINCIPAL,  0.00 as SECUNDARIO"
 
             Try
                 grdItemsStock.ReadOnly = False
@@ -2437,21 +1747,23 @@ Public Class frmMateriales
             Catch ex As Exception
 
             End Try
-        
+
 
         Else
-            'SQL = "exec spMateriales_Stock_ALmacen @IdMaterial = '" & txtCODIGO.Text & "'"
-            SQL = "SELECT A.Nombre as 'ALMACEN', Qty as 'STOCK' FROM STOCK S JOIN Almacenes A ON S.IDALMACEN = A.Codigo WHERE IDMaterial ='" & txtCODIGO.Text & "'"
+            SQL = "exec spMateriales_Stock_ALmacen @IdMaterial = '" & txtCODIGO.Text & "'"
+            'SQL = "SELECT A.Nombre as 'ALMACEN', Qty as 'STOCK' FROM STOCK S JOIN Almacenes A ON S.IDALMACEN = A.Codigo WHERE IDMaterial ='" & txtCODIGO.Text & "'"
 
-            Try
-                grdItemsStock.Columns(0).Width = 120
-                grdItemsStock.Columns(0).ReadOnly = True
-                grdItemsStock.Columns(1).Width = 120
-            Catch ex As Exception
-
-            End Try
+            
 
         End If
+
+        Try
+            grdItemsStock.Columns(0).Width = 130
+            'grdItemsStock.Columns(0).ReadOnly = True
+            grdItemsStock.Columns(1).Width = 150
+        Catch ex As Exception
+
+        End Try
 
         GetDatasetItems()
 
@@ -2504,7 +1816,7 @@ Public Class frmMateriales
 
         'Volver la fuente de datos a como estaba...
 
-        SQL = "exec spMateriales_Select_All @Eliminado = 0,@Fraccionados = 0"
+        SQL = "exec spMateriales_Select_All @Eliminado = 0"
 
     End Sub
 
@@ -2547,101 +1859,36 @@ Public Class frmMateriales
 
     End Sub
 
-    Private Sub CargarlistaPrincipales()
+    Private Sub Calcular_Precios(ByVal costo As Boolean, ByVal ganan1 As Boolean, ByVal ganan2 As Boolean, ByVal valorcosto As Double)
 
-        ds_cmblista = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "select Codigo,Porcentaje,Valor_Cambio from lista_precios where Codigo in (3,4,5)")
-        ds_cmblista.Dispose()
+        Dim aux As Double = 0
 
-        txtIDMinorista.Text = ds_cmblista.Tables(0).Rows(0)(0).ToString
-        PorcenMayo = Math.Round(ds_cmblista.Tables(0).Rows(0)(1), 2)
-        lblPorcen1.Text = PorcenMayo
-        ValorMayo = ds_cmblista.Tables(0).Rows(0)(2).ToString
+        If costo Then
+            Dim valorCal As Double = 0
+            'calculo el valor de Ventas 1
+            aux = (CDbl(IIf(txtganancia1.Text = "", 0, txtganancia1.Text)) / 100) + 1
+            valorCal = valorcosto * aux
+            valorCal = Math.Round(valorCal, 2)
+            lblVentas1.Text = valorCal
+            'calculo el valor de Ventas 2
+            aux = (CDbl(IIf(txtganancia2.Text = "", 0, txtganancia2.Text)) / 100) + 1
+            valorCal = valorcosto * aux
+            valorCal = Math.Round(valorCal, 2)
+            lblVentas2.Text = valorCal
 
-        txtIDMayorista.Text = ds_cmblista.Tables(0).Rows(1)(0).ToString
-        PorcenReven = Math.Round(ds_cmblista.Tables(0).Rows(1)(1), 2)
-        lblPorcen2.Text = PorcenReven
-        ValorReven = ds_cmblista.Tables(0).Rows(1)(2)
-
-        txtIDLista3.Text = ds_cmblista.Tables(0).Rows(2)(0)
-        PorcenYami = Math.Round(ds_cmblista.Tables(0).Rows(2)(1), 2)
-        lblPorcen3.Text = PorcenYami
-        ValorYami = ds_cmblista.Tables(0).Rows(2)(2)
-
-    End Sub
-
-    Private Sub CalcularPorcentaje_Precio(ByVal chk As Integer)
-        Dim calculo As Double
-        Try
-            'me fijo si selecciono algun chk
-            Select Case chk
-                Case 1
-                    If chk1.Checked = False Then
-                        txtPrecioMinorista.Text = Math.Round(ValorMayo * CDbl(txtPrecioCompra.Text), 2)
-                        lblPorcen1.Text = PorcenMayo
-                    Else
-                        calculo = Math.Round((CDbl(txtPrecioMinorista.Text) * 100) / CDbl(txtPrecioCompra.Text), 2)
-                        lblPorcen1.Text = Math.Round(calculo - 100, 2)
-                    End If
-                Case 2
-                    If chk2.Checked = False Then
-                        txtPrecioMayorista.Text = Math.Round(ValorReven * CDbl(txtPrecioCompra.Text), 2)
-                        lblPorcen2.Text = PorcenReven
-                    Else
-                        calculo = Math.Round((CDbl(txtPrecioMayorista.Text) * 100) / CDbl(txtPrecioCompra.Text), 2)
-                        lblPorcen2.Text = Math.Round(calculo - 100, 2)
-                    End If
-                Case 3
-                    If chk3.Checked = False Then
-                        txtPrecio3.Text = Math.Round(ValorYami * CDbl(txtPrecioCompra.Text), 2)
-                        lblPorcen3.Text = PorcenYami
-                    Else
-                        calculo = Math.Round((CDbl(txtPrecio3.Text) * 100) / CDbl(txtPrecioCompra.Text), 2)
-                        lblPorcen3.Text = Math.Round(calculo - 100, 2)
-                    End If
-                Case 4
-                    If chk4.Checked = False Then
-                        txtPrecio4.Text = Math.Round(Valor4 * CDbl(txtPrecioCompra.Text), 2)
-                        lblPorcen4.Text = Porcen4
-                    Else
-                        calculo = Math.Round((CDbl(txtPrecio4.Text) * 100) / CDbl(txtPrecioCompra.Text), 2)
-                        lblPorcen4.Text = Math.Round(calculo - 100, 2)
-                    End If
-                Case Else
-                    'Aplico a todos los chk
-                    If chk1.Checked = False Then
-                        txtPrecioMinorista.Text = Math.Round(ValorMayo * CDbl(txtPrecioCompra.Text), 2)
-                        lblPorcen1.Text = PorcenMayo
-                    Else
-                        calculo = Math.Round((CDbl(txtPrecioMinorista.Text) * 100) / CDbl(txtPrecioCompra.Text), 2)
-                        lblPorcen1.Text = Math.Round(calculo - 100, 2)
-                    End If
-                    If chk2.Checked = False Then
-                        txtPrecioMayorista.Text = Math.Round(ValorReven * CDbl(txtPrecioCompra.Text), 2)
-                        lblPorcen2.Text = PorcenReven
-                    Else
-                        calculo = Math.Round((CDbl(txtPrecioMayorista.Text) * 100) / CDbl(txtPrecioCompra.Text), 2)
-                        lblPorcen2.Text = Math.Round(calculo - 100, 2)
-                    End If
-                    If chk3.Checked = False Then
-                        txtPrecio3.Text = Math.Round(ValorYami * CDbl(txtPrecioCompra.Text), 2)
-                        lblPorcen3.Text = PorcenYami
-                    Else
-                        calculo = Math.Round((CDbl(txtPrecio3.Text) * 100) / CDbl(txtPrecioCompra.Text), 2)
-                        lblPorcen3.Text = Math.Round(calculo - 100, 2)
-                    End If
-                    If chk4.Checked = False Then
-                        txtPrecio4.Text = Math.Round(Valor4 * CDbl(txtPrecioCompra.Text), 2)
-                        lblPorcen4.Text = Porcen4
-                    Else
-                        calculo = Math.Round((CDbl(txtPrecio4.Text) * 100) / CDbl(txtPrecioCompra.Text), 2)
-                        lblPorcen4.Text = Math.Round(calculo - 100, 2)
-                    End If
-            End Select
-
-        Catch ex As Exception
-
-        End Try
-
+        ElseIf ganan1 Then
+            'calculo el valor de Ventas 1
+            aux = (CDbl(IIf(txtganancia1.Text = "", 0, txtganancia1.Text)) / 100) + 1
+            valorcosto = valorcosto * aux
+            valorcosto = Math.Round(valorcosto, 2)
+            lblVentas1.Text = valorcosto
+        Else
+            'calculo el valor de Ventas 2
+            aux = (CDbl(IIf(txtganancia2.Text = "", 0, txtganancia2.Text)) / 100) + 1
+            valorcosto = valorcosto * aux
+            valorcosto = Math.Round(valorcosto, 2)
+            lblVentas2.Text = valorcosto
+        End If
 
     End Sub
 
@@ -2649,26 +1896,25 @@ Public Class frmMateriales
 
 #Region "   Funciones"
 
-    Private Function AgregarActualizar_Registro(ByVal CrearFR As Boolean) As Integer
+    Private Function AgregarActualizar_Registro() As Integer
 
         Dim res As Integer = 0
         Dim connection As SqlClient.SqlConnection = Nothing
 
-        If CrearFR = False Then
-            Try
-                connection = SqlHelper.GetConnection(ConnStringSEI)
-            Catch ex As Exception
-                MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit Function
-            End Try
 
-            'Abrir una transaccion para guardar y asegurar que se guarda todo
-            If Abrir_Tran(connection) = False Then
-                MessageBox.Show("No se pudo abrir una transaccion", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit Function
-            End If
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Function
+        End Try
+
+        'Abrir una transaccion para guardar y asegurar que se guarda todo
+        If Abrir_Tran(connection) = False Then
+            MessageBox.Show("No se pudo abrir una transaccion", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Function
         End If
-    
+
         Try
 
             Dim param_id As New SqlClient.SqlParameter
@@ -2706,11 +1952,7 @@ Public Class frmMateriales
             param_idunidad.ParameterName = "@idunidad"
             param_idunidad.SqlDbType = SqlDbType.VarChar
             param_idunidad.Size = 25
-            If CrearFR = False Then
-                param_idunidad.Value = IIf(txtIdUnidad.Text = "", cmbUNIDADES.SelectedValue, txtIdUnidad.Text)
-            Else
-                param_idunidad.Value = IIf(rdKilo.Checked, "KG", "LITROS")
-            End If
+            param_idunidad.Value = IIf(txtIdUnidad.Text = "", cmbUNIDADES.SelectedValue, txtIdUnidad.Text)
             param_idunidad.Direction = ParameterDirection.Input
 
             Dim param_codigo As New SqlClient.SqlParameter
@@ -2725,14 +1967,10 @@ Public Class frmMateriales
                 param_codigo.Direction = ParameterDirection.Input
             End If
 
-
             Dim param_nombre As New SqlClient.SqlParameter
             param_nombre.ParameterName = "@nombre"
             param_nombre.SqlDbType = SqlDbType.NVarChar
             param_nombre.Size = 4000
-            If CrearFR Then
-                txtNOMBRE.Text = txtNOMBRE.Text.ToString + "**FR"
-            End If
             param_nombre.Value = RTrim(LTrim(txtNOMBRE.Text))
             param_nombre.Direction = ParameterDirection.Input
 
@@ -2741,7 +1979,7 @@ Public Class frmMateriales
             param_preciocosto.SqlDbType = SqlDbType.Decimal
             param_preciocosto.Precision = 18
             param_preciocosto.Scale = 2
-            param_preciocosto.Value = txtPrecioMinorista.Text
+            param_preciocosto.Value = lblVentas1.Text
             param_preciocosto.Direction = ParameterDirection.Input
 
             Dim param_preciocompra As New SqlClient.SqlParameter
@@ -2757,7 +1995,7 @@ Public Class frmMateriales
             param_precioPeron.SqlDbType = SqlDbType.Decimal
             param_precioPeron.Precision = 18
             param_precioPeron.Scale = 2
-            param_precioPeron.Value = txtPrecioMinoristaPeron.Text
+            param_precioPeron.Value = 0
             param_precioPeron.Direction = ParameterDirection.Input
 
             Dim param_preciomayorista As New SqlClient.SqlParameter
@@ -2765,7 +2003,7 @@ Public Class frmMateriales
             param_preciomayorista.SqlDbType = SqlDbType.Decimal
             param_preciomayorista.Precision = 18
             param_preciomayorista.Scale = 2
-            param_preciomayorista.Value = txtPrecioMayorista.Text
+            param_preciomayorista.Value = lblVentas2.Text
             param_preciomayorista.Direction = ParameterDirection.Input
 
 
@@ -2774,34 +2012,34 @@ Public Class frmMateriales
             param_preciomayoristaperon.SqlDbType = SqlDbType.Decimal
             param_preciomayoristaperon.Precision = 18
             param_preciomayoristaperon.Scale = 2
-            param_preciomayoristaperon.Value = txtPrecioMayoristaPeron.Text
+            param_preciomayoristaperon.Value = 0
             param_preciomayoristaperon.Direction = ParameterDirection.Input
 
 
             Dim param_idListaMayorista As New SqlClient.SqlParameter
             param_idListaMayorista.ParameterName = "@idlistamayorista"
             param_idListaMayorista.SqlDbType = SqlDbType.BigInt
-            param_idListaMayorista.Value = txtIDMayorista.Text
+            param_idListaMayorista.Value = 0
             ' param_idListaMayorista.Value = IIf(txtIDMayorista.Text = "", cmbMayorista.SelectedValue, txtIDMayorista.Text)
             param_idListaMayorista.Direction = ParameterDirection.Input
 
             Dim param_idListaMayoristaPeron As New SqlClient.SqlParameter
             param_idListaMayoristaPeron.ParameterName = "@idlistamayoristaperon"
             param_idListaMayoristaPeron.SqlDbType = SqlDbType.BigInt
-            param_idListaMayoristaPeron.Value = IIf(txtIDMayoristaPeron.Text = "", cmbMayoristaPeron.SelectedValue, txtIDMayoristaPeron.Text)
+            param_idListaMayoristaPeron.Value = 0 'IIf(txtIDMayoristaPeron.Text = "", cmbMayoristaPeron.SelectedValue, txtIDMayoristaPeron.Text)
             param_idListaMayoristaPeron.Direction = ParameterDirection.Input
 
             Dim param_idListaMinorista As New SqlClient.SqlParameter
             param_idListaMinorista.ParameterName = "@idlistaminorista"
             param_idListaMinorista.SqlDbType = SqlDbType.BigInt
-            param_idListaMinorista.Value = txtIDMinorista.Text
+            param_idListaMinorista.Value = 0 'txtIDMinorista.Text
             'param_idListaMinorista.Value = IIf(txtIDMinorista.Text = "", cmbMinorista.SelectedValue, txtIDMinorista.Text)
             param_idListaMinorista.Direction = ParameterDirection.Input
 
             Dim param_idListaMinoristaPeron As New SqlClient.SqlParameter
             param_idListaMinoristaPeron.ParameterName = "@idlistaminoristaperon"
             param_idListaMinoristaPeron.SqlDbType = SqlDbType.BigInt
-            param_idListaMinoristaPeron.Value = IIf(txtIDMinoristaPeron.Text = "", cmbMinoristaPeron.SelectedValue, txtIDMinoristaPeron.Text)
+            param_idListaMinoristaPeron.Value = 0 'IIf(txtIDMinoristaPeron.Text = "", cmbMinoristaPeron.SelectedValue, txtIDMinoristaPeron.Text)
             param_idListaMinoristaPeron.Direction = ParameterDirection.Input
 
             Dim param_ganancia As New SqlClient.SqlParameter
@@ -2809,8 +2047,16 @@ Public Class frmMateriales
             param_ganancia.SqlDbType = SqlDbType.Decimal
             param_ganancia.Precision = 18
             param_ganancia.Scale = 2
-            param_ganancia.Value = txtganancia.Text
+            param_ganancia.Value = txtganancia1.Text
             param_ganancia.Direction = ParameterDirection.Input
+
+            Dim param_ganancia2 As New SqlClient.SqlParameter
+            param_ganancia2.ParameterName = "@ganancia2"
+            param_ganancia2.SqlDbType = SqlDbType.Decimal
+            param_ganancia2.Precision = 18
+            param_ganancia2.Scale = 2
+            param_ganancia2.Value = txtganancia2.Text
+            param_ganancia2.Direction = ParameterDirection.Input
 
             Dim param_minimo As New SqlClient.SqlParameter
             param_minimo.ParameterName = "@minimo"
@@ -2840,14 +2086,8 @@ Public Class frmMateriales
                 param_stockinicialperon.SqlDbType = SqlDbType.Decimal
                 param_stockinicialperon.Precision = 18
                 param_stockinicialperon.Scale = 2
-
-                If CrearFR = False Then
-                    param_stockinicial.Value = IIf(grdItemsStock.Rows(0).Cells(0).Value.ToString = "", 0, grdItemsStock.Rows(0).Cells(0).Value)
-                    param_stockinicialperon.Value = IIf(grdItemsStock.Rows(0).Cells(1).Value.ToString = "", 0, grdItemsStock.Rows(0).Cells(1).Value)
-                Else
-                    param_stockinicial.Value = 0
-                    param_stockinicialperon.Value = 0
-                End If
+                param_stockinicial.Value = IIf(grdItemsStock.Rows(0).Cells(0).Value.ToString = "", 0, grdItemsStock.Rows(0).Cells(0).Value)
+                param_stockinicialperon.Value = IIf(grdItemsStock.Rows(0).Cells(1).Value.ToString = "", 0, grdItemsStock.Rows(0).Cells(1).Value)
 
                 param_stockinicial.Direction = ParameterDirection.Input
                 param_stockinicialperon.Direction = ParameterDirection.Input
@@ -2900,13 +2140,13 @@ Public Class frmMateriales
             param_preciolista3.SqlDbType = SqlDbType.Decimal
             param_preciolista3.Precision = 18
             param_preciolista3.Scale = 2
-            param_preciolista3.Value = txtPrecio3.Text
+            param_preciolista3.Value = 0 'txtPrecio3.Text
             param_preciolista3.Direction = ParameterDirection.Input
 
             Dim param_idlista3 As New SqlClient.SqlParameter
             param_idlista3.ParameterName = "@idlista3"
             param_idlista3.SqlDbType = SqlDbType.BigInt
-            param_idlista3.Value = txtIDLista3.Text
+            param_idlista3.Value = 0 'txtIDLista3.Text
             'param_idlista3.Value = IIf(txtIDLista3.Text = "", cmbLista3.SelectedValue, txtIDLista3.Text)
             param_idlista3.Direction = ParameterDirection.Input
 
@@ -2915,20 +2155,20 @@ Public Class frmMateriales
             param_preciolista4.SqlDbType = SqlDbType.Decimal
             param_preciolista4.Precision = 18
             param_preciolista4.Scale = 2
-            param_preciolista4.Value = txtPrecio4.Text
+            param_preciolista4.Value = 0 'txtPrecio4.Text
             param_preciolista4.Direction = ParameterDirection.Input
 
             Dim param_idlista4 As New SqlClient.SqlParameter
             param_idlista4.ParameterName = "@idlista4"
             param_idlista4.SqlDbType = SqlDbType.BigInt
-            param_idlista4.Value = IIf(txtIDLista4.Text = "", cmbLista4.SelectedValue, txtIDLista4.Text)
+            param_idlista4.Value = 0 'IIf(txtIDLista4.Text = "", cmbLista4.SelectedValue, txtIDLista4.Text)
             param_idlista4.Direction = ParameterDirection.Input
 
             Dim param_unidadref As New SqlClient.SqlParameter
             param_unidadref.ParameterName = "@unidadref"
             param_unidadref.SqlDbType = SqlDbType.VarChar
             param_unidadref.Size = 25
-            If chkUniRef.Checked And CrearFR = False Then
+            If chkUniRef.Checked Then
                 If rdKilo.Checked Then
                     param_unidadref.Value = "KG"
                 End If
@@ -2946,31 +2186,31 @@ Public Class frmMateriales
             Dim param_cambiar1 As New SqlClient.SqlParameter
             param_cambiar1.ParameterName = "@cambiar1"
             param_cambiar1.SqlDbType = SqlDbType.Bit
-            param_cambiar1.Value = chk1.Checked
+            param_cambiar1.Value = 0 'chk1.Checked
             param_cambiar1.Direction = ParameterDirection.Input
 
             Dim param_cambiar2 As New SqlClient.SqlParameter
             param_cambiar2.ParameterName = "@cambiar2"
             param_cambiar2.SqlDbType = SqlDbType.Bit
-            param_cambiar2.Value = chk2.Checked
+            param_cambiar2.Value = 0 'chk2.Checked
             param_cambiar2.Direction = ParameterDirection.Input
 
             Dim param_cambiar3 As New SqlClient.SqlParameter
             param_cambiar3.ParameterName = "@cambiar3"
             param_cambiar3.SqlDbType = SqlDbType.Bit
-            param_cambiar3.Value = chk3.Checked
+            param_cambiar3.Value = 0 'chk3.Checked
             param_cambiar3.Direction = ParameterDirection.Input
 
             Dim param_cambiar4 As New SqlClient.SqlParameter
             param_cambiar4.ParameterName = "@cambiar4"
             param_cambiar4.SqlDbType = SqlDbType.Bit
-            param_cambiar4.Value = chk4.Checked
+            param_cambiar4.Value = 0 'chk4.Checked
             param_cambiar4.Direction = ParameterDirection.Input
 
             Dim param_ventamayorista As New SqlClient.SqlParameter
             param_ventamayorista.ParameterName = "@VentaMayorista"
             param_ventamayorista.SqlDbType = SqlDbType.Bit
-            param_ventamayorista.Value = chkVentaMayorista.Checked
+            param_ventamayorista.Value = 0 'chkVentaMayorista.Checked
             param_ventamayorista.Direction = ParameterDirection.Input
 
             Dim param_mensaje As New SqlClient.SqlParameter
@@ -3006,7 +2246,7 @@ Public Class frmMateriales
                                     param_idListaMinorista, param_idListaMinoristaPeron, param_preciolista3, param_idlista3, param_preciolista4, param_idlista4, _
                                     param_minimo, param_maximo, param_stockinicial, param_stockinicialperon, param_CodBarra, param_Pasillo, _
                                     param_cambiar1, param_cambiar2, param_cambiar3, param_cambiar4, param_ventamayorista, _
-                                    param_Estante, param_Fila, param_ControlStock, param_cantidadpack, param_useradd, param_idAlmacen, param_res)
+                                    param_Estante, param_Fila, param_ControlStock, param_cantidadpack, param_ganancia2, param_useradd, param_idAlmacen, param_res)
 
                     txtID.Text = param_id.Value
                     txtCODIGO.Text = param_codigo.Value
@@ -3021,7 +2261,7 @@ Public Class frmMateriales
                                   param_idListaMinorista, param_idListaMinoristaPeron, param_preciolista3, param_idlista3, param_preciolista4, param_idlista4, _
                                   param_minimo, param_maximo, param_CodBarra, param_Pasillo, _
                                   param_Estante, param_Fila, param_ControlStock, param_cantidadpack, _
-                                  param_cambiar1, param_cambiar2, param_cambiar3, param_cambiar4, param_ventamayorista, _
+                                  param_cambiar1, param_cambiar2, param_cambiar3, param_cambiar4, param_ventamayorista, param_ganancia2, _
                                   param_useradd, param_mensaje, param_res)
 
                     res = param_res.Value
@@ -3090,20 +2330,20 @@ Public Class frmMateriales
 
                 If res > 0 Then
 
-                    If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
+                    'If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
 
-                        Try
-                            Dim sqlstring As String
+                    'Try
+                    '    Dim sqlstring As String
 
-                            sqlstring = "UPDATE [dbo].[Materiales] SET [Eliminado] = 1 WHERE Codigo = '" & txtCODIGO.Text & "'"
-                            tranWEB.Sql_Set(sqlstring)
+                    '    sqlstring = "UPDATE [dbo].[" & NameTable_Materiales & "] SET [Eliminado] = 1 WHERE Codigo = '" & txtCODIGO.Text & "'"
+                    '    tranWEB.Sql_Set(sqlstring)
 
-                        Catch ex As Exception
-                            'MsgBox(ex.Message)
-                            MsgBox("No se puede actualizar en la Web la lista de Materiales. Ejecute el botón sincronizar para actualizar el servidor WEB.")
-                        End Try
+                    'Catch ex As Exception
+                    '    'MsgBox(ex.Message)
+                    '    MsgBox("No se puede actualizar en la Web la lista de Materiales. Ejecute el botón sincronizar para actualizar el servidor WEB.")
+                    'End Try
 
-                    End If
+                    'End If
 
                     Util.BorrarGrilla(grd)
 
@@ -3286,6 +2526,8 @@ Public Class frmMateriales
 
     End Function
 
+
+
 #End Region
 
 #Region "   Botones"
@@ -3306,7 +2548,7 @@ Public Class frmMateriales
         '        End If
         Try
             If MDIPrincipal.sucursal.ToUpper.Contains("PRINCIPAL") And (MDIPrincipal.EmpleadoLogueado = "12" Or MDIPrincipal.EmpleadoLogueado = "13" Or MDIPrincipal.EmpleadoLogueado = "2") Then
-                Dim sqlstring As String = "update NotificacionesWEB set BloqueoM = 0"
+                Dim sqlstring As String = "update [" & NameTable_NotificacionesWEB & "] set BloqueoM = 0"
                 tranWEB.Sql_Set(sqlstring)
             End If
 
@@ -3361,13 +2603,13 @@ Public Class frmMateriales
 
         'cmbNombre.Text = MDIPrincipal.UltBusquedaMat
 
-        Label20.Enabled = True
+        'Label20.Enabled = True
         txtStockInicio.Enabled = True
 
         'Label12.Enabled = True
         'cmbAlmacenes.Enabled = True
 
-        lblStockActual.Text = "0"
+        'lblStockActual.Text = "0"
         'lblMejorGanancia.Text = "0"
         'lblMejorPrecio.Text = "0"
         'lblPrecioIva10.Text = "0"
@@ -3390,14 +2632,14 @@ Public Class frmMateriales
             'cmbMinorista.SelectedIndex = 0
             'cmbMayorista.SelectedIndex = 0
             'cmbLista3.SelectedIndex = 0
-            cmbLista4.SelectedIndex = 0
-            'en peron dejo como predeterminado revendedor
-            cmbMinoristaPeron.SelectedValue = 4
-            cmbMayoristaPeron.SelectedIndex = 0
+            'cmbLista4.SelectedIndex = 0
+            'cmbMinoristaPeron.SelectedValue = 2
+            ''en peron dejo como MAYORISTA
+            'cmbMayoristaPeron.SelectedValue = 3
         End If
 
 
-        CargarlistaPrincipales()
+
         'LlenarGridItems()
         LlenarGridItemStock()
         txtCODIGO.Focus()
@@ -3428,20 +2670,20 @@ Public Class frmMateriales
         '        txtNOMBRE.Text = txtNOMBRE.Text.ToString + "**FR"
         '    End If
         'End If
-        If chkFraccionados.Checked Then
-            If Not txtNOMBRE.Text.Contains("**FR") Then
-                txtNOMBRE.Text = txtNOMBRE.Text.ToString + "**FR"
-            End If
-        End If
+        'If chkFraccionados.Checked Then
+        '    If Not txtNOMBRE.Text.Contains("**FR") Then
+        '        txtNOMBRE.Text = txtNOMBRE.Text.ToString + "**FR"
+        '    End If
+        'End If
 
-        If txtganancia.Text = "" Then
-            txtganancia.Text = "18"
-            'If MessageBox.Show("El sistema ingresara el valor predeterminado para el campo Ganancia ( " & txtgananciaoriginal.Text & "%). Desea continuar?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
-            '    txtganancia.Text = txtgananciaoriginal.Text
-            'Else
-            '    Exit Sub
-            'End If
-        End If
+        'If txtganancia1.Text = "" Then
+        '    txtganancia1.Text = "18"
+        '    'If MessageBox.Show("El sistema ingresara el valor predeterminado para el campo Ganancia ( " & txtgananciaoriginal.Text & "%). Desea continuar?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
+        '    '    txtganancia.Text = txtgananciaoriginal.Text
+        '    'Else
+        '    '    Exit Sub
+        '    'End If
+        'End If
 
         Util.MsgStatus(Status1, "Guardando el registro...", My.Resources.Resources.indicator_white)
 
@@ -3452,13 +2694,8 @@ Public Class frmMateriales
         If ReglasNegocio() Then
             Verificar_Datos()
             If bolpoliticas Then
-                res = AgregarActualizar_Registro(False)
+                res = AgregarActualizar_Registro()
                 Select Case res
-                    Case -15
-                        Cancelar_Tran()
-                        Util.MsgStatus(Status1, "No se pudo modificar el producto fragmentado asociado. Por favor, verifique esta información.", My.Resources.Resources.stop_error.ToBitmap)
-                        Util.MsgStatus(Status1, "No se pudo modificar el producto fragmentado asociado. Por favor, verifique esta información.", My.Resources.Resources.stop_error.ToBitmap, True)
-                        Exit Sub
                     Case -11
                         Cancelar_Tran()
                         Util.MsgStatus(Status1, "Está intentando ingresar un Material cuyo código ya existe en el sistema. Por favor, verifique esta información.", My.Resources.Resources.stop_error.ToBitmap)
@@ -3487,157 +2724,121 @@ Public Class frmMateriales
                         Util.MsgStatus(Status1, "No se pudo agregar el registro.", My.Resources.Resources.stop_error.ToBitmap, True)
                         Exit Sub
                     Case Else
-                        If chkCrearFR.Checked = False Then
-                            Util.MsgStatus(Status1, "Se ha actualizado el registro.", My.Resources.Resources.ok.ToBitmap)
-                            Cerrar_Tran()
-                        Else
-                            res = AgregarActualizar_Registro(True)
-                            Select Case res
-                                Case -11
-                                    Cancelar_Tran()
-                                    Util.MsgStatus(Status1, "Está intentando ingresar un Material cuyo código ya existe en el sistema. Por favor, verifique esta información.", My.Resources.Resources.stop_error.ToBitmap)
-                                    Util.MsgStatus(Status1, "Está intentando ingresar un Material cuyo código ya existe en el sistema. Por favor, verifique esta información.", My.Resources.Resources.stop_error.ToBitmap, True)
-                                    Exit Sub
-                                Case -10
-                                    Cancelar_Tran()
-                                    Util.MsgStatus(Status1, "No se puede modificar el material. La unidad ingresada es diferente a la unidad dentro de los movimientos de Stock.", My.Resources.Resources.stop_error.ToBitmap)
-                                    Util.MsgStatus(Status1, "No se puede modificar el material. La unidad ingresada es diferente a la unidad dentro de los movimientos de Stock.", My.Resources.Resources.stop_error.ToBitmap, True)
-                                    cmbUNIDADES.Focus()
-                                    Exit Sub
-                                Case -3
-                                    Cancelar_Tran()
-                                    Util.MsgStatus(Status1, "El código ingresado ya existe, por favor, cambie el código", My.Resources.Resources.stop_error.ToBitmap)
-                                    Util.MsgStatus(Status1, "El código ingresado ya existe, por favor, cambie el código", My.Resources.Resources.stop_error.ToBitmap, True)
-                                    txtNOMBRE.Focus()
-                                    Exit Sub
-                                Case -1
-                                    Cancelar_Tran()
-                                    Util.MsgStatus(Status1, "No se pudo actualizar el registro.", My.Resources.Resources.stop_error.ToBitmap)
-                                    Util.MsgStatus(Status1, "No se pudo actualizar el registro.", My.Resources.Resources.stop_error.ToBitmap, True)
-                                    Exit Sub
-                                Case 0
-                                    Cancelar_Tran()
-                                    Util.MsgStatus(Status1, "No se pudo agregar el registro.", My.Resources.Resources.stop_error.ToBitmap)
-                                    Util.MsgStatus(Status1, "No se pudo agregar el registro.", My.Resources.Resources.stop_error.ToBitmap, True)
-                                    Exit Sub
-                                Case Else
-                                    Util.MsgStatus(Status1, "Se ha actualizado el registro.", My.Resources.Resources.ok.ToBitmap)
-                                    Cerrar_Tran()
-                            End Select
-                        End If
+                        Util.MsgStatus(Status1, "Se ha actualizado el registro.", My.Resources.Resources.ok.ToBitmap)
+                        Cerrar_Tran()
 
                         bolModo = False
 
-                        If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
+                        'If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
 
-                            Try
-                                If chkUniRef.Checked = True Then
-                                    If rdKilo.Checked = True Then
-                                        txtUnidadRef.Text = "KG"
-                                    End If
-                                    If rdLitros.Checked = True Then
-                                        txtUnidadRef.Text = "LITROS"
-                                    End If
-                                    If rdUnidad.Checked = True Then
-                                        txtUnidadRef.Text = "U"
-                                    End If
-                                Else
-                                    txtUnidadRef.Text = ""
+                        Try
+                            If chkUniRef.Checked = True Then
+                                If rdKilo.Checked = True Then
+                                    txtUnidadRef.Text = "KG"
                                 End If
-
-                                Dim sqlstring As String
-
-                                If ModoActual = True Then
-                                    sqlstring = "INSERT INTO [dbo].[Materiales] (ID, [IdMarca],[IdFamilia],[IDUnidad],[Codigo],[Nombre], " & _
-                                            " [Ganancia], [PrecioCosto], [PrecioCompra], [PrecioPeron], [Minimo], [Maximo], " & _
-                                            " [PrecioMayorista], [PrecioMayoristaPeron], [IDListaMayorista] , [IDListaMayoristaPeron] , [IDListaMinorista] , [IDListaMinoristaPeron] ," & _
-                                            " [CodigoBarra], [Eliminado], [Pasillo], [Estante], [Fila], [ControlStock], [CantidadPACK], [DATEADD],[PrecioLista3],[IDLista3],[PrecioLista4],[IDLista4],[UnidadRef], " & _
-                                            "[Cambiar1],[Cambiar2],[Cambiar3],[Cambiar4],[VentaMayorista],[ActualizadoLocal])" & _
-                                            "  values ( " & txtID.Text & ", '" & IIf(txtIdMarca.Text = "", cmbMarca.SelectedValue.ToString, txtIdMarca.Text) & "', '" & _
-                                            IIf(txtIdRubro.Text = "", cmbFAMILIAS.SelectedValue.ToString, txtIdRubro.Text) & "', '" & IIf(txtIdUnidad.Text = "", cmbUNIDADES.SelectedValue.ToString, txtIdUnidad.Text) & "', '" & _
-                                            txtCODIGO.Text & "', '" & txtNOMBRE.Text & "', " & IIf(txtganancia.Text = "", 0, txtganancia.Text) & ", " & txtPrecioMinorista.Text & ", " & _
-                                            txtPrecioCompra.Text & ", " & txtPrecioMinoristaPeron.Text & ", " & IIf(txtMinimo.Text = "", 0, txtMinimo.Text) & ", " & IIf(txtMaximo.Text = "", 0, txtMaximo.Text) & ", " & _
-                                            txtPrecioMayorista.Text & ", " & txtPrecioMayoristaPeron.Text & ", " & txtIDMayorista.Text & ", " & _
-                                            IIf(txtIDMayoristaPeron.Text = "", cmbMayoristaPeron.SelectedValue, txtIDMayoristaPeron.Text) & ", " & txtIDMinorista.Text & ", " & _
-                                            IIf(txtIDMinoristaPeron.Text = "", cmbMinoristaPeron.SelectedValue, txtIDMinoristaPeron.Text) & ", '" & txtCodBarra.Text & "', 0, '" & txtPasillo.Text & "', '" & txtEstante.Text & "', '" & txtFila.Text & "', " & _
-                                            IIf(chkControlStock.Checked = True, 1, 0) & ", " & IIf(txtCantidadPACK.Text = "", 0, txtCantidadPACK.Text) & ", '" & _
-                                            Format(Date.Now, "MM/dd/yyyy").ToString & " " & Format(Date.Now, "hh:mm:ss").ToString & "', " & txtPrecio3.Text & "," & txtIDLista3.Text & "," & _
-                                            txtPrecio4.Text & "," & IIf(txtIDLista4.Text = "", cmbLista4.SelectedValue, txtIDLista4.Text) & ",'" & txtUnidadRef.Text & "'," & IIf(chk1.Checked = True, 1, 0) & "," & IIf(chk2.Checked = True, 1, 0) & "," & _
-                                            IIf(chk3.Checked = True, 1, 0) & "," & IIf(chk4.Checked = True, 1, 0) & "," & IIf(chkVentaMayorista.Checked = True, 1, 0) & ",0)"
-
-                                Else
-                                    sqlstring = "UPDATE [dbo].[Materiales] SET [IdMarca] = '" & IIf(txtIdMarca.Text = "", cmbMarca.SelectedValue.ToString, txtIdMarca.Text) & "', " & _
-                                            " [IdFamilia] = '" & IIf(txtIdRubro.Text = "", cmbFAMILIAS.SelectedValue.ToString, txtIdRubro.Text) & "', " & _
-                                            " [IDUnidad] = '" & IIf(txtIdUnidad.Text = "", cmbUNIDADES.SelectedValue.ToString, txtIdUnidad.Text) & "', " & _
-                                            " [Codigo] = '" & txtCODIGO.Text & "', " & _
-                                            " [Nombre] = '" & txtNOMBRE.Text & "', " & _
-                                            " [Ganancia] = " & IIf(txtganancia.Text = "", 0, txtganancia.Text) & ", " & _
-                                            " [PrecioCosto] = " & txtPrecioMinorista.Text & ", " & _
-                                            " [PrecioCompra] = " & txtPrecioCompra.Text & ", " & _
-                                            " [PrecioPeron] = " & txtPrecioMinoristaPeron.Text & ", " & _
-                                            " [PrecioMayorista] = " & txtPrecioMayorista.Text & "," & _
-                                            " [PrecioMayoristaPeron] = " & txtPrecioMayoristaPeron.Text & "," & _
-                                            " [IDListaMayorista] = " & txtIDMayorista.Text & ", " & _
-                                            " [IDListaMayoristaPeron] = " & IIf(txtIDMayoristaPeron.Text = "", cmbMayoristaPeron.SelectedValue, txtIDMayoristaPeron.Text) & ", " & _
-                                            " [IDListaMinorista] = " & txtIDMinorista.Text & ", " & _
-                                            " [IDListaMinoristaPeron] = " & IIf(txtIDMinoristaPeron.Text = "", cmbMinoristaPeron.SelectedValue, txtIDMinoristaPeron.Text) & ", " & _
-                                            " [Minimo] = " & IIf(txtMinimo.Text = "", 0, txtMinimo.Text) & ", " & _
-                                            " [Maximo] = " & IIf(txtMaximo.Text = "", 0, txtMaximo.Text) & ", " & _
-                                            " [CodigoBarra] = '" & txtCodBarra.Text & "', " & _
-                                            " [Pasillo] = '" & txtPasillo.Text & "', " & _
-                                            " [Estante] = '" & txtEstante.Text & "', " & _
-                                            " [Fila] = '" & txtFila.Text & "', " & _
-                                            " [ControlStock] = " & IIf(chkControlStock.Checked = True, 1, 0) & ", " & _
-                                            " [CantidadPACK] = " & IIf(txtCantidadPACK.Text = "", 0, txtCantidadPACK.Text) & ", " & _
-                                            " [DATEUPD] = '" & Format(Date.Now, "MM/dd/yyyy").ToString & " " & Format(Date.Now, "hh:mm:ss").ToString & "'," & _
-                                            " [PrecioLista3] = " & txtPrecio3.Text & "," & _
-                                            " [IDLista3] = " & txtIDLista3.Text & "," & _
-                                            " [PrecioLista4] = " & txtPrecio4.Text & "," & _
-                                            " [IDLista4] = " & IIf(txtIDLista4.Text = "", cmbLista4.SelectedValue, txtIDLista4.Text) & "," & _
-                                            " [UnidadRef] = '" & txtUnidadRef.Text & "'," & _
-                                            " [Cambiar1] = " & IIf(chk1.Checked = True, 1, 0) & "," & _
-                                            " [Cambiar2] = " & IIf(chk2.Checked = True, 1, 0) & "," & _
-                                            " [Cambiar3] = " & IIf(chk3.Checked = True, 1, 0) & "," & _
-                                            " [Cambiar4] = " & IIf(chk4.Checked = True, 1, 0) & "," & _
-                                            " [VentaMayorista] = " & IIf(chkVentaMayorista.Checked = True, 1, 0) & "," & _
-                                            " [ActualizadoLocal] = 0 " & _
-                                            " WHERE Codigo = '" & txtCODIGO.Text & "'"
+                                If rdLitros.Checked = True Then
+                                    txtUnidadRef.Text = "LITROS"
                                 End If
-
-                                tranWEB.Sql_Set(sqlstring)
-
-                                If ModoActual = True Then
-                                    sqlstring = " insert into [Stock] ( idmaterial, idalmacen, qty, idunidad) values ( '" & _
-                                                 txtCODIGO.Text & "', 1, " & IIf(grdItemsStock.Rows(0).Cells(0).Value.ToString = "", 0, grdItemsStock.Rows(0).Cells(0).Value) & ", '" & _
-                                                 IIf(txtIdUnidad.Text = "", cmbUNIDADES.SelectedValue.ToString, txtIdUnidad.Text.ToString) & "') "
-
-                                    tranWEB.Sql_Set(sqlstring)
-
-                                    sqlstring = " insert into [Stock] ( idmaterial, idalmacen, qty, idunidad) values ( '" & _
-                                                  txtCODIGO.Text & "', 2, " & IIf(grdItemsStock.Rows(0).Cells(1).Value.ToString = "", 0, grdItemsStock.Rows(0).Cells(1).Value) & ", '" & _
-                                                  IIf(txtIdUnidad.Text = "", cmbUNIDADES.SelectedValue.ToString, txtIdUnidad.Text.ToString) & "') "
-
-                                    tranWEB.Sql_Set(sqlstring)
-
-                                Else
-
-                                    sqlstring = "update stock set idunidad = m.IDUnidad from stock s join materiales m on s.idmaterial = m.Codigo where IDMaterial = '" & txtCODIGO.Text & "'"
-
-                                    tranWEB.Sql_Set(sqlstring)
-
+                                If rdUnidad.Checked = True Then
+                                    txtUnidadRef.Text = "U"
                                 End If
+                            Else
+                                txtUnidadRef.Text = ""
+                            End If
 
-                                sqlstring = "update notificacionesWEB set Materiales = 1"
-                                tranWEB.Sql_Set(sqlstring)
+                            'Dim sqlstring As String
 
-                                'MsgBox("Al Toque Roque!")
+                            '    If ModoActual = True Then
+                            '        sqlstring = "INSERT INTO [dbo].[" & NameTable_Materiales & "] (ID, [IdMarca],[IdFamilia],[IDUnidad],[Codigo],[Nombre], " & _
+                            '                " [Ganancia], [PrecioCosto], [PrecioCompra], [PrecioPeron], [Minimo], [Maximo], " & _
+                            '                " [PrecioMayorista], [PrecioMayoristaPeron], [IDListaMayorista] , [IDListaMayoristaPeron] , [IDListaMinorista] , [IDListaMinoristaPeron] ," & _
+                            '                " [CodigoBarra], [Eliminado], [Pasillo], [Estante], [Fila], [ControlStock], [CantidadPACK], [DATEADD],[PrecioLista3],[IDLista3],[PrecioLista4],[IDLista4],[UnidadRef], " & _
+                            '                "[Cambiar1],[Cambiar2],[Cambiar3],[Cambiar4],[VentaMayorista],[ActualizadoLocal])" & _
+                            '                "  values ( " & txtID.Text & ", '" & IIf(txtIdMarca.Text = "", cmbMarca.SelectedValue.ToString, txtIdMarca.Text) & "', '" & _
+                            '                IIf(txtIdRubro.Text = "", cmbFAMILIAS.SelectedValue.ToString, txtIdRubro.Text) & "', '" & IIf(txtIdUnidad.Text = "", cmbUNIDADES.SelectedValue.ToString, txtIdUnidad.Text) & "', '" & _
+                            '                txtCODIGO.Text & "', '" & txtNOMBRE.Text & "', " & IIf(txtganancia.Text = "", 0, txtganancia.Text) & ", " & txtPrecioMinorista.Text & ", " & _
+                            '                txtPrecioCompra.Text & ", " & txtPrecioMinoristaPeron.Text & ", " & IIf(txtMinimo.Text = "", 0, txtMinimo.Text) & ", " & IIf(txtMaximo.Text = "", 0, txtMaximo.Text) & ", " & _
+                            '                txtPrecioMayorista.Text & ", " & txtPrecioMayoristaPeron.Text & ", " & txtIDMayorista.Text & ", " & _
+                            '                IIf(txtIDMayoristaPeron.Text = "", cmbMayoristaPeron.SelectedValue, txtIDMayoristaPeron.Text) & ", " & txtIDMinorista.Text & ", " & _
+                            '                IIf(txtIDMinoristaPeron.Text = "", cmbMinoristaPeron.SelectedValue, txtIDMinoristaPeron.Text) & ", '" & txtCodBarra.Text & "', 0, '" & txtPasillo.Text & "', '" & txtEstante.Text & "', '" & txtFila.Text & "', " & _
+                            '                IIf(chkControlStock.Checked = True, 1, 0) & ", " & IIf(txtCantidadPACK.Text = "", 0, txtCantidadPACK.Text) & ", '" & _
+                            '                Format(Date.Now, "MM/dd/yyyy").ToString & " " & Format(Date.Now, "hh:mm:ss").ToString & "', " & txtPrecio3.Text & "," & txtIDLista3.Text & "," & _
+                            '                txtPrecio4.Text & "," & IIf(txtIDLista4.Text = "", cmbLista4.SelectedValue, txtIDLista4.Text) & ",'" & txtUnidadRef.Text & "'," & IIf(chk1.Checked = True, 1, 0) & "," & IIf(chk2.Checked = True, 1, 0) & "," & _
+                            '                IIf(chk3.Checked = True, 1, 0) & "," & IIf(chk4.Checked = True, 1, 0) & "," & IIf(chkVentaMayorista.Checked = True, 1, 0) & ",0)"
 
-                            Catch ex As Exception
-                                'MsgBox(ex.Message)
-                                MsgBox("No se puede actualizar en la Web la Lista de Precios actual. Ejecute el botón sincronizar para actualizar el servidor WEB." + ex.Message)
-                            End Try
+                            '    Else
+                            '        sqlstring = "UPDATE [dbo].[" & NameTable_Materiales & "] SET [IdMarca] = '" & IIf(txtIdMarca.Text = "", cmbMarca.SelectedValue.ToString, txtIdMarca.Text) & "', " & _
+                            '                " [IdFamilia] = '" & IIf(txtIdRubro.Text = "", cmbFAMILIAS.SelectedValue.ToString, txtIdRubro.Text) & "', " & _
+                            '                " [IDUnidad] = '" & IIf(txtIdUnidad.Text = "", cmbUNIDADES.SelectedValue.ToString, txtIdUnidad.Text) & "', " & _
+                            '                " [Codigo] = '" & txtCODIGO.Text & "', " & _
+                            '                " [Nombre] = '" & txtNOMBRE.Text & "', " & _
+                            '                " [Ganancia] = " & IIf(txtganancia.Text = "", 0, txtganancia.Text) & ", " & _
+                            '                " [PrecioCosto] = " & txtPrecioMinorista.Text & ", " & _
+                            '                " [PrecioCompra] = " & txtPrecioCompra.Text & ", " & _
+                            '                " [PrecioPeron] = " & txtPrecioMinoristaPeron.Text & ", " & _
+                            '                " [PrecioMayorista] = " & txtPrecioMayorista.Text & "," & _
+                            '                " [PrecioMayoristaPeron] = " & txtPrecioMayoristaPeron.Text & "," & _
+                            '                " [IDListaMayorista] = " & txtIDMayorista.Text & ", " & _
+                            '                " [IDListaMayoristaPeron] = " & IIf(txtIDMayoristaPeron.Text = "", cmbMayoristaPeron.SelectedValue, txtIDMayoristaPeron.Text) & ", " & _
+                            '                " [IDListaMinorista] = " & txtIDMinorista.Text & ", " & _
+                            '                " [IDListaMinoristaPeron] = " & IIf(txtIDMinoristaPeron.Text = "", cmbMinoristaPeron.SelectedValue, txtIDMinoristaPeron.Text) & ", " & _
+                            '                " [Minimo] = " & IIf(txtMinimo.Text = "", 0, txtMinimo.Text) & ", " & _
+                            '                " [Maximo] = " & IIf(txtMaximo.Text = "", 0, txtMaximo.Text) & ", " & _
+                            '                " [CodigoBarra] = '" & txtCodBarra.Text & "', " & _
+                            '                " [Pasillo] = '" & txtPasillo.Text & "', " & _
+                            '                " [Estante] = '" & txtEstante.Text & "', " & _
+                            '                " [Fila] = '" & txtFila.Text & "', " & _
+                            '                " [ControlStock] = " & IIf(chkControlStock.Checked = True, 1, 0) & ", " & _
+                            '                " [CantidadPACK] = " & IIf(txtCantidadPACK.Text = "", 0, txtCantidadPACK.Text) & ", " & _
+                            '                " [DATEUPD] = '" & Format(Date.Now, "MM/dd/yyyy").ToString & " " & Format(Date.Now, "hh:mm:ss").ToString & "'," & _
+                            '                " [PrecioLista3] = " & txtPrecio3.Text & "," & _
+                            '                " [IDLista3] = " & txtIDLista3.Text & "," & _
+                            '                " [PrecioLista4] = " & txtPrecio4.Text & "," & _
+                            '                " [IDLista4] = " & IIf(txtIDLista4.Text = "", cmbLista4.SelectedValue, txtIDLista4.Text) & "," & _
+                            '                " [UnidadRef] = '" & txtUnidadRef.Text & "'," & _
+                            '                " [Cambiar1] = " & IIf(chk1.Checked = True, 1, 0) & "," & _
+                            '                " [Cambiar2] = " & IIf(chk2.Checked = True, 1, 0) & "," & _
+                            '                " [Cambiar3] = " & IIf(chk3.Checked = True, 1, 0) & "," & _
+                            '                " [Cambiar4] = " & IIf(chk4.Checked = True, 1, 0) & "," & _
+                            '                " [VentaMayorista] = " & IIf(chkVentaMayorista.Checked = True, 1, 0) & "," & _
+                            '                " [ActualizadoLocal] = 0 " & _
+                            '                " WHERE Codigo = '" & txtCODIGO.Text & "'"
+                            '    End If
 
-                        End If
+                            '    tranWEB.Sql_Set(sqlstring)
+
+                            '    If ModoActual = True Then
+                            '        sqlstring = " insert into [" & NameTable_Stock & "] ( idmaterial, idalmacen, qty, idunidad) values ( '" & _
+                            '                     txtCODIGO.Text & "', 1, " & IIf(grdItemsStock.Rows(0).Cells(0).Value.ToString = "", 0, grdItemsStock.Rows(0).Cells(0).Value) & ", '" & _
+                            '                     IIf(txtIdUnidad.Text = "", cmbUNIDADES.SelectedValue.ToString, txtIdUnidad.Text.ToString) & "') "
+
+                            '        tranWEB.Sql_Set(sqlstring)
+
+                            '        sqlstring = " insert into [" & NameTable_Stock & "] ( idmaterial, idalmacen, qty, idunidad) values ( '" & _
+                            '                      txtCODIGO.Text & "', 2, " & IIf(grdItemsStock.Rows(0).Cells(1).Value.ToString = "", 0, grdItemsStock.Rows(0).Cells(1).Value) & ", '" & _
+                            '                      IIf(txtIdUnidad.Text = "", cmbUNIDADES.SelectedValue.ToString, txtIdUnidad.Text.ToString) & "') "
+
+                            '        tranWEB.Sql_Set(sqlstring)
+
+                            '    Else
+
+                            '        sqlstring = "update [" & NameTable_Stock & "] set idunidad = m.IDUnidad from stock s join materiales m on s.idmaterial = m.Codigo where IDMaterial = '" & txtCODIGO.Text & "'"
+
+                            '        tranWEB.Sql_Set(sqlstring)
+
+                            '    End If
+
+                            '    sqlstring = "update [" & NameTable_NotificacionesWEB & "] set Materiales = 1 where idalmacen <> " & Util.numero_almacen
+                            '    tranWEB.Sql_Set(sqlstring)
+
+                            '    'MsgBox("Al Toque Roque!")
+
+                        Catch ex As Exception
+                            'MsgBox(ex.Message)
+                            'MsgBox("No se puede actualizar en la Web la Lista de Precios actual. Ejecute el botón sincronizar para actualizar el servidor WEB." + ex.Message)
+                        End Try
+
+                        'End If
                         MDIPrincipal.NoActualizarBase = False
                         btnActualizar_Click(sender, e)
                         grd.Rows(0).Selected = True
@@ -3892,7 +3093,7 @@ Public Class frmMateriales
                 Util.MsgStatus(Status1, "Se produjo un error al intentar importar el excel", My.Resources.Resources.stop_error.ToBitmap, True)
             Case Else
 
-                SQL = "exec spMateriales_Select_All @Eliminado = 0,@Fraccionados = 0"
+                SQL = "exec spMateriales_Select_All @Eliminado = 0"
 
                 'Me.LlenarcmbNombre()
                 'Me.LlenarcmbPlazo()
@@ -3951,25 +3152,25 @@ Public Class frmMateriales
 
             MsgBox("El producto se activó correctamente.")
 
-            If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
-                Try
+            'If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
+            'Try
 
-                    sqlstring = "UPDATE [dbo].[Materiales] SET [Eliminado] = 0 WHERE Codigo = '" & grd.CurrentRow.Cells(1).Value & "'"
-                    tranWEB.Sql_Set(sqlstring)
+            '    sqlstring = "UPDATE [dbo].[" & NameTable_Materiales & "] SET [Eliminado] = 0 WHERE Codigo = '" & grd.CurrentRow.Cells(1).Value & "'"
+            '    tranWEB.Sql_Set(sqlstring)
 
-                Catch ex As Exception
-                        'MsgBox(ex.Message)
-                    MsgBox("No se puede Activa en la Web el producto seleccionado. Ejecute el botón sincronizar para actualizar el servidor WEB.")
-                    End Try
-                End If
+            'Catch ex As Exception
+            '    'MsgBox(ex.Message)
+            '    MsgBox("No se puede Activa en la Web el producto seleccionado. Ejecute el botón sincronizar para actualizar el servidor WEB.")
+            'End Try
+            'End If
 
-            SQL = "exec spMateriales_Select_All @Eliminado = 1,@Fraccionados = 0"
+            SQL = "exec spMateriales_Select_All @Eliminado = 1"
 
             LlenarGrilla()
 
             If grd.RowCount = 0 Then
                 btnActivar.Enabled = False
-                End If
+            End If
 
         Catch ex As Exception
             Dim errMessage As String = ""
@@ -3993,7 +3194,7 @@ Public Class frmMateriales
     Private Overloads Sub btnActualizar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnActualizar.Click
         'If MDIPrincipal.NoActualizarBase = False Then
         Me.Cursor = Cursors.WaitCursor
-        chkFraccionados.Checked = False
+        'chkFraccionados.Checked = False
         LlenarGrilla()
         Permitir = True
         CargarCajas()
@@ -4001,395 +3202,13 @@ Public Class frmMateriales
         Me.Cursor = Cursors.Default
         'GrillaActualizar()
         'End If
-        CargarlistaPrincipales()
+        'CargarlistaPrincipales()
     End Sub
+
+
 
 #End Region
 
-    Private Sub btnActualizarPreciosOCSch_Click(sender As Object, e As EventArgs)
 
-        If MessageBox.Show("Recuerde que el nombre de la hoja donde están los datos debe ser ""Lista =S="". Desea continuar?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
-            Exit Sub
-        End If
-
-        Dim FileName As String
-
-        Try
-            With OpenFileDialog1
-                .Filter = "Archivos Excel (*.xls)|*.xls|(*.xlsx)|*.xlsx|" & "Todos los archivos|*.*"
-            End With
-        Catch es As Exception
-            MessageBox.Show(es.Message)
-        End Try
-
-        OpenFileDialog1.ShowDialog()
-
-        FileName = OpenFileDialog1.FileName
-
-        Util.MsgStatus(Status1, "Procesando archivo...", My.Resources.Resources.indicator_white)
-
-        Me.Refresh()
-
-        Cursor = System.Windows.Forms.Cursors.WaitCursor
-
-        If CargarExcel_ActualizarPreciosOCSch(FileName, "[PreciosOCSch$]") = False Then
-            Cursor = Cursors.Default
-            Util.MsgStatus(Status1, "Proceso finalizado por un error...", My.Resources.stop_error.ToBitmap)
-            Exit Sub
-        End If
-
-        Dim res As Integer
-
-        res = ImportarRegistros_ActualizarPreciosOCSch()
-        Select Case res
-            Case 0
-                Util.MsgStatus(Status1, "Se produjo un error al intentar actualizar desde el excel", My.Resources.Resources.stop_error.ToBitmap)
-                Util.MsgStatus(Status1, "Se produjo un error al intentar actualizar desde el excel", My.Resources.Resources.stop_error.ToBitmap, True)
-            Case Else
-
-                SQL = "exec spMateriales_Select_All @Eliminado = 0,@Fraccionados = 0"
-
-                ' Me.LlenarcmbNombre()
-                'Me.LlenarcmbPlazo()
-                Me.LlenarcmbRubros()
-                'Me.LlenarcmbSubRubros()
-
-                bolModo = False
-
-                btnActualizar_Click(sender, e)
-
-                MsgBox("Se Actualizaron " & CantRegistrosActualizados & "  registros.", MsgBoxStyle.Information, "Actualización Correcta")
-
-        End Select
-
-        Cursor = System.Windows.Forms.Cursors.Default
-    End Sub
-
-    'Private Sub PrepararGridItems()
-    '    Util.LimpiarGridItems(grdItems)
-    'End Sub
-
-    'Private Sub LlenarGridItems()
-
-    '    If grdItems.Columns.Count > 0 Then
-    '        grdItems.Columns.Clear()
-    '    End If
-
-    '    If txtID.Text = "" Then
-    '        SQL = "SELECT 0.00 as PrecioPrincipal,  0.00 as PrecioPeron"  'WHERE id  = 0"
-    '    Else
-    '        SQL = "SELECT PrecioCosto AS 'PrecioPrincipal', PrecioPeron FROM Materiales WHERE id  = " & CType(txtID.Text, Long)
-    '    End If
-
-    '    GetDatasetItems(True)
-
-    '    grdItems.Columns(0).Width = 120
-    '    grdItems.Columns(1).Width = 120
-
-    '    With grdItems
-    '        .VirtualMode = False
-    '        '.AllowUserToAddRows = True
-    '        .AlternatingRowsDefaultCellStyle.BackColor = Color.AliceBlue
-    '        .RowsDefaultCellStyle.BackColor = Color.White
-    '        .AllowUserToOrderColumns = True
-    '        .SelectionMode = DataGridViewSelectionMode.CellSelect
-    '        .ForeColor = Color.Black
-    '    End With
-
-    '    With grdItems.ColumnHeadersDefaultCellStyle
-    '        .BackColor = Color.Black  'Color.BlueViolet
-    '        .ForeColor = Color.White
-    '        .Font = New Font("TAHOMA", 10, FontStyle.Bold)
-    '    End With
-
-    '    grdItems.Font = New Font("TAHOMA", 10, FontStyle.Regular)
-
-    '    'If grdItems.Rows.Count > 0 Then
-    '    '    grdItems.Columns(0).Width = 200
-    '    '    grdItems.Columns(1).Width = 200
-    '    'End If
-
-    '    'grdEnsayos.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells)
-
-    '    'Volver la fuente de datos a como estaba...
-
-    '    SQL = "exec spMateriales_Select_All @Eliminado = 0"
-
-    'End Sub
-
-
-
-    'Private Sub validar_NumerosReales2( _
-    '    ByVal sender As Object, _
-    '    ByVal e As System.Windows.Forms.KeyPressEventArgs)
-
-    '    ' obtener indice de la columna  
-    '    Dim columna As Integer = grdItems.CurrentCell.ColumnIndex
-
-    '    ' comprobar si la celda en edición corresponde a la columna 1 o 3  
-    '    If columna = 0 Or columna = 1 Then
-
-    '        Dim caracter As Char = e.KeyChar
-
-    '        ' referencia a la celda  
-    '        Dim txt As TextBox = CType(sender, TextBox)
-
-    '        ' comprobar si es un número con isNumber, si es el backspace, si el caracter  
-    '        ' es el separador decimal, y que no contiene ya el separador  
-    '        If (Char.IsNumber(caracter)) Or _
-    '           (caracter = ChrW(Keys.Back)) Or _
-    '           (caracter = ".") And _
-    '           (txt.Text.Contains(".") = False) Then
-    '            e.Handled = False
-    '        Else
-    '            e.Handled = True
-    '        End If
-    '    End If
-    'End Sub
-
-
-    Private Function Crear_CSVPrecios(ByVal Mayo As Boolean) As Integer
-
-        Dim connection As SqlClient.SqlConnection = Nothing
-        Dim Result As Integer
-
-        Try
-            connection = SqlHelper.GetConnection(ConnStringSEI)
-        Catch ex As Exception
-            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Function
-        End Try
-
-        Dim param_mayo As New SqlClient.SqlParameter
-        param_mayo.ParameterName = "@Mayo"
-        param_mayo.SqlDbType = SqlDbType.Bit
-        param_mayo.Value = Mayo
-        param_mayo.Direction = ParameterDirection.Input
-
-        Dim param_res As New SqlClient.SqlParameter
-        param_res.ParameterName = "@res"
-        param_res.SqlDbType = SqlDbType.Int
-        param_res.Value = DBNull.Value
-        param_res.Direction = ParameterDirection.InputOutput
-
-        Try
-
-            SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spBalanzas_Exportar_Precios", param_mayo, param_res)
-            Result = param_res.Value
-            If Result > 0 And Mayo = False Then
-                'Hago recursividad para ejecutar el SP para mayorista
-                Crear_CSVPrecios = Crear_CSVPrecios(True)
-            Else
-                Crear_CSVPrecios = param_res.Value
-            End If
-
-        Catch ex As Exception
-
-            Crear_CSVPrecios = -3
-            Exit Function
-        End Try
-  
-
-    End Function
-
-    Private Function ToSecureString(ByVal source As String) As System.Security.SecureString
-        If String.IsNullOrEmpty(source) Then
-            Return Nothing
-        End If
-        Dim result = New System.Security.SecureString
-        For Each c As Char In source
-            result.AppendChar(c)
-        Next
-        Return result
-    End Function
-
-    Private Function EjecutarQendraLocal() As Integer
-        Dim res As Integer = 0
-        Try
-
-            'este comando solo funciona si lo ejecuto desde el .exe del proyecto
-            'Shell("C:\Program Files (x86)\Qendra\Qendra_Importador.Lnk", AppWinStyle.NormalFocus)
-
-            Dim startInfo As System.Diagnostics.ProcessStartInfo
-            Dim pStart As New System.Diagnostics.Process
-            ' Cambiamos el cursor por el de carga
-            Me.Cursor = Cursors.WaitCursor
-            '-----------------------------------------------------------------------------------------------
-            'esta configuracion es para decir si voy a ejecutar la aplicacion con permisos de administrador
-            'pStart.StartInfo.UseShellExecute = False
-            'pStart.StartInfo.UserName = "silvarodrigo2590@hotmail.com"
-            'pStart.StartInfo.Password = ToSecureString("ch1ch1n4yruu")
-            '-----------------------------------------------------------------------------------------------
-            'le paso que proceso deseo ejecutar
-            'startInfo = New System.Diagnostics.ProcessStartInfo("C:\Program Files (x86)\Qendra\Qendra.exe", "-i")
-            startInfo = New System.Diagnostics.ProcessStartInfo("C:\Program Files (x86)\Qendra\Qendra_ImportadorAcc.lnk")
-            'startInfo = New System.Diagnostics.ProcessStartInfo("C:\Program Files\VideoLAN\VLC\vlc.exe")
-            'le digo que lo ejecute oculto(Hidden) o minimizado (con algunas aplicaicones no funciona, ejemplo notepad++) 
-            startInfo.WindowStyle = ProcessWindowStyle.Normal
-            'inicio el proceso
-            pStart.StartInfo = startInfo
-            'abro el ejecutable
-            pStart.Start()
-
-            'coloco una cantidad de tiempo (10 min) de espera hasta que cierre el proceso
-            pStart.WaitForExit(600000)
-            'pasado los el tiempo cierra el proceso
-            If Not pStart.HasExited Then
-                pStart.CloseMainWindow()
-                pStart.Kill()
-            End If
-
-            Me.Cursor = Cursors.Arrow
-
-            EjecutarQendraLocal = 1
-
-        Catch ex As Exception
-            MsgBox(ex.Message)
-            EjecutarQendraLocal = -1
-            Me.Cursor = Cursors.Arrow
-            Exit Function
-        End Try
-    End Function
-
-    Private Function EjecutarQendraRemoto() As Integer
-        Dim res As Integer = 0
-        Try
-
-            'Dim startInfo As System.Diagnostics.ProcessStartInfo
-            Dim pStart As New System.Diagnostics.Process
-            ' Cambiamos el cursor por el de carga
-            Me.Cursor = Cursors.WaitCursor
-            '-----------------------------------------------------------------------------------------------
-            'esta configuracion es para decir si voy a ejecutar la aplicacion con permisos de administrador
-            pStart.StartInfo.UseShellExecute = False
-            pStart.StartInfo.UserName = "silvarodrigo2590@hotmail.com"
-            pStart.StartInfo.Password = ToSecureString("ch1ch1n4yruu")
-            '-----------------------------------------------------------------------------------------------
-            'EJECUTO .vbs para abrir qendra en pc remota
-            pStart.StartInfo.RedirectStandardOutput = True
-            'le digo que ejecutable voy a utilizar
-            pStart.StartInfo.FileName = "cscript.exe"
-            'le paso los argumentos (en este caso el .vbs que quiero que se ejecute)
-            pStart.StartInfo.Arguments = "\\Samba-pc\mit\runQendraVBS_Server.vbs"
-            'elijo la forma en que debe abrirse el ejecutable
-            pStart.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
-            'abro el ejecutable
-            pStart.Start()
-            'aca puedo ver que devolvio el .vbs
-            Dim salida As String = pStart.StandardOutput.ReadToEnd()
-            'coloco una cantidad de tiempo (15 seg) de espera hasta que cierre el proceso
-            pStart.WaitForExit(15000)
-            'pasado los el tiempo cierra el proceso
-            If Not pStart.HasExited Then
-                pStart.CloseMainWindow()
-                pStart.Kill()
-            End If
-            'Dim procID As Integer
-            'procID = Shell("\\Samba-pc\mit\EjecutarRemoto_Servidor.bat", AppWinStyle.NormalFocus)
-            'coloco el cursor con flecha de nuevo
-            Me.Cursor = Cursors.Arrow
-            EjecutarQendraRemoto = 1
-
-        Catch ex As Exception
-            MsgBox(ex.Message)
-            EjecutarQendraRemoto = -1
-            Me.Cursor = Cursors.Arrow
-            Exit Function
-        End Try
-    End Function
-
-    Private Sub PicActualizarBalanzas_Click(sender As Object, e As EventArgs) Handles PicActualizarBalanzas.Click
-        Dim res As Integer
-
-        If MessageBox.Show("Esta seguro que desea actualizar las balanzas ahora?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
-            Exit Sub
-        End If
-
-        'Ejecuto por defecto la funcion para crear el CSV Consumidor Final 
-        res = Crear_CSVPrecios(False)
-        Select Case res
-            Case -1
-                Util.MsgStatus(Status1, "Se produjo un error en el control de parametros de la consulta para Crear CSV Cosumidor Final.", My.Resources.Resources.stop_error.ToBitmap)
-                Util.MsgStatus(Status1, "Se produjo un error en el control de parametros de la consulta para Crear CSV Cosumidor Final.", My.Resources.Resources.stop_error.ToBitmap, True)
-                Exit Sub
-            Case -2
-                Util.MsgStatus(Status1, "Se produjo un error en el control de parametros de la consulta para Crear CSV Mayorista.", My.Resources.Resources.stop_error.ToBitmap)
-                Util.MsgStatus(Status1, "Se produjo un error en el control de parametros de la consulta para Crear CSV Mayorista.", My.Resources.Resources.stop_error.ToBitmap, True)
-                Exit Sub
-            Case -3
-                Util.MsgStatus(Status1, "Se produjo una excepción al llamar a la consulta para Crear CSV .", My.Resources.Resources.stop_error.ToBitmap)
-                Util.MsgStatus(Status1, "Se produjo una excepción al llamar a la consulta para Crear CSV .", My.Resources.Resources.stop_error.ToBitmap, True)
-                Exit Sub
-            Case 0
-                Util.MsgStatus(Status1, "No se pudo realizar la consulta requerida.", My.Resources.Resources.stop_error.ToBitmap)
-                Util.MsgStatus(Status1, "No se pudo realizar la consulta requerida.", My.Resources.Resources.stop_error.ToBitmap, True)
-                Exit Sub
-            Case Else
-                Util.MsgStatus(Status1, "Se han creado los archivos CSV de forma exitosa.", My.Resources.Resources.ok.ToBitmap)
-                Util.MsgStatus(Status1, "Se han creado los archivos CSV de forma exitosa.", My.Resources.Resources.ok.ToBitmap)
-                'System.Threading.Thread.Sleep(15000)
-                res = EjecutarQendraLocal()
-                Select Case res
-                    Case -1
-                        Util.MsgStatus(Status1, "Error al ejecutado Qendra importador. Por favor verifique datos", My.Resources.Resources.stop_error.ToBitmap)
-                        Util.MsgStatus(Status1, "Error al ejecutado Qendra importador. Por favor verifique datos", My.Resources.Resources.stop_error.ToBitmap, True)
-                        Exit Sub
-                    Case 1
-                        Util.MsgStatus(Status1, "Se ha ejecutado Qendra importador Local. Por favor verifique datos actualizados en balanzas", My.Resources.Resources.ok.ToBitmap)
-                        Util.MsgStatus(Status1, "Se ha ejecutado Qendra importador Local. Por favor verifique datos actualizados en balanzas", My.Resources.Resources.ok.ToBitmap)
-
-
-                        Dim sqlstring As String = "UPDATE Balanzas_Notificaciones SET Actualizado = 0, Fecha = GETDATE()"
-                        Dim ds_Balanza As Data.DataSet
-                        Dim connection As SqlClient.SqlConnection = Nothing
-                        Try
-                            connection = SqlHelper.GetConnection(ConnStringSEI.ToString)
-                        Catch ex As Exception
-                            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                            Exit Sub
-                        End Try
-                        ds_Balanza = SqlHelper.ExecuteDataset(connection, CommandType.Text, sqlstring)
-                        ds_Balanza.Dispose()
-
-                        Util.MsgStatus(Status1, "Se ha notificado a VENTAS1 que actualice las balanzas...", My.Resources.Resources.ok.ToBitmap)
-                        Util.MsgStatus(Status1, "Se ha notificado a VENTAS1 que actualice las balanzas...", My.Resources.Resources.ok.ToBitmap)
-
-                        'res = EjecutarQendraRemoto()
-                        'Select Case res
-                        '    Case -1
-                        '        Util.MsgStatus(Status1, "Error al ejecutado Qendra importador. Por favor verifique datos", My.Resources.Resources.stop_error.ToBitmap)
-                        '        Util.MsgStatus(Status1, "Error al ejecutado Qendra importador. Por favor verifique datos", My.Resources.Resources.stop_error.ToBitmap, True)
-                        '        Exit Sub
-                        '    Case 1
-                        '        Util.MsgStatus(Status1, "Se ha ejecutado Qendra importador Remoto. Por favor verifique datos actualizados en balanzas", My.Resources.Resources.ok.ToBitmap)
-                        '        Util.MsgStatus(Status1, "Se ha ejecutado Qendra importador Remoto. Por favor verifique datos actualizados en balanzas", My.Resources.Resources.ok.ToBitmap)
-                        'End Select
-
-                End Select
-
-        End Select
-    End Sub
-
-    Private Sub PicActualizarBalanzas_MouseHover(sender As Object, e As EventArgs) Handles PicActualizarBalanzas.MouseHover
-        ' ToolTip1.Show("Haga click para enviar novedades a las balanzas del salón.", PicExcelExportar)
-    End Sub
-
-    Private Sub chkFraccionados_CheckedChanged(sender As Object, e As EventArgs) Handles chkFraccionados.CheckedChanged
-
-        If chkFraccionados.Checked = True Then
-            SQL = "exec spMateriales_Select_All @Eliminado = 0,@Fraccionados = 1"
-        Else
-            SQL = "exec spMateriales_Select_All @Eliminado = 0,@Fraccionados = 0"
-        End If
-
-        LlenarGrilla()
-    End Sub
-
-    Private Sub chkCrearFR_CheckedChanged(sender As Object, e As EventArgs) Handles chkCrearFR.CheckedChanged
-        rdUnidad.Enabled = Not chkCrearFR.Checked
-        If rdUnidad.Checked Then
-            rdKilo.Checked = True
-        End If
-    End Sub
 
 End Class

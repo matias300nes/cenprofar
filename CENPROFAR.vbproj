@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{E9F59B99-4607-40CE-887C-25CFBA218E1C}</ProjectGuid>
+    <ProjectGuid>{748621E3-13EA-42B3-A4A3-5F15C448AE4B}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>PORKYS.My.MyApplication</StartupObject>
-    <RootNamespace>PORKYS</RootNamespace>
-    <AssemblyName>PORKYS</AssemblyName>
+    <StartupObject>SEYC.My.MyApplication</StartupObject>
+    <RootNamespace>SEYC</RootNamespace>
+    <AssemblyName>SEYC</AssemblyName>
     <MyType>WindowsForms</MyType>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -17,7 +17,7 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <ApplicationIcon>Resources\Porkys.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\IconoPuntoVenta3.ico</ApplicationIcon>
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile />
@@ -42,7 +42,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>PORKYS.xml</DocumentationFile>
+    <DocumentationFile>SEYC.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
     <UseVSHostingProcess>true</UseVSHostingProcess>
     <PlatformTarget>x86</PlatformTarget>
@@ -54,55 +54,15 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>PORKYS.xml</DocumentationFile>
+    <DocumentationFile>SEYC.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevComponents.Charts.Design, Version=12.5.0.6, Culture=neutral, PublicKeyToken=90f470f34c89ccaf, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Program Files (x86)\DotNetBar for Windows Forms\DevComponents.Charts.Design.dll</HintPath>
-    </Reference>
-    <Reference Include="DevComponents.DotNetBar.Charts, Version=12.5.0.6, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Program Files (x86)\DotNetBar for Windows Forms\DevComponents.DotNetBar.Charts.dll</HintPath>
-    </Reference>
     <Reference Include="DevComponents.DotNetBar.Keyboard, Version=12.5.0.6, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL" />
-    <Reference Include="DevComponents.DotNetBar.Layout, Version=12.5.0.6, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Program Files (x86)\DotNetBar for Windows Forms\DevComponents.DotNetBar.Layout.dll</HintPath>
-    </Reference>
-    <Reference Include="DevComponents.DotNetBar.Layout.Design, Version=12.5.0.6, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Program Files (x86)\DotNetBar for Windows Forms\DevComponents.DotNetBar.Layout.Design.dll</HintPath>
-    </Reference>
     <Reference Include="DevComponents.DotNetBar.Schedule, Version=12.5.0.6, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL" />
-    <Reference Include="DevComponents.DotNetBar.SuperGrid, Version=12.5.0.6, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Program Files (x86)\DotNetBar for Windows Forms\DevComponents.DotNetBar.SuperGrid.dll</HintPath>
-    </Reference>
-    <Reference Include="DevComponents.DotNetBar2, Version=12.5.0.6, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Program Files (x86)\DotNetBar for Windows Forms\DevComponents.DotNetBar2.dll</HintPath>
-    </Reference>
     <Reference Include="DevComponents.DotNetBar2_2015">
-      <HintPath>Utiles\DevComponents.DotNetBar2_2015.dll</HintPath>
-    </Reference>
-    <Reference Include="DevComponents.Instrumentation, Version=12.5.0.6, Culture=neutral, PublicKeyToken=f90dc37c26666a67, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Program Files (x86)\DotNetBar for Windows Forms\DevComponents.Instrumentation.dll</HintPath>
-    </Reference>
-    <Reference Include="DevComponents.SuperGrid.Design, Version=12.5.0.6, Culture=neutral, PublicKeyToken=26d81176cfa2b486, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Program Files (x86)\DotNetBar for Windows Forms\DevComponents.SuperGrid.Design.dll</HintPath>
-    </Reference>
-    <Reference Include="DevComponents.TreeGX, Version=12.5.0.6, Culture=neutral, PublicKeyToken=055db68f670cfeab, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Program Files (x86)\DotNetBar for Windows Forms\DevComponents.TreeGX.dll</HintPath>
-    </Reference>
-    <Reference Include="Interop.Microsoft.Office.Core">
-      <HintPath>obj\Debug\Interop.Microsoft.Office.Core.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>Utiles\bin\Debug\DevComponents.DotNetBar2_2015.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ApplicationBlocks.Data, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -118,7 +78,7 @@
     </Reference>
     <Reference Include="ReportesNet, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\ReportesNET\bin\Debug\ReportesNet.exe</HintPath>
+      <HintPath>..\ReportesNET\bin\Debug\ReportesNet.exe</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -133,7 +93,7 @@
     </Reference>
     <Reference Include="Utiles, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\ReportesNET\bin\Debug\Utiles.dll</HintPath>
+      <HintPath>..\Utiles\bin\Debug\Utiles.dll</HintPath>
     </Reference>
     <Reference Include="WebServicePorkys">
       <HintPath>..\..\WebServicePorkys\WebServicePorkys\WebServicePorkys\bin\WebServicePorkys.dll</HintPath>
@@ -157,10 +117,52 @@
     </Compile>
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="CommManager.vb" />
-    <Compile Include="frmPresentaciones.Designer.vb">
-      <DependentUpon>frmPresentaciones.vb</DependentUpon>
+    <Compile Include="frmRecepciones.Designer.vb">
+      <DependentUpon>frmRecepciones.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmPresentaciones.vb">
+    <Compile Include="frmRecepciones.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRecepciones_old.Designer.vb">
+      <DependentUpon>frmRecepciones_old.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmRecepciones_old.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDevolucionesProveedor.designer.vb">
+      <DependentUpon>frmDevolucionesProveedor.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmDevolucionesProveedor.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmVentasWEB_PedirOrden.Designer.vb">
+      <DependentUpon>frmVentasWEB_PedirOrden.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmVentasWEB_PedirOrden.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMovSalon_Opciones.Designer.vb">
+      <DependentUpon>frmMovSalon_Opciones.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmMovSalon_Opciones.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMovSalon_Productos.Designer.vb">
+      <DependentUpon>frmMovSalon_Productos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmMovSalon_Productos.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMateriales_ActualizacionPrecios.Designer.vb">
+      <DependentUpon>frmMateriales_ActualizacionPrecios.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmMateriales_ActualizacionPrecios.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTransRecepWEB.Designer.vb">
+      <DependentUpon>frmTransRecepWEB.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmTransRecepWEB.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmActuliazarSistema.Designer.vb">
@@ -271,10 +273,10 @@
     <Compile Include="frmVentasCliente.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmResumenEnvio.Designer.vb">
-      <DependentUpon>frmResumenEnvio.vb</DependentUpon>
+    <Compile Include="frmVentasWEB_ResumenEnvio.Designer.vb">
+      <DependentUpon>frmVentasWEB_ResumenEnvio.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmResumenEnvio.vb">
+    <Compile Include="frmVentasWEB_ResumenEnvio.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmVentasWEB.Designer.vb">
@@ -607,12 +609,6 @@
     <Compile Include="frmDevoluciones.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmDevolucionesProveedor.Designer.vb">
-      <DependentUpon>frmDevolucionesProveedor.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmDevolucionesProveedor.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="frmPresupuestos_Historia.Designer.vb">
       <DependentUpon>frmPresupuestos_Historia.vb</DependentUpon>
     </Compile>
@@ -685,12 +681,6 @@
     <Compile Include="frmProveedores.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmRecepciones.Designer.vb">
-      <DependentUpon>frmRecepciones.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmRecepciones.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="frmTableros.Designer.vb">
       <DependentUpon>frmTableros.vb</DependentUpon>
     </Compile>
@@ -733,6 +723,7 @@
     <Compile Include="MDIPrincipal.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Modulo_WEB.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -765,8 +756,33 @@
       <DependentUpon>AboutBox1.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmPresentaciones.resx">
-      <DependentUpon>frmPresentaciones.vb</DependentUpon>
+    <EmbeddedResource Include="frmRecepciones.resx">
+      <DependentUpon>frmRecepciones.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmRecepciones_old.resx">
+      <DependentUpon>frmRecepciones_old.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDevolucionesProveedor.resx">
+      <DependentUpon>frmDevolucionesProveedor.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmVentasWEB_PedirOrden.resx">
+      <DependentUpon>frmVentasWEB_PedirOrden.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMovSalon_Opciones.resx">
+      <DependentUpon>frmMovSalon_Opciones.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMovSalon_Productos.resx">
+      <DependentUpon>frmMovSalon_Productos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMateriales_ActualizacionPrecios.resx">
+      <DependentUpon>frmMateriales_ActualizacionPrecios.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTransRecepWEB.resx">
+      <DependentUpon>frmTransRecepWEB.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmActuliazarSistema.resx">
@@ -830,8 +846,8 @@
       <DependentUpon>frmVentasCliente.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmResumenEnvio.resx">
-      <DependentUpon>frmResumenEnvio.vb</DependentUpon>
+    <EmbeddedResource Include="frmVentasWEB_ResumenEnvio.resx">
+      <DependentUpon>frmVentasWEB_ResumenEnvio.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmVentasWEB.resx">
       <DependentUpon>frmVentasWEB.vb</DependentUpon>
@@ -1043,10 +1059,6 @@
       <DependentUpon>frmDevoluciones.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmDevolucionesProveedor.resx">
-      <DependentUpon>frmDevolucionesProveedor.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="frmPresupuestos_Historia.resx">
       <DependentUpon>frmPresupuestos_Historia.vb</DependentUpon>
       <SubType>Designer</SubType>
@@ -1090,10 +1102,6 @@
     <EmbeddedResource Include="frmProveedores.resx">
       <DependentUpon>frmProveedores.vb</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmRecepciones.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>frmRecepciones.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmTableros.resx">
       <DependentUpon>frmTableros.vb</DependentUpon>
@@ -1139,6 +1147,9 @@
     <None Include="ClassDiagram2.cd" />
     <None Include="ClassDiagram3.cd" />
     <None Include="ClassDiagram4.cd" />
+    <None Include="ClassDiagram5.cd" />
+    <None Include="ClassDiagram6.cd" />
+    <None Include="ClassDiagram7.cd" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -1250,6 +1261,10 @@
     <None Include="Resources\PendienteAmarillo2.png" />
     <None Include="Resources\PendienteRojo2.png" />
     <None Include="Resources\PendienteVerde2.png" />
+    <None Include="Resources\IconoDropbox.png" />
+    <None Include="Resources\IconoEnvio.png" />
+    <None Include="Resources\KAIZEN2.jpg" />
+    <None Include="Resources\IconoPuntoVenta3.ico" />
     <Content Include="SEI.ico" />
     <None Include="Resources\ArchivoExcel_2.JPG" />
     <None Include="Resources\ArchivoExcel_1.JPG" />

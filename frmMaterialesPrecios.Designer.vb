@@ -254,7 +254,7 @@ Partial Class frmMaterialesPrecios
         '
         Me.PicAplicarAumento.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.PicAplicarAumento.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.PicAplicarAumento.Image = Global.PORKYS.My.Resources.Resources.icono_ayuda
+        Me.PicAplicarAumento.Image = Global.SEYC.My.Resources.Resources.icono_ayuda
         Me.PicAplicarAumento.Location = New System.Drawing.Point(966, 109)
         Me.PicAplicarAumento.Name = "PicAplicarAumento"
         Me.PicAplicarAumento.Size = New System.Drawing.Size(18, 20)
@@ -266,7 +266,7 @@ Partial Class frmMaterialesPrecios
         '
         Me.PicOrden.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.PicOrden.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.PicOrden.Image = Global.PORKYS.My.Resources.Resources.icono_ayuda
+        Me.PicOrden.Image = Global.SEYC.My.Resources.Resources.icono_ayuda
         Me.PicOrden.Location = New System.Drawing.Point(690, 169)
         Me.PicOrden.Name = "PicOrden"
         Me.PicOrden.Size = New System.Drawing.Size(18, 20)
@@ -278,7 +278,7 @@ Partial Class frmMaterialesPrecios
         '
         Me.picAumento.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.picAumento.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.picAumento.Image = Global.PORKYS.My.Resources.Resources.icono_ayuda
+        Me.picAumento.Image = Global.SEYC.My.Resources.Resources.icono_ayuda
         Me.picAumento.Location = New System.Drawing.Point(123, 106)
         Me.picAumento.Name = "picAumento"
         Me.picAumento.Size = New System.Drawing.Size(18, 20)

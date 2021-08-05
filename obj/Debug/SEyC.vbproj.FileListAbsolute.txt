@@ -1,0 +1,503 @@
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEyC.vbproj.ResolveComReference.cache
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\bin\Debug\SEYC.exe.config
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\bin\Debug\SEYC.exe
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\bin\Debug\SEYC.pdb
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\bin\Debug\SEYC.xml
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\bin\Debug\Microsoft.ApplicationBlocks.Data.dll
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\bin\Debug\Microsoft.VisualBasic.PowerPacks.Vs.dll
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\bin\Debug\Microsoft.VisualBasic.PowerPacks.Vs.resources.dll
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\bin\Debug\ReportesNet.exe
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\bin\Debug\TextBoxConFormatoVB.dll
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\bin\Debug\Utiles.dll
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\bin\Debug\WebServicePorkys.dll
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\bin\Debug\GMap.NET.WindowsForms.dll
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\bin\Debug\GMap.NET.Core.dll
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\bin\Debug\Microsoft.ApplicationBlocks.Data.pdb
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\bin\Debug\Microsoft.ApplicationBlocks.Data.xml
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\bin\Debug\ReportesNet.pdb
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\bin\Debug\ReportesNet.xml
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\bin\Debug\TextBoxConFormatoVB.pdb
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\bin\Debug\TextBoxConFormatoVB.xml
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\bin\Debug\Utiles.pdb
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\bin\Debug\Utiles.xml
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\bin\Debug\WebServicePorkys.pdb
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\bin\Debug\WebServicePorkys.xml
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\bin\Debug\es\Microsoft.VisualBasic.PowerPacks.Vs.resources.dll
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\bin\Debug\Microsoft.Office.Interop.Word.dll
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEyC.vbprojResolveAssemblyReference.cache
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmAcercade.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmDevolucionesProveedor.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmVentasWEB_PedirOrden.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmMovSalon_Opciones.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmMovSalon_Productos.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmMateriales_ActualizacionPrecios.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmTransRecepWEB.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmActuliazarSistema.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmMateriales_MasSolicitados.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmTarjetas.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmBusquedaFacturas.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmUnidades.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmVentasCliente_Det.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmMovDia_Caja.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmAnticiposIngresosDep.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmMovDia.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmVentaSalon_Pop.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmBusquedaProducto.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmBusquedaCliente.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmVentaSalon.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmTransferenciasPorkys.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmVentasMostrador.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmPromocionesPorkys.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmPromociones.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmVentasClientes.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmVentasWEB_ResumenEnvio.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmVentasWEB.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmReportesDeposito.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmMaterialesExport.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmPedidosWEB.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmConsultarPrecios.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmAbriPack.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmListaPrecios.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmLoginVendedor.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmRemitosSinPresupuesto.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmRequirimientos.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmAsistenciasTablet.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmOrdenTrabajo_Det.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmOrdenTrabajo.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmAsistencias.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmConsolidaciones.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmDeposito.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmJornadas.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmPresupuestos.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.Form1.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmGastosSueldos.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmChequesPropios.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmEnsayos.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmPresupuestos_Tipos.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmMaqHerramientas_Mov.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmMaqHerramientas.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmEmpleados.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmMarcas.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmMateriales2.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmMateriales_ImagenExcel.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmOrdenCompra_Abierta.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmPresentacion.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmRecepciones_Complejo.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmPagodeClientes_Fletes.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmPagodeGastos_Recepciones.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmPagodeGastos.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmGastos_ORIG.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmCondiciondePago.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmNotaCredito.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmPagodeClientes_Contado.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmFacturacion_Manual.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmImpuestos.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmPagodeClientes.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmConsumos.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmFacturacion.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmIngresos.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmMaterialesPrecios.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmCheques.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmCierredeObras.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmGastos.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmClientes.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmAjustes.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmAlmacenes.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmBase.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmConsumos_OLD.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmDevoluciones.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmPresupuestos_Historia.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmRubros.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmIngresos_postTrabajo.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmNotas.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmObras.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmImpresorVales.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmMateriales.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmOrdenCompra.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmPresupuestos_old.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmRemitos.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmProveedores.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmRecepciones.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmTableros.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmTipoMoneda.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmTransferencias.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmUsuarioModo.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmUsuarios.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmVentas.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.MDIPrincipal.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.Resources.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.frmMovDia_Caja_Operacion.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEyC.vbproj.GenerateResource.Cache
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.exe
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.xml
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA RESPO\obj\Debug\SEYC.pdb
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\bin\Debug\SEYC.exe.config
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\bin\Debug\SEYC.exe
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\bin\Debug\SEYC.pdb
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\bin\Debug\SEYC.xml
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\bin\Debug\Microsoft.ApplicationBlocks.Data.dll
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\bin\Debug\Microsoft.VisualBasic.PowerPacks.Vs.dll
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\bin\Debug\Microsoft.VisualBasic.PowerPacks.Vs.resources.dll
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\bin\Debug\TextBoxConFormatoVB.dll
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\bin\Debug\WebServicePorkys.dll
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\bin\Debug\Microsoft.ApplicationBlocks.Data.pdb
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\bin\Debug\Microsoft.ApplicationBlocks.Data.xml
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\bin\Debug\TextBoxConFormatoVB.pdb
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\bin\Debug\TextBoxConFormatoVB.xml
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\bin\Debug\WebServicePorkys.pdb
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\bin\Debug\WebServicePorkys.xml
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\bin\Debug\es\Microsoft.VisualBasic.PowerPacks.Vs.resources.dll
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\bin\Debug\Microsoft.Office.Interop.Word.dll
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.vbprojResolveAssemblyReference.cache
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.vbproj.ResolveComReference.cache
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmAcercade.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmDevolucionesProveedor.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmVentasWEB_PedirOrden.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmMovSalon_Opciones.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmMovSalon_Productos.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmMateriales_ActualizacionPrecios.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmTransRecepWEB.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmActuliazarSistema.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmMateriales_MasSolicitados.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmTarjetas.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmBusquedaFacturas.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmUnidades.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmVentasCliente_Det.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmMovDia_Caja.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmAnticiposIngresosDep.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmMovDia.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmVentaSalon_Pop.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmBusquedaProducto.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmBusquedaCliente.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmVentaSalon.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmTransferenciasPorkys.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmVentasMostrador.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmPromocionesPorkys.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmPromociones.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmVentasClientes.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmVentasWEB_ResumenEnvio.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmVentasWEB.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmReportesDeposito.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmMaterialesExport.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmPedidosWEB.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmConsultarPrecios.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmAbriPack.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmListaPrecios.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmLoginVendedor.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmRemitosSinPresupuesto.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmRequirimientos.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmAsistenciasTablet.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmOrdenTrabajo_Det.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmOrdenTrabajo.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmAsistencias.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmConsolidaciones.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmDeposito.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmJornadas.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmPresupuestos.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.Form1.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmGastosSueldos.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmChequesPropios.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmEnsayos.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmPresupuestos_Tipos.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmMaqHerramientas_Mov.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmMaqHerramientas.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmEmpleados.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmMarcas.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmMateriales2.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmMateriales_ImagenExcel.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmOrdenCompra_Abierta.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmPresentacion.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmRecepciones_Complejo.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmPagodeClientes_Fletes.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmPagodeGastos_Recepciones.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmPagodeGastos.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmGastos_ORIG.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmCondiciondePago.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmNotaCredito.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmPagodeClientes_Contado.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmFacturacion_Manual.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmImpuestos.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmPagodeClientes.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmConsumos.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmFacturacion.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmIngresos.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmMaterialesPrecios.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmCheques.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmCierredeObras.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmGastos.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmClientes.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmAjustes.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmAlmacenes.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmBase.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmConsumos_OLD.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmDevoluciones.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmPresupuestos_Historia.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmRubros.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmIngresos_postTrabajo.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmNotas.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmObras.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmImpresorVales.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmMateriales.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmOrdenCompra.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmPresupuestos_old.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmRemitos.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmProveedores.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmRecepciones.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmTableros.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmTipoMoneda.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmTransferencias.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmUsuarioModo.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmUsuarios.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmVentas.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.MDIPrincipal.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.Resources.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.frmMovDia_Caja_Operacion.resources
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.vbproj.GenerateResource.Cache
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.exe
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.xml
+D:\Programación-HDD\Proyectos\SISTEMA SEyC\SISTEMA SEyC\obj\Debug\SEYC.pdb
+H:\MIT\SISTEMA SEYC\bin\Debug\SEYC.exe
+H:\MIT\SISTEMA SEYC\bin\Debug\SEYC.exe.config
+H:\MIT\SISTEMA SEYC\bin\Debug\Microsoft.VisualBasic.PowerPacks.Vs.dll
+H:\MIT\SISTEMA SEYC\bin\Debug\Microsoft.VisualBasic.PowerPacks.Vs.resources.dll
+H:\MIT\SISTEMA SEYC\bin\Debug\ReportesNet.exe
+H:\MIT\SISTEMA SEYC\bin\Debug\Utiles.dll
+H:\MIT\SISTEMA SEYC\bin\Debug\GMap.NET.WindowsForms.dll
+H:\MIT\SISTEMA SEYC\bin\Debug\GMap.NET.Core.dll
+H:\MIT\SISTEMA SEYC\bin\Debug\ReportesNet.pdb
+H:\MIT\SISTEMA SEYC\bin\Debug\ReportesNet.xml
+H:\MIT\SISTEMA SEYC\bin\Debug\Utiles.pdb
+H:\MIT\SISTEMA SEYC\bin\Debug\Utiles.xml
+H:\MIT\SISTEMA SEYC\bin\Debug\es\Microsoft.VisualBasic.PowerPacks.Vs.resources.dll
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.vbproj.ResolveComReference.cache
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmAcercade.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmDevolucionesProveedor.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmVentasWEB_PedirOrden.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmMovSalon_Opciones.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmMovSalon_Productos.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmMateriales_ActualizacionPrecios.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmTransRecepWEB.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmActuliazarSistema.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmMateriales_MasSolicitados.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmTarjetas.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmBusquedaFacturas.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmUnidades.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmVentasCliente_Det.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmMovDia_Caja.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmAnticiposIngresosDep.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmMovDia.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmVentaSalon_Pop.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmBusquedaProducto.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmBusquedaCliente.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmVentaSalon.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmTransferenciasPorkys.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmVentasMostrador.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmPromocionesPorkys.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmPromociones.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmVentasClientes.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmVentasWEB_ResumenEnvio.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmVentasWEB.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmReportesDeposito.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmMaterialesExport.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmPedidosWEB.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmConsultarPrecios.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmAbriPack.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmListaPrecios.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmLoginVendedor.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmRemitosSinPresupuesto.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmRequirimientos.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmAsistenciasTablet.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmOrdenTrabajo_Det.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmOrdenTrabajo.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmAsistencias.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmConsolidaciones.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmDeposito.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmJornadas.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmPresupuestos.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.Form1.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmGastosSueldos.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmChequesPropios.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmEnsayos.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmPresupuestos_Tipos.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmMaqHerramientas_Mov.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmMaqHerramientas.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmEmpleados.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmMarcas.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmMateriales2.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmMateriales_ImagenExcel.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmOrdenCompra_Abierta.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmPresentacion.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmRecepciones_Complejo.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmPagodeClientes_Fletes.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmPagodeGastos_Recepciones.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmPagodeGastos.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmGastos_ORIG.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmCondiciondePago.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmNotaCredito.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmPagodeClientes_Contado.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmFacturacion_Manual.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmImpuestos.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmPagodeClientes.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmConsumos.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmFacturacion.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmIngresos.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmMaterialesPrecios.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmCheques.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmCierredeObras.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmGastos.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmClientes.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmAjustes.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmAlmacenes.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmBase.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmConsumos_OLD.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmDevoluciones.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmPresupuestos_Historia.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmRubros.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmIngresos_postTrabajo.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmNotas.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmObras.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmImpresorVales.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmMateriales.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmOrdenCompra.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmPresupuestos_old.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmRemitos.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmProveedores.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmRecepciones.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmTableros.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmTipoMoneda.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmTransferencias.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmUsuarioModo.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmUsuarios.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmVentas.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.MDIPrincipal.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.Resources.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.frmMovDia_Caja_Operacion.resources
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.vbproj.GenerateResource.Cache
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.exe
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.xml
+H:\MIT\SISTEMA SEYC\obj\Debug\SEYC.pdb
+H:\MIT\SISTEMA SEYC\bin\Debug\SEYC.pdb
+H:\MIT\SISTEMA SEYC\bin\Debug\SEYC.xml
+H:\MIT\SISTEMA SEYC\bin\Debug\Microsoft.Office.Interop.Word.dll
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.vbprojResolveAssemblyReference.cache
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.exe
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.xml
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.pdb
+E:\SISTEMA CENPROFAR\bin\Debug\SEYC.exe.config
+E:\SISTEMA CENPROFAR\bin\Debug\SEYC.exe
+E:\SISTEMA CENPROFAR\bin\Debug\SEYC.pdb
+E:\SISTEMA CENPROFAR\bin\Debug\SEYC.xml
+E:\SISTEMA CENPROFAR\bin\Debug\Microsoft.VisualBasic.PowerPacks.Vs.dll
+E:\SISTEMA CENPROFAR\bin\Debug\Microsoft.VisualBasic.PowerPacks.Vs.resources.dll
+E:\SISTEMA CENPROFAR\bin\Debug\GMap.NET.WindowsForms.dll
+E:\SISTEMA CENPROFAR\bin\Debug\GMap.NET.Core.dll
+E:\SISTEMA CENPROFAR\bin\Debug\ReportesNet.pdb
+E:\SISTEMA CENPROFAR\bin\Debug\ReportesNet.xml
+E:\SISTEMA CENPROFAR\bin\Debug\Utiles.pdb
+E:\SISTEMA CENPROFAR\bin\Debug\Utiles.xml
+E:\SISTEMA CENPROFAR\bin\Debug\es\Microsoft.VisualBasic.PowerPacks.Vs.resources.dll
+E:\SISTEMA CENPROFAR\bin\Debug\Microsoft.Office.Interop.Word.dll
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.vbproj.ResolveComReference.cache
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmAcercade.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmDevolucionesProveedor.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmVentasWEB_PedirOrden.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmMovSalon_Opciones.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmMovSalon_Productos.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmMateriales_ActualizacionPrecios.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmTransRecepWEB.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmActuliazarSistema.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmMateriales_MasSolicitados.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmTarjetas.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmBusquedaFacturas.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmUnidades.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmVentasCliente_Det.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmMovDia_Caja.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmAnticiposIngresosDep.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmMovDia.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmVentaSalon_Pop.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmBusquedaProducto.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmBusquedaCliente.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmVentaSalon.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmTransferenciasPorkys.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmVentasMostrador.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmPromocionesPorkys.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmPromociones.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmVentasClientes.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmVentasWEB_ResumenEnvio.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmVentasWEB.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmReportesDeposito.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmMaterialesExport.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmPedidosWEB.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmConsultarPrecios.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmAbriPack.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmListaPrecios.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmLoginVendedor.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmRemitosSinPresupuesto.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmRequirimientos.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmAsistenciasTablet.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmOrdenTrabajo_Det.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmOrdenTrabajo.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmAsistencias.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmConsolidaciones.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmDeposito.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmJornadas.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmPresupuestos.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.Form1.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmGastosSueldos.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmChequesPropios.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmEnsayos.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmPresupuestos_Tipos.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmMaqHerramientas_Mov.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmMaqHerramientas.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmEmpleados.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmMarcas.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmMateriales2.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmMateriales_ImagenExcel.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmOrdenCompra_Abierta.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmPresentacion.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmRecepciones_Complejo.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmPagodeClientes_Fletes.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmPagodeGastos_Recepciones.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmPagodeGastos.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmGastos_ORIG.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmCondiciondePago.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmNotaCredito.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmPagodeClientes_Contado.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmFacturacion_Manual.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmImpuestos.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmPagodeClientes.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmConsumos.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmFacturacion.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmIngresos.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmMaterialesPrecios.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmCheques.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmCierredeObras.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmGastos.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmClientes.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmAjustes.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmAlmacenes.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmBase.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmConsumos_OLD.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmDevoluciones.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmPresupuestos_Historia.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmRubros.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmIngresos_postTrabajo.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmNotas.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmObras.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmImpresorVales.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmMateriales.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmOrdenCompra.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmPresupuestos_old.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmRemitos.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmProveedores.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmRecepciones.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmTableros.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmTipoMoneda.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmTransferencias.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmUsuarioModo.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmUsuarios.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmVentas.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.MDIPrincipal.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.Resources.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.frmMovDia_Caja_Operacion.resources
+E:\SISTEMA CENPROFAR\obj\Debug\SEYC.vbproj.GenerateResource.Cache

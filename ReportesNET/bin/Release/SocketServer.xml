@@ -1,0 +1,29 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+SocketServer
+</name>
+</assembly>
+<members>
+<member name="T:SocketServer.Servidor">
+	<summary>
+ ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+ mensajes posibles que puede recibir el controlador de conexiones
+ 
+ "01" + NUMERO_DE_IP_PARA_CERRARLE_EL_SISTEMA 
+ + "|"  + Equipo + "||" + Sistema + "|||"                 indica que hay que cerrar el cliente cuya IP coincide
+ "02" + CODIGO_DE_USUARIO + "|"                           aviso de nuevo usuario conectado
+ "04" + EQUIPO + "|"                                      aviso de nuevo equipo conectado
+ 
+ ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+ mensajes posibles que puede enviar el controlador de conexiones
+ 
+ "03" + MENSAJE + "|"                                     Mensaje para publicar en el cliente
+ "05" + "|"                                               Orden para cerrar
+ ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+ </summary>
+	<remarks></remarks>
+</member>
+</members>
+</doc>

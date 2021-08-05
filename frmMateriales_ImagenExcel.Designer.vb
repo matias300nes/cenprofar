@@ -32,7 +32,7 @@ Partial Class frmMateriales_ImagenExcel
         '
         'PictureBox1
         '
-        Me.PictureBox1.BackgroundImage = Global.PORKYS.My.Resources.Resources.ArchivoExcel_1
+        Me.PictureBox1.BackgroundImage = Global.SEYC.My.Resources.Resources.ArchivoExcel_1
         Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.PictureBox1.Location = New System.Drawing.Point(-5, 30)
         Me.PictureBox1.Name = "PictureBox1"
@@ -64,7 +64,7 @@ Partial Class frmMateriales_ImagenExcel
         '
         'PictureBox2
         '
-        Me.PictureBox2.BackgroundImage = Global.PORKYS.My.Resources.Resources.ArchivoExcel_2
+        Me.PictureBox2.BackgroundImage = Global.SEYC.My.Resources.Resources.ArchivoExcel_2
         Me.PictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.PictureBox2.Location = New System.Drawing.Point(1, 168)
         Me.PictureBox2.Name = "PictureBox2"

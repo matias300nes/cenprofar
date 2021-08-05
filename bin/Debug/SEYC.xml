@@ -1,0 +1,400 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+SEYC
+</name>
+</assembly>
+<members>
+<member name="T:SEYC.CommManager.TransmissionType">
+	<summary>
+ enumeration to hold our transmission types
+ </summary>
+</member><member name="T:SEYC.CommManager.MessageType">
+	<summary>
+ enumeration to hold our message types
+ </summary>
+</member><member name="P:SEYC.CommManager.BaudRate">
+	<summary>
+ Property to hold the BaudRate
+ of our manager class
+ </summary>
+</member><member name="P:SEYC.CommManager.Parity">
+	<summary>
+ property to hold the Parity
+ of our manager class
+ </summary>
+</member><member name="P:SEYC.CommManager.StopBits">
+	<summary>
+ property to hold the StopBits
+ of our manager class
+ </summary>
+</member><member name="P:SEYC.CommManager.DataBits">
+	<summary>
+ property to hold the DataBits
+ of our manager class
+ </summary>
+</member><member name="P:SEYC.CommManager.PortName">
+	<summary>
+ property to hold the PortName
+ of our manager class
+ </summary>
+</member><member name="P:SEYC.CommManager.CurrentTransmissionType">
+	<summary>
+ property to hold our TransmissionType
+ of our manager class
+ </summary>
+</member><member name="P:SEYC.CommManager.DisplayWindow">
+	<summary>
+ property to hold our display window
+ value
+ </summary>
+</member><member name="P:SEYC.CommManager.Message">
+	<summary>
+ Property to hold the message being sent
+ through the serial port
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:SEYC.CommManager.Type">
+	<summary>
+ Message to hold the transmission type
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:SEYC.CommManager.#ctor(System.String,System.String,System.String,System.String,System.String,System.Windows.Forms.TextBox)">
+	<summary>
+ Constructor to set the properties of our Manager Class
+ </summary>
+	<param name="baud">Desired BaudRate</param>
+	<param name="par">Desired Parity</param>
+	<param name="sBits">Desired StopBits</param>
+	<param name="dBits">Desired DataBits</param>
+	<param name="name">Desired PortName</param>
+</member><member name="M:SEYC.CommManager.#ctor">
+	<summary>
+ Comstructor to set the properties of our
+ serial port communicator to nothing
+ </summary>
+</member><member name="M:SEYC.CommManager.HexToByte(System.String)">
+	<summary>
+ method to convert hex string into a byte array
+ </summary>
+	<param name="msg">string to convert</param>
+	<returns>a byte array</returns>
+</member><member name="M:SEYC.CommManager.ByteToHex(System.Byte[])">
+	<summary>
+ method to convert a byte array into a hex string
+ </summary>
+	<param name="comByte">byte array to convert</param>
+	<returns>a hex string</returns>
+</member><member name="M:SEYC.CommManager.DisplayData(SEYC.CommManager.MessageType,System.String)">
+	<summary>
+ Method to display the data to and
+ from the port on the screen
+ </summary>
+	<remarks></remarks>
+</member><member name="M:SEYC.CommManager.comPort_DataReceived(System.Object,System.IO.Ports.SerialDataReceivedEventArgs)">
+	<summary>
+ method that will be called when theres data waiting in the buffer
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+</member><member name="M:SEYC.frmBase.Establecer_Cant_Paginas(System.Data.DataTable)">
+	<summary>
+ Establecer la cantidad de paginas en la grilla
+ </summary>
+	<param name="d"></param>
+	<remarks></remarks>
+</member><member name="M:SEYC.frmBase.FiltrarGenerico(System.Data.DataTable)">
+	<summary>
+ Filtrar los datos exluyendo el datos seleccionado
+ </summary>
+	<remarks></remarks>
+</member><member name="M:SEYC.frmBase.CargardeExcel(System.Windows.Forms.DataGridView,System.String,System.String)">
+	<summary>
+ Permite importar datos desde una planilla excel
+ no se implementa por ahora pero queda la funcion hecha
+ </summary>
+	<param name="dgView"></param>
+	<param name="SLibro"></param>
+	<param name="sHoja"></param>
+	<remarks></remarks>
+</member><member name="P:SEYC.My.Resources.Resources.ResourceManager">
+	<summary>
+  Devuelve la instancia de ResourceManager almacenada en caché utilizada por esta clase.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.Culture">
+	<summary>
+  Reemplaza la propiedad CurrentUICulture del subproceso actual para todas las
+  búsquedas de recursos mediante esta clase de recurso fuertemente tipado.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources._exit">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.Acercade">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.alert">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Icon similar a (Icono).
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.ArchivoExcel_1">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.ArchivoExcel_2">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.boton_nuevo">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.CandadoAbierto">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.CandadoCerrado">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.cheques">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.CotizacionMoneda">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.empleados">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.excel_noticia">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.Factura">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.Factura1">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.fmaic_printorganizer_save">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.FondodePantalla">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.FondodePantalla_blanco">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.FondodePantalla_mit">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.FondodePantalla_mit1">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.Gastos">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.Green_Ball_icon">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.icono_ayuda">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.icono_guardar">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.IconoDropbox">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.IconoEnvio">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.IconoPuntoVenta3">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Icon similar a (Icono).
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.indicator_white">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.Info">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.KAIZEN2">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.ListaPrecios">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.logo_MIT">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.logo1">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.Microsoft_Word_2013_icon">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.ms_excel">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.nuevo">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.ok">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Icon similar a (Icono).
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.Orden_de_Compra">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.Pagos">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.PendienteAmarillo2">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.PendienteRojo2">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.PendienteVerde2">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.Porkys">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Icon similar a (Icono).
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.PorkysU">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Icon similar a (Icono).
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.Presentacion3">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.Presupuestos">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.Presupuestos1">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.Presupuestos2">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.Productos">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.Productos1">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.PtoVtaPorkys">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.Red_Ball_icon">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.Remito">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.Remito1">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.Sincro">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.SincroBalanzas">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.SincroFALLA">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.SincroOK">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.SincroPendiente">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.stop_error">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Icon similar a (Icono).
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.Symbol_Check">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.users">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.Ventas">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.Ventas16">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.Word">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="P:SEYC.My.Resources.Resources.word2">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member><member name="T:SEYC.My.Resources.Resources">
+	<summary>
+  Clase de recurso fuertemente tipado, para buscar cadenas traducidas, etc.
+</summary>
+</member>
+</members>
+</doc>

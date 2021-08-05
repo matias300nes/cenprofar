@@ -79,7 +79,8 @@ Public Class frmRecepciones
         PrecioLista4 = 40
         PrecioPeron = 41
         PrecioMayoPeron = 42
-
+        CantidadPack = 43
+        IdMarca = 44
     End Enum
 
     'Enum ColumnasDelGridItemsIVA
@@ -145,13 +146,13 @@ Public Class frmRecepciones
         ToolStrip_lblCodMaterial.Visible = True
         txtBusquedaMAT.Visible = True
 
-        Try
+        'Try
 
-            Dim sqlstring As String = "update NotificacionesWEB set BloqueoR = 1"
-            tranWEB.Sql_Set(sqlstring)
-        Catch ex As Exception
+        '    Dim sqlstring As String = "update [" & NameTable_NotificacionesWEB & "] set BloqueoR = 1 where idalmacen <> " & Util.numero_almacen
+        '    tranWEB.Sql_Set(sqlstring)
+        'Catch ex As Exception
 
-        End Try
+        'End Try
 
         band = 0
 
@@ -161,6 +162,7 @@ Public Class frmRecepciones
         asignarTags()
 
         LlenarcmbAlmacenes()
+        LlenarcmbUsuarioGasto()
         LlenarComboProveedores()
         LlenarcmbTipoFacturas_APP(cmbTipoComprobante, ConnStringSEI)
 
@@ -259,8 +261,7 @@ Public Class frmRecepciones
     End Sub
 
     Private Sub txtid_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) _
-    Handles txtID.KeyPress, txtCODIGO.KeyPress, txtNota.KeyPress, txtPtoVta.KeyPress, txtNroFactura.KeyPress, _
-             txtSubtotal.KeyPress
+    Handles txtID.KeyPress, txtCODIGO.KeyPress, txtNota.KeyPress
         If e.KeyChar = ChrW(Keys.Enter) Then
             e.Handled = True
             SendKeys.Send("{TAB}")
@@ -389,7 +390,7 @@ Public Class frmRecepciones
         End If
     End Sub
 
-    Private Sub cmbTipoComprobante_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmbTipoComprobante.SelectedIndexChanged
+    Private Sub cmbTipoComprobante_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
 
         txtMontoIVA10.Text = "0"
         txtMontoIVA21.Text = "0"
@@ -423,7 +424,7 @@ Public Class frmRecepciones
 
     End Sub
 
-    Private Sub txtSubtotal_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtSubtotal.LostFocus
+    Private Sub txtSubtotal_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs)
         If band = 1 Then
             If txtSubtotal.Text <> "" Then
 
@@ -455,14 +456,14 @@ Public Class frmRecepciones
         End If
     End Sub
 
-    Private Sub txtsubtotalNoGravado_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtSubtotalExento.KeyPress
+    Private Sub txtsubtotalNoGravado_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
         If e.KeyChar = ChrW(Keys.Enter) Then
             e.Handled = True
             SendKeys.Send("{TAB}")
         End If
     End Sub
 
-    Private Sub txtSubtotalNoGravado_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtSubtotalExento.LostFocus
+    Private Sub txtSubtotalNoGravado_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs)
         If band = 1 Then
             If txtSubtotalExento.Text <> "" Then
 
@@ -477,7 +478,7 @@ Public Class frmRecepciones
 
 
     '(currentcellChanged)
-    Protected Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles grd.CurrentCellChanged
+    Protected Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs)
 
         If Permitir Then
             Try
@@ -563,25 +564,25 @@ Public Class frmRecepciones
         End If
     End Sub
 
-    Private Sub txtPtoVta_LostFocus(sender As Object, e As EventArgs) Handles txtPtoVta.LostFocus
+    Private Sub txtPtoVta_LostFocus(sender As Object, e As EventArgs)
         If band = 1 And bolModo = True Then
             txtNroFacturaCompleto.Text = txtPtoVta.Text.Trim.PadLeft(4, "0") & "-" & txtNroFactura.Text.Trim.PadLeft(8, "0")
         End If
     End Sub
 
-    Private Sub txtNroFactura_LostFocus(sender As Object, e As EventArgs) Handles txtNroFactura.LostFocus
+    Private Sub txtNroFactura_LostFocus(sender As Object, e As EventArgs)
         If band = 1 And bolModo = True Then
             txtNroFacturaCompleto.Text = txtPtoVta.Text.Trim.PadLeft(4, "0") & "-" & txtNroFactura.Text.Trim.PadLeft(8, "0")
         End If
     End Sub
 
-    Private Sub txtPtoVtaRemito_LostFocus(sender As Object, e As EventArgs) Handles txtPtoVtaRemito.LostFocus
+    Private Sub txtPtoVtaRemito_LostFocus(sender As Object, e As EventArgs)
         If band = 1 Then 'And bolModo = True Then
             txtNroRemitoCompleto.Text = txtPtoVtaRemito.Text.Trim.PadLeft(4, "0") & "-" & txtNroCompRemito.Text.Trim.PadLeft(8, "0")
         End If
     End Sub
 
-    Private Sub txtNroCompRemito_LostFocus(sender As Object, e As EventArgs) Handles txtNroCompRemito.LostFocus
+    Private Sub txtNroCompRemito_LostFocus(sender As Object, e As EventArgs)
         If band = 1 Then 'And bolModo = True Then
             txtNroRemitoCompleto.Text = txtPtoVtaRemito.Text.Trim.PadLeft(4, "0") & "-" & txtNroCompRemito.Text.Trim.PadLeft(8, "0")
         End If
@@ -654,19 +655,19 @@ Public Class frmRecepciones
 
     End Sub
 
-    Private Sub txtMontoIVA21_LostFocus(sender As Object, e As EventArgs) Handles txtMontoIVA21.LostFocus
+    Private Sub txtMontoIVA21_LostFocus(sender As Object, e As EventArgs)
         CalcularMontoIVA()
     End Sub
 
-    Private Sub txtMontoIVA10_LostFocus(sender As Object, e As EventArgs) Handles txtMontoIVA10.LostFocus
+    Private Sub txtMontoIVA10_LostFocus(sender As Object, e As EventArgs)
         CalcularMontoIVA()
     End Sub
 
-    Private Sub txtMontoIVA27_LostFocus(sender As Object, e As EventArgs) Handles txtMontoIVA27.LostFocus
+    Private Sub txtMontoIVA27_LostFocus(sender As Object, e As EventArgs)
         CalcularMontoIVA()
     End Sub
 
-    Private Sub txtMontoIVA21_KeyPress(sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtMontoIVA21.KeyPress
+    Private Sub txtMontoIVA21_KeyPress(sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
         If e.KeyChar = ChrW(Keys.Enter) Then
             CalcularMontoIVA()
             e.Handled = True
@@ -674,7 +675,7 @@ Public Class frmRecepciones
         End If
     End Sub
 
-    Private Sub txtMontoIVA10_KeyPress(sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtMontoIVA10.KeyPress
+    Private Sub txtMontoIVA10_KeyPress(sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
         If e.KeyChar = ChrW(Keys.Enter) Then
             CalcularMontoIVA()
             e.Handled = True
@@ -682,7 +683,7 @@ Public Class frmRecepciones
         End If
     End Sub
 
-    Private Sub txtMontoIVA27_KeyPress(sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtMontoIVA27.KeyPress
+    Private Sub txtMontoIVA27_KeyPress(sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
         If e.KeyChar = ChrW(Keys.Enter) Then
             CalcularMontoIVA()
             e.Handled = True
@@ -690,7 +691,7 @@ Public Class frmRecepciones
         End If
     End Sub
 
-    Private Sub txtCantIVA_ValueChanged(sender As Object, e As EventArgs) Handles txtCantIVA.ValueChanged
+    Private Sub txtCantIVA_ValueChanged(sender As Object, e As EventArgs)
         If cmbTipoComprobante.Text = "FACTURAS A" Or _
             cmbTipoComprobante.Text = "NOTAS DE CREDITO A" Or _
             cmbTipoComprobante.Text = "NOTAS DE DEBITO A" Or _
@@ -707,7 +708,7 @@ Public Class frmRecepciones
         End If
     End Sub
 
-    Private Sub chkCargarFactura_CheckedChanged(sender As Object, e As EventArgs) Handles chkCargarFactura.CheckedChanged
+    Private Sub chkCargarFactura_CheckedChanged(sender As Object, e As EventArgs)
 
         cmbTipoComprobante.Enabled = chkCargarFactura.Checked
         Label10.Enabled = chkCargarFactura.Checked
@@ -747,6 +748,43 @@ Public Class frmRecepciones
 
         chkFacturaCancelada.Enabled = chkCargarFactura.Checked
 
+    End Sub
+
+    Private Sub chkRecepcion_CheckedChanged(sender As Object, e As EventArgs)
+        cmbGastos.Enabled = chkGastos.Checked
+        txtPtoVtaRemito.Enabled = Not chkGastos.Checked
+        txtNroCompRemito.Enabled = Not chkGastos.Checked
+
+        chkCargarFactura.Enabled = Not chkGastos.Checked
+
+
+        'txtValorCambio.Enabled = chkGastos.Checked
+
+        'Label4.Enabled = Not chkGastos.Checked
+
+        If chkGastos.Checked = False And bolModo = True Then
+            txtPtoVtaRemito.Text = ""
+            txtNroCompRemito.Text = ""
+            txtNroRemitoCompleto.Text = ""
+        End If
+
+        cmbGastos_SelectedIndexChanged(sender, e)
+
+    End Sub
+
+    Private Sub cmbGastos_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs)
+        If band = 1 And chkGastos.Checked = True And bolModo = True Then
+            BuscarRemito()
+            txtIdGastoAsociar.Text = cmbGastos.SelectedValue
+        Else
+            If chkGastos.Checked = False And bolModo = True Then
+                txtNroRemitoCompleto.Text = ""
+                txtIdGastoAsociar.Text = ""
+                txtIdMoneda.Text = "1"
+                txtValorCambio.Text = "1"
+                txtTipoMoneda.Text = "Pe"
+            End If
+        End If
     End Sub
 
 #End Region
@@ -1207,6 +1245,13 @@ Public Class frmRecepciones
         grdItems.Columns(ColumnasDelGridItems.PrecioMayoPeron).Width = 100
         grdItems.Columns(ColumnasDelGridItems.PrecioMayoPeron).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
 
+        grdItems.Columns(ColumnasDelGridItems.CantidadPack).HeaderText = "QtyxPack"
+        grdItems.Columns(ColumnasDelGridItems.CantidadPack).ReadOnly = False  'precio pedido 6
+        grdItems.Columns(ColumnasDelGridItems.CantidadPack).Width = 50
+        grdItems.Columns(ColumnasDelGridItems.CantidadPack).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+
+        grdItems.Columns(ColumnasDelGridItems.IdMarca).Visible = False  'precio pedido 6
+
         With grdItems
             .VirtualMode = False
             .AllowUserToAddRows = False
@@ -1451,6 +1496,47 @@ Public Class frmRecepciones
 
     End Sub
 
+    Private Sub LlenarcmbUsuarioGasto()
+        Dim connection As SqlClient.SqlConnection = Nothing
+        Dim ds As Data.DataSet
+
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+
+        Try
+
+            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, " SELECT CONCAT(Apellido ,' ', Nombre) AS 'Vendedor' FROM Empleados WHERE Eliminado = 0 ORDER BY Vendedor")
+            ds.Dispose()
+
+            With cmbUsuarioGasto
+                .DataSource = ds.Tables(0).DefaultView
+                .DisplayMember = "Vendedor"
+                '.ValueMember = "Codigo"
+            End With
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If Not connection Is Nothing Then
+                CType(connection, IDisposable).Dispose()
+            End If
+        End Try
+    End Sub
+
     Private Sub LlenarComboOrdenDeCompra()
         Dim ds_OC As Data.DataSet
         Dim connection As SqlClient.SqlConnection = Nothing
@@ -1632,7 +1718,7 @@ Public Class frmRecepciones
 
         Try
 
-            ds_Marcas = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT 0 AS 'Codigo', '' AS 'Nombre' Union SELECT Codigo, rtrim(Nombre) as Nombre FROM Almacenes WHERE Codigo <> 3 AND Codigo <> 4 AND Eliminado = 0 ORDER BY Nombre")
+            ds_Marcas = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT 0 AS 'Codigo', '' AS 'Nombre' Union SELECT Codigo, rtrim(Nombre) as Nombre FROM Almacenes WHERE Codigo <> 4 AND Eliminado = 0 ORDER BY Nombre")
             ds_Marcas.Dispose()
 
             With Me.cmbAlmacenes
@@ -1645,6 +1731,114 @@ Public Class frmRecepciones
                 '.BindingContext = Me.BindingContext
                 '.SelectedIndex = 0
             End With
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If Not connection Is Nothing Then
+                CType(connection, IDisposable).Dispose()
+            End If
+        End Try
+    End Sub
+
+    Private Sub LlenarcomboGastos(ByVal cmb As System.Windows.Forms.ComboBox)
+        Dim ds_Proveedores As Data.DataSet
+        Dim connection As SqlClient.SqlConnection = Nothing
+
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+
+        llenandoCombo = True
+
+        Try
+
+            ds_Proveedores = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT id, ('Mov Nro: ' + CONVERT(VARCHAR(50),codigo) + ' - Remito: ' + Nroremito) AS Codigo from gastos where IdRecepcion is null and convert(int, ptovtaremito) > 0 and convert(int, nrocomprobanteremito) >0 and IdProveedor = " & cmbProveedor.SelectedValue & " ORDER BY id asc")
+            ds_Proveedores.Dispose()
+
+            With cmb
+                .DataSource = ds_Proveedores.Tables(0).DefaultView
+                .DisplayMember = "codigo"
+                .ValueMember = "id"
+                .AutoCompleteMode = AutoCompleteMode.Suggest
+                .AutoCompleteSource = AutoCompleteSource.ListItems
+                .DropDownStyle = ComboBoxStyle.DropDownList
+                .TabStop = True
+            End With
+
+            If ds_Proveedores.Tables(0).Rows.Count > 0 Then
+                chkGastos.Enabled = True
+                'chkGastos.Checked = True
+            Else
+                chkGastos.Enabled = False
+                chkGastos.Checked = False
+                txtNroRemitoCompleto.Text = ""
+                cmbGastos.Text = ""
+            End If
+
+            'If bolModo = False Then
+            '    cmbGastos.Text = grd.CurrentRow.Cells(22).Value
+            'End If
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            llenandoCombo = False
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If Not connection Is Nothing Then
+                CType(connection, IDisposable).Dispose()
+            End If
+        End Try
+
+        llenandoCombo = False
+
+    End Sub
+
+    Private Sub BuscarRemito()
+        Dim ds_OCReq As Data.DataSet
+        Dim connection As SqlClient.SqlConnection = Nothing
+
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+
+        Try
+
+            ds_OCReq = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT ISNULL(NroRemito, '') a, ISNULL(nrocomprobanteremito, '0') AS NroCompRemito, ISNULL(ptovtaremito, '0') AS PtovtaRemito FROM Gastos WHERE id = " & IIf(cmbGastos.SelectedValue Is Nothing, 0, cmbGastos.SelectedValue))
+
+            ds_OCReq.Dispose()
+
+            If ds_OCReq.Tables(0).Rows.Count > 0 Then
+                txtNroRemitoCompleto.Text = ds_OCReq.Tables(0).Rows(0)(0)
+                txtNroCompRemito.Text = ds_OCReq.Tables(0).Rows(0)(1)
+                txtPtoVtaRemito.Text = ds_OCReq.Tables(0).Rows(0)(2)
+            End If
 
         Catch ex As Exception
             Dim errMessage As String = ""
@@ -1842,7 +2036,7 @@ Public Class frmRecepciones
                                               param_factura, param_nota, param_asociargasto, param_IdGastoAsociar, param_useradd, param_res)
 
                         txtID.Text = param_id.Value
-                        txtCODIGO.Text = param_id.Value
+                        txtCODIGO.Text = param_codigo.Value
                     Else
                         SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spRecepciones_Update", _
                                               param_id, param_idproveedor, param_ControlRemito, param_ControlFactura, _
@@ -1881,8 +2075,8 @@ Public Class frmRecepciones
         Dim ActualizarPrecio As Boolean = False
 
         Dim ValorActual As Double
-        Dim IdStockMov As Long
-        Dim Stock As Double
+        'Dim IdStockMov As Long
+        'Dim Stock As Double
 
 
         Dim Comprob As String
@@ -2249,63 +2443,69 @@ Public Class frmRecepciones
                             End If
                             Comprob = param_Comprob.Value
 
-                            If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
+                            'If MDIPrincipal.NoActualizar = False Then
 
-                                If ValorActual > 0 Then ' And Not cmbAlmacen.Text.Contains("PRINCIPAL") Then
+                            '    If ValorActual > 0 Then
 
-                                    Stock = param_Stock.Value
-                                    IdStockMov = param_IdStockMov.Value
+                            '        Stock = param_Stock.Value
+                            '        IdStockMov = param_IdStockMov.Value
 
-                                    Try
-                                        Dim sqlstring As String
-                                        Dim ds_Empresa As Data.DataSet
+                            '        Try
+                            '            Dim sqlstring As String
+                            '            Dim ds_Empresa As Data.DataSet
 
-                                        'sqlstring = "update stock set qty = " & ValorActual & ", dateupd=getdate(),userupd= " & UserID & _
-                                        '    " where idmaterial= " & grdItems.Rows(i).Cells(ColumnasDelGridItems.IDMaterial).Value & _
-                                        '    "  and idunidad= " & grdItems.Rows(i).Cells(ColumnasDelGridItems.IDUnidad).Value & _
-                                        '    " and idalmacen = " & cmbAlmacen.SelectedValue
+                            '            'sqlstring = "update stock set qty = " & ValorActual & ", dateupd=getdate(),userupd= " & UserID & _
+                            '            '    " where idmaterial= " & grdItems.Rows(i).Cells(ColumnasDelGridItems.IDMaterial).Value & _
+                            '            '    "  and idunidad= " & grdItems.Rows(i).Cells(ColumnasDelGridItems.IDUnidad).Value & _
+                            '            '    " and idalmacen = " & cmbAlmacen.SelectedValue
 
-                                        sqlstring = "exec spStock_Insert '" & grdItems.Rows(i).Cells(ColumnasDelGridItems.IDMaterial).Value & "', '" & _
-                                            grdItems.Rows(i).Cells(ColumnasDelGridItems.IdUnidad).Value & "', " & cmbAlmacenes.SelectedValue & ", 'I', " & _
-                                            grdItems.Rows(i).Cells(ColumnasDelGridItems.QtyRecep).Value & ", " & Stock & ", " & IdStockMov & ", '" & Comprob & "', " & 4 & ", " & UserID
+                            '            sqlstring = "exec spStock_Insert '" & grdItems.Rows(i).Cells(ColumnasDelGridItems.IDMaterial).Value & "', '" & _
+                            '                grdItems.Rows(i).Cells(ColumnasDelGridItems.IdUnidad).Value & "', " & cmbAlmacenes.SelectedValue & ", 'I', " & _
+                            '                grdItems.Rows(i).Cells(ColumnasDelGridItems.QtyRecep).Value & ", " & Stock & ", " & IdStockMov & ", '" & Comprob & "', " & 4 & ", " & UserID
 
 
+                            '            'me fijo que sea distinto al salon 25
+                            '            If tranWEB.Sql_Get_Value(sqlstring) > 0 And cmbAlmacenes.SelectedValue <> 3 Then
+                            '                ds_Empresa = SqlHelper.ExecuteDataset(tran, CommandType.Text, "UPDATE StockMov SET ActualizadoWEB = 1 WHERE id = " & IdStockMov)
+                            '                ds_Empresa.Dispose()
 
-                                        If tranWEB.Sql_Get_Value(sqlstring) > 0 Then
-                                            ds_Empresa = SqlHelper.ExecuteDataset(tran, CommandType.Text, "UPDATE StockMov SET ActualizadoWEB = 1 WHERE id = " & IdStockMov)
-                                            ds_Empresa.Dispose()
+                            '                If cmbAlmacenes.SelectedValue = 1 Then
+                            '                    sqlstring = "UPDATE Materiales SET Preciocompra = " & grdItems.Rows(i).Cells(ColumnasDelGridItems.PrecioCosto).Value & _
+                            '                                ", PrecioCosto = " & grdItems.Rows(i).Cells(ColumnasDelGridItems.PrecioMayorista).Value & ", PrecioMayorista = " & grdItems.Rows(i).Cells(ColumnasDelGridItems.PrecioRevendedor).Value & _
+                            '                                ", Preciolista3 = " & grdItems.Rows(i).Cells(ColumnasDelGridItems.PrecioYamila).Value & ", Preciolista4 = " & grdItems.Rows(i).Cells(ColumnasDelGridItems.PrecioLista4).Value & ", ActualizadoLocal = 0 WHERE codigo = '" & param_idmaterial.Value & "'"
+                            '                Else
+                            '                    sqlstring = "UPDATE Materiales SET Preciocompra = " & grdItems.Rows(i).Cells(ColumnasDelGridItems.PrecioCosto).Value & _
+                            '                               ", PrecioPeron = " & grdItems.Rows(i).Cells(ColumnasDelGridItems.PrecioPeron).Value & ", PrecioMayoristaPeron = " & grdItems.Rows(i).Cells(ColumnasDelGridItems.PrecioMayoPeron).Value & ", ActualizadoLocal = 0 WHERE codigo = '" & param_idmaterial.Value & "'"
+                            '                End If
 
-                                            If cmbAlmacenes.SelectedValue = 1 Then
-                                                sqlstring = "UPDATE Materiales SET Preciocompra = " & grdItems.Rows(i).Cells(ColumnasDelGridItems.PrecioCosto).Value & _
-                                                            ", PrecioCosto = " & grdItems.Rows(i).Cells(ColumnasDelGridItems.PrecioMayorista).Value & ", PrecioMayorista = " & grdItems.Rows(i).Cells(ColumnasDelGridItems.PrecioRevendedor).Value & _
-                                                            ", Preciolista3 = " & grdItems.Rows(i).Cells(ColumnasDelGridItems.PrecioYamila).Value & ", Preciolista4 = " & grdItems.Rows(i).Cells(ColumnasDelGridItems.PrecioLista4).Value & ", ActualizadoLocal = 0 WHERE codigo = '" & param_idmaterial.Value & "'"
-                                            Else
-                                                sqlstring = "UPDATE Materiales SET Preciocompra = " & grdItems.Rows(i).Cells(ColumnasDelGridItems.PrecioCosto).Value & _
-                                                           ", PrecioPeron = " & grdItems.Rows(i).Cells(ColumnasDelGridItems.PrecioPeron).Value & ", PrecioMayoristaPeron = " & grdItems.Rows(i).Cells(ColumnasDelGridItems.PrecioMayoPeron).Value & ", ActualizadoLocal = 0 WHERE codigo = '" & param_idmaterial.Value & "'"
-                                            End If
+                            '                tranWEB.Sql_Set(sqlstring)
 
-                                            tranWEB.Sql_Set(sqlstring)
 
-                                            sqlstring = "INSERT INTO [dbo].[transferencias_Recepciones_WEB] ([Codigo],[Fecha],[IDOrigen],[IDDestino],[IDMaterial], " & _
-                                            "[Qty],[Procesado],[Tipo])" & _
-                                            "  values ('" & txtCODIGO.Text & "', '" & Format(Date.Now, "MM/dd/yyyy").ToString & " " & Format(Date.Now, "hh:mm:ss").ToString & "'," & _
-                                             cmbAlmacenes.SelectedValue & ", " & cmbAlmacenes.SelectedValue & ",'" & _
-                                             grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Material).Value & "'," & CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.QtyRecep).Value, Decimal) & ",0,'R')"
+                            '                'si el almacen donde estoy es distinto al que estoy cargando y al salon 25 entonces notifico
+                            '                If numero_almacen <> cmbAlmacenes.SelectedValue And cmbAlmacenes.SelectedValue <> 3 Then
 
-                                            tranWEB.Sql_Set(sqlstring)
+                            '                    sqlstring = "INSERT INTO [dbo].[transferencias_Recepciones_WEB] ([Codigo],[Fecha],[IDOrigen],[IDDestino],[IDMaterial], " & _
+                            '                    "[Qty],[Procesado],[Tipo])" & _
+                            '                    "  values ('" & txtCODIGO.Text & "', '" & Format(Date.Now, "MM/dd/yyyy").ToString & " " & Format(Date.Now, "hh:mm:ss").ToString & "'," & _
+                            '                     cmbAlmacenes.SelectedValue & ", " & cmbAlmacenes.SelectedValue & ",'" & _
+                            '                     grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Material).Value & "'," & CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.QtyRecep).Value, Decimal) & ",0,'R')"
 
-                                            sqlstring = "update notificacionesWEB set Recepciones = 1, Materiales = 1"
-                                            tranWEB.Sql_Set(sqlstring)
+                            '                    tranWEB.Sql_Set(sqlstring)
 
-                                        End If
+                            '                    sqlstring = "update notificacionesWEB set Recepciones = 1, Materiales = 1"
+                            '                    tranWEB.Sql_Set(sqlstring)
 
-                                    Catch ex As Exception
-                                        'MsgBox(ex.Message)
-                                        MsgBox("No se puede actualizar en la Web el movimiento de stock actual. Ejecute el botón sincronizar para actualizar el servidor WEB.")
-                                    End Try
-                                End If
+                            '                End If
 
-                            End If
+                            '            End If
+
+                            '        Catch ex As Exception
+                            '            'MsgBox(ex.Message)
+                            '            MsgBox("No se puede actualizar en la Web el movimiento de stock actual. Ejecute el botón sincronizar para actualizar el servidor WEB.")
+                            '        End Try
+                            '    End If
+
+                            'End If
 
 
 
@@ -2552,6 +2752,13 @@ Public Class frmRecepciones
                 param_nrocomprRemito.Value = LTrim(RTrim(IIf(txtNroCompRemito.Text = "", "0", txtNroCompRemito.Text)))
                 param_nrocomprRemito.Direction = ParameterDirection.Input
 
+                Dim param_UsuarioGasto As New SqlClient.SqlParameter
+                param_UsuarioGasto.ParameterName = "@UsuarioGasto"
+                param_UsuarioGasto.SqlDbType = SqlDbType.VarChar
+                param_UsuarioGasto.Size = 200
+                param_UsuarioGasto.Value = cmbUsuarioGasto.Text
+                param_UsuarioGasto.Direction = ParameterDirection.Input
+
                 Dim param_useradd As New SqlClient.SqlParameter
                 If bolModo = True Then
                     param_useradd.ParameterName = "@useradd"
@@ -2577,7 +2784,8 @@ Public Class frmRecepciones
                                             param_nrofactura, param_remito, param_CantIVA, param_MontoIVA, param_Subtotal, param_SubtotalExento, _
                                             param_Total, param_totalPesos, param_deuda, param_cancelada, param_descripcion, _
                                             param_Impuestos, param_imputarotroperiodo, param_periodo, _
-                                            param_ptovta, param_nrocompr, param_ptovtaRemito, param_nrocomprRemito, param_useradd, param_res)
+                                            param_ptovta, param_nrocompr, param_ptovtaRemito, param_nrocomprRemito, param_UsuarioGasto, _
+                                            param_useradd, param_res)
 
                         txtCODIGO.Text = param_codigo.Value
 
@@ -3930,7 +4138,46 @@ Public Class frmRecepciones
                         End If
 
 ContinuarTransaccion:
+                        'Me fijo si la recepción es para otra sucursales (WEB)
+                        'If cmbAlmacenes.Text.Contains("PERON") Then
+                        '    If InsertarTransRecepWEB() Then
+                        '        'Dim ds_Empresa As Data.DataSet
+                        '        ''inserto de manera local el envio
+                        '        'ds_Empresa = tranWEB.Sql_Get("Select NroMov from [" & NameTable_TransRecepWEB & "] where nroasociado = '" & txtCODIGO.Text & "' and IDDestino = " & cmbAlmacenes.SelectedValue)
+                        '        'If ds_Empresa.Tables(0).Rows.Count > 0 Then
+                        '        '    res = Agregar_Registro_TransRecepWEB_Enviado(ds_Empresa.Tables(0).Rows(0).Item(0).ToString)
+                        '        '    Select Case res
+                        '        '        Case -1
+                        '        '            Cancelar_Tran()
+                        '        '            Util.MsgStatus(Status1, "No se pudo insertar La Recepción Localmente (Encabezado).", My.Resources.Resources.stop_error.ToBitmap)
+                        '        '        Case 0
+                        '        '            Cancelar_Tran()
+                        '        '            Util.MsgStatus(Status1, "No se pudo registra el movimiento local (Encabezado).", My.Resources.Resources.stop_error.ToBitmap)
+                        '        '        Case Else
+                        '        '            res_item = AgregarRegistro_TransRecepWEB_Items_Enviado(ds_Empresa.Tables(0).Rows(0).Item(0).ToString)
+                        '        '            Select Case res_item
+                        '        '                Case -1
+                        '        '                    Cancelar_Tran()
+                        '        '                    Util.MsgStatus(Status1, "No se pudo insertar La recepción Localmente (Detalle).", My.Resources.Resources.stop_error.ToBitmap)
+                        '        '                Case 0
+                        '        '                    Cancelar_Tran()
+                        '        '                    Util.MsgStatus(Status1, "No se pudo registra el movimiento local (Detalle).", My.Resources.Resources.stop_error.ToBitmap)
+                        '        '                Case Else
+                        '        '                    Cerrar_Tran()
+                        '        '            End Select
+                        '        '    End Select
+                        '        'Else
+                        '        '    Cancelar_Tran()
+                        '        '    Util.MsgStatus(Status1, "No se pudo obtener el nro de transferencia de la WEB.", My.Resources.Resources.stop_error.ToBitmap)
+                        '        'End If
+                        '    Else
+                        '        Cancelar_Tran()
+                        '        Util.MsgStatus(Status1, "No se pudo registrar la Recepción de la sucursal en la Base de Datos WEB. Por favor intente más tarde.", My.Resources.Resources.stop_error.ToBitmap)
+                        '        Exit Sub
+                        '    End If
+                        'Else
                         Cerrar_Tran()
+                        'End If
 
                         bolModo = False
                         PrepararBotones()
@@ -4135,14 +4382,14 @@ ContinuarTransaccion:
 
     Protected Overloads Sub btnSalir_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSalir.Click
 
-        Try
-            Dim sqlstring As String = "update NotificacionesWEB set BloqueoR = 0"
-            tranWEB.Sql_Set(sqlstring)
+        'Try
+        '    Dim sqlstring As String = "update [" & NameTable_NotificacionesWEB & "] set BloqueoR = 0"
+        '    tranWEB.Sql_Set(sqlstring)
 
 
-        Catch ex As Exception
+        'Catch ex As Exception
 
-        End Try
+        'End Try
 
     End Sub
 
@@ -4350,150 +4597,10 @@ ContinuarTransaccion:
 #End Region
 
 
-    Private Sub chkRecepcion_CheckedChanged(sender As Object, e As EventArgs) Handles chkGastos.CheckedChanged
-        cmbGastos.Enabled = chkGastos.Checked
-        txtPtoVtaRemito.Enabled = Not chkGastos.Checked
-        txtNroCompRemito.Enabled = Not chkGastos.Checked
-
-        chkCargarFactura.Enabled = Not chkGastos.Checked
 
 
-        'txtValorCambio.Enabled = chkGastos.Checked
 
-        'Label4.Enabled = Not chkGastos.Checked
 
-        If chkGastos.Checked = False And bolModo = True Then
-            txtPtoVtaRemito.Text = ""
-            txtNroCompRemito.Text = ""
-            txtNroRemitoCompleto.Text = ""
-        End If
-
-        cmbGastos_SelectedIndexChanged(sender, e)
-
-    End Sub
-
-    Private Sub LlenarcomboGastos(ByVal cmb As System.Windows.Forms.ComboBox)
-        Dim ds_Proveedores As Data.DataSet
-        Dim connection As SqlClient.SqlConnection = Nothing
-
-        Try
-            connection = SqlHelper.GetConnection(ConnStringSEI)
-        Catch ex As Exception
-            MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
-        End Try
-
-        llenandoCombo = True
-
-        Try
-
-            ds_Proveedores = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT id, ('Mov Nro: ' + CONVERT(VARCHAR(50),codigo) + ' - Remito: ' + Nroremito) AS Codigo from gastos where IdRecepcion is null and convert(int, ptovtaremito) > 0 and convert(int, nrocomprobanteremito) >0 and IdProveedor = " & cmbProveedor.SelectedValue & " ORDER BY id asc")
-            ds_Proveedores.Dispose()
-
-            With cmb
-                .DataSource = ds_Proveedores.Tables(0).DefaultView
-                .DisplayMember = "codigo"
-                .ValueMember = "id"
-                .AutoCompleteMode = AutoCompleteMode.Suggest
-                .AutoCompleteSource = AutoCompleteSource.ListItems
-                .DropDownStyle = ComboBoxStyle.DropDownList
-                .TabStop = True
-            End With
-
-            If ds_Proveedores.Tables(0).Rows.Count > 0 Then
-                chkGastos.Enabled = True
-                'chkGastos.Checked = True
-            Else
-                chkGastos.Enabled = False
-                chkGastos.Checked = False
-                txtNroRemitoCompleto.Text = ""
-                cmbGastos.Text = ""
-            End If
-
-            'If bolModo = False Then
-            '    cmbGastos.Text = grd.CurrentRow.Cells(22).Value
-            'End If
-
-        Catch ex As Exception
-            Dim errMessage As String = ""
-            Dim tempException As Exception = ex
-
-            llenandoCombo = False
-
-            While (Not tempException Is Nothing)
-                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
-                tempException = tempException.InnerException
-            End While
-
-            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
-              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If Not connection Is Nothing Then
-                CType(connection, IDisposable).Dispose()
-            End If
-        End Try
-
-        llenandoCombo = False
-
-    End Sub
-
-    Private Sub cmbGastos_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cmbGastos.SelectedIndexChanged
-        If band = 1 And chkGastos.Checked = True And bolModo = True Then
-            BuscarRemito()
-            txtIdGastoAsociar.Text = cmbGastos.SelectedValue
-        Else
-            If chkGastos.Checked = False And bolModo = True Then
-                txtNroRemitoCompleto.Text = ""
-                txtIdGastoAsociar.Text = ""
-                txtIdMoneda.Text = "1"
-                txtValorCambio.Text = "1"
-                txtTipoMoneda.Text = "Pe"
-            End If
-        End If
-    End Sub
-
-    Private Sub BuscarRemito()
-        Dim ds_OCReq As Data.DataSet
-        Dim connection As SqlClient.SqlConnection = Nothing
-
-        Try
-            connection = SqlHelper.GetConnection(ConnStringSEI)
-        Catch ex As Exception
-            MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
-        End Try
-
-        Try
-
-            ds_OCReq = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT ISNULL(NroRemito, '') a, ISNULL(nrocomprobanteremito, '0') AS NroCompRemito, ISNULL(ptovtaremito, '0') AS PtovtaRemito FROM Gastos WHERE id = " & IIf(cmbGastos.SelectedValue Is Nothing, 0, cmbGastos.SelectedValue))
-
-            ds_OCReq.Dispose()
-
-            If ds_OCReq.Tables(0).Rows.Count > 0 Then
-                txtNroRemitoCompleto.Text = ds_OCReq.Tables(0).Rows(0)(0)
-                txtNroCompRemito.Text = ds_OCReq.Tables(0).Rows(0)(1)
-                txtPtoVtaRemito.Text = ds_OCReq.Tables(0).Rows(0)(2)
-            End If
-
-        Catch ex As Exception
-            Dim errMessage As String = ""
-            Dim tempException As Exception = ex
-
-            While (Not tempException Is Nothing)
-                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
-                tempException = tempException.InnerException
-            End While
-
-            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
-              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If Not connection Is Nothing Then
-                CType(connection, IDisposable).Dispose()
-            End If
-        End Try
-    End Sub
 
 
 End Class

@@ -363,67 +363,67 @@ Public Class frmVentasClientes
     End Sub
 
     Private Sub btnActivar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnActivar.Click
-        Dim connection As SqlClient.SqlConnection = Nothing
-        Dim ds_Update As Data.DataSet
+        'Dim connection As SqlClient.SqlConnection = Nothing
+        'Dim ds_Update As Data.DataSet
 
-        If MessageBox.Show("Está por activar nuevamente la Unidad: " & grd.CurrentRow.Cells(2).Value.ToString & ". Desea continuar?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
-            Exit Sub
-        End If
+        'If MessageBox.Show("Está por activar nuevamente la Unidad: " & grd.CurrentRow.Cells(2).Value.ToString & ". Desea continuar?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
+        '    Exit Sub
+        'End If
 
-        Try
-            connection = SqlHelper.GetConnection(ConnStringSEI)
-        Catch ex As Exception
-            'llenandoCombo = False
-            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
-        End Try
+        'Try
+        '    connection = SqlHelper.GetConnection(ConnStringSEI)
+        'Catch ex As Exception
+        '    'llenandoCombo = False
+        '    MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        '    Exit Sub
+        'End Try
 
-        Try
+        'Try
 
-            ds_Update = SqlHelper.ExecuteDataset(connection, CommandType.Text, "UPDATE Unidades SET Eliminado = 0 WHERE id = " & grd.CurrentRow.Cells(0).Value)
-            ds_Update.Dispose()
+        '    ds_Update = SqlHelper.ExecuteDataset(connection, CommandType.Text, "UPDATE Unidades SET Eliminado = 0 WHERE id = " & grd.CurrentRow.Cells(0).Value)
+        '    ds_Update.Dispose()
 
 
-            If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
-                Try
-                    Dim sqlstring As String
+        '    If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
+        '        Try
+        '            Dim sqlstring As String
 
-                    sqlstring = "UPDATE [dbo].[Unidades] SET [Eliminado] = 0 WHERE Codigo = '" & grd.CurrentRow.Cells(1).Value & "'"
-                    tranWEB.Sql_Set(sqlstring)
+        '            sqlstring = "UPDATE [dbo].[Unidades] SET [Eliminado] = 0 WHERE Codigo = '" & grd.CurrentRow.Cells(1).Value & "'"
+        '            tranWEB.Sql_Set(sqlstring)
 
-                Catch ex As Exception
-                    'MsgBox(ex.Message)
-                    MsgBox("No se puede Activa en la Web la Unidad seleccionada. Ejecute el botón sincronizar para actualizar el servidor WEB.")
-                End Try
-            End If
+        '        Catch ex As Exception
+        '            'MsgBox(ex.Message)
+        '            MsgBox("No se puede Activa en la Web la Unidad seleccionada. Ejecute el botón sincronizar para actualizar el servidor WEB.")
+        '        End Try
+        '    End If
 
-            SQL = "exec spUnidades_Select_All @Eliminado = 1"
+        '    SQL = "exec spUnidades_Select_All @Eliminado = 1"
 
-            LlenarGrilla()
+        '    LlenarGrilla()
 
-            If grd.RowCount = 0 Then
-                btnActivar.Enabled = False
-            End If
+        '    If grd.RowCount = 0 Then
+        '        btnActivar.Enabled = False
+        '    End If
 
-            Util.MsgStatus(Status1, "La Unidad se activó correctamente.", My.Resources.ok.ToBitmap)
+        '    Util.MsgStatus(Status1, "La Unidad se activó correctamente.", My.Resources.ok.ToBitmap)
 
-        Catch ex As Exception
-            Dim errMessage As String = ""
-            Dim tempException As Exception = ex
+        'Catch ex As Exception
+        '    Dim errMessage As String = ""
+        '    Dim tempException As Exception = ex
 
-            While (Not tempException Is Nothing)
-                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
-                tempException = tempException.InnerException
-            End While
+        '    While (Not tempException Is Nothing)
+        '        errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+        '        tempException = tempException.InnerException
+        '    End While
 
-            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
-              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If Not connection Is Nothing Then
-                CType(connection, IDisposable).Dispose()
-            End If
-        End Try
+        '    MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+        '      + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+        '      "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        'Finally
+        '    If Not connection Is Nothing Then
+        '        CType(connection, IDisposable).Dispose()
+        '    End If
+        'End Try
     End Sub
 
     Private Overloads Sub btnCancelar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancelar.Click

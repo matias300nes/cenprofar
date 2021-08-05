@@ -92,7 +92,7 @@ Partial Class frmTransferencias
         '
         Me.PicALMACENES.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.PicALMACENES.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.PicALMACENES.Image = Global.PORKYS.My.Resources.Resources.Info
+        Me.PicALMACENES.Image = Global.SEYC.My.Resources.Resources.Info
         Me.PicALMACENES.Location = New System.Drawing.Point(699, 24)
         Me.PicALMACENES.Name = "PicALMACENES"
         Me.PicALMACENES.Size = New System.Drawing.Size(18, 20)

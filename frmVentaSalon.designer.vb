@@ -46,6 +46,7 @@ Partial Class frmVentaSalon
         Me.lblPVI = New System.Windows.Forms.Label()
         Me.lblCodigo = New DevComponents.DotNetBar.LabelX()
         Me.PanelDescuento = New System.Windows.Forms.Panel()
+        Me.lblValorDescSinIVa = New System.Windows.Forms.Label()
         Me.chkDescuentoGlobal = New System.Windows.Forms.CheckBox()
         Me.rdPorcentaje = New System.Windows.Forms.RadioButton()
         Me.rdAbsoluto = New System.Windows.Forms.RadioButton()
@@ -125,7 +126,6 @@ Partial Class frmVentaSalon
         Me.txtIdCliente = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
-        Me.txtIdProducto = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.txtSubtotalItem = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.txtPrecio = New TextBoxConFormatoVB.FormattedTextBoxVB()
@@ -144,6 +144,7 @@ Partial Class frmVentaSalon
         Me.Subtotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.IdUnidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.SubtotalOrig = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.SubtotalSinIVA = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ProdPesable = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.Eliminar = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.chkDevuelto = New System.Windows.Forms.CheckBox()
@@ -155,6 +156,7 @@ Partial Class frmVentaSalon
         Me.txtID = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.dtpFECHA = New System.Windows.Forms.DateTimePicker()
         Me.Label3 = New System.Windows.Forms.Label()
+        Me.txtIdProducto = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.TimerVentas = New System.Windows.Forms.Timer(Me.components)
         Me.ContextMenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -329,7 +331,7 @@ Partial Class frmVentaSalon
         'chkConexion
         '
         Me.chkConexion.AutoSize = True
-        Me.chkConexion.Location = New System.Drawing.Point(1136, 14)
+        Me.chkConexion.Location = New System.Drawing.Point(1131, 14)
         Me.chkConexion.Margin = New System.Windows.Forms.Padding(4)
         Me.chkConexion.Name = "chkConexion"
         Me.chkConexion.Size = New System.Drawing.Size(88, 21)
@@ -349,12 +351,12 @@ Partial Class frmVentaSalon
         Me.lblModo.Name = "lblModo"
         Me.lblModo.Size = New System.Drawing.Size(232, 24)
         Me.lblModo.TabIndex = 956
-        Me.lblModo.Text = "MODO HOMOLOGACION"
+        Me.lblModo.Text = "MODO HOMOLOGACIÓN"
         '
         'PicSincro
         '
         Me.PicSincro.BackColor = System.Drawing.Color.White
-        Me.PicSincro.Image = Global.PORKYS.My.Resources.Resources.Sincro
+        Me.PicSincro.Image = Global.SEYC.My.Resources.Resources.Sincro
         Me.PicSincro.ImageLocation = ""
         Me.PicSincro.Location = New System.Drawing.Point(1150, 156)
         Me.PicSincro.Margin = New System.Windows.Forms.Padding(4)
@@ -409,7 +411,7 @@ Partial Class frmVentaSalon
         Me.lblPVI.BackColor = System.Drawing.Color.Transparent
         Me.lblPVI.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblPVI.ForeColor = System.Drawing.Color.White
-        Me.lblPVI.Image = Global.PORKYS.My.Resources.Resources.PtoVtaPorkys
+        Me.lblPVI.Image = Global.SEYC.My.Resources.Resources.PtoVtaPorkys
         Me.lblPVI.Location = New System.Drawing.Point(1231, -1)
         Me.lblPVI.Name = "lblPVI"
         Me.lblPVI.Size = New System.Drawing.Size(80, 74)
@@ -435,6 +437,7 @@ Partial Class frmVentaSalon
         '
         Me.PanelDescuento.BackColor = System.Drawing.Color.Transparent
         Me.PanelDescuento.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.PanelDescuento.Controls.Add(Me.lblValorDescSinIVa)
         Me.PanelDescuento.Controls.Add(Me.chkDescuentoGlobal)
         Me.PanelDescuento.Controls.Add(Me.rdPorcentaje)
         Me.PanelDescuento.Controls.Add(Me.rdAbsoluto)
@@ -448,6 +451,17 @@ Partial Class frmVentaSalon
         Me.PanelDescuento.Name = "PanelDescuento"
         Me.PanelDescuento.Size = New System.Drawing.Size(871, 126)
         Me.PanelDescuento.TabIndex = 340
+        '
+        'lblValorDescSinIVa
+        '
+        Me.lblValorDescSinIVa.AutoSize = True
+        Me.lblValorDescSinIVa.BackColor = System.Drawing.Color.Transparent
+        Me.lblValorDescSinIVa.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblValorDescSinIVa.Location = New System.Drawing.Point(90, 84)
+        Me.lblValorDescSinIVa.Name = "lblValorDescSinIVa"
+        Me.lblValorDescSinIVa.Size = New System.Drawing.Size(58, 29)
+        Me.lblValorDescSinIVa.TabIndex = 319
+        Me.lblValorDescSinIVa.Text = "0.00"
         '
         'chkDescuentoGlobal
         '
@@ -943,7 +957,7 @@ Partial Class frmVentaSalon
         '
         'lblCandadoTarjetas2
         '
-        Me.lblCandadoTarjetas2.Image = Global.PORKYS.My.Resources.Resources.CandadoCerrado
+        Me.lblCandadoTarjetas2.Image = Global.SEYC.My.Resources.Resources.CandadoCerrado
         Me.lblCandadoTarjetas2.Location = New System.Drawing.Point(-3, 288)
         Me.lblCandadoTarjetas2.Name = "lblCandadoTarjetas2"
         Me.lblCandadoTarjetas2.Size = New System.Drawing.Size(29, 23)
@@ -951,7 +965,7 @@ Partial Class frmVentaSalon
         '
         'lblCandadoTarjetas1
         '
-        Me.lblCandadoTarjetas1.Image = Global.PORKYS.My.Resources.Resources.CandadoCerrado
+        Me.lblCandadoTarjetas1.Image = Global.SEYC.My.Resources.Resources.CandadoCerrado
         Me.lblCandadoTarjetas1.Location = New System.Drawing.Point(-3, 105)
         Me.lblCandadoTarjetas1.Name = "lblCandadoTarjetas1"
         Me.lblCandadoTarjetas1.Size = New System.Drawing.Size(29, 23)
@@ -959,7 +973,7 @@ Partial Class frmVentaSalon
         '
         'lblCandadoContado
         '
-        Me.lblCandadoContado.Image = Global.PORKYS.My.Resources.Resources.CandadoCerrado
+        Me.lblCandadoContado.Image = Global.SEYC.My.Resources.Resources.CandadoCerrado
         Me.lblCandadoContado.Location = New System.Drawing.Point(-3, 37)
         Me.lblCandadoContado.Name = "lblCandadoContado"
         Me.lblCandadoContado.Size = New System.Drawing.Size(29, 23)
@@ -1677,24 +1691,6 @@ Partial Class frmVentaSalon
         Me.Label7.TabIndex = 241
         Me.Label7.Text = "SUBTOTAL"
         '
-        'txtIdProducto
-        '
-        Me.txtIdProducto.AccessibleName = ""
-        Me.txtIdProducto.Decimals = CType(2, Byte)
-        Me.txtIdProducto.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
-        Me.txtIdProducto.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtIdProducto.Location = New System.Drawing.Point(264, 224)
-        Me.txtIdProducto.Margin = New System.Windows.Forms.Padding(4)
-        Me.txtIdProducto.MaxLength = 100
-        Me.txtIdProducto.Name = "txtIdProducto"
-        Me.txtIdProducto.Size = New System.Drawing.Size(82, 22)
-        Me.txtIdProducto.TabIndex = 239
-        Me.txtIdProducto.Text_1 = Nothing
-        Me.txtIdProducto.Text_2 = Nothing
-        Me.txtIdProducto.Text_3 = Nothing
-        Me.txtIdProducto.Text_4 = Nothing
-        Me.txtIdProducto.UserValues = Nothing
-        '
         'txtSubtotalItem
         '
         Me.txtSubtotalItem.AccessibleName = ""
@@ -1786,7 +1782,7 @@ Partial Class frmVentaSalon
         DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.grdItems.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.grdItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.grdItems.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Id, Me.CodMaterial, Me.CodigoBarra, Me.EquipoHerramienta, Me.Cantidad, Me.Peso, Me.Presio, Me.PrecioUni, Me.PrecioSinIVA, Me.Desc_Unit, Me.Subtotal, Me.IdUnidad, Me.SubtotalOrig, Me.ProdPesable, Me.Eliminar})
+        Me.grdItems.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Id, Me.CodMaterial, Me.CodigoBarra, Me.EquipoHerramienta, Me.Cantidad, Me.Peso, Me.Presio, Me.PrecioUni, Me.PrecioSinIVA, Me.Desc_Unit, Me.Subtotal, Me.IdUnidad, Me.SubtotalOrig, Me.SubtotalSinIVA, Me.ProdPesable, Me.Eliminar})
         DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window
         DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -1906,6 +1902,13 @@ Partial Class frmVentaSalon
         Me.SubtotalOrig.Name = "SubtotalOrig"
         Me.SubtotalOrig.ReadOnly = True
         Me.SubtotalOrig.Visible = False
+        '
+        'SubtotalSinIVA
+        '
+        Me.SubtotalSinIVA.HeaderText = "SubtotalSinIVA"
+        Me.SubtotalSinIVA.Name = "SubtotalSinIVA"
+        Me.SubtotalSinIVA.ReadOnly = True
+        Me.SubtotalSinIVA.Visible = False
         '
         'ProdPesable
         '
@@ -2053,6 +2056,24 @@ Partial Class frmVentaSalon
         Me.Label3.TabIndex = 132
         Me.Label3.Text = "Fecha"
         '
+        'txtIdProducto
+        '
+        Me.txtIdProducto.AccessibleName = ""
+        Me.txtIdProducto.Decimals = CType(2, Byte)
+        Me.txtIdProducto.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
+        Me.txtIdProducto.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
+        Me.txtIdProducto.Location = New System.Drawing.Point(264, 224)
+        Me.txtIdProducto.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtIdProducto.MaxLength = 100
+        Me.txtIdProducto.Name = "txtIdProducto"
+        Me.txtIdProducto.Size = New System.Drawing.Size(82, 22)
+        Me.txtIdProducto.TabIndex = 239
+        Me.txtIdProducto.Text_1 = Nothing
+        Me.txtIdProducto.Text_2 = Nothing
+        Me.txtIdProducto.Text_3 = Nothing
+        Me.txtIdProducto.Text_4 = Nothing
+        Me.txtIdProducto.UserValues = Nothing
+        '
         'TimerVentas
         '
         Me.TimerVentas.Interval = 10000
@@ -2184,6 +2205,18 @@ Partial Class frmVentaSalon
     Friend WithEvents PanelDescuento As System.Windows.Forms.Panel
     Public WithEvents lblCodigo As DevComponents.DotNetBar.LabelX
     Public WithEvents chkDevolucion As System.Windows.Forms.CheckBox
+    Friend WithEvents lblPVI As System.Windows.Forms.Label
+    Friend WithEvents lblFecha As System.Windows.Forms.Label
+    Friend WithEvents bntVerFactura As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents PicSincro As System.Windows.Forms.PictureBox
+    Friend WithEvents btnSincronizar As System.Windows.Forms.Button
+    Friend WithEvents TimerVentas As System.Windows.Forms.Timer
+    Friend WithEvents lblModo As System.Windows.Forms.Label
+    Friend WithEvents lblContadorCuit As System.Windows.Forms.Label
+    Friend WithEvents lblContadorCliente As System.Windows.Forms.Label
+    Public WithEvents chkConexion As System.Windows.Forms.CheckBox
+    Public WithEvents chkCtaCte As System.Windows.Forms.CheckBox
+    Public WithEvents txtIdProducto As TextBoxConFormatoVB.FormattedTextBoxVB
     Friend WithEvents Id As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents CodMaterial As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents CodigoBarra As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -2197,19 +2230,9 @@ Partial Class frmVentaSalon
     Friend WithEvents Subtotal As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents IdUnidad As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents SubtotalOrig As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents SubtotalSinIVA As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents ProdPesable As System.Windows.Forms.DataGridViewCheckBoxColumn
     Friend WithEvents Eliminar As System.Windows.Forms.DataGridViewButtonColumn
-    Friend WithEvents lblPVI As System.Windows.Forms.Label
-    Friend WithEvents lblFecha As System.Windows.Forms.Label
-    Friend WithEvents bntVerFactura As DevComponents.DotNetBar.ButtonX
-    Friend WithEvents PicSincro As System.Windows.Forms.PictureBox
-    Friend WithEvents btnSincronizar As System.Windows.Forms.Button
-    Friend WithEvents TimerVentas As System.Windows.Forms.Timer
-    Friend WithEvents lblModo As System.Windows.Forms.Label
-    Friend WithEvents lblContadorCuit As System.Windows.Forms.Label
-    Friend WithEvents lblContadorCliente As System.Windows.Forms.Label
-    Public WithEvents chkConexion As System.Windows.Forms.CheckBox
-    Public WithEvents chkCtaCte As System.Windows.Forms.CheckBox
-    Public WithEvents txtIdProducto As TextBoxConFormatoVB.FormattedTextBoxVB
+    Friend WithEvents lblValorDescSinIVa As System.Windows.Forms.Label
 
 End Class

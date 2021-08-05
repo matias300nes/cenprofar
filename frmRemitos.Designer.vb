@@ -797,7 +797,7 @@ Partial Class frmRemitos
         '
         Me.picEntregartodos.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.picEntregartodos.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.picEntregartodos.Image = Global.PORKYS.My.Resources.Resources.icono_ayuda
+        Me.picEntregartodos.Image = Global.SEYC.My.Resources.Resources.icono_ayuda
         Me.picEntregartodos.Location = New System.Drawing.Point(967, 110)
         Me.picEntregartodos.Name = "picEntregartodos"
         Me.picEntregartodos.Size = New System.Drawing.Size(18, 20)
@@ -820,7 +820,7 @@ Partial Class frmRemitos
         '
         Me.PicAnularRemito.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.PicAnularRemito.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.PicAnularRemito.Image = Global.PORKYS.My.Resources.Resources.icono_ayuda
+        Me.PicAnularRemito.Image = Global.SEYC.My.Resources.Resources.icono_ayuda
         Me.PicAnularRemito.Location = New System.Drawing.Point(726, 212)
         Me.PicAnularRemito.Name = "PicAnularRemito"
         Me.PicAnularRemito.Size = New System.Drawing.Size(18, 20)

@@ -198,7 +198,7 @@ Partial Class frmConsultarPrecios
         '
         'PictureBoxPorkys
         '
-        Me.PictureBoxPorkys.Image = Global.PORKYS.My.Resources.Resources.logo1
+        Me.PictureBoxPorkys.Image = Global.SEYC.My.Resources.Resources.logo1
         Me.PictureBoxPorkys.Location = New System.Drawing.Point(857, 129)
         Me.PictureBoxPorkys.Name = "PictureBoxPorkys"
         Me.PictureBoxPorkys.Size = New System.Drawing.Size(513, 367)

@@ -237,7 +237,7 @@ Partial Class frmConsumos_OLD
         '
         Me.PicRetira.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.PicRetira.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.PicRetira.Image = Global.PORKYS.My.Resources.Resources.Info
+        Me.PicRetira.Image = Global.SEYC.My.Resources.Resources.Info
         Me.PicRetira.Location = New System.Drawing.Point(339, 65)
         Me.PicRetira.Name = "PicRetira"
         Me.PicRetira.Size = New System.Drawing.Size(18, 20)
@@ -480,7 +480,7 @@ Partial Class frmConsumos_OLD
         '
         Me.PicClientes.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.PicClientes.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.PicClientes.Image = Global.PORKYS.My.Resources.Resources.Info
+        Me.PicClientes.Image = Global.SEYC.My.Resources.Resources.Info
         Me.PicClientes.Location = New System.Drawing.Point(606, 26)
         Me.PicClientes.Name = "PicClientes"
         Me.PicClientes.Size = New System.Drawing.Size(18, 20)
@@ -503,7 +503,7 @@ Partial Class frmConsumos_OLD
         '
         Me.PicObras.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.PicObras.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.PicObras.Image = Global.PORKYS.My.Resources.Resources.Info
+        Me.PicObras.Image = Global.SEYC.My.Resources.Resources.Info
         Me.PicObras.Location = New System.Drawing.Point(977, 25)
         Me.PicObras.Name = "PicObras"
         Me.PicObras.Size = New System.Drawing.Size(18, 20)

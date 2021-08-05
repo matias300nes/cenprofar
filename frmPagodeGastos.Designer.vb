@@ -20,10 +20,9 @@ Partial Class frmPagodeGastos
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle21 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle22 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle23 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle24 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BorrarElItemToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BuscarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -37,6 +36,11 @@ Partial Class frmPagodeGastos
         Me.cmbProveedores = New System.Windows.Forms.ComboBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.txtIdProveedor = New TextBoxConFormatoVB.FormattedTextBoxVB()
+        Me.txtOrdenPago = New TextBoxConFormatoVB.FormattedTextBoxVB()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.txtValorCambio = New TextBoxConFormatoVB.FormattedTextBoxVB()
+        Me.Label20 = New System.Windows.Forms.Label()
         Me.Label24 = New System.Windows.Forms.Label()
         Me.Label23 = New System.Windows.Forms.Label()
         Me.Label22 = New System.Windows.Forms.Label()
@@ -52,40 +56,13 @@ Partial Class frmPagodeGastos
         Me.Label18 = New System.Windows.Forms.Label()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabChequesPropios = New System.Windows.Forms.TabPage()
-        Me.txtPropietario = New TextBoxConFormatoVB.FormattedTextBoxVB()
-        Me.LabelX5 = New DevComponents.DotNetBar.LabelX()
+        Me.grdChequesPropios = New System.Windows.Forms.DataGridView()
         Me.LabelX6 = New DevComponents.DotNetBar.LabelX()
         Me.cmbMoneda = New DevComponents.DotNetBar.Controls.ComboBoxEx()
         Me.ComboItem5 = New DevComponents.Editors.ComboItem()
         Me.ComboItem6 = New DevComponents.Editors.ComboItem()
-        Me.btnModificarCheque = New DevComponents.DotNetBar.ButtonX()
-        Me.txtObservacionesCheque = New TextBoxConFormatoVB.FormattedTextBoxVB()
-        Me.btnNuevoCheque = New DevComponents.DotNetBar.ButtonX()
-        Me.txtMontoCheque = New TextBoxConFormatoVB.FormattedTextBoxVB()
-        Me.txtNroCheque = New TextBoxConFormatoVB.FormattedTextBoxVB()
-        Me.LabelX7 = New DevComponents.DotNetBar.LabelX()
-        Me.btnAgregarCheque = New DevComponents.DotNetBar.ButtonX()
-        Me.btnEliminarCheque = New DevComponents.DotNetBar.ButtonX()
-        Me.LabelX4 = New DevComponents.DotNetBar.LabelX()
-        Me.dtpFechaCheque = New DevComponents.Editors.DateTimeAdv.DateTimeInput()
-        Me.LabelX3 = New DevComponents.DotNetBar.LabelX()
-        Me.LabelX2 = New DevComponents.DotNetBar.LabelX()
-        Me.cmbBanco = New DevComponents.DotNetBar.Controls.ComboBoxEx()
-        Me.ComboItem3 = New DevComponents.Editors.ComboItem()
-        Me.ComboItem4 = New DevComponents.Editors.ComboItem()
-        Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
-        Me.grdChequesPropios = New System.Windows.Forms.DataGridView()
-        Me.NroCheque = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Banco = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Monto = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.FechaVenc = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Propietario = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.IdTipoMoneda = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Observaciones = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.IdCheque = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Utilizado = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TabCheques = New System.Windows.Forms.TabPage()
-        Me.grdCheques = New System.Windows.Forms.DataGridView()
+        Me.grdChequesTerceros = New System.Windows.Forms.DataGridView()
         Me.TabTransferencias = New System.Windows.Forms.TabPage()
         Me.btnModificarTransf = New DevComponents.DotNetBar.ButtonX()
         Me.txtObservacionesTransf = New TextBoxConFormatoVB.FormattedTextBoxVB()
@@ -189,20 +166,15 @@ Partial Class frmPagodeGastos
         Me.lblIVA = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.lblSubtotal = New System.Windows.Forms.Label()
-        Me.txtOrdenPago = New TextBoxConFormatoVB.FormattedTextBoxVB()
-        Me.Label9 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.grdFacturasConsumos = New System.Windows.Forms.DataGridView()
-        Me.txtValorCambio = New TextBoxConFormatoVB.FormattedTextBoxVB()
-        Me.Label20 = New System.Windows.Forms.Label()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabChequesPropios.SuspendLayout()
-        CType(Me.dtpFechaCheque, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdChequesPropios, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabCheques.SuspendLayout()
-        CType(Me.grdCheques, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.grdChequesTerceros, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabTransferencias.SuspendLayout()
         CType(Me.dtpFechaTransf, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdTransferencias, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -328,6 +300,7 @@ Partial Class frmPagodeGastos
         Me.cmbProveedores.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.cmbProveedores.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbProveedores.DropDownHeight = 300
+        Me.cmbProveedores.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbProveedores.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbProveedores.FormattingEnabled = True
         Me.cmbProveedores.IntegralHeight = False
@@ -350,6 +323,7 @@ Partial Class frmPagodeGastos
         '
         Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox1.Controls.Add(Me.txtIdProveedor)
         Me.GroupBox1.Controls.Add(Me.txtOrdenPago)
         Me.GroupBox1.Controls.Add(Me.Label9)
         Me.GroupBox1.Controls.Add(Me.txtValorCambio)
@@ -388,9 +362,86 @@ Partial Class frmPagodeGastos
         Me.GroupBox1.ForeColor = System.Drawing.Color.Blue
         Me.GroupBox1.Location = New System.Drawing.Point(12, 28)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1244, 376)
+        Me.GroupBox1.Size = New System.Drawing.Size(1346, 376)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
+        '
+        'txtIdProveedor
+        '
+        Me.txtIdProveedor.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtIdProveedor.Decimals = CType(2, Byte)
+        Me.txtIdProveedor.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
+        Me.txtIdProveedor.Enabled = False
+        Me.txtIdProveedor.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
+        Me.txtIdProveedor.Location = New System.Drawing.Point(458, 52)
+        Me.txtIdProveedor.MaxLength = 8
+        Me.txtIdProveedor.Name = "txtIdProveedor"
+        Me.txtIdProveedor.Size = New System.Drawing.Size(71, 20)
+        Me.txtIdProveedor.TabIndex = 331
+        Me.txtIdProveedor.Text_1 = Nothing
+        Me.txtIdProveedor.Text_2 = Nothing
+        Me.txtIdProveedor.Text_3 = Nothing
+        Me.txtIdProveedor.Text_4 = Nothing
+        Me.txtIdProveedor.UserValues = Nothing
+        Me.txtIdProveedor.Visible = False
+        '
+        'txtOrdenPago
+        '
+        Me.txtOrdenPago.AccessibleName = ""
+        Me.txtOrdenPago.BackColor = System.Drawing.SystemColors.Window
+        Me.txtOrdenPago.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtOrdenPago.Decimals = CType(2, Byte)
+        Me.txtOrdenPago.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
+        Me.txtOrdenPago.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtOrdenPago.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
+        Me.txtOrdenPago.Location = New System.Drawing.Point(12, 70)
+        Me.txtOrdenPago.MaxLength = 25
+        Me.txtOrdenPago.Name = "txtOrdenPago"
+        Me.txtOrdenPago.Size = New System.Drawing.Size(160, 20)
+        Me.txtOrdenPago.TabIndex = 3
+        Me.txtOrdenPago.Text_1 = Nothing
+        Me.txtOrdenPago.Text_2 = Nothing
+        Me.txtOrdenPago.Text_3 = Nothing
+        Me.txtOrdenPago.Text_4 = Nothing
+        Me.txtOrdenPago.UserValues = Nothing
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(11, 54)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(99, 13)
+        Me.Label9.TabIndex = 141
+        Me.Label9.Text = "Nro Orden de Pago"
+        '
+        'txtValorCambio
+        '
+        Me.txtValorCambio.AccessibleName = ""
+        Me.txtValorCambio.BackColor = System.Drawing.SystemColors.Window
+        Me.txtValorCambio.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtValorCambio.Decimals = CType(2, Byte)
+        Me.txtValorCambio.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
+        Me.txtValorCambio.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtValorCambio.Format = TextBoxConFormatoVB.tbFormats.SignedFloatingPointNumber
+        Me.txtValorCambio.Location = New System.Drawing.Point(487, 31)
+        Me.txtValorCambio.MaxLength = 25
+        Me.txtValorCambio.Name = "txtValorCambio"
+        Me.txtValorCambio.Size = New System.Drawing.Size(69, 20)
+        Me.txtValorCambio.TabIndex = 5
+        Me.txtValorCambio.Text_1 = Nothing
+        Me.txtValorCambio.Text_2 = Nothing
+        Me.txtValorCambio.Text_3 = Nothing
+        Me.txtValorCambio.Text_4 = Nothing
+        Me.txtValorCambio.UserValues = Nothing
+        '
+        'Label20
+        '
+        Me.Label20.AutoSize = True
+        Me.Label20.Location = New System.Drawing.Point(485, 15)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(73, 13)
+        Me.Label20.TabIndex = 330
+        Me.Label20.Text = "Valor Cambio*"
         '
         'Label24
         '
@@ -594,25 +645,9 @@ Partial Class frmPagodeGastos
         '
         'TabChequesPropios
         '
-        Me.TabChequesPropios.Controls.Add(Me.txtPropietario)
-        Me.TabChequesPropios.Controls.Add(Me.LabelX5)
+        Me.TabChequesPropios.Controls.Add(Me.grdChequesPropios)
         Me.TabChequesPropios.Controls.Add(Me.LabelX6)
         Me.TabChequesPropios.Controls.Add(Me.cmbMoneda)
-        Me.TabChequesPropios.Controls.Add(Me.btnModificarCheque)
-        Me.TabChequesPropios.Controls.Add(Me.txtObservacionesCheque)
-        Me.TabChequesPropios.Controls.Add(Me.btnNuevoCheque)
-        Me.TabChequesPropios.Controls.Add(Me.txtMontoCheque)
-        Me.TabChequesPropios.Controls.Add(Me.txtNroCheque)
-        Me.TabChequesPropios.Controls.Add(Me.LabelX7)
-        Me.TabChequesPropios.Controls.Add(Me.btnAgregarCheque)
-        Me.TabChequesPropios.Controls.Add(Me.btnEliminarCheque)
-        Me.TabChequesPropios.Controls.Add(Me.LabelX4)
-        Me.TabChequesPropios.Controls.Add(Me.dtpFechaCheque)
-        Me.TabChequesPropios.Controls.Add(Me.LabelX3)
-        Me.TabChequesPropios.Controls.Add(Me.LabelX2)
-        Me.TabChequesPropios.Controls.Add(Me.cmbBanco)
-        Me.TabChequesPropios.Controls.Add(Me.LabelX1)
-        Me.TabChequesPropios.Controls.Add(Me.grdChequesPropios)
         Me.TabChequesPropios.Location = New System.Drawing.Point(4, 22)
         Me.TabChequesPropios.Name = "TabChequesPropios"
         Me.TabChequesPropios.Padding = New System.Windows.Forms.Padding(3)
@@ -621,38 +656,13 @@ Partial Class frmPagodeGastos
         Me.TabChequesPropios.Text = "Cheques Propios"
         Me.TabChequesPropios.UseVisualStyleBackColor = True
         '
-        'txtPropietario
+        'grdChequesPropios
         '
-        Me.txtPropietario.Decimals = CType(2, Byte)
-        Me.txtPropietario.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
-        Me.txtPropietario.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtPropietario.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtPropietario.Location = New System.Drawing.Point(95, 237)
-        Me.txtPropietario.Name = "txtPropietario"
-        Me.txtPropietario.ReadOnly = True
-        Me.txtPropietario.Size = New System.Drawing.Size(168, 20)
-        Me.txtPropietario.TabIndex = 170
-        Me.txtPropietario.Text_1 = Nothing
-        Me.txtPropietario.Text_2 = Nothing
-        Me.txtPropietario.Text_3 = Nothing
-        Me.txtPropietario.Text_4 = Nothing
-        Me.txtPropietario.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtPropietario.UserValues = Nothing
-        '
-        'LabelX5
-        '
-        Me.LabelX5.AutoSize = True
-        Me.LabelX5.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX5.Location = New System.Drawing.Point(95, 220)
-        Me.LabelX5.Name = "LabelX5"
-        Me.LabelX5.SingleLineColor = System.Drawing.Color.Transparent
-        Me.LabelX5.Size = New System.Drawing.Size(97, 15)
-        Me.LabelX5.TabIndex = 171
-        Me.LabelX5.Text = "Propietario Cheque"
+        Me.grdChequesPropios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.grdChequesPropios.Location = New System.Drawing.Point(6, 6)
+        Me.grdChequesPropios.Name = "grdChequesPropios"
+        Me.grdChequesPropios.Size = New System.Drawing.Size(409, 302)
+        Me.grdChequesPropios.TabIndex = 172
         '
         'LabelX6
         '
@@ -693,322 +703,9 @@ Partial Class frmPagodeGastos
         '
         Me.ComboItem6.Text = "Quincenal"
         '
-        'btnModificarCheque
-        '
-        Me.btnModificarCheque.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnModificarCheque.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnModificarCheque.Location = New System.Drawing.Point(230, 287)
-        Me.btnModificarCheque.Name = "btnModificarCheque"
-        Me.btnModificarCheque.Size = New System.Drawing.Size(55, 23)
-        Me.btnModificarCheque.TabIndex = 159
-        Me.btnModificarCheque.Text = "Modificar"
-        '
-        'txtObservacionesCheque
-        '
-        Me.txtObservacionesCheque.Decimals = CType(2, Byte)
-        Me.txtObservacionesCheque.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
-        Me.txtObservacionesCheque.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtObservacionesCheque.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtObservacionesCheque.Location = New System.Drawing.Point(88, 264)
-        Me.txtObservacionesCheque.Name = "txtObservacionesCheque"
-        Me.txtObservacionesCheque.Size = New System.Drawing.Size(299, 20)
-        Me.txtObservacionesCheque.TabIndex = 156
-        Me.txtObservacionesCheque.Text_1 = Nothing
-        Me.txtObservacionesCheque.Text_2 = Nothing
-        Me.txtObservacionesCheque.Text_3 = Nothing
-        Me.txtObservacionesCheque.Text_4 = Nothing
-        Me.txtObservacionesCheque.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtObservacionesCheque.UserValues = Nothing
-        '
-        'btnNuevoCheque
-        '
-        Me.btnNuevoCheque.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnNuevoCheque.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnNuevoCheque.Location = New System.Drawing.Point(108, 287)
-        Me.btnNuevoCheque.Name = "btnNuevoCheque"
-        Me.btnNuevoCheque.Size = New System.Drawing.Size(55, 23)
-        Me.btnNuevoCheque.TabIndex = 157
-        Me.btnNuevoCheque.Text = "Nuevo"
-        '
-        'txtMontoCheque
-        '
-        Me.txtMontoCheque.Decimals = CType(2, Byte)
-        Me.txtMontoCheque.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
-        Me.txtMontoCheque.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtMontoCheque.Format = TextBoxConFormatoVB.tbFormats.SignedFloatingPointNumber
-        Me.txtMontoCheque.Location = New System.Drawing.Point(275, 237)
-        Me.txtMontoCheque.Name = "txtMontoCheque"
-        Me.txtMontoCheque.Size = New System.Drawing.Size(71, 20)
-        Me.txtMontoCheque.TabIndex = 155
-        Me.txtMontoCheque.Text_1 = Nothing
-        Me.txtMontoCheque.Text_2 = Nothing
-        Me.txtMontoCheque.Text_3 = Nothing
-        Me.txtMontoCheque.Text_4 = Nothing
-        Me.txtMontoCheque.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtMontoCheque.UserValues = Nothing
-        '
-        'txtNroCheque
-        '
-        Me.txtNroCheque.Decimals = CType(2, Byte)
-        Me.txtNroCheque.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
-        Me.txtNroCheque.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtNroCheque.Format = TextBoxConFormatoVB.tbFormats.SignedFloatingPointNumber
-        Me.txtNroCheque.Location = New System.Drawing.Point(6, 194)
-        Me.txtNroCheque.Name = "txtNroCheque"
-        Me.txtNroCheque.Size = New System.Drawing.Size(140, 20)
-        Me.txtNroCheque.TabIndex = 151
-        Me.txtNroCheque.Text_1 = Nothing
-        Me.txtNroCheque.Text_2 = Nothing
-        Me.txtNroCheque.Text_3 = Nothing
-        Me.txtNroCheque.Text_4 = Nothing
-        Me.txtNroCheque.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtNroCheque.UserValues = Nothing
-        '
-        'LabelX7
-        '
-        Me.LabelX7.AutoSize = True
-        Me.LabelX7.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX7.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX7.Location = New System.Drawing.Point(6, 267)
-        Me.LabelX7.Name = "LabelX7"
-        Me.LabelX7.SingleLineColor = System.Drawing.Color.Transparent
-        Me.LabelX7.Size = New System.Drawing.Size(76, 15)
-        Me.LabelX7.TabIndex = 167
-        Me.LabelX7.Text = "Observaciones"
-        '
-        'btnAgregarCheque
-        '
-        Me.btnAgregarCheque.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnAgregarCheque.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnAgregarCheque.Location = New System.Drawing.Point(169, 287)
-        Me.btnAgregarCheque.Name = "btnAgregarCheque"
-        Me.btnAgregarCheque.Size = New System.Drawing.Size(55, 23)
-        Me.btnAgregarCheque.TabIndex = 158
-        Me.btnAgregarCheque.Text = "Guardar"
-        '
-        'btnEliminarCheque
-        '
-        Me.btnEliminarCheque.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnEliminarCheque.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnEliminarCheque.Location = New System.Drawing.Point(291, 287)
-        Me.btnEliminarCheque.Name = "btnEliminarCheque"
-        Me.btnEliminarCheque.Size = New System.Drawing.Size(55, 23)
-        Me.btnEliminarCheque.TabIndex = 160
-        Me.btnEliminarCheque.Text = "Eliminar"
-        '
-        'LabelX4
-        '
-        Me.LabelX4.AutoSize = True
-        Me.LabelX4.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX4.Location = New System.Drawing.Point(275, 219)
-        Me.LabelX4.Name = "LabelX4"
-        Me.LabelX4.SingleLineColor = System.Drawing.Color.Transparent
-        Me.LabelX4.Size = New System.Drawing.Size(37, 15)
-        Me.LabelX4.TabIndex = 165
-        Me.LabelX4.Text = "Monto*"
-        '
-        'dtpFechaCheque
-        '
-        '
-        '
-        '
-        Me.dtpFechaCheque.BackgroundStyle.Class = "DateTimeInputBackground"
-        Me.dtpFechaCheque.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.dtpFechaCheque.ButtonDropDown.Visible = True
-        Me.dtpFechaCheque.IsPopupCalendarOpen = False
-        Me.dtpFechaCheque.Location = New System.Drawing.Point(6, 237)
-        '
-        '
-        '
-        '
-        '
-        '
-        Me.dtpFechaCheque.MonthCalendar.BackgroundStyle.BackColor = System.Drawing.SystemColors.Window
-        Me.dtpFechaCheque.MonthCalendar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.dtpFechaCheque.MonthCalendar.ClearButtonVisible = True
-        '
-        '
-        '
-        Me.dtpFechaCheque.MonthCalendar.CommandsBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground2
-        Me.dtpFechaCheque.MonthCalendar.CommandsBackgroundStyle.BackColorGradientAngle = 90
-        Me.dtpFechaCheque.MonthCalendar.CommandsBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground
-        Me.dtpFechaCheque.MonthCalendar.CommandsBackgroundStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid
-        Me.dtpFechaCheque.MonthCalendar.CommandsBackgroundStyle.BorderTopColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarDockedBorder
-        Me.dtpFechaCheque.MonthCalendar.CommandsBackgroundStyle.BorderTopWidth = 1
-        Me.dtpFechaCheque.MonthCalendar.CommandsBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.dtpFechaCheque.MonthCalendar.DisplayMonth = New Date(2011, 8, 1, 0, 0, 0, 0)
-        Me.dtpFechaCheque.MonthCalendar.FirstDayOfWeek = System.DayOfWeek.Monday
-        '
-        '
-        '
-        Me.dtpFechaCheque.MonthCalendar.NavigationBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2
-        Me.dtpFechaCheque.MonthCalendar.NavigationBackgroundStyle.BackColorGradientAngle = 90
-        Me.dtpFechaCheque.MonthCalendar.NavigationBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground
-        Me.dtpFechaCheque.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.dtpFechaCheque.MonthCalendar.TodayButtonVisible = True
-        Me.dtpFechaCheque.Name = "dtpFechaCheque"
-        Me.dtpFechaCheque.Size = New System.Drawing.Size(83, 20)
-        Me.dtpFechaCheque.TabIndex = 153
-        '
-        'LabelX3
-        '
-        Me.LabelX3.AutoSize = True
-        Me.LabelX3.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX3.Location = New System.Drawing.Point(6, 220)
-        Me.LabelX3.Name = "LabelX3"
-        Me.LabelX3.SingleLineColor = System.Drawing.Color.Transparent
-        Me.LabelX3.Size = New System.Drawing.Size(64, 15)
-        Me.LabelX3.TabIndex = 164
-        Me.LabelX3.Text = "Fecha Venc."
-        '
-        'LabelX2
-        '
-        Me.LabelX2.AutoSize = True
-        Me.LabelX2.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX2.Location = New System.Drawing.Point(152, 176)
-        Me.LabelX2.Name = "LabelX2"
-        Me.LabelX2.SingleLineColor = System.Drawing.Color.Transparent
-        Me.LabelX2.Size = New System.Drawing.Size(38, 15)
-        Me.LabelX2.TabIndex = 163
-        Me.LabelX2.Text = "Banco*"
-        '
-        'cmbBanco
-        '
-        Me.cmbBanco.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.cmbBanco.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbBanco.DisplayMember = "Text"
-        Me.cmbBanco.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
-        Me.cmbBanco.FormattingEnabled = True
-        Me.cmbBanco.ItemHeight = 14
-        Me.cmbBanco.Items.AddRange(New Object() {Me.ComboItem3, Me.ComboItem4})
-        Me.cmbBanco.Location = New System.Drawing.Point(152, 194)
-        Me.cmbBanco.Name = "cmbBanco"
-        Me.cmbBanco.Size = New System.Drawing.Size(194, 20)
-        Me.cmbBanco.TabIndex = 152
-        '
-        'ComboItem3
-        '
-        Me.ComboItem3.Text = "Mensual"
-        '
-        'ComboItem4
-        '
-        Me.ComboItem4.Text = "Quincenal"
-        '
-        'LabelX1
-        '
-        Me.LabelX1.AutoSize = True
-        Me.LabelX1.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX1.Location = New System.Drawing.Point(6, 176)
-        Me.LabelX1.Name = "LabelX1"
-        Me.LabelX1.SingleLineColor = System.Drawing.Color.Transparent
-        Me.LabelX1.Size = New System.Drawing.Size(81, 15)
-        Me.LabelX1.TabIndex = 162
-        Me.LabelX1.Text = "Nro de Cheque*"
-        '
-        'grdChequesPropios
-        '
-        Me.grdChequesPropios.AllowUserToAddRows = False
-        Me.grdChequesPropios.AllowUserToDeleteRows = False
-        DataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle21.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle21.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle21.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle21.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle21.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.grdChequesPropios.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle21
-        Me.grdChequesPropios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.grdChequesPropios.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.NroCheque, Me.Banco, Me.Monto, Me.FechaVenc, Me.Propietario, Me.IdTipoMoneda, Me.Observaciones, Me.IdCheque, Me.Utilizado})
-        Me.grdChequesPropios.Location = New System.Drawing.Point(6, 6)
-        Me.grdChequesPropios.Name = "grdChequesPropios"
-        Me.grdChequesPropios.ReadOnly = True
-        Me.grdChequesPropios.Size = New System.Drawing.Size(340, 164)
-        Me.grdChequesPropios.TabIndex = 161
-        '
-        'NroCheque
-        '
-        Me.NroCheque.HeaderText = "NroCheque"
-        Me.NroCheque.Name = "NroCheque"
-        Me.NroCheque.ReadOnly = True
-        '
-        'Banco
-        '
-        Me.Banco.HeaderText = "Banco"
-        Me.Banco.Name = "Banco"
-        Me.Banco.ReadOnly = True
-        Me.Banco.Width = 110
-        '
-        'Monto
-        '
-        Me.Monto.HeaderText = "Monto"
-        Me.Monto.Name = "Monto"
-        Me.Monto.ReadOnly = True
-        Me.Monto.Width = 75
-        '
-        'FechaVenc
-        '
-        Me.FechaVenc.HeaderText = "FechaVenc"
-        Me.FechaVenc.Name = "FechaVenc"
-        Me.FechaVenc.ReadOnly = True
-        Me.FechaVenc.Visible = False
-        '
-        'Propietario
-        '
-        Me.Propietario.HeaderText = "Propietario"
-        Me.Propietario.Name = "Propietario"
-        Me.Propietario.ReadOnly = True
-        Me.Propietario.Visible = False
-        '
-        'IdTipoMoneda
-        '
-        Me.IdTipoMoneda.HeaderText = "IdtipoMoneda"
-        Me.IdTipoMoneda.Name = "IdTipoMoneda"
-        Me.IdTipoMoneda.ReadOnly = True
-        Me.IdTipoMoneda.Visible = False
-        '
-        'Observaciones
-        '
-        Me.Observaciones.HeaderText = "Observaciones"
-        Me.Observaciones.Name = "Observaciones"
-        Me.Observaciones.ReadOnly = True
-        Me.Observaciones.Visible = False
-        '
-        'IdCheque
-        '
-        Me.IdCheque.HeaderText = "IdCheque"
-        Me.IdCheque.Name = "IdCheque"
-        Me.IdCheque.ReadOnly = True
-        Me.IdCheque.Visible = False
-        '
-        'Utilizado
-        '
-        Me.Utilizado.HeaderText = "Utilizado"
-        Me.Utilizado.Name = "Utilizado"
-        Me.Utilizado.ReadOnly = True
-        Me.Utilizado.Visible = False
-        '
         'TabCheques
         '
-        Me.TabCheques.Controls.Add(Me.grdCheques)
+        Me.TabCheques.Controls.Add(Me.grdChequesTerceros)
         Me.TabCheques.Location = New System.Drawing.Point(4, 22)
         Me.TabCheques.Name = "TabCheques"
         Me.TabCheques.Padding = New System.Windows.Forms.Padding(3)
@@ -1017,13 +714,13 @@ Partial Class frmPagodeGastos
         Me.TabCheques.Text = "Cheques Terceros"
         Me.TabCheques.UseVisualStyleBackColor = True
         '
-        'grdCheques
+        'grdChequesTerceros
         '
-        Me.grdCheques.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.grdCheques.Location = New System.Drawing.Point(9, 6)
-        Me.grdCheques.Name = "grdCheques"
-        Me.grdCheques.Size = New System.Drawing.Size(406, 305)
-        Me.grdCheques.TabIndex = 12
+        Me.grdChequesTerceros.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.grdChequesTerceros.Location = New System.Drawing.Point(6, 6)
+        Me.grdChequesTerceros.Name = "grdChequesTerceros"
+        Me.grdChequesTerceros.Size = New System.Drawing.Size(409, 302)
+        Me.grdChequesTerceros.TabIndex = 12
         '
         'TabTransferencias
         '
@@ -1431,14 +1128,14 @@ Partial Class frmPagodeGastos
         '
         Me.grdTransferencias.AllowUserToAddRows = False
         Me.grdTransferencias.AllowUserToDeleteRows = False
-        DataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle22.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle22.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle22.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle22.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle22.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.grdTransferencias.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle22
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.grdTransferencias.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.grdTransferencias.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.grdTransferencias.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn4, Me.DataGridViewTextBoxColumn5, Me.DataGridViewTextBoxColumn6, Me.DataGridViewTextBoxColumn7, Me.DataGridViewTextBoxColumn8, Me.DataGridViewTextBoxColumn9, Me.DataGridViewTextBoxColumn10, Me.BancoDestino, Me.ObservacionesTransf, Me.ID})
         Me.grdTransferencias.Location = New System.Drawing.Point(9, 8)
@@ -1680,14 +1377,14 @@ Partial Class frmPagodeGastos
         '
         Me.grdTarjetas.AllowUserToAddRows = False
         Me.grdTarjetas.AllowUserToDeleteRows = False
-        DataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle23.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle23.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle23.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.grdTarjetas.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle23
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.grdTarjetas.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.grdTarjetas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.grdTarjetas.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn11, Me.DataGridViewTextBoxColumn12, Me.DataGridViewTextBoxColumn13})
         Me.grdTarjetas.Location = New System.Drawing.Point(9, 8)
@@ -1850,14 +1547,14 @@ Partial Class frmPagodeGastos
         '
         Me.DataGridView1.AllowUserToAddRows = False
         Me.DataGridView1.AllowUserToDeleteRows = False
-        DataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle24.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle24.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle24.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle24
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn14, Me.DataGridViewTextBoxColumn16})
         Me.DataGridView1.Location = New System.Drawing.Point(7, 7)
@@ -2091,11 +1788,11 @@ Partial Class frmPagodeGastos
         Me.Label11.BackColor = System.Drawing.Color.Transparent
         Me.Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label11.ForeColor = System.Drawing.Color.MidnightBlue
-        Me.Label11.Location = New System.Drawing.Point(17, 117)
+        Me.Label11.Location = New System.Drawing.Point(34, 117)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(80, 15)
+        Me.Label11.Size = New System.Drawing.Size(63, 15)
         Me.Label11.TabIndex = 30
-        Me.Label11.Text = "Cheq. Terc."
+        Me.Label11.Text = "Cheques"
         Me.Label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label8
@@ -2256,35 +1953,6 @@ Partial Class frmPagodeGastos
         Me.lblSubtotal.TabIndex = 180
         Me.lblSubtotal.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'txtOrdenPago
-        '
-        Me.txtOrdenPago.AccessibleName = ""
-        Me.txtOrdenPago.BackColor = System.Drawing.SystemColors.Window
-        Me.txtOrdenPago.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtOrdenPago.Decimals = CType(2, Byte)
-        Me.txtOrdenPago.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
-        Me.txtOrdenPago.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtOrdenPago.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtOrdenPago.Location = New System.Drawing.Point(12, 70)
-        Me.txtOrdenPago.MaxLength = 25
-        Me.txtOrdenPago.Name = "txtOrdenPago"
-        Me.txtOrdenPago.Size = New System.Drawing.Size(160, 20)
-        Me.txtOrdenPago.TabIndex = 3
-        Me.txtOrdenPago.Text_1 = Nothing
-        Me.txtOrdenPago.Text_2 = Nothing
-        Me.txtOrdenPago.Text_3 = Nothing
-        Me.txtOrdenPago.Text_4 = Nothing
-        Me.txtOrdenPago.UserValues = Nothing
-        '
-        'Label9
-        '
-        Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(11, 54)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(99, 13)
-        Me.Label9.TabIndex = 141
-        Me.Label9.Text = "Nro Orden de Pago"
-        '
         'Label4
         '
         Me.Label4.AutoSize = True
@@ -2302,40 +1970,11 @@ Partial Class frmPagodeGastos
         Me.grdFacturasConsumos.Size = New System.Drawing.Size(592, 241)
         Me.grdFacturasConsumos.TabIndex = 7
         '
-        'txtValorCambio
-        '
-        Me.txtValorCambio.AccessibleName = ""
-        Me.txtValorCambio.BackColor = System.Drawing.SystemColors.Window
-        Me.txtValorCambio.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtValorCambio.Decimals = CType(2, Byte)
-        Me.txtValorCambio.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
-        Me.txtValorCambio.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtValorCambio.Format = TextBoxConFormatoVB.tbFormats.SignedFloatingPointNumber
-        Me.txtValorCambio.Location = New System.Drawing.Point(487, 31)
-        Me.txtValorCambio.MaxLength = 25
-        Me.txtValorCambio.Name = "txtValorCambio"
-        Me.txtValorCambio.Size = New System.Drawing.Size(69, 20)
-        Me.txtValorCambio.TabIndex = 5
-        Me.txtValorCambio.Text_1 = Nothing
-        Me.txtValorCambio.Text_2 = Nothing
-        Me.txtValorCambio.Text_3 = Nothing
-        Me.txtValorCambio.Text_4 = Nothing
-        Me.txtValorCambio.UserValues = Nothing
-        '
-        'Label20
-        '
-        Me.Label20.AutoSize = True
-        Me.Label20.Location = New System.Drawing.Point(485, 15)
-        Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(73, 13)
-        Me.Label20.TabIndex = 330
-        Me.Label20.Text = "Valor Cambio*"
-        '
         'frmPagodeGastos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1268, 540)
+        Me.ClientSize = New System.Drawing.Size(1370, 540)
         Me.Controls.Add(Me.GroupBox1)
         Me.Name = "frmPagodeGastos"
         Me.Text = "Registro de Pagos de Clientes"
@@ -2346,10 +1985,9 @@ Partial Class frmPagodeGastos
         Me.TabControl1.ResumeLayout(False)
         Me.TabChequesPropios.ResumeLayout(False)
         Me.TabChequesPropios.PerformLayout()
-        CType(Me.dtpFechaCheque, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdChequesPropios, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabCheques.ResumeLayout(False)
-        CType(Me.grdCheques, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.grdChequesTerceros, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabTransferencias.ResumeLayout(False)
         Me.TabTransferencias.PerformLayout()
         CType(Me.dtpFechaTransf, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2499,43 +2137,17 @@ Partial Class frmPagodeGastos
     Friend WithEvents BancoDestino As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents ObservacionesTransf As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents ID As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents grdCheques As System.Windows.Forms.DataGridView
-    Friend WithEvents btnModificarCheque As DevComponents.DotNetBar.ButtonX
-    Friend WithEvents txtObservacionesCheque As TextBoxConFormatoVB.FormattedTextBoxVB
-    Friend WithEvents btnNuevoCheque As DevComponents.DotNetBar.ButtonX
-    Friend WithEvents txtMontoCheque As TextBoxConFormatoVB.FormattedTextBoxVB
-    Friend WithEvents txtNroCheque As TextBoxConFormatoVB.FormattedTextBoxVB
-    Friend WithEvents LabelX7 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents btnAgregarCheque As DevComponents.DotNetBar.ButtonX
-    Friend WithEvents btnEliminarCheque As DevComponents.DotNetBar.ButtonX
-    Friend WithEvents LabelX4 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents dtpFechaCheque As DevComponents.Editors.DateTimeAdv.DateTimeInput
-    Friend WithEvents LabelX3 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents LabelX2 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents cmbBanco As DevComponents.DotNetBar.Controls.ComboBoxEx
-    Friend WithEvents ComboItem3 As DevComponents.Editors.ComboItem
-    Friend WithEvents ComboItem4 As DevComponents.Editors.ComboItem
-    Friend WithEvents LabelX1 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents grdChequesPropios As System.Windows.Forms.DataGridView
-    Friend WithEvents NroCheque As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Banco As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Monto As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents FechaVenc As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Propietario As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents IdTipoMoneda As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Observaciones As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents IdCheque As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Utilizado As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents grdChequesTerceros As System.Windows.Forms.DataGridView
     Friend WithEvents LabelX6 As DevComponents.DotNetBar.LabelX
     Friend WithEvents cmbMoneda As DevComponents.DotNetBar.Controls.ComboBoxEx
     Friend WithEvents ComboItem5 As DevComponents.Editors.ComboItem
     Friend WithEvents ComboItem6 As DevComponents.Editors.ComboItem
-    Friend WithEvents txtPropietario As TextBoxConFormatoVB.FormattedTextBoxVB
-    Friend WithEvents LabelX5 As DevComponents.DotNetBar.LabelX
     Friend WithEvents chkAnulados As System.Windows.Forms.CheckBox
     Friend WithEvents ShapeContainer1 As Microsoft.VisualBasic.PowerPacks.ShapeContainer
     Friend WithEvents LineShape2 As Microsoft.VisualBasic.PowerPacks.LineShape
     Friend WithEvents LineShape1 As Microsoft.VisualBasic.PowerPacks.LineShape
     Friend WithEvents txtValorCambio As TextBoxConFormatoVB.FormattedTextBoxVB
     Friend WithEvents Label20 As System.Windows.Forms.Label
+    Friend WithEvents grdChequesPropios As System.Windows.Forms.DataGridView
+    Friend WithEvents txtIdProveedor As TextBoxConFormatoVB.FormattedTextBoxVB
 End Class

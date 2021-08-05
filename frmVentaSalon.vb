@@ -121,7 +121,8 @@ Public Class frmVentaSalon
         Subtotal = 10
         IDUnidad = 11
         SubtotalOrig = 12
-        ProductoPesable = 13
+        SubtotalSinIVA = 13
+        ProductoPesable = 14
     End Enum
 
     Enum TipoComp
@@ -192,6 +193,7 @@ Public Class frmVentaSalon
     Public ValorCae As String
     Public ValorFac As String
     Public ValorVen As String
+    Dim TopeFacBit As Boolean
 
 
 
@@ -355,6 +357,7 @@ Public Class frmVentaSalon
         Establecer_CodiReg()
 
         'btnGuardar.Text = "(F4) Guardar"
+        lblConexion.Text = "Conexión AFIP"
         btnEliminar.Text = "Devolución"
         btnImprimir.Visible = False
         btnPrimero.Visible = False
@@ -422,7 +425,7 @@ Public Class frmVentaSalon
             Exit Sub
         End Try
         Try
-            ds_Equipos = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT PTOVTA,DescuentoMaximo,TopeFacturacion,NombreEmpresaFactura, ModoPagoPredefinido, CUIT, HOMO, TA,ISNULL(CorreoContador,''), TicketAcceso, Token, Sign FROM PARAMETROS")
+            ds_Equipos = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT PTOVTA,DescuentoMaximo,TopeFacturacion,NombreEmpresaFactura, ModoPagoPredefinido, CUIT, HOMO, TA,ISNULL(CorreoContador,''), TicketAcceso, Token, Sign, ActivarTopeFac FROM PARAMETROS")
             'lblPVI.Text = ds_Equipos.Tables(0).Rows(0).Item(0).ToString
             'PTOVTA = ds_Equipos.Tables(0).Rows(0).Item(0).ToString
             DescuentoMaximo = ds_Equipos.Tables(0).Rows(0).Item(1).ToString
@@ -436,6 +439,7 @@ Public Class frmVentaSalon
             saveTA = ds_Equipos.Tables(0).Rows(0).Item(9)
             saveTOKEN = ds_Equipos.Tables(0).Rows(0).Item(10)
             saveSING = ds_Equipos.Tables(0).Rows(0).Item(11)
+            TopeFacBit = ds_Equipos.Tables(0).Rows(0).Item(12)
             ds_Equipos = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT Codigo FROM Almacenes WHERE Nombre LIKE '%SALON%' ")
             IDAlmacenSalon = ds_Equipos.Tables(0).Rows(0).Item(0)
             ds_Equipos = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT PtoVta FROM Parametros_PtoVta WHERE NombreEquipo = '" & SystemInformation.ComputerName.ToString.ToUpper & "'")
@@ -456,11 +460,9 @@ Public Class frmVentaSalon
         ' Cambiamos el cursor por el de carga
         Me.Cursor = Cursors.WaitCursor
         If ConexionAfip(saveTA, saveTOKEN, saveSING) = True Then
-            PicConexion.Image = My.Resources.Green_Ball_icon
             chkConexion.Checked = True
         Else
             MessageBox.Show("La conexión con el servidor de la AFIP no ha sido exitosa, por favor intente nuevamente mas tarde.", "Error de conexión", MessageBoxButtons.OK)
-            PicConexion.Image = My.Resources.Red_Ball_icon
             chkConexion.Checked = False
         End If
         'dejo el cursor en flecha
@@ -769,7 +771,7 @@ Public Class frmVentaSalon
 
         If e.KeyCode = Keys.Enter Then
 
-            If CodBarra_Activado Then
+            If CodBarra_Activado Then         
                 System.Threading.Thread.Sleep(500)
                 CodBarra_Activado = False
             End If
@@ -817,9 +819,10 @@ Public Class frmVentaSalon
 
             Dim i As Integer
             For i = 0 To grdItems.RowCount - 1
-                If cmbProducto.SelectedValue = grdItems.Rows(i).Cells(ColumnasDelGridItems.CodMaterial).Value And ProductoPesable = False Then
+                If cmbProducto.SelectedValue = grdItems.Rows(i).Cells(ColumnasDelGridItems.CodMaterial).Value And ProductoPesable = False And txtCodigoBarra.Text <> "22022" Then
                     grdItems.Rows(i).Cells(ColumnasDelGridItems.Cantidad).Value = grdItems.Rows(i).Cells(ColumnasDelGridItems.Cantidad).Value + CDbl(txtCantidad.Text)
                     grdItems.Rows(i).Cells(ColumnasDelGridItems.SubtotalOrig).Value = grdItems.Rows(i).Cells(ColumnasDelGridItems.Cantidad).Value * grdItems.Rows(i).Cells(ColumnasDelGridItems.Precio).Value
+                    grdItems.Rows(i).Cells(ColumnasDelGridItems.SubtotalSinIVA).Value = grdItems.Rows(i).Cells(ColumnasDelGridItems.Cantidad).Value * grdItems.Rows(i).Cells(ColumnasDelGridItems.PrecioSinIVA).Value
                     grdItems.Rows(i).Cells(ColumnasDelGridItems.Subtotal).Value = grdItems.Rows(i).Cells(ColumnasDelGridItems.SubtotalOrig).Value - grdItems.Rows(i).Cells(ColumnasDelGridItems.Descuento).Value
 
                     CalcularSubtotal()
@@ -840,7 +843,9 @@ Public Class frmVentaSalon
                 End If
             Next
 
-            grdItems.Rows.Add(i + 1, cmbProducto.SelectedValue, txtCodigoBarra.Text, cmbProducto.Text, txtCantidad.Text, txtPeso.Text, txtPrecio.Text, txtPrecio.Text, FormatNumber(CDbl(txtPrecio.Text / (1 + (MDIPrincipal.iva) / 100)), 2), "0", txtSubtotalItem.Text, txtIdUnidad.Text, txtSubtotalItem.Text, ProductoPesable, "Eliminado")
+            Dim preciosiniva As Decimal = FormatNumber(CDbl(txtPrecio.Text / (1 + (MDIPrincipal.iva) / 100)), 2)
+            Dim subtotalsinva As Decimal = FormatNumber(CDbl(txtCantidad.Text) * preciosiniva, 2)
+            grdItems.Rows.Add(i + 1, cmbProducto.SelectedValue, txtCodigoBarra.Text, cmbProducto.Text, txtCantidad.Text, txtPeso.Text, txtPrecio.Text, txtPrecio.Text, preciosiniva, "0", txtSubtotalItem.Text, txtIdUnidad.Text, txtSubtotalItem.Text, subtotalsinva, ProductoPesable, "Eliminado")
 
             OrdenarFilas()
             CalcularSubtotal()
@@ -852,6 +857,8 @@ Public Class frmVentaSalon
             txtCantidad.Text = ""
             txtPeso.Text = ""
             txtIdProducto.Text = ""
+            txtPrecio.Enabled = False
+            txtPrecio.ReadOnly = True
             'cmbProducto.Text = ""
             'txtPrecio.Text = "0.00"
             txtSubtotalItem.Text = "0.00"
@@ -914,9 +921,17 @@ Public Class frmVentaSalon
                     BuscarProducto(False, txtCodigoBarra.Text)
                     txtCantidad.Text = "1"
                     txtCantidad.Select(txtCantidad.Text.Length, 0)
-                    txtCantidad_KeyDown(sender, e)
+                    If txtCodigoBarra.Text = "22022" Then
+                        txtPrecio.ReadOnly = False
+                        txtPrecio.Enabled = True
+                        txtPrecio.Text = ""
+                        txtPrecio.Select(txtPrecio.Text.Length, 0)
+                        txtPrecio.Focus()
+                    Else
+                        txtCantidad_KeyDown(sender, e)
+                    End If
                 End If
-                
+
 
             Catch ex As Exception
 
@@ -937,7 +952,7 @@ Public Class frmVentaSalon
                     txtCantidad.Select(txtCantidad.Text.Length, 0)
                     txtCantidad_KeyDown(sender, e)
                 End If
-                
+
 
             Catch ex As Exception
 
@@ -973,9 +988,18 @@ Public Class frmVentaSalon
 
     End Sub
 
+    Private Sub chkConexion_CheckedChanged(sender As Object, e As EventArgs) Handles chkConexion.CheckedChanged
+        If chkConexion.Checked Then
+            PicConexion.Image = My.Resources.Green_Ball_icon
+        Else
+            PicConexion.Image = My.Resources.Red_Ball_icon
+        End If
+    End Sub
+
+
     '--------------------------------------Grilla-------------------------------------------------------
     Private Sub grditems_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles grdItems.CellClick
-        If e.ColumnIndex = 14 Then 'Marcar llegada
+        If e.ColumnIndex = 15 Then 'Marcar llegada
             If MessageBox.Show("Está seguro que desea eliminar el producto de la venta?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
                 grdItems.Rows.RemoveAt(e.RowIndex)
                 CalcularSubtotal()
@@ -1031,6 +1055,7 @@ Public Class frmVentaSalon
 
             If e.ColumnIndex = 4 And grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.ProductoPesable).Value = False Then
                 grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.SubtotalOrig).Value = grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Cantidad).Value * grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Precio).Value
+                grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.SubtotalSinIVA).Value = grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Cantidad).Value * grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.PrecioSinIVA).Value
                 grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Subtotal).Value = grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Cantidad).Value * grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Precio).Value
                 grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Subtotal).Value = FormatNumber(grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Subtotal).Value - IIf(grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Descuento).Value Is DBNull.Value, 0, grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Descuento).Value), 2)
                 'Else
@@ -1792,21 +1817,23 @@ Public Class frmVentaSalon
 
         If rdAbsoluto.Checked = True Then
             lblValorDescontado.Text = Descuento
+            lblValorDescSinIVa.Text = Descuento / (1 + (MDIPrincipal.iva) / 100)
             Total = Total - Descuento
         Else
             Dim ValorDescuento As Double
             ValorDescuento = Total * (Descuento / 100)
             lblValorDescontado.Text = ValorDescuento
+            lblValorDescSinIVa.Text = ValorDescuento / (1 + (MDIPrincipal.iva) / 100)
             Total = Total - ValorDescuento
         End If
 
         If DescuentoItems > 0 Or chkDescuentoParticular.Checked Then
             lblValorDescontado.Text = DescuentoItems
+            lblValorDescSinIVa.Text = DescuentoItems / (1 + (MDIPrincipal.iva) / 100)
             Total = Total - DescuentoItems
         End If
-
         lblValorDescontado.Text = FormatNumber(lblValorDescontado.Text, 2)
-
+        lblValorDescSinIVa.Text = FormatNumber(lblValorDescSinIVa.Text, 2)
         'muestro los valores finales
         If cmbTipoComprobante.Text.Contains("FACTURAS A") Then
             'calculo los valores que voy a mostrar para facturas A
@@ -2000,7 +2027,6 @@ Public Class frmVentaSalon
         End If
     End Sub
 
-
 #End Region
 
 #Region "   Funciones"
@@ -2131,6 +2157,12 @@ Public Class frmVentaSalon
     End Function
 
     Private Function BuscarValores_Facturados() As Boolean
+        'me fijo primero si esta activado el bit para facturar (al estar en true no realizo el cálculo)
+        If TopeFacBit Then
+            BuscarValores_Facturados = False
+            Exit Function
+        End If
+
         Dim connection As SqlClient.SqlConnection = Nothing
         Dim ds_total As Data.DataSet
 
@@ -3355,6 +3387,7 @@ Public Class frmVentaSalon
                             tarjetarec = CDbl(txtTarjetas1Importe.Text) + recargo
                             txtTarjetas1ImporteFinal.Text = FormatNumber(tarjetarec, 2)
                             Resto = CDbl(txtTarjetas1ImporteFinal.Text) - CDbl(txtTarjetas1Importe.Text)
+                            'txtMontoRecarga1.Text = Resto
                             txtMontoRecarga1.Text = FormatNumber(Resto, 2)
                             Try
                                 'muestro el monto por cuotas
@@ -3390,6 +3423,7 @@ Public Class frmVentaSalon
                             tarjetarec = CDbl(txtTarjetas2Importe.Text) + recargo
                             txtTarjetas2ImporteFinal.Text = FormatNumber(tarjetarec, 2)
                             Resto = tarjetarec - CDbl(txtTarjetas2Importe.Text)
+                            'txtMontoRecarga2.Text = Resto
                             txtMontoRecarga2.Text = FormatNumber(Resto, 2)
                             Try
                                 'muestro el monto por cuotas
@@ -3432,7 +3466,6 @@ Public Class frmVentaSalon
                     Dim calculototal As Double = total + CDbl(txtMontoRecarga1.Text) + CDbl(txtMontoRecarga2.Text)
 
                     If cmbTipoComprobante.Text = "FACTURAS A" Then
-
                         'frmPuntoVenta_ARAB.txtTotal.Text = FormatNumber(calculototal, 2)
                         txtTotalVista.Text = FormatNumber(calculototal, 2)
                         Dim calculosubtotal As Double = calculototal / (1 + ((MDIPrincipal.iva) / 100))
@@ -3450,9 +3483,7 @@ Public Class frmVentaSalon
                         txtIVAVista.Text = "0.00"
                         txtTotalVista.Text = txtSubtotalVista.Text
                     End If
-
                 End If
-
                 'sumo los los montos 
                 sumapagorec = CDbl(txtContado.Text) + CDbl(txtTarjetas1ImporteFinal.Text) + CDbl(txtTarjetas2ImporteFinal.Text)
 
@@ -4555,6 +4586,14 @@ Public Class frmVentaSalon
                 param_montoglobaldesc.Value = IIf(lblValorDescontado.Text = "", 0, lblValorDescontado.Text)
                 param_montoglobaldesc.Direction = ParameterDirection.Input
 
+                Dim param_montoglobaldescsiniva As New SqlClient.SqlParameter
+                param_montoglobaldescsiniva.ParameterName = "@MontoGlobalDescSinIVA"
+                param_montoglobaldescsiniva.SqlDbType = SqlDbType.Decimal
+                param_montoglobaldescsiniva.Precision = 18
+                param_montoglobaldescsiniva.Scale = 2
+                param_montoglobaldescsiniva.Value = IIf(lblValorDescSinIVa.Text = "", 0, lblValorDescSinIVa.Text)
+                param_montoglobaldescsiniva.Direction = ParameterDirection.Input
+
                 Dim param_Seña As New SqlClient.SqlParameter
                 param_Seña.ParameterName = "@Seña"
                 param_Seña.SqlDbType = SqlDbType.Decimal
@@ -4663,7 +4702,7 @@ Public Class frmVentaSalon
                                                                param_descuentoglobal, param_porcenglobaldesc, param_montoglobaldesc, _
                                                                param_comprasinterna, param_Seña, param_cancelado, param_fechacanc, _
                                                                param_Cambio, param_nrofacanu, param_procesado, param_CantArt, _
-                                                               param_montotarjetatotal, param_Deuda, param_VentaManual, _
+                                                               param_montotarjetatotal, param_Deuda, param_VentaManual, param_montoglobaldescsiniva, _
                                                                param_dateadd, param_useradd, param_res)
 
                         txtID.Text = param_id.Value
@@ -4777,6 +4816,14 @@ Public Class frmVentaSalon
                 param_Subtotal.Value = IIf(chkDevolucion.Checked = True, grdItems.Rows(i).Cells(ColumnasDelGridItems.SubtotalOrig).Value * (-1), grdItems.Rows(i).Cells(ColumnasDelGridItems.SubtotalOrig).Value)
                 param_Subtotal.Direction = ParameterDirection.Input
 
+                Dim param_Subtotalsiniva As New SqlClient.SqlParameter
+                param_Subtotalsiniva.ParameterName = "@SubtotalSinIVA"
+                param_Subtotalsiniva.SqlDbType = SqlDbType.Decimal
+                param_Subtotalsiniva.Precision = 18
+                param_Subtotalsiniva.Scale = 2
+                param_Subtotalsiniva.Value = IIf(chkDevolucion.Checked = True, grdItems.Rows(i).Cells(ColumnasDelGridItems.SubtotalSinIVA).Value * (-1), grdItems.Rows(i).Cells(ColumnasDelGridItems.SubtotalSinIVA).Value)
+                param_Subtotalsiniva.Direction = ParameterDirection.Input
+
                 Dim param_descuento As New SqlClient.SqlParameter
                 param_descuento.ParameterName = "@Descuento"
                 param_descuento.SqlDbType = SqlDbType.Decimal
@@ -4812,6 +4859,12 @@ Public Class frmVentaSalon
                 param_codigobarra.Value = grdItems.Rows(i).Cells(ColumnasDelGridItems.CodigoBarra).Value
                 param_codigobarra.Direction = ParameterDirection.Input
 
+                Dim param_productopesable As New SqlClient.SqlParameter
+                param_productopesable.ParameterName = "@ProductoPesable"
+                param_productopesable.SqlDbType = SqlDbType.Int
+                param_productopesable.Value = IIf(grdItems.Rows(i).Cells(ColumnasDelGridItems.ProductoPesable).Value = True, 1, 0)
+                param_productopesable.Direction = ParameterDirection.Input
+
                 Dim param_useradd As New SqlClient.SqlParameter
                 param_useradd.ParameterName = "@useradd"
                 param_useradd.SqlDbType = SqlDbType.BigInt
@@ -4825,9 +4878,9 @@ Public Class frmVentaSalon
                 param_dateadd.Direction = ParameterDirection.Input
 
                 SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spVentas_Salon_Det_Insert", _
-                                           param_IdVenta, param_IdAlmacen, param_idProducto, param_cantidad, _
+                                           param_IdVenta, param_IdAlmacen, param_idProducto, param_cantidad, param_Subtotalsiniva, _
                                            param_idUnidad, param_Preciovta, param_PrecioSinIVA, param_Subtotal, param_descuento, _
-                                           param_peso, param_Cambio, param_fecha, param_codigobarra, param_useradd, param_dateadd, param_resdet)
+                                           param_peso, param_Cambio, param_fecha, param_codigobarra, param_productopesable, param_useradd, param_dateadd, param_resdet)
 
                 res = param_resdet.Value
 
@@ -4999,6 +5052,27 @@ Public Class frmVentaSalon
             param_montotarjeta2final.Value = txtTarjetas2ImporteFinal.Text
             param_montotarjeta2final.Direction = ParameterDirection.Input
 
+            Dim MontoDiferencia As Double = IIf(txtMontoRecarga1.Text = "", 0, CDbl(txtMontoRecarga1.Text)) + IIf(txtMontoRecarga2.Text = "", 0, CDbl(txtMontoRecarga2.Text))
+
+            Dim param_diferenciamonto As New SqlClient.SqlParameter
+            param_diferenciamonto.ParameterName = "@DiferenciaMonto"
+            param_diferenciamonto.SqlDbType = SqlDbType.Decimal
+            param_diferenciamonto.Precision = 18
+            param_diferenciamonto.Scale = 2
+            param_diferenciamonto.Value = MontoDiferencia
+            param_diferenciamonto.Direction = ParameterDirection.Input
+
+            Dim MontoDiferenciaSinIVA As Double = FormatNumber(MontoDiferencia / (1 + MDIPrincipal.iva / 100), 2)
+
+            Dim param_diferenciamontosiniva As New SqlClient.SqlParameter
+            param_diferenciamontosiniva.ParameterName = "@DiferenciaMontoSinIVA"
+            param_diferenciamontosiniva.SqlDbType = SqlDbType.Decimal
+            param_diferenciamontosiniva.Precision = 18
+            param_diferenciamontosiniva.Scale = 2
+            param_diferenciamontosiniva.Value = MontoDiferenciaSinIVA
+            param_diferenciamontosiniva.Direction = ParameterDirection.Input
+
+
             Dim param_dateadd As New SqlClient.SqlParameter
             param_dateadd.ParameterName = "@dateadd"
             param_dateadd.SqlDbType = SqlDbType.DateTime
@@ -5018,6 +5092,7 @@ Public Class frmVentaSalon
                                  param_montotarjeta1, param_porcenrecar1, param_montotarjeta1final,
                                  param_idtarjeta2, param_plantarjeta2, param_cuotas2, _
                                  param_montotarjeta2, param_porcenrecar2, param_montotarjeta2final, _
+                                 param_diferenciamonto, param_diferenciamontosiniva, _
                                  param_dateadd, param_res)
 
             RealizarModificar_VentaTarjeta = param_res.Value
@@ -5133,7 +5208,7 @@ Public Class frmVentaSalon
                 solicitar = WSAA.Expirado(expiracion)      ' chequear solicitud previa
             End If
 
-            'Reutilizacion de TA 
+
             If solicitar Then
 
                 tra = WSAA.CreateTRA("wsfe")
@@ -5553,12 +5628,6 @@ Public Class frmVentaSalon
             Debug.Print("Resultado", wsfev1.Resultado)
             Debug.Print("CAE", wsfev1.CAE)
             Debug.Print("Numero de comprobante:", wsfev1.CbteNro)
-            '------------------------------------------------
-            'Dim strCadena As String
-            'strCadena = wsfev1.f1GuardarTicketAcceso()
-            'guardar strCadena en un archivo temporal
-            'wsfev1.f1RestaurarTicketAcceso(strCadena)
-            '-----------------------------------------------
 
             'Retorno valor de ok, booleano (comprobar) 
             'Return ok
@@ -5573,7 +5642,7 @@ Public Class frmVentaSalon
                 'Cierro la Transaccion para guardar la Venta para luego realizar el update
                 Cerrar_Tran()
 
-                MsgBox("Factura Aceptada" + Chr(13) + "CAE: " + wsfev1.CAE.ToString + Chr(13) + "Vencimiento: " + wsfev1.Vencimiento.ToString)
+                'MsgBox("Factura Aceptada" + Chr(13) + "CAE: " + wsfev1.CAE.ToString + Chr(13) + "Vencimiento: " + wsfev1.Vencimiento.ToString)
 
                 Dim CodigoBarra As String
                 CodigoBarra = cuitEmpresa.ToString + cmbTipoComprobante.SelectedValue.ToString.PadLeft(2, "00").ToString + punto_vta + CaeGenerado + FechaGenerado
@@ -5591,27 +5660,6 @@ Public Class frmVentaSalon
                 Fecha = Fecha.Substring(6, 2) + "/" + Fecha.Substring(4, 2) + "/" + Fecha.Substring(0, 4)
                 ValorVen = Fecha
 
-                'cmbTipoComprobante_SelectedIndexChanged(sender, e)
-
-                'band = 0
-                'bolModo = False
-                'btnActualizar_Click(sender, e)
-
-                'chkEnviarCorreo.Enabled = True
-
-                'SQL = "exec sp_Consumos_Select_All @eliminado = 0"
-                'LlenarGrilla()
-
-                'CalcularTotales()
-
-                'grdItems.Enabled = bolModo
-                'btnGuardar.Enabled = bolModo
-                'Util.MsgStatus(Status1, "El comprobante se generó correctamente.", My.Resources.Resources.ok.ToBitmap)
-                'band = 1
-
-                'GestionDePaneles()
-
-                'btnPrevisualizar.Enabled = bolModo
                 GenerarFE = True
             Else
                 Cancelar_Tran()
@@ -5753,15 +5801,27 @@ Public Class frmVentaSalon
 
 #End Region
 
+    Private Sub txtPrecio_GotFocus(sender As Object, e As EventArgs) Handles txtPrecio.GotFocus
+        txtPrecio.BackColor = Color.Aqua
+        'cambio el modo de seleccion
+        grdItems.SelectionMode = DataGridViewSelectionMode.FullRowSelect
+        'me fijo si hay algo en la grilla para sacar la seleccion del primer item
+        If grdItems.Rows.Count > 0 Then
+            grdItems.Rows(0).Selected = False
+        End If
+    End Sub
 
+    Private Sub txtPrecio_LostFocus(sender As Object, e As EventArgs) Handles txtPrecio.LostFocus
+        txtPrecio.BackColor = SystemColors.Window
+    End Sub
 
-
-
-
-
-
-
-
-
+    Private Sub txtPrecio_KeyDown(sender As Object, e As KeyEventArgs) Handles txtPrecio.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            If txtPrecio.Text <> "" Then
+                txtSubtotalItem.Text = CDbl(txtCantidad.Text) * CDbl(txtPrecio.Text)
+                txtCantidad_KeyDown(sender, e)
+            End If
+        End If
+    End Sub
 
 End Class

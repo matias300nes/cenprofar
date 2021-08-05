@@ -126,13 +126,13 @@ Public Class frmTransferenciasPorkys
         txtBusquedaMAT.Visible = True
         btnActivar.Visible = False
 
-        Try
+        'Try
 
-            Dim sqlstring As String = "update NotificacionesWEB set BloqueoT = 1"
-            tranWEB.Sql_Set(sqlstring)
-        Catch ex As Exception
+        '    Dim sqlstring As String = "update NotificacionesWEB set BloqueoT = 1"
+        '    tranWEB.Sql_Set(sqlstring)
+        'Catch ex As Exception
 
-        End Try
+        'End Try
 
         band = 0
 
@@ -1132,23 +1132,11 @@ Public Class frmTransferenciasPorkys
         Dim param As New frmParametros
         Dim cnn As New SqlConnection(ConnStringSEI)
         'Dim codigo As String
-        'Dim Solicitud As Boolean
+        Dim Solicitud As Boolean
 
-        'nbreformreportes = "Ordenes de Compra"
+        Dim saldo As Double = 0
+        rpt.Transferencias_Maestro_App(OrdenPedido, rpt, My.Application.Info.AssemblyName.ToString, Solicitud)
 
-        'param.AgregarParametros("Código :", "STRING", "", False, OrdenPedido, "", cnn)
-        ' param.ShowDialog()
-
-        'If cerroparametrosconaceptar = True Then
-
-        'codigo = param.ObtenerParametros(0)
-
-        'rpt.NombreArchivoPDF = "Orden de Compra " & codigo & " - " & BuscarProveedor(codigo, Solicitud)
-        'If chkVentas.Checked = True Then
-        'rpt.OrdenesDeCompra_Maestro_App(OrdenPedido, rpt, My.Application.Info.AssemblyName.ToString, Solicitud)
-        'Else
-        '    rpt.DevolucionePedidosWEB_Maestro_App(OrdenPedido, rpt, My.Application.Info.AssemblyName.ToString, Solicitud)
-        'End If
         cerroparametrosconaceptar = False
         param = Nothing
         cnn = Nothing
@@ -1332,7 +1320,7 @@ Public Class frmTransferenciasPorkys
                 Dim param_fecha As New SqlClient.SqlParameter
                 param_fecha.ParameterName = "@FECHA"
                 param_fecha.SqlDbType = SqlDbType.DateTime
-                param_fecha.Value = dtpFECHA.Value
+                param_fecha.Value = dtpFECHA.Value.ToShortDateString + " " + Now.ToString("HH:mm:ss")
                 param_fecha.Direction = ParameterDirection.Input
 
                 Dim param_nota As New SqlClient.SqlParameter
@@ -1411,7 +1399,7 @@ Public Class frmTransferenciasPorkys
         Dim msg As String
         Dim i As Integer
         Dim ActualizarPrecio As Boolean = False
-        Dim ds_Empresa As Data.DataSet
+        'Dim ds_Empresa As Data.DataSet
         Dim ValorActual As Double
         Dim IdStockMov_Orig As Long
         Dim Stock_Orig As Double
@@ -1584,44 +1572,44 @@ Public Class frmTransferenciasPorkys
          
 
                         'If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
-                        If OrigDes_WEB() = True Then
-                            Try
+                        'If OrigDes_WEB() = True Then
+                        '    Try
 
-                                Dim sqlstringOr As String = "exec spStock_Insert '" & grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Material).Value & "', '" & _
-                                grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Unidad).Value & "', " & IIf(txtIDOrigen.Text = "", cmbOrigen.SelectedValue, txtIDOrigen.Text) & ", 'V', " & _
-                                CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.Cantidad).Value, Decimal) & ", " & Stock_Orig & ", " & IdStockMov_Orig & ", '" & Comprob & "',4, " & UserID
+                        '        Dim sqlstringOr As String = "exec spStock_Insert '" & grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Material).Value & "', '" & _
+                        '        grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Unidad).Value & "', " & IIf(txtIDOrigen.Text = "", cmbOrigen.SelectedValue, txtIDOrigen.Text) & ", 'V', " & _
+                        '        CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.Cantidad).Value, Decimal) & ", " & Stock_Orig & ", " & IdStockMov_Orig & ", '" & Comprob & "',4, " & UserID
 
-                                Dim sqlstringDes As String = "exec spStock_Insert '" & grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Material).Value & "', '" & _
-                                grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Unidad).Value & "', " & IIf(txtIDDestino.Text = "", cmbDestino.SelectedValue, txtIDDestino.Text) & ", 'I', " & _
-                                CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.Cantidad).Value, Decimal) & ", " & Stock_Des & ", " & IdStockMov_Des & ", '" & Comprob & "',4, " & UserID
-
-
-
-                                If tranWEB.Sql_Get_Value(sqlstringOr) > 0 Then
-                                    If tranWEB.Sql_Get_Value(sqlstringDes) > 0 Then
-                                        ds_Empresa = SqlHelper.ExecuteDataset(tran, CommandType.Text, "UPDATE StockMov SET ActualizadoWEB = 1 WHERE id = " & IdStockMov_Orig & " or id =" & IdStockMov_Des)
-                                        ds_Empresa.Dispose()
-
-                                        Dim sqlstring As String = "INSERT INTO [dbo].[transferencias_Recepciones_WEB] ([Codigo],[Fecha],[IDOrigen],[IDDestino],[IDMaterial], " & _
-                                        "[Qty],[Procesado],[Tipo])" & _
-                                        "  values ('" & lblNroTrans.Text & "', '" & Format(Date.Now, "MM/dd/yyyy").ToString & " " & Format(Date.Now, "hh:mm:ss").ToString & "'," & _
-                                        IIf(txtIDOrigen.Text = "", cmbOrigen.SelectedValue, txtIDOrigen.Text) & ", " & IIf(txtIDDestino.Text = "", cmbDestino.SelectedValue, txtIDDestino.Text) & ",'" & _
-                                        grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Material).Value & "'," & CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.Cantidad).Value, Decimal) & ",0,'T')"
-
-                                        tranWEB.Sql_Set(sqlstring)
-
-                                        sqlstring = "update notificacionesWEB set Transferencias = 1"
-                                        tranWEB.Sql_Set(sqlstring)
-
-                                    End If
-                                End If
+                        '        Dim sqlstringDes As String = "exec spStock_Insert '" & grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Material).Value & "', '" & _
+                        '        grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Unidad).Value & "', " & IIf(txtIDDestino.Text = "", cmbDestino.SelectedValue, txtIDDestino.Text) & ", 'I', " & _
+                        '        CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.Cantidad).Value, Decimal) & ", " & Stock_Des & ", " & IdStockMov_Des & ", '" & Comprob & "',4, " & UserID
 
 
 
-                            Catch ex As Exception
+                        '        If tranWEB.Sql_Get_Value(sqlstringOr) > 0 Then
+                        '            If tranWEB.Sql_Get_Value(sqlstringDes) > 0 Then
+                        '                ds_Empresa = SqlHelper.ExecuteDataset(tran, CommandType.Text, "UPDATE StockMov SET ActualizadoWEB = 1 WHERE id = " & IdStockMov_Orig & " or id =" & IdStockMov_Des)
+                        '                ds_Empresa.Dispose()
 
-                            End Try
-                        End If
+                        '                Dim sqlstring As String = "INSERT INTO [dbo].[transferencias_Recepciones_WEB] ([Codigo],[Fecha],[IDOrigen],[IDDestino],[IDMaterial], " & _
+                        '                "[Qty],[Procesado],[Tipo])" & _
+                        '                "  values ('" & lblNroTrans.Text & "', '" & Format(Date.Now, "MM/dd/yyyy").ToString & " " & Format(Date.Now, "hh:mm:ss").ToString & "'," & _
+                        '                IIf(txtIDOrigen.Text = "", cmbOrigen.SelectedValue, txtIDOrigen.Text) & ", " & IIf(txtIDDestino.Text = "", cmbDestino.SelectedValue, txtIDDestino.Text) & ",'" & _
+                        '                grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Material).Value & "'," & CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.Cantidad).Value, Decimal) & ",0,'T')"
+
+                        '                tranWEB.Sql_Set(sqlstring)
+
+                        '                sqlstring = "update notificacionesWEB set Transferencias = 1"
+                        '                tranWEB.Sql_Set(sqlstring)
+
+                        '            End If
+                        '        End If
+
+
+
+                        '    Catch ex As Exception
+
+                        '    End Try
+                        'End If
                         'End If
 
                     Catch ex As Exception
@@ -2021,102 +2009,102 @@ Public Class frmTransferenciasPorkys
 
     End Function
 
-    Private Function EliminarRegistro() As Integer
+    'Private Function EliminarRegistro() As Integer
 
-        Dim connection As SqlClient.SqlConnection = Nothing
-        Dim res As Integer = 0
-        Dim resweb As Integer = 0
+    '    Dim connection As SqlClient.SqlConnection = Nothing
+    '    Dim res As Integer = 0
+    '    Dim resweb As Integer = 0
 
-        Try
-            connection = SqlHelper.GetConnection(ConnStringSEI)
-            ''Abrir una transaccion para guardar y asegurar que se guarda todo
-            'If Abrir_Tran(connection) = False Then
-            '    MessageBox.Show("No se pudo abrir una transaccion", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            '    Exit Function
-            'End If
+    '    Try
+    '        connection = SqlHelper.GetConnection(ConnStringSEI)
+    '        ''Abrir una transaccion para guardar y asegurar que se guarda todo
+    '        'If Abrir_Tran(connection) = False Then
+    '        '    MessageBox.Show("No se pudo abrir una transaccion", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+    '        '    Exit Function
+    '        'End If
 
-            Try
+    '        Try
 
-                Dim param_idordendecompra As New SqlClient.SqlParameter("@OrdenPedido", SqlDbType.VarChar, ParameterDirection.Input)
-                param_idordendecompra.Size = 25
-                param_idordendecompra.Value = lblNroTrans.Text
-                param_idordendecompra.Direction = ParameterDirection.Input
+    '            Dim param_idordendecompra As New SqlClient.SqlParameter("@OrdenPedido", SqlDbType.VarChar, ParameterDirection.Input)
+    '            param_idordendecompra.Size = 25
+    '            param_idordendecompra.Value = lblNroTrans.Text
+    '            param_idordendecompra.Direction = ParameterDirection.Input
 
-                Dim param_nota As New SqlClient.SqlParameter
-                param_nota.ParameterName = "@NOTA"
-                param_nota.SqlDbType = SqlDbType.VarChar
-                param_nota.Size = 150
-                param_nota.Value = txtNota.Text
-                param_nota.Direction = ParameterDirection.Input
+    '            Dim param_nota As New SqlClient.SqlParameter
+    '            param_nota.ParameterName = "@NOTA"
+    '            param_nota.SqlDbType = SqlDbType.VarChar
+    '            param_nota.Size = 150
+    '            param_nota.Value = txtNota.Text
+    '            param_nota.Direction = ParameterDirection.Input
 
-                Dim param_userdel As New SqlClient.SqlParameter
-                param_userdel.ParameterName = "@userdel"
-                param_userdel.SqlDbType = SqlDbType.Int
-                param_userdel.Value = UserID
-                param_userdel.Direction = ParameterDirection.Input
+    '            Dim param_userdel As New SqlClient.SqlParameter
+    '            param_userdel.ParameterName = "@userdel"
+    '            param_userdel.SqlDbType = SqlDbType.Int
+    '            param_userdel.Value = UserID
+    '            param_userdel.Direction = ParameterDirection.Input
 
-                Dim param_res As New SqlClient.SqlParameter
-                param_res.ParameterName = "@res"
-                param_res.SqlDbType = SqlDbType.Int
-                param_res.Value = DBNull.Value
-                param_res.Direction = ParameterDirection.Output
+    '            Dim param_res As New SqlClient.SqlParameter
+    '            param_res.ParameterName = "@res"
+    '            param_res.SqlDbType = SqlDbType.Int
+    '            param_res.Value = DBNull.Value
+    '            param_res.Direction = ParameterDirection.Output
 
-                Try
+    '            Try
 
-                    SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spPedidosWEB_Delete_Finalizar", param_idordendecompra, param_userdel, param_nota, param_res)
+    '                SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spPedidosWEB_Delete_Finalizar", param_idordendecompra, param_userdel, param_nota, param_res)
 
-                    res = param_res.Value
+    '                res = param_res.Value
 
-                    If res > 0 Then
+    '                If res > 0 Then
 
-                        Try
-                            Dim sqlstring As String
+    '                    Try
+    '                        Dim sqlstring As String
 
-                            sqlstring = "exec spPedidosWEB_Delete_Finalizar '" & lblNroTrans.Text & "','" & txtNota.Text & "'," & UserID & ""
+    '                        sqlstring = "exec spPedidosWEB_Delete_Finalizar '" & lblNroTrans.Text & "','" & txtNota.Text & "'," & UserID & ""
 
-                            resweb = tranWEB.Sql_Get_Value(sqlstring)
+    '                        resweb = tranWEB.Sql_Get_Value(sqlstring)
 
-                            If resweb < 0 Then
-                                res = -1
-                            End If
+    '                        If resweb < 0 Then
+    '                            res = -1
+    '                        End If
 
-                        Catch ex As Exception
+    '                    Catch ex As Exception
 
-                            MsgBox("Desde spPedidosWEB_Delete_Finalizar : " + ex.Message)
-                            res = -1
+    '                        MsgBox("Desde spPedidosWEB_Delete_Finalizar : " + ex.Message)
+    '                        res = -1
 
-                        End Try
+    '                    End Try
 
 
-                    End If
+    '                End If
 
-                    EliminarRegistro = res
+    '                EliminarRegistro = res
 
-                Catch ex As Exception
-                    '' 
-                    Throw ex
-                End Try
-            Finally
-                ''
-            End Try
-        Catch ex As Exception
-            Dim errMessage As String = ""
-            Dim tempException As Exception = ex
+    '            Catch ex As Exception
+    '                '' 
+    '                Throw ex
+    '            End Try
+    '        Finally
+    '            ''
+    '        End Try
+    '    Catch ex As Exception
+    '        Dim errMessage As String = ""
+    '        Dim tempException As Exception = ex
 
-            While (Not tempException Is Nothing)
-                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
-                tempException = tempException.InnerException
-            End While
+    '        While (Not tempException Is Nothing)
+    '            errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+    '            tempException = tempException.InnerException
+    '        End While
 
-            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
-              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If Not connection Is Nothing Then
-                CType(connection, IDisposable).Dispose()
-            End If
-        End Try
-    End Function
+    '        MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+    '          + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+    '          "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+    '    Finally
+    '        If Not connection Is Nothing Then
+    '            CType(connection, IDisposable).Dispose()
+    '        End If
+    '    End Try
+    'End Function
 
     Private Function OrigDes_WEB() As Boolean
         If cmbOrigen.Text.Contains("PRINCIPAL") And cmbDestino.Text.Contains("PERON") Then
@@ -2245,7 +2233,7 @@ Public Class frmTransferenciasPorkys
                             Case Else
                                 Cerrar_Tran()
 
-                                'Imprimir_Pedido(lblNroPedido.Text)
+                                Imprimir_Pedido(lblNroTrans.Text)
 
                                 bolModo = False
                                 PrepararBotones()
@@ -2389,7 +2377,7 @@ Public Class frmTransferenciasPorkys
         Dim param As New frmParametros
         Dim cnn As New SqlConnection(ConnStringSEI)
         Dim codigo As String
-        'Dim Solicitud As Boolean
+        Dim Solicitud As Boolean
 
         Try
 
@@ -2400,13 +2388,22 @@ Public Class frmTransferenciasPorkys
         nbreformreportes = "Ordenes de Compra"
 
         param.AgregarParametros("Código :", "STRING", "", False, lblNroTrans.Text.ToString, "", cnn)
+
         param.ShowDialog()
+
+
 
         If cerroparametrosconaceptar = True Then
 
             codigo = param.ObtenerParametros(0)
+            Dim saldo As Double = 0
+            'rpt.NombreArchivoPDF = "Orden de Compra " & codigo & " - " & BuscarProveedor(codigo, Solicitud)
 
-            ' rpt.OrdenesDeCompra_Maestro_App(codigo, rpt, My.Application.Info.AssemblyName.ToString, Solicitud)
+            'If chkVentas.Checked = True Then
+            rpt.Transferencias_Maestro_App(codigo, rpt, My.Application.Info.AssemblyName.ToString, Solicitud)
+            'Else
+            '    rpt.DevolucionePedidosWEB_Maestro_App(codigo, rpt, My.Application.Info.AssemblyName.ToString, Solicitud)
+            'End If
 
             cerroparametrosconaceptar = False
             param = Nothing
@@ -2465,22 +2462,15 @@ Public Class frmTransferenciasPorkys
     End Sub
 
     Protected Overloads Sub btnSalir_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSalir.Click
+
         'Try
-        '    If cmbPedidos.SelectedValue.ToString <> "" Then
-        '        DevolverEstado()
-        '    End If
+        '    Dim sqlstring As String = "update NotificacionesWEB set BloqueoT = 0"
+        '    tranWEB.Sql_Set(sqlstring)
+
+
         'Catch ex As Exception
 
         'End Try
-
-        Try
-            Dim sqlstring As String = "update NotificacionesWEB set BloqueoT = 0"
-            tranWEB.Sql_Set(sqlstring)
-
-
-        Catch ex As Exception
-
-        End Try
 
     End Sub
 

@@ -1,7 +1,7 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class frmMaqHerramientas
 
-    Inherits PORKYS.frmBase
+    Inherits SEYC.frmBase
 
     <System.Diagnostics.DebuggerNonUserCode()> _
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
@@ -208,7 +208,7 @@ Partial Class frmMaqHerramientas
         '
         Me.PicMarcas.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.PicMarcas.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.PicMarcas.Image = Global.PORKYS.My.Resources.Resources.Info
+        Me.PicMarcas.Image = Global.SEYC.My.Resources.Resources.Info
         Me.PicMarcas.Location = New System.Drawing.Point(653, 23)
         Me.PicMarcas.Name = "PicMarcas"
         Me.PicMarcas.Size = New System.Drawing.Size(18, 20)

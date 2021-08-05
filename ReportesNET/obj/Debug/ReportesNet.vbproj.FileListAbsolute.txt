@@ -1,0 +1,170 @@
+C:\MIT\ReportesNET\bin\Debug\ReportesNet.exe.config
+C:\MIT\ReportesNET\bin\Debug\ReportesNet.exe
+C:\MIT\ReportesNET\bin\Debug\ReportesNet.pdb
+C:\MIT\ReportesNET\bin\Debug\ReportesNet.xml
+C:\MIT\ReportesNET\bin\Debug\TextBoxConFormatoVB.dll
+C:\MIT\ReportesNET\bin\Debug\Utiles.dll
+C:\MIT\ReportesNET\bin\Debug\GMap.NET.Core.dll
+C:\MIT\ReportesNET\bin\Debug\GMap.NET.WindowsForms.dll
+C:\MIT\ReportesNET\bin\Debug\DevComponents.DotNetBar2.dll
+C:\MIT\ReportesNET\bin\Debug\TextBoxConFormatoVB.pdb
+C:\MIT\ReportesNET\bin\Debug\TextBoxConFormatoVB.xml
+C:\MIT\ReportesNET\bin\Debug\Utiles.pdb
+C:\MIT\ReportesNET\bin\Debug\Utiles.xml
+C:\MIT\ReportesNET\obj\Debug\ReportesNet.vbproj.ResolveComReference.cache
+C:\MIT\ReportesNET\obj\Debug\ReportesNet.frmBase.resources
+C:\MIT\ReportesNET\obj\Debug\ReportesNet.frmEspera.resources
+C:\MIT\ReportesNET\obj\Debug\ReportesNet.frmImpresorVales.resources
+C:\MIT\ReportesNET\obj\Debug\ReportesNet.frmReportes.resources
+C:\MIT\ReportesNET\obj\Debug\ReportesNet.MdiForm.resources
+C:\MIT\ReportesNET\obj\Debug\ReportesNet.Resources.resources
+C:\MIT\ReportesNET\obj\Debug\ReportesNet.vbproj.GenerateResource.Cache
+C:\MIT\ReportesNET\obj\Debug\ReportesNet.exe
+C:\MIT\ReportesNET\obj\Debug\ReportesNet.xml
+C:\MIT\ReportesNET\obj\Debug\ReportesNet.pdb
+D:\MIT\ReportesNET\obj\Debug\ResolveAssemblyReference.cache
+D:\MIT\ReportesNET\obj\Debug\ReportesNet.vbproj.ResolveComReference.cache
+D:\MIT\ReportesNET\obj\Debug\ReportesNet.frmBase.resources
+D:\MIT\ReportesNET\obj\Debug\ReportesNet.frmEspera.resources
+D:\MIT\ReportesNET\obj\Debug\ReportesNet.frmImpresorVales.resources
+D:\MIT\ReportesNET\obj\Debug\ReportesNet.frmReportes.resources
+D:\MIT\ReportesNET\obj\Debug\ReportesNet.MdiForm.resources
+D:\MIT\ReportesNET\obj\Debug\ReportesNet.Resources.resources
+D:\MIT\ReportesNET\obj\Debug\ReportesNet.vbproj.GenerateResource.Cache
+D:\MIT\ReportesNET\obj\Debug\ReportesNet.exe
+D:\MIT\ReportesNET\obj\Debug\ReportesNet.xml
+D:\MIT\ReportesNET\obj\Debug\ReportesNet.pdb
+D:\MIT\ReportesNET\bin\Debug\ReportesNet.exe.config
+D:\MIT\ReportesNET\bin\Debug\ReportesNet.exe
+D:\MIT\ReportesNET\bin\Debug\ReportesNet.pdb
+D:\MIT\ReportesNET\bin\Debug\ReportesNet.xml
+D:\MIT\ReportesNET\bin\Debug\Utiles.dll
+D:\MIT\ReportesNET\bin\Debug\GMap.NET.WindowsForms.dll
+D:\MIT\ReportesNET\bin\Debug\GMap.NET.Core.dll
+D:\MIT\ReportesNET\bin\Debug\DevComponents.DotNetBar2.dll
+D:\MIT\ReportesNET\bin\Debug\TextBoxConFormatoVB.dll
+D:\MIT\ReportesNET\bin\Debug\Utiles.pdb
+D:\MIT\ReportesNET\bin\Debug\Utiles.xml
+D:\MIT\ReportesNET\bin\Debug\TextBoxConFormatoVB.pdb
+D:\MIT\ReportesNET\bin\Debug\TextBoxConFormatoVB.xml
+D:\MIT\ReportesNET\bin\Debug\Interop.VBIDE.dll
+D:\MIT\ReportesNET\obj\Debug\Interop.VBIDE.dll
+C:\MIT\ReportesNET\obj\Debug\ReportesNet.vbprojResolveAssemblyReference.cache
+C:\MIT\ReportesNET\bin\Debug\Microsoft.Office.Interop.Outlook.dll
+E:\MIT\ReportesNET\bin\Debug\ReportesNet.exe.config
+E:\MIT\ReportesNET\bin\Debug\ReportesNet.exe
+E:\MIT\ReportesNET\bin\Debug\ReportesNet.pdb
+E:\MIT\ReportesNET\bin\Debug\ReportesNet.xml
+E:\MIT\ReportesNET\bin\Debug\Utiles.dll
+E:\MIT\ReportesNET\bin\Debug\GMap.NET.WindowsForms.dll
+E:\MIT\ReportesNET\bin\Debug\TextBoxConFormatoVB.dll
+E:\MIT\ReportesNET\bin\Debug\GMap.NET.Core.dll
+E:\MIT\ReportesNET\bin\Debug\Utiles.pdb
+E:\MIT\ReportesNET\bin\Debug\Utiles.xml
+E:\MIT\ReportesNET\bin\Debug\TextBoxConFormatoVB.pdb
+E:\MIT\ReportesNET\bin\Debug\TextBoxConFormatoVB.xml
+E:\MIT\ReportesNET\bin\Debug\Office.dll
+E:\MIT\ReportesNET\bin\Debug\Microsoft.Office.Interop.Word.dll
+E:\MIT\ReportesNET\obj\Debug\ReportesNet.vbprojResolveAssemblyReference.cache
+E:\MIT\ReportesNET\obj\Debug\ReportesNet.vbproj.ResolveComReference.cache
+E:\MIT\ReportesNET\obj\Debug\ReportesNet.frmBase.resources
+E:\MIT\ReportesNET\obj\Debug\ReportesNet.frmEspera.resources
+E:\MIT\ReportesNET\obj\Debug\ReportesNet.frmImpresorVales.resources
+E:\MIT\ReportesNET\obj\Debug\ReportesNet.frmReportes.resources
+E:\MIT\ReportesNET\obj\Debug\ReportesNet.MdiForm.resources
+E:\MIT\ReportesNET\obj\Debug\ReportesNet.Resources.resources
+E:\MIT\ReportesNET\obj\Debug\ReportesNet.vbproj.GenerateResource.Cache
+E:\MIT\ReportesNET\obj\Debug\ReportesNet.exe
+E:\MIT\ReportesNET\obj\Debug\ReportesNet.xml
+E:\MIT\ReportesNET\obj\Debug\ReportesNet.pdb
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\ReportesNET\bin\Debug\ReportesNet.exe.config
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\ReportesNET\obj\Debug\ReportesNet.vbproj.ResolveComReference.cache
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\ReportesNET\obj\Debug\ReportesNet.exe
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\ReportesNET\obj\Debug\ReportesNet.xml
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\ReportesNET\obj\Debug\ReportesNet.pdb
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\ReportesNET\bin\Debug\ReportesNet.exe
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\ReportesNET\bin\Debug\ReportesNet.pdb
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\ReportesNET\bin\Debug\ReportesNet.xml
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\ReportesNET\bin\Debug\Utiles.dll
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\ReportesNET\bin\Debug\GMap.NET.WindowsForms.dll
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\ReportesNET\bin\Debug\TextBoxConFormatoVB.dll
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\ReportesNET\bin\Debug\GMap.NET.Core.dll
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\ReportesNET\bin\Debug\Utiles.pdb
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\ReportesNET\bin\Debug\Utiles.xml
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\ReportesNET\bin\Debug\TextBoxConFormatoVB.pdb
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\ReportesNET\bin\Debug\TextBoxConFormatoVB.xml
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\ReportesNET\bin\Debug\Office.dll
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\ReportesNET\bin\Debug\Microsoft.Office.Interop.Word.dll
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\ReportesNET\obj\Debug\ReportesNet.vbprojResolveAssemblyReference.cache
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\ReportesNET\obj\Debug\ReportesNet.frmBase.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\ReportesNET\obj\Debug\ReportesNet.frmEspera.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\ReportesNET\obj\Debug\ReportesNet.frmImpresorVales.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\ReportesNET\obj\Debug\ReportesNet.frmReportes.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\ReportesNET\obj\Debug\ReportesNet.MdiForm.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\ReportesNET\obj\Debug\ReportesNet.Resources.resources
+C:\Users\Rodrigo\Documents\Visual Studio 2012\Projects\ReportesNET\obj\Debug\ReportesNet.vbproj.GenerateResource.Cache
+C:\Users\silva\OneDrive\Documentos\Visual Studio 2012\Projects\ReportesNET\bin\Debug\ReportesNet.exe.config
+C:\Users\silva\OneDrive\Documentos\Visual Studio 2012\Projects\ReportesNET\obj\Debug\ReportesNet.vbproj.ResolveComReference.cache
+C:\Users\silva\OneDrive\Documentos\Visual Studio 2012\Projects\ReportesNET\obj\Debug\ReportesNet.exe
+C:\Users\silva\OneDrive\Documentos\Visual Studio 2012\Projects\ReportesNET\obj\Debug\ReportesNet.xml
+C:\Users\silva\OneDrive\Documentos\Visual Studio 2012\Projects\ReportesNET\obj\Debug\ReportesNet.pdb
+C:\Users\silva\OneDrive\Documentos\Visual Studio 2012\Projects\ReportesNET\obj\Debug\ReportesNet.vbprojResolveAssemblyReference.cache
+C:\Users\silva\OneDrive\Documentos\Visual Studio 2012\Projects\ReportesNET\obj\Debug\ReportesNet.frmBase.resources
+C:\Users\silva\OneDrive\Documentos\Visual Studio 2012\Projects\ReportesNET\obj\Debug\ReportesNet.frmEspera.resources
+C:\Users\silva\OneDrive\Documentos\Visual Studio 2012\Projects\ReportesNET\obj\Debug\ReportesNet.frmImpresorVales.resources
+C:\Users\silva\OneDrive\Documentos\Visual Studio 2012\Projects\ReportesNET\obj\Debug\ReportesNet.frmReportes.resources
+C:\Users\silva\OneDrive\Documentos\Visual Studio 2012\Projects\ReportesNET\obj\Debug\ReportesNet.MdiForm.resources
+C:\Users\silva\OneDrive\Documentos\Visual Studio 2012\Projects\ReportesNET\obj\Debug\ReportesNet.Resources.resources
+C:\Users\silva\OneDrive\Documentos\Visual Studio 2012\Projects\ReportesNET\obj\Debug\ReportesNet.vbproj.GenerateResource.Cache
+C:\Users\silva\OneDrive\Documentos\Visual Studio 2012\Projects\ReportesNET\bin\Debug\ReportesNet.exe
+C:\Users\silva\OneDrive\Documentos\Visual Studio 2012\Projects\ReportesNET\bin\Debug\ReportesNet.pdb
+C:\Users\silva\OneDrive\Documentos\Visual Studio 2012\Projects\ReportesNET\bin\Debug\ReportesNet.xml
+C:\Users\silva\OneDrive\Documentos\Visual Studio 2012\Projects\ReportesNET\bin\Debug\Utiles.dll
+C:\Users\silva\OneDrive\Documentos\Visual Studio 2012\Projects\ReportesNET\bin\Debug\GMap.NET.WindowsForms.dll
+C:\Users\silva\OneDrive\Documentos\Visual Studio 2012\Projects\ReportesNET\bin\Debug\TextBoxConFormatoVB.dll
+C:\Users\silva\OneDrive\Documentos\Visual Studio 2012\Projects\ReportesNET\bin\Debug\GMap.NET.Core.dll
+C:\Users\silva\OneDrive\Documentos\Visual Studio 2012\Projects\ReportesNET\bin\Debug\Utiles.pdb
+C:\Users\silva\OneDrive\Documentos\Visual Studio 2012\Projects\ReportesNET\bin\Debug\Utiles.xml
+C:\Users\silva\OneDrive\Documentos\Visual Studio 2012\Projects\ReportesNET\bin\Debug\TextBoxConFormatoVB.pdb
+C:\Users\silva\OneDrive\Documentos\Visual Studio 2012\Projects\ReportesNET\bin\Debug\TextBoxConFormatoVB.xml
+C:\Users\silva\OneDrive\Documentos\Visual Studio 2012\Projects\ReportesNET\bin\Debug\Office.dll
+C:\Users\silva\OneDrive\Documentos\Visual Studio 2012\Projects\ReportesNET\bin\Debug\Microsoft.Office.Interop.Word.dll
+D:\Programación-HDD\Proyectos\ReportesNET\bin\Debug\ReportesNet.exe.config
+D:\Programación-HDD\Proyectos\ReportesNET\obj\Debug\ReportesNet.vbproj.ResolveComReference.cache
+D:\Programación-HDD\Proyectos\ReportesNET\obj\Debug\ReportesNet.exe
+D:\Programación-HDD\Proyectos\ReportesNET\obj\Debug\ReportesNet.xml
+D:\Programación-HDD\Proyectos\ReportesNET\obj\Debug\ReportesNet.pdb
+D:\Programación-HDD\Proyectos\ReportesNET\obj\Debug\ReportesNet.vbprojResolveAssemblyReference.cache
+D:\Programación-HDD\Proyectos\ReportesNET\obj\Debug\ReportesNet.frmBase.resources
+D:\Programación-HDD\Proyectos\ReportesNET\obj\Debug\ReportesNet.frmEspera.resources
+D:\Programación-HDD\Proyectos\ReportesNET\obj\Debug\ReportesNet.frmImpresorVales.resources
+D:\Programación-HDD\Proyectos\ReportesNET\obj\Debug\ReportesNet.frmReportes.resources
+D:\Programación-HDD\Proyectos\ReportesNET\obj\Debug\ReportesNet.MdiForm.resources
+D:\Programación-HDD\Proyectos\ReportesNET\obj\Debug\ReportesNet.Resources.resources
+D:\Programación-HDD\Proyectos\ReportesNET\obj\Debug\ReportesNet.vbproj.GenerateResource.Cache
+D:\Programación-HDD\Proyectos\ReportesNET\bin\Debug\ReportesNet.exe
+D:\Programación-HDD\Proyectos\ReportesNET\bin\Debug\ReportesNet.pdb
+D:\Programación-HDD\Proyectos\ReportesNET\bin\Debug\ReportesNet.xml
+D:\Programación-HDD\Proyectos\ReportesNET\bin\Debug\Office.dll
+D:\Programación-HDD\Proyectos\ReportesNET\bin\Debug\Microsoft.Office.Interop.Word.dll
+H:\MIT\ReportesNET\bin\Debug\ReportesNet.exe.config
+H:\MIT\ReportesNET\bin\Debug\ReportesNet.exe
+H:\MIT\ReportesNET\bin\Debug\ReportesNet.pdb
+H:\MIT\ReportesNET\bin\Debug\ReportesNet.xml
+H:\MIT\ReportesNET\bin\Debug\Office.dll
+H:\MIT\ReportesNET\bin\Debug\Microsoft.Office.Interop.Word.dll
+H:\MIT\ReportesNET\obj\Debug\ReportesNet.vbproj.ResolveComReference.cache
+H:\MIT\ReportesNET\obj\Debug\ReportesNet.frmBase.resources
+H:\MIT\ReportesNET\obj\Debug\ReportesNet.frmEspera.resources
+H:\MIT\ReportesNET\obj\Debug\ReportesNet.frmImpresorVales.resources
+H:\MIT\ReportesNET\obj\Debug\ReportesNet.frmReportes.resources
+H:\MIT\ReportesNET\obj\Debug\ReportesNet.MdiForm.resources
+H:\MIT\ReportesNET\obj\Debug\ReportesNet.Resources.resources
+H:\MIT\ReportesNET\obj\Debug\ReportesNet.vbproj.GenerateResource.Cache
+H:\MIT\ReportesNET\obj\Debug\ReportesNet.exe
+H:\MIT\ReportesNET\obj\Debug\ReportesNet.xml
+H:\MIT\ReportesNET\obj\Debug\ReportesNet.pdb
+E:\SISTEMA CENPROFAR\ReportesNET\obj\Debug\ReportesNet.vbprojResolveAssemblyReference.cache
+E:\SISTEMA CENPROFAR\ReportesNET\obj\Debug\ReportesNet.exe
+E:\SISTEMA CENPROFAR\ReportesNET\obj\Debug\ReportesNet.xml
+E:\SISTEMA CENPROFAR\ReportesNET\obj\Debug\ReportesNet.pdb

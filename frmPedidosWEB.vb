@@ -1709,11 +1709,6 @@ Public Class frmPedidosWEB
                     CONTROL = param_control.Value
                     AgregarActualizar_Registro_PedidosWEB = param_res.Value
 
-
-
-
-
-
                 Catch ex As Exception
                     Throw ex
                 End Try
@@ -2259,7 +2254,7 @@ Public Class frmPedidosWEB
 
         Try
             If desdeload = False Then
-                MDIPrincipal.ActualizarSistema(True)
+                MDIPrincipal.ActualizarSistema_Viejo(True)
             End If
             desdeload = False
         Catch ex As Exception
@@ -2768,7 +2763,7 @@ Public Class frmPedidosWEB
             'coloco el gif de sincronizar
             PicDescarga.Image = My.Resources.Sincro
             'actualizo los pedidos de la web
-            MDIPrincipal.ActualizarSistema(True)
+            MDIPrincipal.ActualizarSistema_Viejo(True)
             'actualizo la grilla
             btnActualizar_Click(sender, e)
             'actualizar el combo de clientes 
@@ -2816,8 +2811,7 @@ Public Class frmPedidosWEB
                     End If
 
                     Math.Round(grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Subtotal).Value, 2)
-                    'voy a descuento para ver si hay algun valor cargado
-                    GoTo descuento
+                 
                 End If
 
 

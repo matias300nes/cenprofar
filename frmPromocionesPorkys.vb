@@ -1666,102 +1666,102 @@ Public Class frmPromocionesPorkys
 
     End Function
 
-    Private Function EliminarRegistro() As Integer
+    'Private Function EliminarRegistro() As Integer
 
-        Dim connection As SqlClient.SqlConnection = Nothing
-        Dim res As Integer = 0
-        Dim resweb As Integer = 0
+    '    Dim connection As SqlClient.SqlConnection = Nothing
+    '    Dim res As Integer = 0
+    '    Dim resweb As Integer = 0
 
-        Try
-            connection = SqlHelper.GetConnection(ConnStringSEI)
-            ''Abrir una transaccion para guardar y asegurar que se guarda todo
-            'If Abrir_Tran(connection) = False Then
-            '    MessageBox.Show("No se pudo abrir una transaccion", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            '    Exit Function
-            'End If
+    '    Try
+    '        connection = SqlHelper.GetConnection(ConnStringSEI)
+    '        ''Abrir una transaccion para guardar y asegurar que se guarda todo
+    '        'If Abrir_Tran(connection) = False Then
+    '        '    MessageBox.Show("No se pudo abrir una transaccion", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+    '        '    Exit Function
+    '        'End If
 
-            Try
+    '        Try
 
-                Dim param_idordendecompra As New SqlClient.SqlParameter("@OrdenPedido", SqlDbType.VarChar, ParameterDirection.Input)
-                param_idordendecompra.Size = 25
-                param_idordendecompra.Value = lblCodigo.Text
-                param_idordendecompra.Direction = ParameterDirection.Input
+    '            Dim param_idordendecompra As New SqlClient.SqlParameter("@OrdenPedido", SqlDbType.VarChar, ParameterDirection.Input)
+    '            param_idordendecompra.Size = 25
+    '            param_idordendecompra.Value = lblCodigo.Text
+    '            param_idordendecompra.Direction = ParameterDirection.Input
 
-                Dim param_nota As New SqlClient.SqlParameter
-                param_nota.ParameterName = "@NOTA"
-                param_nota.SqlDbType = SqlDbType.VarChar
-                param_nota.Size = 150
-                param_nota.Value = txtDescripcion.Text
-                param_nota.Direction = ParameterDirection.Input
+    '            Dim param_nota As New SqlClient.SqlParameter
+    '            param_nota.ParameterName = "@NOTA"
+    '            param_nota.SqlDbType = SqlDbType.VarChar
+    '            param_nota.Size = 150
+    '            param_nota.Value = txtDescripcion.Text
+    '            param_nota.Direction = ParameterDirection.Input
 
-                Dim param_userdel As New SqlClient.SqlParameter
-                param_userdel.ParameterName = "@userdel"
-                param_userdel.SqlDbType = SqlDbType.Int
-                param_userdel.Value = UserID
-                param_userdel.Direction = ParameterDirection.Input
+    '            Dim param_userdel As New SqlClient.SqlParameter
+    '            param_userdel.ParameterName = "@userdel"
+    '            param_userdel.SqlDbType = SqlDbType.Int
+    '            param_userdel.Value = UserID
+    '            param_userdel.Direction = ParameterDirection.Input
 
-                Dim param_res As New SqlClient.SqlParameter
-                param_res.ParameterName = "@res"
-                param_res.SqlDbType = SqlDbType.Int
-                param_res.Value = DBNull.Value
-                param_res.Direction = ParameterDirection.Output
+    '            Dim param_res As New SqlClient.SqlParameter
+    '            param_res.ParameterName = "@res"
+    '            param_res.SqlDbType = SqlDbType.Int
+    '            param_res.Value = DBNull.Value
+    '            param_res.Direction = ParameterDirection.Output
 
-                Try
+    '            Try
 
-                    SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spPedidosWEB_Delete_Finalizar", param_idordendecompra, param_userdel, param_nota, param_res)
+    '                SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spPedidosWEB_Delete_Finalizar", param_idordendecompra, param_userdel, param_nota, param_res)
 
-                    res = param_res.Value
+    '                res = param_res.Value
 
-                    If res > 0 Then
+    '                If res > 0 Then
 
-                        Try
-                            Dim sqlstring As String
+    '                    Try
+    '                        Dim sqlstring As String
 
-                            sqlstring = "exec spPedidosWEB_Delete_Finalizar '" & lblCodigo.Text & "','" & txtDescripcion.Text & "'," & UserID & ""
+    '                        sqlstring = "exec spPedidosWEB_Delete_Finalizar '" & lblCodigo.Text & "','" & txtDescripcion.Text & "'," & UserID & ""
 
-                            resweb = tranWEB.Sql_Get_Value(sqlstring)
+    '                        resweb = tranWEB.Sql_Get_Value(sqlstring)
 
-                            If resweb < 0 Then
-                                res = -1
-                            End If
+    '                        If resweb < 0 Then
+    '                            res = -1
+    '                        End If
 
-                        Catch ex As Exception
+    '                    Catch ex As Exception
 
-                            MsgBox("Desde spPedidosWEB_Delete_Finalizar : " + ex.Message)
-                            res = -1
+    '                        MsgBox("Desde spPedidosWEB_Delete_Finalizar : " + ex.Message)
+    '                        res = -1
 
-                        End Try
+    '                    End Try
 
 
-                    End If
+    '                End If
 
-                    EliminarRegistro = res
+    '                EliminarRegistro = res
 
-                Catch ex As Exception
-                    '' 
-                    Throw ex
-                End Try
-            Finally
-                ''
-            End Try
-        Catch ex As Exception
-            Dim errMessage As String = ""
-            Dim tempException As Exception = ex
+    '            Catch ex As Exception
+    '                '' 
+    '                Throw ex
+    '            End Try
+    '        Finally
+    '            ''
+    '        End Try
+    '    Catch ex As Exception
+    '        Dim errMessage As String = ""
+    '        Dim tempException As Exception = ex
 
-            While (Not tempException Is Nothing)
-                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
-                tempException = tempException.InnerException
-            End While
+    '        While (Not tempException Is Nothing)
+    '            errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+    '            tempException = tempException.InnerException
+    '        End While
 
-            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
-              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If Not connection Is Nothing Then
-                CType(connection, IDisposable).Dispose()
-            End If
-        End Try
-    End Function
+    '        MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+    '          + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+    '          "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+    '    Finally
+    '        If Not connection Is Nothing Then
+    '            CType(connection, IDisposable).Dispose()
+    '        End If
+    '    End Try
+    'End Function
 
 
 #End Region

@@ -625,7 +625,7 @@ Public Class frmAjustes
         i = 0
         Dim MovGrilla As Boolean = False
 
-        For i = 0 To grdItems.RowCount - 2
+        For i = 0 To grdItems.RowCount - 1
             'qty es válida?
             Try
                 If grdItems.Rows(i).Cells(ColumnasDelGridItems.QtyDif).Value <> 0 Then
@@ -1246,8 +1246,8 @@ Public Class frmAjustes
         Dim i As Integer
         Dim ValorNuevo As Double
         Dim StockActual As Double
-        Dim IdStockMov As Long
-        Dim Stock As Double
+        'Dim IdStockMov As Long
+        'Dim Stock As Double
         Dim QtyWEB As Double
 
         Dim Comprob As String
@@ -1256,7 +1256,7 @@ Public Class frmAjustes
 
             Try
                 i = 0
-                Do While i < grdItems.Rows.Count - 1
+                Do While i <= grdItems.Rows.Count - 1
 
                     If Not (grdItems.Rows(i).Cells(ColumnasDelGridItems.QtyNva).Value Is DBNull.Value) Then
 
@@ -1436,39 +1436,39 @@ Public Class frmAjustes
                             End If
 
 
-                            If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
+                            'If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
 
-                                If ValorNuevo > 0 Then ' And Not cmbAlmacen.Text.Contains("PRINCIPAL") Then
+                            'If ValorNuevo > 0 Then ' And Not cmbAlmacen.Text.Contains("PRINCIPAL") Then
 
-                                    Stock = param_Stock.Value
-                                    IdStockMov = param_IdStockMov.Value
+                            '    Stock = param_Stock.Value
+                            '    IdStockMov = param_IdStockMov.Value
 
-                                    Try
-                                        Dim sqlstring As String
-                                        Dim ds_Empresa As Data.DataSet
+                            '    Try
+                            '        Dim sqlstring As String
+                            '        Dim ds_Empresa As Data.DataSet
 
-                                        'sqlstring = "update stock set qty = " & ValorActual & ", dateupd=getdate(),userupd= " & UserID & _
-                                        '    " where idmaterial= " & grdItems.Rows(i).Cells(ColumnasDelGridItems.IDMaterial).Value & _
-                                        '    "  and idunidad= " & grdItems.Rows(i).Cells(ColumnasDelGridItems.IDUnidad).Value & _
-                                        '    " and idalmacen = " & cmbAlmacen.SelectedValue
+                            '        'sqlstring = "update stock set qty = " & ValorActual & ", dateupd=getdate(),userupd= " & UserID & _
+                            '        '    " where idmaterial= " & grdItems.Rows(i).Cells(ColumnasDelGridItems.IDMaterial).Value & _
+                            '        '    "  and idunidad= " & grdItems.Rows(i).Cells(ColumnasDelGridItems.IDUnidad).Value & _
+                            '        '    " and idalmacen = " & cmbAlmacen.SelectedValue
 
-                                        sqlstring = "exec spStock_Insert '" & grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Material).Value & "', '" & _
-                                            grdItems.Rows(i).Cells(ColumnasDelGridItems.IDUnidad).Value & "', " & cmbAlmacen.SelectedValue & ", 'A', " & _
-                                            QtyWEB & ", " & Stock & ", " & IdStockMov & ", '" & Comprob & "', " & cmbMotivo.SelectedValue & ", " & UserID
+                            '        sqlstring = "exec " & NameSP_spStockInsert & " '" & grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_Material).Value & "', '" & _
+                            '            grdItems.Rows(i).Cells(ColumnasDelGridItems.IDUnidad).Value & "', " & cmbAlmacen.SelectedValue & ", 'A', " & _
+                            '            QtyWEB & ", " & Stock & ", " & IdStockMov & ", '" & Comprob & "', " & cmbMotivo.SelectedValue & ", " & UserID
 
-                                        'tranWEB.Sql_Set(sqlstring)
+                            '        'tranWEB.Sql_Set(sqlstring)
 
-                                        If tranWEB.Sql_Get_Value(sqlstring) > 0 Then
-                                            ds_Empresa = SqlHelper.ExecuteDataset(tran, CommandType.Text, "UPDATE StockMov SET ActualizadoWEB = 1 WHERE id = " & IdStockMov)
-                                            ds_Empresa.Dispose()
-                                        End If
+                            '        If tranWEB.Sql_Get_Value(sqlstring) > 0 Then
+                            '            ds_Empresa = SqlHelper.ExecuteDataset(tran, CommandType.Text, "UPDATE [StockMov] SET ActualizadoWEB = 1 WHERE id = " & IdStockMov)
+                            '            ds_Empresa.Dispose()
+                            '        End If
 
-                                    Catch ex As Exception
-                                        'MsgBox(ex.Message)
-                                        MsgBox("No se puede actualizar en la Web el movimiento de stock actual. Ejecute el botón sincronizar para actualizar el servidor WEB.")
-                                    End Try
-                                End If
-                            End If
+                            '    Catch ex As Exception
+                            '        'MsgBox(ex.Message)
+                            '        MsgBox("No se puede actualizar en la Web el movimiento de stock actual. Ejecute el botón sincronizar para actualizar el servidor WEB.")
+                            '    End Try
+                            'End If
+                            'End If
 
 
                         Catch ex As Exception

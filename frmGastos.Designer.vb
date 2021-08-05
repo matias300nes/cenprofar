@@ -20,6 +20,9 @@ Partial Class frmGastos
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmGastos))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.cmbUsuarioGasto = New System.Windows.Forms.ComboBox()
+        Me.txtidpago = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.Label26 = New System.Windows.Forms.Label()
         Me.lstFacturasPendientes = New System.Windows.Forms.ListView()
         Me.Codigo = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -79,7 +82,6 @@ Partial Class frmGastos
         Me.lblNroRemito = New System.Windows.Forms.Label()
         Me.chkRecepcion = New System.Windows.Forms.CheckBox()
         Me.cmbRecepcion = New System.Windows.Forms.ComboBox()
-        Me.txtidpago = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.chkFacturaCancelada = New System.Windows.Forms.CheckBox()
         Me.dtpFECHA = New System.Windows.Forms.DateTimePicker()
         Me.Label14 = New System.Windows.Forms.Label()
@@ -109,6 +111,9 @@ Partial Class frmGastos
         '
         Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox1.Controls.Add(Me.Label27)
+        Me.GroupBox1.Controls.Add(Me.cmbUsuarioGasto)
+        Me.GroupBox1.Controls.Add(Me.txtidpago)
         Me.GroupBox1.Controls.Add(Me.Label26)
         Me.GroupBox1.Controls.Add(Me.lstFacturasPendientes)
         Me.GroupBox1.Controls.Add(Me.txtSubtotalExento)
@@ -166,7 +171,6 @@ Partial Class frmGastos
         Me.GroupBox1.Controls.Add(Me.lblNroRemito)
         Me.GroupBox1.Controls.Add(Me.chkRecepcion)
         Me.GroupBox1.Controls.Add(Me.cmbRecepcion)
-        Me.GroupBox1.Controls.Add(Me.txtidpago)
         Me.GroupBox1.Controls.Add(Me.chkFacturaCancelada)
         Me.GroupBox1.Controls.Add(Me.dtpFECHA)
         Me.GroupBox1.Controls.Add(Me.Label14)
@@ -184,6 +188,47 @@ Partial Class frmGastos
         Me.GroupBox1.Size = New System.Drawing.Size(1338, 210)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
+        '
+        'Label27
+        '
+        Me.Label27.AutoSize = True
+        Me.Label27.Location = New System.Drawing.Point(418, 16)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(74, 13)
+        Me.Label27.TabIndex = 343
+        Me.Label27.Text = "Usuario Gasto"
+        '
+        'cmbUsuarioGasto
+        '
+        Me.cmbUsuarioGasto.AccessibleName = ""
+        Me.cmbUsuarioGasto.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.cmbUsuarioGasto.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbUsuarioGasto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbUsuarioGasto.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbUsuarioGasto.FormattingEnabled = True
+        Me.cmbUsuarioGasto.Location = New System.Drawing.Point(421, 32)
+        Me.cmbUsuarioGasto.Name = "cmbUsuarioGasto"
+        Me.cmbUsuarioGasto.Size = New System.Drawing.Size(194, 21)
+        Me.cmbUsuarioGasto.TabIndex = 3
+        '
+        'txtidpago
+        '
+        Me.txtidpago.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtidpago.Decimals = CType(2, Byte)
+        Me.txtidpago.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
+        Me.txtidpago.Enabled = False
+        Me.txtidpago.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
+        Me.txtidpago.Location = New System.Drawing.Point(1209, 102)
+        Me.txtidpago.MaxLength = 8
+        Me.txtidpago.Name = "txtidpago"
+        Me.txtidpago.Size = New System.Drawing.Size(40, 20)
+        Me.txtidpago.TabIndex = 193
+        Me.txtidpago.Text_1 = Nothing
+        Me.txtidpago.Text_2 = Nothing
+        Me.txtidpago.Text_3 = Nothing
+        Me.txtidpago.Text_4 = Nothing
+        Me.txtidpago.UserValues = Nothing
+        Me.txtidpago.Visible = False
         '
         'Label26
         '
@@ -628,7 +673,7 @@ Partial Class frmGastos
         Me.txtIdMoneda.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtIdMoneda.Enabled = False
         Me.txtIdMoneda.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtIdMoneda.Location = New System.Drawing.Point(648, 16)
+        Me.txtIdMoneda.Location = New System.Drawing.Point(758, 17)
         Me.txtIdMoneda.MaxLength = 8
         Me.txtIdMoneda.Name = "txtIdMoneda"
         Me.txtIdMoneda.Size = New System.Drawing.Size(16, 20)
@@ -825,7 +870,7 @@ Partial Class frmGastos
         Me.txtIdProveedor.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtIdProveedor.Enabled = False
         Me.txtIdProveedor.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtIdProveedor.Location = New System.Drawing.Point(573, 6)
+        Me.txtIdProveedor.Location = New System.Drawing.Point(683, 7)
         Me.txtIdProveedor.MaxLength = 8
         Me.txtIdProveedor.Name = "txtIdProveedor"
         Me.txtIdProveedor.Size = New System.Drawing.Size(16, 20)
@@ -841,7 +886,7 @@ Partial Class frmGastos
         '
         Me.chkCancelado.AutoSize = True
         Me.chkCancelado.Enabled = False
-        Me.chkCancelado.Location = New System.Drawing.Point(1215, 37)
+        Me.chkCancelado.Location = New System.Drawing.Point(1076, 59)
         Me.chkCancelado.Name = "chkCancelado"
         Me.chkCancelado.Size = New System.Drawing.Size(77, 17)
         Me.chkCancelado.TabIndex = 21
@@ -874,7 +919,7 @@ Partial Class frmGastos
         '
         Me.lblNroRecepcion.AutoSize = True
         Me.lblNroRecepcion.Enabled = False
-        Me.lblNroRecepcion.Location = New System.Drawing.Point(877, 16)
+        Me.lblNroRecepcion.Location = New System.Drawing.Point(987, 17)
         Me.lblNroRecepcion.Name = "lblNroRecepcion"
         Me.lblNroRecepcion.Size = New System.Drawing.Size(79, 13)
         Me.lblNroRecepcion.TabIndex = 239
@@ -884,7 +929,7 @@ Partial Class frmGastos
         '
         Me.lblNroRemito1.AutoSize = True
         Me.lblNroRemito1.Enabled = False
-        Me.lblNroRemito1.Location = New System.Drawing.Point(1063, 16)
+        Me.lblNroRemito1.Location = New System.Drawing.Point(1173, 17)
         Me.lblNroRemito1.Name = "lblNroRemito1"
         Me.lblNroRemito1.Size = New System.Drawing.Size(60, 13)
         Me.lblNroRemito1.TabIndex = 237
@@ -895,7 +940,7 @@ Partial Class frmGastos
         Me.lblNroRemito.BackColor = System.Drawing.Color.White
         Me.lblNroRemito.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.lblNroRemito.Enabled = False
-        Me.lblNroRemito.Location = New System.Drawing.Point(1066, 33)
+        Me.lblNroRemito.Location = New System.Drawing.Point(1176, 33)
         Me.lblNroRemito.Name = "lblNroRemito"
         Me.lblNroRemito.Size = New System.Drawing.Size(143, 19)
         Me.lblNroRemito.TabIndex = 7
@@ -904,7 +949,7 @@ Partial Class frmGastos
         '
         Me.chkRecepcion.AutoSize = True
         Me.chkRecepcion.Enabled = False
-        Me.chkRecepcion.Location = New System.Drawing.Point(796, 34)
+        Me.chkRecepcion.Location = New System.Drawing.Point(906, 34)
         Me.chkRecepcion.Name = "chkRecepcion"
         Me.chkRecepcion.Size = New System.Drawing.Size(78, 17)
         Me.chkRecepcion.TabIndex = 5
@@ -919,29 +964,10 @@ Partial Class frmGastos
         Me.cmbRecepcion.Enabled = False
         Me.cmbRecepcion.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbRecepcion.FormattingEnabled = True
-        Me.cmbRecepcion.Location = New System.Drawing.Point(880, 32)
+        Me.cmbRecepcion.Location = New System.Drawing.Point(990, 32)
         Me.cmbRecepcion.Name = "cmbRecepcion"
         Me.cmbRecepcion.Size = New System.Drawing.Size(180, 21)
         Me.cmbRecepcion.TabIndex = 6
-        '
-        'txtidpago
-        '
-        Me.txtidpago.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtidpago.Decimals = CType(2, Byte)
-        Me.txtidpago.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
-        Me.txtidpago.Enabled = False
-        Me.txtidpago.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtidpago.Location = New System.Drawing.Point(1220, 19)
-        Me.txtidpago.MaxLength = 8
-        Me.txtidpago.Name = "txtidpago"
-        Me.txtidpago.Size = New System.Drawing.Size(40, 20)
-        Me.txtidpago.TabIndex = 193
-        Me.txtidpago.Text_1 = Nothing
-        Me.txtidpago.Text_2 = Nothing
-        Me.txtidpago.Text_3 = Nothing
-        Me.txtidpago.Text_4 = Nothing
-        Me.txtidpago.UserValues = Nothing
-        Me.txtidpago.Visible = False
         '
         'chkFacturaCancelada
         '
@@ -1008,8 +1034,8 @@ Partial Class frmGastos
         '
         Me.picProveedores.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.picProveedores.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.picProveedores.Image = Global.PORKYS.My.Resources.Resources.Info
-        Me.picProveedores.Location = New System.Drawing.Point(772, 32)
+        Me.picProveedores.Image = Global.SEYC.My.Resources.Resources.Info
+        Me.picProveedores.Location = New System.Drawing.Point(882, 32)
         Me.picProveedores.Name = "picProveedores"
         Me.picProveedores.Size = New System.Drawing.Size(18, 20)
         Me.picProveedores.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -1019,7 +1045,7 @@ Partial Class frmGastos
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(423, 16)
+        Me.Label9.Location = New System.Drawing.Point(621, 16)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(60, 13)
         Me.Label9.TabIndex = 124
@@ -1032,9 +1058,9 @@ Partial Class frmGastos
         Me.cmbProveedor.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbProveedor.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbProveedor.FormattingEnabled = True
-        Me.cmbProveedor.Location = New System.Drawing.Point(423, 32)
+        Me.cmbProveedor.Location = New System.Drawing.Point(621, 32)
         Me.cmbProveedor.Name = "cmbProveedor"
-        Me.cmbProveedor.Size = New System.Drawing.Size(343, 21)
+        Me.cmbProveedor.Size = New System.Drawing.Size(255, 21)
         Me.cmbProveedor.TabIndex = 4
         '
         'txtCodigo
@@ -1294,5 +1320,7 @@ Partial Class frmGastos
     Friend WithEvents Label26 As System.Windows.Forms.Label
     Friend WithEvents Codigo As System.Windows.Forms.ColumnHeader
     Friend WithEvents NroCompr As System.Windows.Forms.ColumnHeader
+    Friend WithEvents Label27 As System.Windows.Forms.Label
+    Friend WithEvents cmbUsuarioGasto As System.Windows.Forms.ComboBox
 
 End Class

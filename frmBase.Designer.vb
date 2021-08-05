@@ -47,7 +47,7 @@ Partial Class frmBase
         Me.btnImagenExcel = New System.Windows.Forms.ToolStripButton()
         Me.ToolStrip_lblCambio = New System.Windows.Forms.ToolStripLabel()
         Me.ToolStripLabel1 = New System.Windows.Forms.ToolStripLabel()
-        Me.ToolStripLabel3 = New System.Windows.Forms.ToolStripLabel()
+        Me.lblConexion = New System.Windows.Forms.ToolStripLabel()
         Me.ToolStripLabel2 = New System.Windows.Forms.ToolStripLabel()
         Me.PicConexion = New System.Windows.Forms.ToolStripLabel()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
@@ -73,10 +73,10 @@ Partial Class frmBase
         '
         'ToolMenu
         '
-        Me.ToolMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnNuevo, Me.btnGuardar, Me.btnCargaContinua, Me.btnEliminar, Me.btnCancelar, Me.btnActivar, Me.btnSalir, Me.ToolStripSeparator1, Me.btnActualizar, Me.ToolStripSeparator2, Me.ToolStripPagina, Me.btnPrimero, Me.btnAnterior, Me.btnSiguiente, Me.btnUltimo, Me.ToolStripSeparator3, Me.btnExcel, Me.btnImportarExcel, Me.btnImprimir, Me.ToolStrip_lblCodMaterial, Me.txtBusquedaMAT, Me.btnImagenExcel, Me.ToolStrip_lblCambio, Me.ToolStripLabel1, Me.ToolStripLabel3, Me.ToolStripLabel2, Me.PicConexion})
+        Me.ToolMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnNuevo, Me.btnGuardar, Me.btnCargaContinua, Me.btnEliminar, Me.btnCancelar, Me.btnActivar, Me.btnSalir, Me.ToolStripSeparator1, Me.btnActualizar, Me.ToolStripSeparator2, Me.ToolStripPagina, Me.btnPrimero, Me.btnAnterior, Me.btnSiguiente, Me.btnUltimo, Me.ToolStripSeparator3, Me.btnExcel, Me.btnImportarExcel, Me.btnImprimir, Me.ToolStrip_lblCodMaterial, Me.txtBusquedaMAT, Me.btnImagenExcel, Me.ToolStrip_lblCambio, Me.ToolStripLabel1, Me.lblConexion, Me.ToolStripLabel2, Me.PicConexion})
         Me.ToolMenu.Location = New System.Drawing.Point(0, 0)
         Me.ToolMenu.Name = "ToolMenu"
-        Me.ToolMenu.Size = New System.Drawing.Size(1816, 28)
+        Me.ToolMenu.Size = New System.Drawing.Size(1362, 25)
         Me.ToolMenu.TabIndex = 2
         Me.ToolMenu.Text = "ToolStrip1"
         '
@@ -86,7 +86,7 @@ Partial Class frmBase
         Me.btnNuevo.Image = CType(resources.GetObject("btnNuevo.Image"), System.Drawing.Image)
         Me.btnNuevo.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.btnNuevo.Name = "btnNuevo"
-        Me.btnNuevo.Size = New System.Drawing.Size(106, 25)
+        Me.btnNuevo.Size = New System.Drawing.Size(88, 22)
         Me.btnNuevo.Text = "&Nuevo (F3)"
         Me.btnNuevo.ToolTipText = "Agregar un nuevo registro"
         '
@@ -97,7 +97,7 @@ Partial Class frmBase
         Me.btnGuardar.Image = CType(resources.GetObject("btnGuardar.Image"), System.Drawing.Image)
         Me.btnGuardar.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.btnGuardar.Name = "btnGuardar"
-        Me.btnGuardar.Size = New System.Drawing.Size(113, 25)
+        Me.btnGuardar.Size = New System.Drawing.Size(96, 22)
         Me.btnGuardar.Text = "&Guardar(F4)"
         Me.btnGuardar.ToolTipText = "Guardar el registro"
         '
@@ -107,7 +107,7 @@ Partial Class frmBase
         Me.btnCargaContinua.Image = CType(resources.GetObject("btnCargaContinua.Image"), System.Drawing.Image)
         Me.btnCargaContinua.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.btnCargaContinua.Name = "btnCargaContinua"
-        Me.btnCargaContinua.Size = New System.Drawing.Size(169, 25)
+        Me.btnCargaContinua.Size = New System.Drawing.Size(139, 22)
         Me.btnCargaContinua.Text = "Carga Contínua (F6)"
         Me.btnCargaContinua.Visible = False
         '
@@ -117,7 +117,7 @@ Partial Class frmBase
         Me.btnEliminar.Image = CType(resources.GetObject("btnEliminar.Image"), System.Drawing.Image)
         Me.btnEliminar.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.btnEliminar.Name = "btnEliminar"
-        Me.btnEliminar.Size = New System.Drawing.Size(82, 25)
+        Me.btnEliminar.Size = New System.Drawing.Size(72, 22)
         Me.btnEliminar.Text = "Eliminar"
         Me.btnEliminar.ToolTipText = "Eliminar el registro actual"
         '
@@ -127,7 +127,7 @@ Partial Class frmBase
         Me.btnCancelar.Image = CType(resources.GetObject("btnCancelar.Image"), System.Drawing.Image)
         Me.btnCancelar.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.btnCancelar.Name = "btnCancelar"
-        Me.btnCancelar.Size = New System.Drawing.Size(87, 25)
+        Me.btnCancelar.Size = New System.Drawing.Size(76, 22)
         Me.btnCancelar.Text = "Cancelar"
         Me.btnCancelar.ToolTipText = "Cancelar el agregado de un registro nuevo"
         '
@@ -135,25 +135,25 @@ Partial Class frmBase
         '
         Me.btnActivar.Enabled = False
         Me.btnActivar.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnActivar.Image = Global.PORKYS.My.Resources.Resources.Symbol_Check
+        Me.btnActivar.Image = Global.SEYC.My.Resources.Resources.Symbol_Check
         Me.btnActivar.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.btnActivar.Name = "btnActivar"
-        Me.btnActivar.Size = New System.Drawing.Size(76, 25)
+        Me.btnActivar.Size = New System.Drawing.Size(68, 22)
         Me.btnActivar.Text = "Activar"
         '
         'btnSalir
         '
         Me.btnSalir.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnSalir.Image = Global.PORKYS.My.Resources.Resources._exit
+        Me.btnSalir.Image = Global.SEYC.My.Resources.Resources._exit
         Me.btnSalir.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.btnSalir.Name = "btnSalir"
-        Me.btnSalir.Size = New System.Drawing.Size(99, 25)
+        Me.btnSalir.Size = New System.Drawing.Size(85, 22)
         Me.btnSalir.Text = "Salir (F12)"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 28)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 25)
         '
         'btnActualizar
         '
@@ -161,20 +161,20 @@ Partial Class frmBase
         Me.btnActualizar.Image = CType(resources.GetObject("btnActualizar.Image"), System.Drawing.Image)
         Me.btnActualizar.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.btnActualizar.Name = "btnActualizar"
-        Me.btnActualizar.Size = New System.Drawing.Size(128, 25)
+        Me.btnActualizar.Size = New System.Drawing.Size(110, 22)
         Me.btnActualizar.Text = "Actualizar (F5)"
         '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(6, 28)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(6, 25)
         '
         'ToolStripPagina
         '
         Me.ToolStripPagina.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ToolStripPagina.DropDownWidth = 60
         Me.ToolStripPagina.Name = "ToolStripPagina"
-        Me.ToolStripPagina.Size = New System.Drawing.Size(99, 28)
+        Me.ToolStripPagina.Size = New System.Drawing.Size(75, 25)
         Me.ToolStripPagina.ToolTipText = "Seleccione la pagina que quiere ver"
         '
         'btnPrimero
@@ -183,7 +183,7 @@ Partial Class frmBase
         Me.btnPrimero.Image = CType(resources.GetObject("btnPrimero.Image"), System.Drawing.Image)
         Me.btnPrimero.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.btnPrimero.Name = "btnPrimero"
-        Me.btnPrimero.Size = New System.Drawing.Size(82, 25)
+        Me.btnPrimero.Size = New System.Drawing.Size(72, 22)
         Me.btnPrimero.Text = "Primero"
         Me.btnPrimero.ToolTipText = "Ir al primer registro"
         '
@@ -193,7 +193,7 @@ Partial Class frmBase
         Me.btnAnterior.Image = CType(resources.GetObject("btnAnterior.Image"), System.Drawing.Image)
         Me.btnAnterior.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.btnAnterior.Name = "btnAnterior"
-        Me.btnAnterior.Size = New System.Drawing.Size(85, 25)
+        Me.btnAnterior.Size = New System.Drawing.Size(74, 22)
         Me.btnAnterior.Text = "Anterior"
         Me.btnAnterior.ToolTipText = "Ir al registro anterior"
         '
@@ -203,7 +203,7 @@ Partial Class frmBase
         Me.btnSiguiente.Image = CType(resources.GetObject("btnSiguiente.Image"), System.Drawing.Image)
         Me.btnSiguiente.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.btnSiguiente.Name = "btnSiguiente"
-        Me.btnSiguiente.Size = New System.Drawing.Size(92, 25)
+        Me.btnSiguiente.Size = New System.Drawing.Size(80, 22)
         Me.btnSiguiente.Text = "Siguiente"
         Me.btnSiguiente.ToolTipText = "Ir al siguiente registro"
         '
@@ -213,14 +213,14 @@ Partial Class frmBase
         Me.btnUltimo.Image = CType(resources.GetObject("btnUltimo.Image"), System.Drawing.Image)
         Me.btnUltimo.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.btnUltimo.Name = "btnUltimo"
-        Me.btnUltimo.Size = New System.Drawing.Size(72, 25)
+        Me.btnUltimo.Size = New System.Drawing.Size(64, 22)
         Me.btnUltimo.Text = "Último"
         Me.btnUltimo.ToolTipText = "Ir al último registro"
         '
         'ToolStripSeparator3
         '
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(6, 28)
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(6, 25)
         '
         'btnExcel
         '
@@ -228,7 +228,7 @@ Partial Class frmBase
         Me.btnExcel.Image = CType(resources.GetObject("btnExcel.Image"), System.Drawing.Image)
         Me.btnExcel.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.btnExcel.Name = "btnExcel"
-        Me.btnExcel.Size = New System.Drawing.Size(23, 25)
+        Me.btnExcel.Size = New System.Drawing.Size(23, 22)
         Me.btnExcel.Text = "Exportar Excel"
         Me.btnExcel.Visible = False
         '
@@ -238,7 +238,7 @@ Partial Class frmBase
         Me.btnImportarExcel.Image = CType(resources.GetObject("btnImportarExcel.Image"), System.Drawing.Image)
         Me.btnImportarExcel.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.btnImportarExcel.Name = "btnImportarExcel"
-        Me.btnImportarExcel.Size = New System.Drawing.Size(23, 25)
+        Me.btnImportarExcel.Size = New System.Drawing.Size(23, 22)
         Me.btnImportarExcel.Text = "Importar desde Excel"
         Me.btnImportarExcel.ToolTipText = "Importar Productos desde Excel"
         Me.btnImportarExcel.Visible = False
@@ -249,21 +249,21 @@ Partial Class frmBase
         Me.btnImprimir.Image = CType(resources.GetObject("btnImprimir.Image"), System.Drawing.Image)
         Me.btnImprimir.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.btnImprimir.Name = "btnImprimir"
-        Me.btnImprimir.Size = New System.Drawing.Size(23, 25)
+        Me.btnImprimir.Size = New System.Drawing.Size(23, 22)
         Me.btnImprimir.Text = "Imprimir Reporte"
         '
         'ToolStrip_lblCodMaterial
         '
         Me.ToolStrip_lblCodMaterial.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ToolStrip_lblCodMaterial.Name = "ToolStrip_lblCodMaterial"
-        Me.ToolStrip_lblCodMaterial.Size = New System.Drawing.Size(122, 25)
+        Me.ToolStrip_lblCodMaterial.Size = New System.Drawing.Size(92, 22)
         Me.ToolStrip_lblCodMaterial.Text = "(F11) Cód. MAT."
         Me.ToolStrip_lblCodMaterial.Visible = False
         '
         'txtBusquedaMAT
         '
         Me.txtBusquedaMAT.Name = "txtBusquedaMAT"
-        Me.txtBusquedaMAT.Size = New System.Drawing.Size(121, 28)
+        Me.txtBusquedaMAT.Size = New System.Drawing.Size(92, 23)
         Me.txtBusquedaMAT.Visible = False
         '
         'btnImagenExcel
@@ -272,7 +272,7 @@ Partial Class frmBase
         Me.btnImagenExcel.Image = CType(resources.GetObject("btnImagenExcel.Image"), System.Drawing.Image)
         Me.btnImagenExcel.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.btnImagenExcel.Name = "btnImagenExcel"
-        Me.btnImagenExcel.Size = New System.Drawing.Size(23, 25)
+        Me.btnImagenExcel.Size = New System.Drawing.Size(23, 20)
         Me.btnImagenExcel.Visible = False
         '
         'ToolStrip_lblCambio
@@ -281,21 +281,21 @@ Partial Class frmBase
         Me.ToolStrip_lblCambio.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ToolStrip_lblCambio.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.ToolStrip_lblCambio.Name = "ToolStrip_lblCambio"
-        Me.ToolStrip_lblCambio.Size = New System.Drawing.Size(91, 25)
+        Me.ToolStrip_lblCambio.Size = New System.Drawing.Size(77, 14)
         Me.ToolStrip_lblCambio.Text = " 1 U$$ = $ "
         Me.ToolStrip_lblCambio.Visible = False
         '
         'ToolStripLabel1
         '
         Me.ToolStripLabel1.Name = "ToolStripLabel1"
-        Me.ToolStripLabel1.Size = New System.Drawing.Size(0, 25)
+        Me.ToolStripLabel1.Size = New System.Drawing.Size(0, 0)
         '
-        'ToolStripLabel3
+        'lblConexion
         '
-        Me.ToolStripLabel3.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ToolStripLabel3.Name = "ToolStripLabel3"
-        Me.ToolStripLabel3.Size = New System.Drawing.Size(74, 20)
-        Me.ToolStripLabel3.Text = "Conexión"
+        Me.lblConexion.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblConexion.Name = "lblConexion"
+        Me.lblConexion.Size = New System.Drawing.Size(59, 15)
+        Me.lblConexion.Text = "Conexión"
         '
         'ToolStripLabel2
         '
@@ -304,7 +304,7 @@ Partial Class frmBase
         '
         'PicConexion
         '
-        Me.PicConexion.Image = Global.PORKYS.My.Resources.Resources.Red_Ball_icon
+        Me.PicConexion.Image = Global.SEYC.My.Resources.Resources.Red_Ball_icon
         Me.PicConexion.Name = "PicConexion"
         Me.PicConexion.Size = New System.Drawing.Size(16, 16)
         '
@@ -312,11 +312,10 @@ Partial Class frmBase
         '
         Me.StatusStrip1.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Status1, Me.Status2, Me.ToolStripDropDownButton1})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 422)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 339)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Padding = New System.Windows.Forms.Padding(1, 0, 19, 0)
         Me.StatusStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
-        Me.StatusStrip1.Size = New System.Drawing.Size(1816, 22)
+        Me.StatusStrip1.Size = New System.Drawing.Size(1362, 22)
         Me.StatusStrip1.TabIndex = 60
         Me.StatusStrip1.Text = "StatusStrip1"
         '
@@ -343,54 +342,54 @@ Partial Class frmBase
         'RestituirLosDatosAnterioresToolStripMenuItem
         '
         Me.RestituirLosDatosAnterioresToolStripMenuItem.Name = "RestituirLosDatosAnterioresToolStripMenuItem"
-        Me.RestituirLosDatosAnterioresToolStripMenuItem.Size = New System.Drawing.Size(266, 24)
+        Me.RestituirLosDatosAnterioresToolStripMenuItem.Size = New System.Drawing.Size(222, 22)
         Me.RestituirLosDatosAnterioresToolStripMenuItem.Text = "Restituir los datos anteriores"
         '
         'ContextMenuStrip1
         '
         Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FToolStripMenuItem, Me.FiltroExcluyendoLaSelecciónToolStripMenuItem, Me.FiltrarporToolStrip, Me.QuitarElFitroToolStripMenuItem, Me.ToolStripTextBox1, Me.ToolMovilizar})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(285, 158)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(285, 142)
         '
         'FToolStripMenuItem
         '
         Me.FToolStripMenuItem.Image = CType(resources.GetObject("FToolStripMenuItem.Image"), System.Drawing.Image)
         Me.FToolStripMenuItem.Name = "FToolStripMenuItem"
-        Me.FToolStripMenuItem.Size = New System.Drawing.Size(284, 24)
+        Me.FToolStripMenuItem.Size = New System.Drawing.Size(284, 22)
         Me.FToolStripMenuItem.Text = "Filtro por selección"
         Me.FToolStripMenuItem.Visible = False
         '
         'FiltroExcluyendoLaSelecciónToolStripMenuItem
         '
         Me.FiltroExcluyendoLaSelecciónToolStripMenuItem.Name = "FiltroExcluyendoLaSelecciónToolStripMenuItem"
-        Me.FiltroExcluyendoLaSelecciónToolStripMenuItem.Size = New System.Drawing.Size(284, 24)
+        Me.FiltroExcluyendoLaSelecciónToolStripMenuItem.Size = New System.Drawing.Size(284, 22)
         Me.FiltroExcluyendoLaSelecciónToolStripMenuItem.Text = "Filtro excluyendo la selección"
         Me.FiltroExcluyendoLaSelecciónToolStripMenuItem.Visible = False
         '
         'FiltrarporToolStrip
         '
         Me.FiltrarporToolStrip.Name = "FiltrarporToolStrip"
-        Me.FiltrarporToolStrip.Size = New System.Drawing.Size(224, 27)
+        Me.FiltrarporToolStrip.Size = New System.Drawing.Size(224, 23)
         Me.FiltrarporToolStrip.Text = "Filtrar por:"
         '
         'QuitarElFitroToolStripMenuItem
         '
         Me.QuitarElFitroToolStripMenuItem.Image = CType(resources.GetObject("QuitarElFitroToolStripMenuItem.Image"), System.Drawing.Image)
         Me.QuitarElFitroToolStripMenuItem.Name = "QuitarElFitroToolStripMenuItem"
-        Me.QuitarElFitroToolStripMenuItem.Size = New System.Drawing.Size(284, 24)
+        Me.QuitarElFitroToolStripMenuItem.Size = New System.Drawing.Size(284, 22)
         Me.QuitarElFitroToolStripMenuItem.Text = "Quitar el Fitro"
         '
         'ToolStripTextBox1
         '
         Me.ToolStripTextBox1.Name = "ToolStripTextBox1"
-        Me.ToolStripTextBox1.Size = New System.Drawing.Size(224, 27)
+        Me.ToolStripTextBox1.Size = New System.Drawing.Size(224, 23)
         Me.ToolStripTextBox1.Text = "Inmovilizar columnas:"
         Me.ToolStripTextBox1.Visible = False
         '
         'ToolMovilizar
         '
         Me.ToolMovilizar.Name = "ToolMovilizar"
-        Me.ToolMovilizar.Size = New System.Drawing.Size(284, 24)
+        Me.ToolMovilizar.Size = New System.Drawing.Size(284, 22)
         Me.ToolMovilizar.Text = "Movilizar columnas"
         Me.ToolMovilizar.Visible = False
         '
@@ -418,13 +417,12 @@ Partial Class frmBase
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.grd.DefaultCellStyle = DataGridViewCellStyle1
-        Me.grd.Location = New System.Drawing.Point(0, 122)
-        Me.grd.Margin = New System.Windows.Forms.Padding(4)
+        Me.grd.Location = New System.Drawing.Point(0, 99)
         Me.grd.MultiSelect = False
         Me.grd.Name = "grd"
         Me.grd.ReadOnly = True
         Me.grd.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.grd.Size = New System.Drawing.Size(1800, 292)
+        Me.grd.Size = New System.Drawing.Size(1350, 237)
         Me.grd.TabIndex = 62
         '
         'OpenFileDialog1
@@ -433,17 +431,16 @@ Partial Class frmBase
         '
         'frmBase
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoScroll = True
         Me.BackColor = System.Drawing.SystemColors.Control
-        Me.ClientSize = New System.Drawing.Size(1816, 444)
+        Me.ClientSize = New System.Drawing.Size(1362, 361)
         Me.Controls.Add(Me.grd)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.ToolMenu)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.KeyPreview = True
-        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "frmBase"
         Me.Text = "frmBase"
         Me.ToolMenu.ResumeLayout(False)
@@ -499,6 +496,6 @@ Partial Class frmBase
     Friend WithEvents txtBusquedaMAT As System.Windows.Forms.ToolStripTextBox
     Friend WithEvents ToolStripLabel1 As System.Windows.Forms.ToolStripLabel
     Friend WithEvents ToolStripLabel2 As System.Windows.Forms.ToolStripLabel
-    Friend WithEvents ToolStripLabel3 As System.Windows.Forms.ToolStripLabel
+    Friend WithEvents lblConexion As System.Windows.Forms.ToolStripLabel
     Friend WithEvents PicConexion As System.Windows.Forms.ToolStripLabel
 End Class

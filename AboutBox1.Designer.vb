@@ -72,7 +72,7 @@ Partial Class frmAcercade
         'LogoPictureBox
         '
         Me.LogoPictureBox.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.LogoPictureBox.Image = Global.PORKYS.My.Resources.Resources.Acercade
+        Me.LogoPictureBox.Image = Global.SEYC.My.Resources.Resources.Acercade
         Me.LogoPictureBox.Location = New System.Drawing.Point(3, 3)
         Me.LogoPictureBox.Name = "LogoPictureBox"
         Me.TableLayoutPanel.SetRowSpan(Me.LogoPictureBox, 6)

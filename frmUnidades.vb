@@ -305,18 +305,18 @@ Public Class frmUnidades
                     res = param_res.Value
 
                     If res > 0 Then
-                        If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
-                            Try
-                                Dim sqlstring As String
+                        'If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
+                        'Try
+                        '    Dim sqlstring As String
 
-                                sqlstring = "UPDATE [dbo].[Unidades] SET [Eliminado] = 1 WHERE Codigo = '" & txtCODIGO.Text & "'"
-                                tranWEB.Sql_Set(sqlstring)
+                        '    sqlstring = "UPDATE [dbo].[" & NameTable_Unidades & "] SET [Eliminado] = 1 WHERE Codigo = '" & txtCODIGO.Text & "'"
+                        '    tranWEB.Sql_Set(sqlstring)
 
-                            Catch ex As Exception
-                                'MsgBox(ex.Message)
-                                MsgBox("No se puede actualizar en la Web la lista de Rubros. Ejecute el botón sincronizar para actualizar el servidor WEB.")
-                            End Try
-                        End If
+                        'Catch ex As Exception
+                        '    'MsgBox(ex.Message)
+                        '    MsgBox("No se puede actualizar en la Web la lista de Rubros. Ejecute el botón sincronizar para actualizar el servidor WEB.")
+                        'End Try
+                        'End If
                         Util.BorrarGrilla(grd)
                     End If
 
@@ -419,27 +419,27 @@ Public Class frmUnidades
                     'End If
                 End If
 
-                If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
-                    Try
-                        Dim sqlstring As String
+                'If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
+                'Try
+                '    Dim sqlstring As String
 
-                        If bolModo = True Then
-                            sqlstring = "INSERT INTO [dbo].[Unidades] (ID, [Codigo],[Nombre],[Eliminado])" & _
-                                        " values ( " & txtID.Text & ", '" & txtCODIGO.Text.ToUpper & "', '" & txtNOMBRE.Text.ToUpper & "' , 0 )"
+                '    If bolModo = True Then
+                '        sqlstring = "INSERT INTO [dbo].[" & NameTable_Unidades & "] (ID, [Codigo],[Nombre],[Eliminado])" & _
+                '                    " values ( " & txtID.Text & ", '" & txtCODIGO.Text.ToUpper & "', '" & txtNOMBRE.Text.ToUpper & "' , 0 )"
 
-                        Else
-                            sqlstring = "UPDATE [dbo].[Unidades] SET [Codigo] = '" & txtCODIGO.Text.ToUpper & " ', " & _
-                                        " [Nombre] = '" & txtNOMBRE.Text.ToUpper & "' " & _
-                                        " WHERE ID = " & txtID.Text
-                        End If
+                '    Else
+                '        sqlstring = "UPDATE [dbo].[" & NameTable_Unidades & "] SET [Codigo] = '" & txtCODIGO.Text.ToUpper & " ', " & _
+                '                    " [Nombre] = '" & txtNOMBRE.Text.ToUpper & "' " & _
+                '                    " WHERE ID = " & txtID.Text
+                '    End If
 
-                        tranWEB.Sql_Set(sqlstring)
+                '    tranWEB.Sql_Set(sqlstring)
 
-                    Catch ex As Exception
-                        'MsgBox(ex.Message)
-                        MsgBox("No se puede actualizar en la Web la lista de Marcas. Ejecute el botón sincronizar para actualizar el servidor WEB.")
-                    End Try
-                End If
+                'Catch ex As Exception
+                '    'MsgBox(ex.Message)
+                '    MsgBox("No se puede actualizar en la Web la lista de Marcas. Ejecute el botón sincronizar para actualizar el servidor WEB.")
+                'End Try
+                'End If
 
                 bolModo = False
                 PrepararBotones()
@@ -516,18 +516,18 @@ Public Class frmUnidades
             ds_Update.Dispose()
 
 
-            If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
-                Try
-                    Dim sqlstring As String
+            'If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
+            'Try
+            '    Dim sqlstring As String
 
-                    sqlstring = "UPDATE [dbo].[Unidades] SET [Eliminado] = 0 WHERE Codigo = '" & grd.CurrentRow.Cells(1).Value & "'"
-                    tranWEB.Sql_Set(sqlstring)
+            '    sqlstring = "UPDATE [dbo].[" & NameTable_Unidades & "] SET [Eliminado] = 0 WHERE Codigo = '" & grd.CurrentRow.Cells(1).Value & "'"
+            '    tranWEB.Sql_Set(sqlstring)
 
-                Catch ex As Exception
-                    'MsgBox(ex.Message)
-                    MsgBox("No se puede Activa en la Web la Unidad seleccionada. Ejecute el botón sincronizar para actualizar el servidor WEB.")
-                End Try
-            End If
+            'Catch ex As Exception
+            '    'MsgBox(ex.Message)
+            '    MsgBox("No se puede Activa en la Web la Unidad seleccionada. Ejecute el botón sincronizar para actualizar el servidor WEB.")
+            'End Try
+            'End If
 
             SQL = "exec spUnidades_Select_All @Eliminado = 1"
 
