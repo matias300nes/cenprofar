@@ -261,7 +261,8 @@ Public Class frmRecepciones
     End Sub
 
     Private Sub txtid_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) _
-    Handles txtID.KeyPress, txtCODIGO.KeyPress, txtNota.KeyPress
+    Handles txtID.KeyPress, txtCODIGO.KeyPress, txtNota.KeyPress, txtPtoVta.KeyPress, txtNroFactura.KeyPress, _
+             txtSubtotal.KeyPress
         If e.KeyChar = ChrW(Keys.Enter) Then
             e.Handled = True
             SendKeys.Send("{TAB}")
@@ -390,7 +391,7 @@ Public Class frmRecepciones
         End If
     End Sub
 
-    Private Sub cmbTipoComprobante_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub cmbTipoComprobante_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmbTipoComprobante.SelectedIndexChanged
 
         txtMontoIVA10.Text = "0"
         txtMontoIVA21.Text = "0"
@@ -424,7 +425,7 @@ Public Class frmRecepciones
 
     End Sub
 
-    Private Sub txtSubtotal_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs)
+    Private Sub txtSubtotal_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtSubtotal.LostFocus
         If band = 1 Then
             If txtSubtotal.Text <> "" Then
 
@@ -456,14 +457,14 @@ Public Class frmRecepciones
         End If
     End Sub
 
-    Private Sub txtsubtotalNoGravado_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
+    Private Sub txtsubtotalNoGravado_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtSubtotalExento.KeyPress
         If e.KeyChar = ChrW(Keys.Enter) Then
             e.Handled = True
             SendKeys.Send("{TAB}")
         End If
     End Sub
 
-    Private Sub txtSubtotalNoGravado_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs)
+    Private Sub txtSubtotalNoGravado_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtSubtotalExento.LostFocus
         If band = 1 Then
             If txtSubtotalExento.Text <> "" Then
 
@@ -478,7 +479,7 @@ Public Class frmRecepciones
 
 
     '(currentcellChanged)
-    Protected Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs)
+    Protected Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles grd.CurrentCellChanged
 
         If Permitir Then
             Try
@@ -564,25 +565,25 @@ Public Class frmRecepciones
         End If
     End Sub
 
-    Private Sub txtPtoVta_LostFocus(sender As Object, e As EventArgs)
+    Private Sub txtPtoVta_LostFocus(sender As Object, e As EventArgs) Handles txtPtoVta.LostFocus
         If band = 1 And bolModo = True Then
             txtNroFacturaCompleto.Text = txtPtoVta.Text.Trim.PadLeft(4, "0") & "-" & txtNroFactura.Text.Trim.PadLeft(8, "0")
         End If
     End Sub
 
-    Private Sub txtNroFactura_LostFocus(sender As Object, e As EventArgs)
+    Private Sub txtNroFactura_LostFocus(sender As Object, e As EventArgs) Handles txtNroFactura.LostFocus
         If band = 1 And bolModo = True Then
             txtNroFacturaCompleto.Text = txtPtoVta.Text.Trim.PadLeft(4, "0") & "-" & txtNroFactura.Text.Trim.PadLeft(8, "0")
         End If
     End Sub
 
-    Private Sub txtPtoVtaRemito_LostFocus(sender As Object, e As EventArgs)
+    Private Sub txtPtoVtaRemito_LostFocus(sender As Object, e As EventArgs) Handles txtPtoVtaRemito.LostFocus
         If band = 1 Then 'And bolModo = True Then
             txtNroRemitoCompleto.Text = txtPtoVtaRemito.Text.Trim.PadLeft(4, "0") & "-" & txtNroCompRemito.Text.Trim.PadLeft(8, "0")
         End If
     End Sub
 
-    Private Sub txtNroCompRemito_LostFocus(sender As Object, e As EventArgs)
+    Private Sub txtNroCompRemito_LostFocus(sender As Object, e As EventArgs) Handles txtNroCompRemito.LostFocus
         If band = 1 Then 'And bolModo = True Then
             txtNroRemitoCompleto.Text = txtPtoVtaRemito.Text.Trim.PadLeft(4, "0") & "-" & txtNroCompRemito.Text.Trim.PadLeft(8, "0")
         End If
@@ -655,19 +656,19 @@ Public Class frmRecepciones
 
     End Sub
 
-    Private Sub txtMontoIVA21_LostFocus(sender As Object, e As EventArgs)
+    Private Sub txtMontoIVA21_LostFocus(sender As Object, e As EventArgs) Handles txtMontoIVA21.LostFocus
         CalcularMontoIVA()
     End Sub
 
-    Private Sub txtMontoIVA10_LostFocus(sender As Object, e As EventArgs)
+    Private Sub txtMontoIVA10_LostFocus(sender As Object, e As EventArgs) Handles txtMontoIVA10.LostFocus
         CalcularMontoIVA()
     End Sub
 
-    Private Sub txtMontoIVA27_LostFocus(sender As Object, e As EventArgs)
+    Private Sub txtMontoIVA27_LostFocus(sender As Object, e As EventArgs) Handles txtMontoIVA27.LostFocus
         CalcularMontoIVA()
     End Sub
 
-    Private Sub txtMontoIVA21_KeyPress(sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
+    Private Sub txtMontoIVA21_KeyPress(sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtMontoIVA21.KeyPress
         If e.KeyChar = ChrW(Keys.Enter) Then
             CalcularMontoIVA()
             e.Handled = True
@@ -675,7 +676,7 @@ Public Class frmRecepciones
         End If
     End Sub
 
-    Private Sub txtMontoIVA10_KeyPress(sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
+    Private Sub txtMontoIVA10_KeyPress(sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtMontoIVA10.KeyPress
         If e.KeyChar = ChrW(Keys.Enter) Then
             CalcularMontoIVA()
             e.Handled = True
@@ -683,7 +684,7 @@ Public Class frmRecepciones
         End If
     End Sub
 
-    Private Sub txtMontoIVA27_KeyPress(sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
+    Private Sub txtMontoIVA27_KeyPress(sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtMontoIVA27.KeyPress
         If e.KeyChar = ChrW(Keys.Enter) Then
             CalcularMontoIVA()
             e.Handled = True
@@ -691,7 +692,7 @@ Public Class frmRecepciones
         End If
     End Sub
 
-    Private Sub txtCantIVA_ValueChanged(sender As Object, e As EventArgs)
+    Private Sub txtCantIVA_ValueChanged(sender As Object, e As EventArgs) Handles txtCantIVA.ValueChanged
         If cmbTipoComprobante.Text = "FACTURAS A" Or _
             cmbTipoComprobante.Text = "NOTAS DE CREDITO A" Or _
             cmbTipoComprobante.Text = "NOTAS DE DEBITO A" Or _
@@ -708,7 +709,7 @@ Public Class frmRecepciones
         End If
     End Sub
 
-    Private Sub chkCargarFactura_CheckedChanged(sender As Object, e As EventArgs)
+    Private Sub chkCargarFactura_CheckedChanged(sender As Object, e As EventArgs) Handles chkCargarFactura.CheckedChanged
 
         cmbTipoComprobante.Enabled = chkCargarFactura.Checked
         Label10.Enabled = chkCargarFactura.Checked
@@ -750,7 +751,7 @@ Public Class frmRecepciones
 
     End Sub
 
-    Private Sub chkRecepcion_CheckedChanged(sender As Object, e As EventArgs)
+    Private Sub chkRecepcion_CheckedChanged(sender As Object, e As EventArgs) Handles chkGastos.CheckedChanged
         cmbGastos.Enabled = chkGastos.Checked
         txtPtoVtaRemito.Enabled = Not chkGastos.Checked
         txtNroCompRemito.Enabled = Not chkGastos.Checked
@@ -772,7 +773,7 @@ Public Class frmRecepciones
 
     End Sub
 
-    Private Sub cmbGastos_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs)
+    Private Sub cmbGastos_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cmbGastos.SelectedIndexChanged
         If band = 1 And chkGastos.Checked = True And bolModo = True Then
             BuscarRemito()
             txtIdGastoAsociar.Text = cmbGastos.SelectedValue

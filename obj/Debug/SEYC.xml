@@ -6,103 +6,7 @@ SEYC
 </name>
 </assembly>
 <members>
-<member name="T:SEYC.CommManager.TransmissionType">
-	<summary>
- enumeration to hold our transmission types
- </summary>
-</member><member name="T:SEYC.CommManager.MessageType">
-	<summary>
- enumeration to hold our message types
- </summary>
-</member><member name="P:SEYC.CommManager.BaudRate">
-	<summary>
- Property to hold the BaudRate
- of our manager class
- </summary>
-</member><member name="P:SEYC.CommManager.Parity">
-	<summary>
- property to hold the Parity
- of our manager class
- </summary>
-</member><member name="P:SEYC.CommManager.StopBits">
-	<summary>
- property to hold the StopBits
- of our manager class
- </summary>
-</member><member name="P:SEYC.CommManager.DataBits">
-	<summary>
- property to hold the DataBits
- of our manager class
- </summary>
-</member><member name="P:SEYC.CommManager.PortName">
-	<summary>
- property to hold the PortName
- of our manager class
- </summary>
-</member><member name="P:SEYC.CommManager.CurrentTransmissionType">
-	<summary>
- property to hold our TransmissionType
- of our manager class
- </summary>
-</member><member name="P:SEYC.CommManager.DisplayWindow">
-	<summary>
- property to hold our display window
- value
- </summary>
-</member><member name="P:SEYC.CommManager.Message">
-	<summary>
- Property to hold the message being sent
- through the serial port
- </summary>
-	<value></value>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="P:SEYC.CommManager.Type">
-	<summary>
- Message to hold the transmission type
- </summary>
-	<value></value>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:SEYC.CommManager.#ctor(System.String,System.String,System.String,System.String,System.String,System.Windows.Forms.TextBox)">
-	<summary>
- Constructor to set the properties of our Manager Class
- </summary>
-	<param name="baud">Desired BaudRate</param>
-	<param name="par">Desired Parity</param>
-	<param name="sBits">Desired StopBits</param>
-	<param name="dBits">Desired DataBits</param>
-	<param name="name">Desired PortName</param>
-</member><member name="M:SEYC.CommManager.#ctor">
-	<summary>
- Comstructor to set the properties of our
- serial port communicator to nothing
- </summary>
-</member><member name="M:SEYC.CommManager.HexToByte(System.String)">
-	<summary>
- method to convert hex string into a byte array
- </summary>
-	<param name="msg">string to convert</param>
-	<returns>a byte array</returns>
-</member><member name="M:SEYC.CommManager.ByteToHex(System.Byte[])">
-	<summary>
- method to convert a byte array into a hex string
- </summary>
-	<param name="comByte">byte array to convert</param>
-	<returns>a hex string</returns>
-</member><member name="M:SEYC.CommManager.DisplayData(SEYC.CommManager.MessageType,System.String)">
-	<summary>
- Method to display the data to and
- from the port on the screen
- </summary>
-	<remarks></remarks>
-</member><member name="M:SEYC.CommManager.comPort_DataReceived(System.Object,System.IO.Ports.SerialDataReceivedEventArgs)">
-	<summary>
- method that will be called when theres data waiting in the buffer
- </summary>
-	<param name="sender"></param>
-	<param name="e"></param>
-</member><member name="M:SEYC.frmBase.Establecer_Cant_Paginas(System.Data.DataTable)">
+<member name="M:SEYC.frmBase.Establecer_Cant_Paginas(System.Data.DataTable)">
 	<summary>
  Establecer la cantidad de paginas en la grilla
  </summary>
@@ -395,6 +299,102 @@ SEYC
 	<summary>
   Clase de recurso fuertemente tipado, para buscar cadenas traducidas, etc.
 </summary>
+</member><member name="T:SEYC.CommManager.TransmissionType">
+	<summary>
+ enumeration to hold our transmission types
+ </summary>
+</member><member name="T:SEYC.CommManager.MessageType">
+	<summary>
+ enumeration to hold our message types
+ </summary>
+</member><member name="P:SEYC.CommManager.BaudRate">
+	<summary>
+ Property to hold the BaudRate
+ of our manager class
+ </summary>
+</member><member name="P:SEYC.CommManager.Parity">
+	<summary>
+ property to hold the Parity
+ of our manager class
+ </summary>
+</member><member name="P:SEYC.CommManager.StopBits">
+	<summary>
+ property to hold the StopBits
+ of our manager class
+ </summary>
+</member><member name="P:SEYC.CommManager.DataBits">
+	<summary>
+ property to hold the DataBits
+ of our manager class
+ </summary>
+</member><member name="P:SEYC.CommManager.PortName">
+	<summary>
+ property to hold the PortName
+ of our manager class
+ </summary>
+</member><member name="P:SEYC.CommManager.CurrentTransmissionType">
+	<summary>
+ property to hold our TransmissionType
+ of our manager class
+ </summary>
+</member><member name="P:SEYC.CommManager.DisplayWindow">
+	<summary>
+ property to hold our display window
+ value
+ </summary>
+</member><member name="P:SEYC.CommManager.Message">
+	<summary>
+ Property to hold the message being sent
+ through the serial port
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:SEYC.CommManager.Type">
+	<summary>
+ Message to hold the transmission type
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:SEYC.CommManager.#ctor(System.String,System.String,System.String,System.String,System.String,System.Windows.Forms.TextBox)">
+	<summary>
+ Constructor to set the properties of our Manager Class
+ </summary>
+	<param name="baud">Desired BaudRate</param>
+	<param name="par">Desired Parity</param>
+	<param name="sBits">Desired StopBits</param>
+	<param name="dBits">Desired DataBits</param>
+	<param name="name">Desired PortName</param>
+</member><member name="M:SEYC.CommManager.#ctor">
+	<summary>
+ Comstructor to set the properties of our
+ serial port communicator to nothing
+ </summary>
+</member><member name="M:SEYC.CommManager.HexToByte(System.String)">
+	<summary>
+ method to convert hex string into a byte array
+ </summary>
+	<param name="msg">string to convert</param>
+	<returns>a byte array</returns>
+</member><member name="M:SEYC.CommManager.ByteToHex(System.Byte[])">
+	<summary>
+ method to convert a byte array into a hex string
+ </summary>
+	<param name="comByte">byte array to convert</param>
+	<returns>a hex string</returns>
+</member><member name="M:SEYC.CommManager.DisplayData(SEYC.CommManager.MessageType,System.String)">
+	<summary>
+ Method to display the data to and
+ from the port on the screen
+ </summary>
+	<remarks></remarks>
+</member><member name="M:SEYC.CommManager.comPort_DataReceived(System.Object,System.IO.Ports.SerialDataReceivedEventArgs)">
+	<summary>
+ method that will be called when theres data waiting in the buffer
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
 </member>
 </members>
 </doc>
