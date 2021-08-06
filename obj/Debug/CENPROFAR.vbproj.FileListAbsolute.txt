@@ -244,3 +244,4 @@ E:\matie\Documents\TRABAJO\DEVELOPMENT\CENPROFAR GIT\cenprofar\bin\Debug\Utiles.
 E:\matie\Documents\TRABAJO\DEVELOPMENT\CENPROFAR GIT\cenprofar\bin\Debug\Utiles.xml
 E:\matie\Documents\TRABAJO\DEVELOPMENT\CENPROFAR GIT\cenprofar\bin\Debug\es\Microsoft.VisualBasic.PowerPacks.Vs.resources.dll
 E:\matie\Documents\TRABAJO\DEVELOPMENT\CENPROFAR GIT\cenprofar\bin\Debug\Microsoft.Office.Interop.Word.dll
+E:\matie\Documents\TRABAJO\DEVELOPMENT\CENPROFAR GIT\cenprofar\obj\Debug\SEYC.frmClientes2.resources
