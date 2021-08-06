@@ -141,55 +141,6 @@ Public Class frmRecepciones
 
     Private Sub frmRecepciones_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
-
-        cmbAlmacenes.Visible = False
-        Label16.Visible = False
-        cmbProveedor.Visible = False
-        cmbOrdenDeCompra.Visible = False
-        Label7.Visible = False
-        lblTotal.Visible = False
-        label40.Visible = False
-        lblImpuestos.Visible = False
-        txtMontoIVA27.Visible = False
-        Label1.Visible = False
-        txtMontoIVA21.Visible = False
-        Label15.Visible = False
-        txtMontoIVA10.Visible = False
-        Label18.Visible = False
-        txtCantIVA.Visible = False
-        Label21.Visible = False
-        txtSubtotal.Visible = False
-        Label12.Visible = False
-        txtSubtotalExento.Visible = False
-        lblSubtotalExento.Visible = False
-        txtValorCambio.Visible = False
-        Label20.Visible = False
-        txtTipoMoneda.Visible = False
-        Label17.Visible = False
-        txtNroFacturaCompleto.Visible = False
-        Label13.Visible = False
-        txtNroFactura.Visible = False
-        Label11.Visible = False
-        cmbTipoComprobante.Visible = False
-        chkCargarFactura.Visible = False
-        txtPtoVta.Visible = False
-        Label10.Visible = False
-        txtNroRemitoCompleto.Visible = False
-        Label6.Visible = False
-        txtNroCompRemito.Visible = False
-        Label22.Visible = False
-        txtPtoVtaRemito.Visible = False
-        Label23.Visible = False
-        chkGastos.Visible = False
-        cmbGastos.Visible = False
-        txtOC.Visible = False
-        Label5.Visible = False
-        txtProveedor.Visible = False
-        Label9.Visible = False
-        cmbUsuarioGasto.Visible = False
-        Label27.Visible = False
-
-
         Cursor = Cursors.WaitCursor
 
         ToolStrip_lblCodMaterial.Visible = True
@@ -528,7 +479,7 @@ Public Class frmRecepciones
 
 
     '(currentcellChanged)
-    Protected Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs)
+    Protected Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles grd.CurrentCellChanged
 
         If Permitir Then
             Try
@@ -1075,62 +1026,7 @@ Public Class frmRecepciones
             .ScrollBars = ScrollBars.Both
         End With
     End Sub
-    Private Sub LlenarGrid_Farmacias()
 
-        If grdFarmacias.Columns.Count > 0 Then
-            grdFarmacias.Columns.Clear()
-        End If
-
-        If txtID.Text = "" Then
-            'SQL = "exec spRecepciones_Det_Select_By_IDRecepcion @idRecepcion = 1"
-            SQL = "select * from osdetalleliqui"
-        Else
-            ' SQL = "exec spRecepciones_Det_Select_By_IDRecepcion @idRecepcion = " & txtID.Text
-            SQL = "select * from presentaciones"
-        End If
-
-        GetDatasetItems(grdFarmacias)
-
-        grdFarmacias.Columns(ColumnasDelGridItems.IDRecepcion_Det).Visible = False
-
-        'grdFarmacias.Columns(ColumnasDelGridItems.Cod_RecepcionDet).Visible = False
-
-        grdFarmacias.Columns(ColumnasDelGridItems.IDMaterial).Visible = False
-
-        'grdFarmacias.Columns(ColumnasDelGridItems.Cod_Material).ReadOnly = True 'Codigo material
-        'grdFarmacias.Columns(ColumnasDelGridItems.Cod_Material).Width = 110
-
-        'grdFarmacias.Columns(4).ReadOnly = True
-        'grdFarmacias.Columns(4).Width = 400
-
-        'grdFarmacias.Columns(5).ReadOnly = True
-        'grdFarmacias.Columns(5).Width = 60
-
-        grdFarmacias.Columns(6).Visible = False
-        'grdFarmacias.Columns(8).Visible = False
-        grdFarmacias.Columns(9).Visible = False
-        grdFarmacias.Columns(10).Visible = False
-
-        With grdFarmacias
-            .VirtualMode = False
-            .AllowUserToAddRows = False
-            .AlternatingRowsDefaultCellStyle.BackColor = Color.AliceBlue
-            .RowsDefaultCellStyle.BackColor = Color.White
-            .AllowUserToOrderColumns = True
-            .SelectionMode = DataGridViewSelectionMode.CellSelect
-            .ForeColor = Color.Black
-        End With
-        With grdFarmacias.ColumnHeadersDefaultCellStyle
-            .BackColor = Color.Black  'Color.BlueViolet
-            .ForeColor = Color.White
-            .Font = New Font("TAHOMA", 8, FontStyle.Bold)
-        End With
-        grdFarmacias.Font = New Font("TAHOMA", 8, FontStyle.Regular)
-        'grdEnsayos.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells)
-
-        'Volver la fuente de datos a como estaba...
-        SQL = "exec spRecepciones_Select_All @Eliminado = 0"
-    End Sub
     Private Sub LlenarGrid_Items()
 
         If grdItems.Columns.Count > 0 Then
@@ -1138,11 +1034,9 @@ Public Class frmRecepciones
         End If
 
         If txtID.Text = "" Then
-            'SQL = "exec spRecepciones_Det_Select_By_IDRecepcion @idRecepcion = 1"
-            SQL = "select * from presentaciones"
+            SQL = "exec spRecepciones_Det_Select_By_IDRecepcion @idRecepcion = 1"
         Else
-            ' SQL = "exec spRecepciones_Det_Select_By_IDRecepcion @idRecepcion = " & txtID.Text
-            SQL = "select * from presentaciones"
+            SQL = "exec spRecepciones_Det_Select_By_IDRecepcion @idRecepcion = " & txtID.Text
         End If
 
         GetDatasetItems(grdItems)
