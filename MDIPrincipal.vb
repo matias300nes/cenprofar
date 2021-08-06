@@ -4265,4 +4265,9 @@ Pedidos:
         CType(paramreporte, IDisposable).Dispose()
         CType(Cnn, IDisposable).Dispose()
     End Sub
+
+    Private Sub PruebaMatiToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PruebaMatiToolStripMenuItem.Click
+        frmClientes2.MdiParent = Me
+        frmClientes2.Show()
+    End Sub
 End Class

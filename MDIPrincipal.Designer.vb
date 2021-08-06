@@ -148,6 +148,7 @@ Partial Class MDIPrincipal
         Me.ToolStripStatusLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolTip = New System.Windows.Forms.ToolTip(Me.components)
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.PruebaMatiToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip.SuspendLayout()
         Me.ToolStrip.SuspendLayout()
         Me.StatusStrip.SuspendLayout()
@@ -339,7 +340,7 @@ Partial Class MDIPrincipal
         '
         'MovimientosInventarioToolStripMenuItem
         '
-        Me.MovimientosInventarioToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OrdenDeCompraToolStripMenuItem, Me.RecepcionesDeMaterialToolStripMenuItem, Me.DepósitoToolStripMenuItem, Me.ToolStripSeparator7, Me.RegistrarConsumosToolStripMenuItem, Me.ToolStripSeparator8, Me.AjustesDeInventarioToolStripMenuItem, Me.VentasToolStripMenuItem, Me.MovSalonToolStripMenuItem, Me.ToolStripSeparator9, Me.DevolucionesAIcysToolStripMenuItem, Me.DevoluciónAProveedoresToolStripMenuItem, Me.EnvíosDePedidosToolStripMenuItem, Me.ReportesDepositoToolStripMenuItem, Me.VentasDepósitoToolStripMenuItem, Me.VentasPorClientesToolStripMenuItem, Me.TransferenciasToolStripMenuItem})
+        Me.MovimientosInventarioToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OrdenDeCompraToolStripMenuItem, Me.RecepcionesDeMaterialToolStripMenuItem, Me.DepósitoToolStripMenuItem, Me.ToolStripSeparator7, Me.RegistrarConsumosToolStripMenuItem, Me.ToolStripSeparator8, Me.AjustesDeInventarioToolStripMenuItem, Me.VentasToolStripMenuItem, Me.MovSalonToolStripMenuItem, Me.ToolStripSeparator9, Me.DevolucionesAIcysToolStripMenuItem, Me.DevoluciónAProveedoresToolStripMenuItem, Me.EnvíosDePedidosToolStripMenuItem, Me.ReportesDepositoToolStripMenuItem, Me.VentasDepósitoToolStripMenuItem, Me.VentasPorClientesToolStripMenuItem, Me.TransferenciasToolStripMenuItem, Me.PruebaMatiToolStripMenuItem})
         Me.MovimientosInventarioToolStripMenuItem.Name = "MovimientosInventarioToolStripMenuItem"
         Me.MovimientosInventarioToolStripMenuItem.Size = New System.Drawing.Size(137, 20)
         Me.MovimientosInventarioToolStripMenuItem.Text = "Movimientos de Stock"
@@ -1010,6 +1011,12 @@ Partial Class MDIPrincipal
         '
         Me.Timer1.Interval = 1200000
         '
+        'PruebaMatiToolStripMenuItem
+        '
+        Me.PruebaMatiToolStripMenuItem.Name = "PruebaMatiToolStripMenuItem"
+        Me.PruebaMatiToolStripMenuItem.Size = New System.Drawing.Size(272, 22)
+        Me.PruebaMatiToolStripMenuItem.Text = "Prueba Mati"
+        '
         'MDIPrincipal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1163,5 +1170,6 @@ Partial Class MDIPrincipal
     Friend WithEvents ActualizarPreciosToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents MovSalonToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents InformeGeneralToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents PruebaMatiToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 
 End Class
